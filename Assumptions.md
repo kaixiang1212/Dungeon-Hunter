@@ -18,6 +18,7 @@
     basic interpretation of what the hound will do - something like "one hound to one hunter.
     when the hounds hunter is killed, the hound *literally* turns into a coward." That way we
     avoid getting bogged down in hound implementation.
+    
          
 * Conflicting moves? hunter > hound
   * Ben
@@ -66,6 +67,10 @@
 * Key-door placement?
  * Ben: I liked the idea of "can only place one key or door for each color"
 * inventory 
+* Pits behave like walls to enemies, blocking them.
+  James is this a reasonable assumption to make?
+  
+  
 
 ## Levels
 * map size?
