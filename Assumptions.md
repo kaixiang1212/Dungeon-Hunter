@@ -89,9 +89,9 @@
 
 ## Inventory
 
-__Stackable__
-  * James: Will bombs be stackable? 
+__Stackable__ 
   * bombs 
+   * James: Will bombs be stackable? 
   * arrows 
   
 __Non-stackable__
