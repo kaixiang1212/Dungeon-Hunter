@@ -89,11 +89,11 @@
 
 ## Inventory
 
-# Items that can be picked up and are stackable*
+__Items that can be picked up and are stackable__
   * James: Will bombs be stackable? 
   * bombs 
   * arrows 
-# Non-stackable
+__Non-stackable__
   * keys
   * treasure 
   * potion
