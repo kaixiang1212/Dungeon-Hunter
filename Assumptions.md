@@ -91,7 +91,7 @@
 
 __Stackable__ 
   * bombs 
-   * James: Will bombs be stackable? 
+    * James: Will bombs be stackable? 
   * arrows 
   
 __Non-stackable__
