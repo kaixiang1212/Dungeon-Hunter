@@ -68,7 +68,7 @@
  * Ben: I liked the idea of "can only place one key or door for each color"
 * inventory 
 * Pits behave like walls to enemies, blocking them.
-  James is this a reasonable assumption to make?
+  * James: Is this a reasonable assumption to make?
   
   
 
