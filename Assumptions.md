@@ -89,11 +89,11 @@
 
 ## Inventory
 
-* Items that can be picked up and are stackable*
- *James: Will bombs be stackable? 
+# Items that can be picked up and are stackable*
+  * James: Will bombs be stackable? 
   * bombs 
- * arrows 
- *Non-stackable*
+  * arrows 
+# Non-stackable
   * keys
   * treasure 
   * potion
