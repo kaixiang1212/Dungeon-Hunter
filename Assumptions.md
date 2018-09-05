@@ -2,7 +2,7 @@
 
 ## Entity
 * Strategist prediction?
- * Ben
+ * Ben:
  * We can start with a model that is just "next place player will be".
  * We can start with the direct player will take being a repeat of last move.
  * We probably want to have a development mode that visually shows the prediction.
