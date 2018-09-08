@@ -10,7 +10,7 @@ public class Dungeon {
 
     public Dungeon(int size) throws IllegalArgumentException{
         if (size > MAX_SIZE || size < 1) {
-            throw new IllegalArgumentException("size must be between 1 and 20 inclusive");
+            throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
         }
 
         this.tileGrid = initTileGrid(size);
