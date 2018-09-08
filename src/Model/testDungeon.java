@@ -28,7 +28,9 @@ public class testDungeon {
             System.out.println();
         }
 
+        // Make sure that we checked the size-20 dungeon, it's double-layered wall, and right number of walls.
         assert (count == (size + 4) * (size + 4));
+        assert (testDun.getTileGrid().size() == (8*size + 16));
     }
 
     @Test
@@ -41,6 +43,8 @@ public class testDungeon {
             assert (false);
         } catch (IllegalArgumentException e) {
             // This block is good
+            assert(e.getMessage().contains("1-20"));
+            assert(e.getMessage().contains(Integer.toString(0)));
         } catch (Exception e) {
             assert (false);
         }
@@ -51,6 +55,8 @@ public class testDungeon {
             assert (false);
         } catch (IllegalArgumentException e) {
             // this block is good
+            assert(e.getMessage().contains("1-20"));
+            assert(e.getMessage().contains(Integer.toString(0)));
         } catch (Exception e) {
             assert (false);
         }

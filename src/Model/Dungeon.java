@@ -1,21 +1,30 @@
 package Model;
 
+import org.jetbrains.annotations.Contract;
+
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Dungeon {
     public static final int MAX_SIZE = 20;
+
+    @Contract(pure = true)
+    public Map<Point, Tile> getTileGrid() {
+        return tileGrid;
+    }
+
     private Map<Point, Tile> tileGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
         if (size > MAX_SIZE || size < 1) {
-            throw new IllegalArgumentException("size must be between 1 and 20 inclusive");
+            throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
         }
 
         this.tileGrid = initTileGrid(size);
     }
 
+    @Contract(pure = true)
     private HashMap<Point, Tile> initTileGrid(int size) {
 
         if (size < 1) {
@@ -44,6 +53,7 @@ public class Dungeon {
     }
 
 
+    @Contract(pure = true)
     public Tile.TileType pointTileType(Point location) {
         Tile local = tileGrid.get(location);
         if (local == null) {
