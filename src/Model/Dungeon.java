@@ -5,11 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Dungeon {
-    public static final int SIZE = 20;
+    public static final int MAX_SIZE = 20;
     private Map<Point, Tile> tileGrid;
 
-    public Dungeon() {
-        this.tileGrid = initTileGrid(SIZE);
+    public Dungeon(int size) {
+        if (size > MAX_SIZE) {
+            System.err.println("Max size is " + MAX_SIZE + " You tried " + size);
+            System.exit(1);
+
+        }
+
+        if (size < 1) {
+             System.err.println("Min size is 1 You tried " + size);
+             System.exit(1);
+        }
+        this.tileGrid = initTileGrid(size);
     }
 
     private HashMap<Point, Tile> initTileGrid(int size) {
@@ -31,7 +41,7 @@ public class Dungeon {
 
         // Set the dungeons walls on remaining top/bottom sides
         for (int i : edges) {
-            for (int j = 1; j < size-1; j++) {
+            for (int j = 1; j <= size; j++) {
                 ret.put(new Point(i, j), new Tile(Tile.TileType.INVINCIBLE_WALL));
             }
         }
