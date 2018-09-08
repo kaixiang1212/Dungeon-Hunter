@@ -8,17 +8,11 @@ public class Dungeon {
     public static final int MAX_SIZE = 20;
     private Map<Point, Tile> tileGrid;
 
-    public Dungeon(int size) {
-        if (size > MAX_SIZE) {
-            System.err.println("Max size is " + MAX_SIZE + " You tried " + size);
-            System.exit(1);
-
+    public Dungeon(int size) throws IllegalArgumentException{
+        if (size > MAX_SIZE || size < 1) {
+            throw new IllegalArgumentException("size must be between 1 and 20 inclusive");
         }
 
-        if (size < 1) {
-             System.err.println("Min size is 1 You tried " + size);
-             System.exit(1);
-        }
         this.tileGrid = initTileGrid(size);
     }
 

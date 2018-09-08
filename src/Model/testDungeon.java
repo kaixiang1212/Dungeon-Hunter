@@ -6,7 +6,7 @@ import java.awt.Point;
 public class testDungeon {
 
     @Test
-    void newDungeonHasDoubleInvulnWalls () {
+    void newDungeonHasDoubleInvulnWallsSize20 () {
         int size = 20;
         Dungeon testDun = new Dungeon(size);
 
@@ -30,4 +30,52 @@ public class testDungeon {
 
         assert (count == (size + 4) * (size + 4));
     }
+
+    @Test
+    void newDungeonSizeLimits0To20() {
+        Dungeon testDun;
+
+        // Boundary case, min size 1, should throw illigal arg exception
+        try {
+            testDun = new Dungeon(0);
+            assert (false);
+        } catch (IllegalArgumentException e) {
+            // This block is good
+        } catch (Exception e) {
+            assert (false);
+        }
+
+        // Boundary case, max size 20, should throw illigal arg exception
+        try {
+            testDun = new Dungeon(21);
+            assert (false);
+        } catch (IllegalArgumentException e) {
+            // this block is good
+        } catch (Exception e) {
+            assert (false);
+        }
+
+        // Boundary case, min size 20, should have a good Dungeon
+        try {
+            testDun = null;
+            testDun = new Dungeon(1);
+            assert (testDun != null);
+        } catch (IllegalArgumentException e) {
+            assert (false);
+        } catch (Exception e) {
+            assert (false);
+        }
+
+        // Boundary case, max size 20, should have a good Dungeon
+        try {
+            testDun = null;
+            testDun = new Dungeon(20);
+            assert (testDun != null);
+        } catch (IllegalArgumentException e) {
+            assert (false);
+        } catch (Exception e) {
+            assert (false);
+        }
+    }
 }
+
