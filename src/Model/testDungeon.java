@@ -28,7 +28,9 @@ public class testDungeon {
             System.out.println();
         }
 
+        // Make sure that we checked the size-20 dungeon, it's double-layered wall, and right number of walls.
         assert (count == (size + 4) * (size + 4));
+        assert (testDun.getTileGrid().size() == (8*size + 16));
     }
 
     @Test

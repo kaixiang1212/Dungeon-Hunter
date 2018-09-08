@@ -1,5 +1,7 @@
 package Model;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Objects;
 
 public class Tile {
@@ -19,6 +21,7 @@ public class Tile {
         this.type = aType;
     }
 
+    @Contract(pure = true)
     public TileType getType() {
         return type;
     }
