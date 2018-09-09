@@ -148,5 +148,83 @@ public class testDungeon {
         assert(testDun.getTileGrid().get(myPoint).getType() == Tile.TileType.EXIT);
         assert(testDun.getTileGrid().size() == startSize + 5);
     }
+
+    @Test
+    void CannotPlaceOutsideGridDimensions() {
+
+        int size = 1;
+        Dungeon testDun = new Dungeon(size);
+        Point myPoint = new Point(1, 1);
+
+        // Good placement
+        try {
+            testDun.placeTile(Tile.TileType.PIT, myPoint);
+        } catch (Exception e) {
+            assert (false);
+        }
+
+        int count = 0;
+        for (int i = 0; i < size+3; i++) {
+
+            // top edge
+            myPoint.setLocation(-1+i, -1);
+            try {
+                testDun.placeTile(Tile.TileType.PIT, myPoint);
+                assert (false);
+            } catch (IllegalArgumentException e) {
+                System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
+                assert (e.getMessage().contains("of bounds"));
+            } catch (Exception e) {
+                assert (false);
+            }
+            count++;
+
+            // bottom edge
+            myPoint.setLocation(-1+i, size+2);
+            try {
+                testDun.placeTile(Tile.TileType.PIT, myPoint);
+                assert (false);
+            } catch (IllegalArgumentException e) {
+                System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
+                assert (e.getMessage().contains("of bounds"));
+            } catch (Exception e) {
+                assert (false);
+            }
+            count++;
+
+
+            // left edge
+            myPoint.setLocation(-1, 0+i);
+            try {
+                testDun.placeTile(Tile.TileType.PIT, myPoint);
+                assert (false);
+            } catch (IllegalArgumentException e) {
+                System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
+                assert (e.getMessage().contains("of bounds"));
+            } catch (Exception e) {
+                assert (false);
+            }
+            count++;
+
+            // right edge
+            myPoint.setLocation(size+2, 0+i);
+            try {
+                testDun.placeTile(Tile.TileType.PIT, myPoint);
+                assert (false);
+            } catch (IllegalArgumentException e) {
+                System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
+                assert (e.getMessage().contains("of bounds"));
+            } catch (Exception e) {
+                assert (false);
+            }
+            count++;
+        }
+        System.out.format("count: %d\n", count);
+        assert (count == (size+3) * 4);
+
+
+        // TODO ? test placements that are beyond just the edges
+
+    }
 }
 

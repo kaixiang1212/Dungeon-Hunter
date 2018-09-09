@@ -80,7 +80,7 @@ public class Dungeon {
         return local.getType();
     }
 
-    public boolean placeTile(Tile.TileType aTile, Point myPoint) {
+    public boolean placeTile(Tile.TileType aTile, Point myPoint) throws IllegalArgumentException {
 
         // Cannot place invincible wall
         if(aTile == Tile.TileType.INVINCIBLE_WALL) {
@@ -97,7 +97,7 @@ public class Dungeon {
 
         if (aX < left || aX > right ||
             aY > bot || aY < top) {
-            return false;
+            throw new IllegalArgumentException("Placement out of bounds");
         }
 
         if (tileGrid.get(myPoint) == null) {
