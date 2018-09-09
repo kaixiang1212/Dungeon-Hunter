@@ -9,12 +9,12 @@ import java.util.Map;
 public class Dungeon {
     public static final int MAX_SIZE = 20;
 
-    @Contract(pure = true)
-    public Map<Point, Tile> getTileGrid() {
-        return tileGrid;
-    }
+
+    private Point topLeft;
+    private Point bottomRight;
 
     private Map<Point, Tile> tileGrid;
+
 
     public Dungeon(int size) throws IllegalArgumentException{
         if (size > MAX_SIZE || size < 1) {
@@ -22,6 +22,23 @@ public class Dungeon {
         }
 
         this.tileGrid = initTileGrid(size);
+
+        this.topLeft = new Point(0, 0);
+        this.bottomRight = new Point(size+1, size+1);
+    }
+    @Contract(pure = true)
+    public Map<Point, Tile> getTileGrid() {
+        return tileGrid;
+    }
+
+    @Contract(pure = true)
+    public Point getTopLeft() {
+        return topLeft;
+    }
+
+    @Contract(pure = true)
+    public Point getBottomRight() {
+        return bottomRight;
     }
 
     @Contract(pure = true)
@@ -61,5 +78,34 @@ public class Dungeon {
         }
 
         return local.getType();
+    }
+
+    public boolean placeTile(Tile.TileType aTile, Point myPoint) {
+
+        // Cannot place invincible wall
+        if(aTile == Tile.TileType.INVINCIBLE_WALL) {
+            return false;
+        }
+
+        int aX = myPoint.x;
+        int aY = myPoint.y;
+
+        int top = topLeft.y;
+        int left = topLeft.x;
+        int bot = bottomRight.y;
+        int right = bottomRight.x;
+
+        if (aX < left || aX > right ||
+            aY > bot || aY < top) {
+            return false;
+        }
+
+        if (tileGrid.get(myPoint) == null) {
+
+            tileGrid.put(myPoint, new Tile(aTile));
+            return true;
+        }
+
+        return false;
     }
 }
