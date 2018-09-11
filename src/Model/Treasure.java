@@ -1,5 +1,6 @@
 package Model;
 
+//Implements Item
 public class Treasure implements Item {
 	private String name;
 	
