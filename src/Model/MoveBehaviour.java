@@ -1,9 +1,10 @@
 package Model;
 
 import java.awt.Point;
+import java.util.Map;
 
 public interface MoveBehaviour {
 	
-	public void move(Point playerPos, Point hunterPos);
+	public void move(Point playerPos, Map<Point, Agent> agentPos);
 	
 }

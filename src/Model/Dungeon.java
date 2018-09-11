@@ -14,7 +14,9 @@ public class Dungeon {
     private Point bottomRight;
 
     private Map<Point, Tile> tileGrid;
-
+    private Map<Point, Agent> agentGrid;
+    private Point playerPosition;
+    //private Map<Point, Pickups> pickGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
         if (size > MAX_SIZE || size < 1) {
@@ -107,5 +109,16 @@ public class Dungeon {
         }
 
         return false;
+    }
+    public void placeAgent(Agent a, Point agentPoint) {
+    	agentGrid.put(agentPoint, a);
+    }
+    public void placePlayer(Player p, Point playerStart) {
+    	playerPosition = playerStart;
+    }
+    public void updateAgents() {
+    	for(Agent a: agentGrid.values()) {
+    		a.move(playerPosition, agentGrid);
+    	}
     }
 }

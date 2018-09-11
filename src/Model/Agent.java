@@ -1,5 +1,8 @@
 package Model;
 
+import java.awt.Point;
+import java.util.Map;
+
 /**
  * Agent encompasses non-player entities within the dungeon
  * which have movement, health and interactions with other
@@ -31,7 +34,7 @@ public abstract class Agent {
 	public void die() {
 		System.out.println("Enemy agent has died\n");
 	}
-	public void move() {
-		
+	public void move(Point playerPos, Map<Point, Agent> agentPos) {
+		moveBehaviour.move(playerPos, agentPos);
 	}
 }
