@@ -4,18 +4,18 @@ import java.awt.Point;
 import java.util.Map;
 
 /**
- * Agent encompasses non-player entities within the dungeon
+ * ComputerAgent encompasses non-player entities within the dungeon
  * which have movement, health and interactions with other
  * entities.
  * @author Richard
  *
  */
-public abstract class Agent {
+public abstract class ComputerAgent {
 
 	private int healthPoints;
 	private MoveBehaviour moveBehaviour;
 
-	public Agent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
+	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
 		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
 	}
@@ -23,9 +23,9 @@ public abstract class Agent {
 		return this.healthPoints;
 	}
 	public void attack(Player a) {
-		a.damage(100);
+		a.takeDamage(100);
 	}
-	public void damage(int damage) {
+	public void takeDamage(int damage) {
 		this.healthPoints = this.healthPoints - damage;
 		if(this.healthPoints <= 0) {
 			this.die();
@@ -34,7 +34,7 @@ public abstract class Agent {
 	public void die() {
 		System.out.println("Enemy agent has died\n");
 	}
-	public void move(Point playerPos, Map<Point, Agent> agentPos) {
+	public void move(Point playerPos, Map<Point, ComputerAgent> agentPos) {
 		moveBehaviour.move(playerPos, agentPos);
 	}
 }
