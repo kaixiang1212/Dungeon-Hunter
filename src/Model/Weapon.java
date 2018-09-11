@@ -3,6 +3,7 @@ package Model;
 import java.awt.Point;
 import java.util.Map;
 
+//Implements Item
 public abstract class Weapon implements Item {
 	int damage;
 	int numUses;
