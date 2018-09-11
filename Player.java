@@ -11,12 +11,40 @@ public class Player {
 		this.healthPoints = 100;
 		this.weapon = new Fist();
 	}
-
-	public void pickupWeapon(Weapon w) {
-		this.weapon = w;
+	
+	/*
+	 * generalised pickup function
+	 */
+	public void pickup(Item i) {
+		if (i instanceof Potion) {
+			this.status.add((Potion) i);
+		} else if (i instanceof Weapon) {
+			this.weapon = (Weapon) i;
+		}
+	}
+	
+	/*
+	 * add potion effect to player
+	 */
+	public void addStatus(Potion p) {
+		int check = 0;
+		for (Potion a: status) {
+			if (a.getName().equals(p.getName())) {
+				status.remove(a);
+				status.add(p);
+				check = 1;
+				break;
+			}
+		}
+		if (check == 0) {
+			status.add(p);
+		}
 	}
 
-	// Observe current weapon state then process interaction
+	/*
+	 * Observe current weapon state then process interaction
+	 * added fist to kill enemy if player has invincible status
+	 */
 	public void attack(ComputerAgent a) {
 
 		// weapon is fist: agent attacks player
@@ -46,20 +74,5 @@ public class Player {
 			System.out.println("Player has died");
 		}
 	}
-	
-	public void addStatus(Potion p) {
-		int check = 0;
-		for (Potion a: status) {
-			if (a.getName().equals(p.getName())) {
-				status.remove(a);
-				status.add(p);
-				check = 1;
-			}
-		}
-		if (check == 0) {
-			status.add(p);
-		}
-	}
-
 	
 }
