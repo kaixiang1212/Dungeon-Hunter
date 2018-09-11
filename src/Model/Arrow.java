@@ -3,6 +3,7 @@ package Model;
 import java.awt.Point;
 import java.util.Map;
 
+//maybe shouldn't extend weapon so easier to implement stackability
 public class Arrow extends Weapon{
 	
 	public Arrow() {
