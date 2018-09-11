@@ -1,6 +1,6 @@
 package Model;
 
-public class Hunter extends Agent {
+public class Hunter extends ComputerAgent {
 
 	public Hunter() {
 		super(100, null, null);
