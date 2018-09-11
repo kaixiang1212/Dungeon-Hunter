@@ -8,14 +8,19 @@ public abstract class Weapon {
 		this.damage = damage;
 		this.numUses = numUses;
 	}
+
 	public int getDamage() {
 		return this.damage;
 	}
+
+
 	public int getnumUses() {
 		return this.numUses;
 	}
-	public void attack(Agent a) {
-		a.damage(this.damage);
+
+	// Agent takes damage from this weapon
+	public void attack(ComputerAgent a) {
+		a.takeDamage(this.damage);
 		numUses--;
 	}
 
