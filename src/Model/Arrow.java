@@ -39,9 +39,9 @@ public class Arrow extends Weapon{
 				}
 			}
 		}
-		if (minX <= minY) {
+		if ((minX <= minY) && (minX != 999)) {
 			agentMap.get(minPointX).takeDamage(this.damage);
-		} else {
+		} else if (minY < minX) {
 			agentMap.get(minPointY).takeDamage(this.damage);
 		}
 	}
