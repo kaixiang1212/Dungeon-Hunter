@@ -14,7 +14,7 @@ public class Dungeon {
     private Point bottomRight;
 
     private Map<Point, Tile> tileGrid;
-    private Map<Point, Agent> agentGrid;
+    private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     //private Map<Point, Pickups> pickGrid;
 
@@ -43,6 +43,16 @@ public class Dungeon {
         return bottomRight;
     }
 
+
+    /**
+     * Generate a HashMap of Tiles, keyed by Point location
+     *
+     * The Map is a (size) by (size) grid of no tiles, ringed by
+     * a double-wall of INVINCIBLE_TILES.
+     *
+     * @param (size > 0 && size <= MAX_SIZE)
+     * @return A default empty dungeon
+     */
     //@Contract(pure = true)
     private HashMap<Point, Tile> initTileGrid(int size) {
 
@@ -71,7 +81,22 @@ public class Dungeon {
         return ret;
     }
 
+    /**
+     * Default tile generator.
+     *
+     * Makes a Tile Grid of MAX_SIZE
+     * @return A default empty dungeon size MAX_SIZE
+     */
+    //@Contract(pure = true)
+    private HashMap<Point, Tile> initTileGrid() {
+        return initTileGrid(this.MAX_SIZE);
+    }
 
+    /**
+     * Exposes the type of tile at a location
+     * @param location
+     * @return Tile.TileType
+     */
     //@Contract(pure = true)
     public Tile.TileType pointTileType(Point location) {
         Tile local = tileGrid.get(location);
@@ -82,10 +107,17 @@ public class Dungeon {
         return local.getType();
     }
 
-    public boolean placeTile(Tile.TileType aTile, Point myPoint) throws IllegalArgumentException {
+    /**
+     * Adds a tile to a location
+     * @param tileType The Tile type that is to be placed
+     * @param myPoint The location to place the Tile
+     * @return true if Tile placed
+     * @throws IllegalArgumentException when myPoint outside topLeft and bottomRight defined boundaries
+     */
+    public boolean placeTile(Tile.TileType tileType, Point myPoint) throws IllegalArgumentException {
 
         // Cannot place invincible wall
-        if(aTile == Tile.TileType.INVINCIBLE_WALL) {
+        if(tileType == Tile.TileType.INVINCIBLE_WALL) {
             return false;
         }
 
@@ -104,20 +136,40 @@ public class Dungeon {
 
         if (tileGrid.get(myPoint) == null) {
 
-            tileGrid.put(myPoint, new Tile(aTile));
+            tileGrid.put(myPoint, new Tile(tileType));
             return true;
         }
 
         return false;
     }
-    public void placeAgent(Agent a, Point agentPoint) {
+
+    /**
+     * Inserts a new ComputerAgent object into the agentGrid
+     * @param a agent to be placed
+     * @param agentPoint Location to be placed
+     * @TODO Ensure that bad placedment attempt throuws Exception
+     * @TODO Ensure that agent can be placed.
+     */
+    public void placeComputerAgent(ComputerAgent a, Point agentPoint) {
     	agentGrid.put(agentPoint, a);
     }
+    /**
+     * Inserts a new Player object into the dungeon
+     * @param p Player to be placed
+     * @param playerStart Location to be placed
+     * @TODO Ensure that bad placement attempt throuws Exception
+     * @TODO Ensure that Player can be placed.
+     */
     public void placePlayer(Player p, Point playerStart) {
     	playerPosition = playerStart;
     }
+
+
+    /**
+     * Iterates over agentGrid to move agents
+     */
     public void updateAgents() {
-    	for(Agent a: agentGrid.values()) {
+    	for(ComputerAgent a: agentGrid.values()) {
     		a.move(playerPosition, agentGrid);
     	}
     }

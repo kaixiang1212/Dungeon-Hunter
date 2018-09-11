@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface MoveBehaviour {
 	
-	public void move(Point playerPos, Map<Point, Agent> agentPos);
+	public void move(Point playerPos, Map<Point, ComputerAgent> agentMap);
 	
 }
