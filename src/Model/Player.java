@@ -6,18 +6,12 @@ public class Player {
 
 	private int healthPoints;
 	private Weapon weapon;
-	//private Potion potion;
-	
 	
 	public Player() {
 		this.healthPoints = 100;
 		this.weapon = null;
-		//this.potion = null;
 	}
 
-/*	public void move(Point playerPos) {
-		
-	}*/
 	public void pickupWeapon(Weapon w) {
 		this.weapon = w;
 	}
