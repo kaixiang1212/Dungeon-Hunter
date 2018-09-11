@@ -47,19 +47,15 @@ public class Player {
 	 */
 	public void attack(ComputerAgent a) {
 
-		int check = 0;
 		// weapon is fist: agent attacks player unless player is invincible
 		if(weapon instanceof Fist) {
 			for (Potion p: status) {
 				if (p instanceof Invincibility) {
 					a.die();
-					check = 1;
-					break;
+					return;
 				}
 			}
-			if (check == 0) {
-				a.attack(this);
-			}
+			a.attack(this);
 		}
 
 		// weapon is NOT fist: player attacks ComputerAgent
