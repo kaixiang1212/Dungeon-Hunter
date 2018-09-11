@@ -18,5 +18,5 @@ public abstract class Weapon {
 		a.damage(this.damage);
 		numUses--;
 	}
-	
+
 }

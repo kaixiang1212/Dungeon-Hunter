@@ -22,7 +22,20 @@ public class Player {
 		this.weapon = w;
 	}
 	public void attack(Agent a) {
+		if(weapon == null) { //If no weapon, agent instead attack player :(
+			a.attack(this);
+			return;
+		}
 		weapon.attack(a);
+		if(this.weapon.getnumUses() <= 0) {
+			this.weapon = null; //Broken weapon! Delegation of deletion to the player or holder
+		}
+	}
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
+	public int getHealth() {
+		return this.healthPoints;
 	}
 	public void damage(int damage) {
 		this.healthPoints = this.healthPoints - damage;
