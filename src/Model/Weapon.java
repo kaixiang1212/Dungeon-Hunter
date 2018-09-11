@@ -30,6 +30,6 @@ public abstract class Weapon implements Item {
 
 	public void attack(Map<Point, ComputerAgent> agentMap, Point playerPos) {
 		// TODO Auto-generated method stub
-		
+		numUses--;
 	}
 }
