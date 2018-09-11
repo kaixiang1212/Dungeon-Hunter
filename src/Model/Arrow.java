@@ -25,16 +25,16 @@ public class Arrow extends Weapon{
 		for (Point a: agentMap.keySet()) {
 			if (!a.equals(playerPos)) {
 				if (a.getX() == x) {
-					double temp = Math.abs(x - a.getX());
-					if (temp < minX) {
-						minX = temp;
-						minPointX = a;
-					}
-				} else if (a.getY() == y) {
 					double temp = Math.abs(y - a.getY());
 					if (temp < minY) {
 						minY = temp;
 						minPointY = a;
+					}
+				} else if (a.getY() == y) {
+					double temp = Math.abs(x - a.getX());
+					if (temp < minX) {
+						minX = temp;
+						minPointX = a;
 					}
 				}
 			}
