@@ -14,6 +14,9 @@ public abstract class Weapon {
 	public int getnumUses() {
 		return this.numUses;
 	}
-	public abstract void attack(Agent a);
+	public void attack(Agent a) {
+		a.damage(this.damage);
+		numUses--;
+	}
 	
 }

@@ -1,15 +1,34 @@
 package Model;
 
-public class Player extends Agent {
+import java.awt.Point;
 
+public class Player {
+
+	private int healthPoints;
+	private Weapon weapon;
+	//private Potion potion;
+	
+	
 	public Player() {
-		MoveBehaviour moveBehaviour = new ControlledMoveBehaviour();
-		super(100, moveBehaviour, null);
+		this.healthPoints = 100;
+		this.weapon = null;
+		//this.potion = null;
 	}
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
+
+/*	public void move(Point playerPos) {
 		
+	}*/
+	public void pickupWeapon(Weapon w) {
+		this.weapon = w;
+	}
+	public void attack(Agent a) {
+		weapon.attack(a);
+	}
+	public void damage(int damage) {
+		this.healthPoints = this.healthPoints - damage;
+		if(this.healthPoints <= 0) {
+			System.out.println("Player has died");
+		}
 	}
 
 	

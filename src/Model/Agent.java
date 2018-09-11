@@ -1,7 +1,7 @@
 package Model;
 
 /**
- * Agent encompasses entities within the dungeon
+ * Agent encompasses non-player entities within the dungeon
  * which have movement, health and interactions with other
  * entities.
  * @author Richard
@@ -10,9 +10,8 @@ package Model;
 public abstract class Agent {
 
 	private int healthPoints;
-	private Weapon weapon;
 	private MoveBehaviour moveBehaviour;
-	
+
 	public Agent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
 		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
@@ -20,9 +19,19 @@ public abstract class Agent {
 	public int getHealth() {
 		return this.healthPoints;
 	}
-	public void attack(Agent a) {
-		weapon.attack(a);
+	public void attack(Player a) {
+		a.damage(100);
 	}
-	
-	public abstract void move();
+	public void damage(int damage) {
+		this.healthPoints = this.healthPoints - damage;
+		if(this.healthPoints <= 0) {
+			this.die();
+		}
+	}
+	public void die() {
+		System.out.println("Enemy agent has died\n");
+	}
+	public void move() {
+		
+	}
 }

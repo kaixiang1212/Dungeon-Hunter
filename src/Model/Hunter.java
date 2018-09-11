@@ -3,12 +3,9 @@ package Model;
 public class Hunter extends Agent {
 
 	public Hunter() {
-		super(100, new standardChaseBehaviour(), new Bow())
+		super(100, null, null);
 	}
-	@Override
-	public void move() {
-		this.moveBehaviour.move();
-		
+	public String toString() {
+		return "hunter";
 	}
-
 }
