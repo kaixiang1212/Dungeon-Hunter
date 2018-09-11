@@ -71,8 +71,16 @@ public class Player {
 		return this.healthPoints;
 	}
 
-	// Reduce hitpoints, check and process death.
+	/*
+	 * Check for invincibility
+	 * Reduce hitpoints, check and process death.
+	 */
 	public void takeDamage(int damage) {
+		for (Potion p: status) {
+			if (p instanceof Invincibility) {
+				return;
+			}
+		}
 		this.healthPoints = this.healthPoints - damage;
 		if(this.healthPoints <= 0) {
 			System.out.println("Player has died");
