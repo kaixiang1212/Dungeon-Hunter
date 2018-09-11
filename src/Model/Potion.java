@@ -1,5 +1,6 @@
 package Model;
 
+//Implements item
 public abstract class Potion implements Item{
 	String name;
 	int time;
