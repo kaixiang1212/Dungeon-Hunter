@@ -17,4 +17,24 @@ public abstract class Potion implements Item{
 	public String getName() {
 		return this.name;
 	}
+	
+	public boolean isPotion() {
+		return true;
+	}
+	
+	public boolean isWeapon() {
+		return false;
+	}
+	
+	public boolean isArrow() {
+		return isWeapon();
+	}
+	
+	public boolean isInvinc() {
+		return false;
+	}
+	
+	public boolean isHover() {
+		return false;
+	}
 }

@@ -16,10 +16,29 @@ public abstract class Weapon implements Item {
 	public int getDamage() {
 		return this.damage;
 	}
-
-
+	
+	public void addUses() {
+		this.numUses++;
+	}
+	
 	public int getnumUses() {
 		return this.numUses;
+	}
+	
+	public boolean isPotion() {
+		return false;
+	}
+	
+	public boolean isWeapon() {
+		return true;
+	}
+	
+	public boolean isArrow() {
+		return false;
+	}
+	
+	public boolean isFist() {
+		return false;
 	}
 
 	// Agent takes damage from this weapon

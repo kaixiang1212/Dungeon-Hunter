@@ -20,11 +20,11 @@ public class Player {
 	 * @TODO: Think of how we are implementing Treasure
 	 */
 	public void pickup(Item i) {
-		if (i instanceof Potion) {
+		if (i.isPotion()) {
 			this.addStatus((Potion) i);
-		} else if (i instanceof Weapon) {
-			if ((this.weapon instanceof Arrow) && (i instanceof Arrow)) {
-				((Arrow) this.weapon).addUses();
+		} else if (i.isWeapon()) {
+			if ((this.weapon.isArrow()) && (i.isArrow())) {
+				this.weapon.addUses();
 			} else {
 				this.weapon = (Weapon) i;
 			}
@@ -54,9 +54,9 @@ public class Player {
 	 */
 	public void attack(ComputerAgent a) {
 		// weapon is fist: agent attacks player unless player is invincible
-		if(this.weapon instanceof Fist) {
+		if(this.weapon.isFist()) {
 			for (Potion p: this.status) {
-				if (p instanceof Invincibility) {
+				if (p.isInvinc()) {
 					a.takeDamage(a.getHealth());
 					return;
 				}
@@ -89,7 +89,7 @@ public class Player {
 	 */
 	public void takeDamage(int damage) {
 		for (Potion p: this.status) {
-			if (p instanceof Invincibility) {
+			if (p.isInvinc()) {
 				return;
 			}
 		}

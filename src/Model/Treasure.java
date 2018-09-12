@@ -11,4 +11,16 @@ public class Treasure implements Item {
 	public String getName() {
 		return this.name;
 	}
+	
+	public boolean isPotion() {
+		return false;
+	}
+	
+	public boolean isWeapon() {
+		return false;
+	}
+	
+	public boolean isArrow() {
+		return isWeapon();
+	}
 }

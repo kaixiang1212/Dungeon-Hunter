@@ -13,6 +13,11 @@ public class Arrow extends Weapon{
 		this.numUses++;
 	}
 	
+	@Override
+	public boolean isArrow() {
+		return true;
+	}
+	
 	/*
 	 * Not sure how we're finding direction player is facing so implementation is just killing closest enemy
 	 * @TODO: think of how to find player direction
