@@ -10,6 +10,7 @@ public class Player {
 	public Player() {
 		this.healthPoints = 100;
 		this.weapon = new Fist();
+		this.status = new ArrayList<Potion>();
 	}
 	
 	/*
@@ -20,7 +21,7 @@ public class Player {
 	 */
 	public void pickup(Item i) {
 		if (i instanceof Potion) {
-			this.status.add((Potion) i);
+			this.addStatus((Potion) i);
 		} else if (i instanceof Weapon) {
 			if ((this.weapon instanceof Arrow) && (i instanceof Arrow)) {
 				((Arrow) this.weapon).addUses();
@@ -36,26 +37,27 @@ public class Player {
 	 * @TODO: is arraylist the best option?
 	 */
 	public void addStatus(Potion p) {
-		for (Potion a: status) {
+		for (Potion a: this.status) {
 			if (a.getName().equals(p.getName())) {
-				status.remove(a);
-				status.add(p);
+				this.status.remove(a);
+				this.status.add(p);
 				return;
 			}
 		}
-		status.add(p);
+		this.status.add(p);
 	}
 
 	/*
 	 * Observe current weapon state then process interaction
 	 * added fist to kill enemy if player has invincible status
+	 * @TODO: implement arrow attack
 	 */
 	public void attack(ComputerAgent a) {
 		// weapon is fist: agent attacks player unless player is invincible
-		if(weapon instanceof Fist) {
-			for (Potion p: status) {
+		if(this.weapon instanceof Fist) {
+			for (Potion p: this.status) {
 				if (p instanceof Invincibility) {
-					a.die();
+					a.takeDamage(a.getHealth());
 					return;
 				}
 			}
@@ -64,7 +66,7 @@ public class Player {
 		}
 
 		// weapon is NOT fist: player attacks ComputerAgent
-		weapon.attack(a);
+		this.weapon.attack(a);
 		if(this.weapon.getnumUses() <= 0) {
 			this.weapon = new Fist();
 		}
@@ -76,6 +78,9 @@ public class Player {
 	public int getHealth() {
 		return this.healthPoints;
 	}
+	public ArrayList<Potion> getStatus() {
+		return this.status;
+	}
 
 	/*
 	 * Check for invincibility
@@ -83,7 +88,7 @@ public class Player {
 	 * @TODO: Is checking status better or is invincibility influencing HP better?
 	 */
 	public void takeDamage(int damage) {
-		for (Potion p: status) {
+		for (Potion p: this.status) {
 			if (p instanceof Invincibility) {
 				return;
 			}
