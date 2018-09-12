@@ -19,6 +19,8 @@ public class Dungeon {
     //private Map<Point, Pickups> pickGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
+    	playerPosition = null;
+    	agentGrid = new HashMap<Point, ComputerAgent>();
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -153,6 +155,7 @@ public class Dungeon {
      */
     public void placeComputerAgent(ComputerAgent a, Point agentPoint) {
     	agentGrid.put(agentPoint, a);
+    	a.setPos(agentPoint);
     }
     /**
      * Inserts a new Player object into the dungeon

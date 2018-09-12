@@ -16,7 +16,7 @@ public abstract class ComputerAgent {
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
 
-	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
+	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
 		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
 	}

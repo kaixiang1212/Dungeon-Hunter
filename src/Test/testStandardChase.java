@@ -20,9 +20,9 @@ public class testStandardChase {
 	@Test
 	public void testVanillaChase() {
 		basicDungeon.placeComputerAgent(a1, aPos);
-/*		basicDungeon.placePlayer(p1, pPos);
+		basicDungeon.placePlayer(p1, pPos);
 		basicDungeon.updateAgents();
-		System.out.print(a1.getPos());*/
+		System.out.print(a1.getPos());
 		
 	}
 	
