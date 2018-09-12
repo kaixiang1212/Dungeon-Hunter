@@ -166,11 +166,33 @@ public class Dungeon {
 
 
     /**
+     * Utilises entrySet iterator
      * Iterates over agentGrid to move agents
+     * Grabs new position
+     * Deletes old entry in agent hashmap
+     * Enters new entry
      */
     public void updateAgents() {
-    	for(ComputerAgent a: agentGrid.values()) {
-    		a.move(playerPosition, agentGrid);
+    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
+    		Point updatePos = entry.getValue().move(this);
+    		agentGrid.remove(entry.getKey());
+    		agentGrid.put(updatePos, entry.getValue());
     	}
     }
+    public Point getPlayerPos() {
+    	return this.playerPosition;
+    }
+    /**
+     * Currently checks if that square currently has another computerAgent
+     * @TODO How do we check for walls, doors, ect?
+     * @param check
+     * @return
+     */
+    public boolean isAgentMoveable(Point check) {
+    	if(agentGrid.containsKey(check)) {
+    		return false;
+    	}
+    	return true;
+    }
+
 }

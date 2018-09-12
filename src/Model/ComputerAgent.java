@@ -14,6 +14,7 @@ public abstract class ComputerAgent {
 
 	private int healthPoints;
 	private MoveBehaviour moveBehaviour;
+	private Point pos;
 
 	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
 		this.healthPoints = healthPoints;
@@ -34,7 +35,11 @@ public abstract class ComputerAgent {
 	public void die() {
 		System.out.println("Enemy agent has died\n");
 	}
-	public void move(Point playerPos, Map<Point, ComputerAgent> agentPos) {
-		moveBehaviour.move(playerPos, agentPos);
+	public Point move(Dungeon map) {
+		this.pos = moveBehaviour.move(map, pos);
+		return this.pos;
+	}
+	private void setPos(Point newPos) {
+		this.pos = newPos;
 	}
 }
