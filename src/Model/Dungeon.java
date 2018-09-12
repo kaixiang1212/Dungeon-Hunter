@@ -19,6 +19,7 @@ public class Dungeon {
     //private Map<Point, Pickups> pickGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
+    	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
         }

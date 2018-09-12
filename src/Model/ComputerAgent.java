@@ -39,7 +39,10 @@ public abstract class ComputerAgent {
 		this.pos = moveBehaviour.move(map, pos);
 		return this.pos;
 	}
-	private void setPos(Point newPos) {
+	public void setPos(Point newPos) {
 		this.pos = newPos;
+	}
+	public Point getPos() {
+		return this.pos;
 	}
 }
