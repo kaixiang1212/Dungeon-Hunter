@@ -55,11 +55,9 @@ public class Player {
 	public void attack(ComputerAgent a) {
 		// weapon is fist: agent attacks player unless player is invincible
 		if(this.weapon.isFist()) {
-			for (Potion p: this.status) {
-				if (p.isInvinc()) {
-					a.takeDamage(a.getHealth());
-					return;
-				}
+			if (this.isInvinc()) {
+				a.takeDamage(a.getHealth());
+				return;
 			}
 			a.attack(this);
 			return;
@@ -81,6 +79,22 @@ public class Player {
 	public ArrayList<Potion> getStatus() {
 		return this.status;
 	}
+	public boolean isInvinc() {
+		for (Potion p: this.status) {
+			if (p.isInvinc()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean isHover() {
+		for (Potion p: this.status) {
+			if (p.isHover()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/*
 	 * Check for invincibility
@@ -88,10 +102,8 @@ public class Player {
 	 * @TODO: Is checking status better or is invincibility influencing HP better?
 	 */
 	public void takeDamage(int damage) {
-		for (Potion p: this.status) {
-			if (p.isInvinc()) {
-				return;
-			}
+		if (this.isInvinc()) {
+			return;
 		}
 		this.healthPoints = this.healthPoints - damage;
 		if(this.healthPoints <= 0) {

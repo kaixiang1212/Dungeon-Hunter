@@ -40,6 +40,10 @@ public abstract class Weapon implements Item {
 	public boolean isFist() {
 		return false;
 	}
+	
+	public boolean isSword() {
+		return false;
+	}
 
 	// Agent takes damage from this weapon
 	public void attack(ComputerAgent a) {
