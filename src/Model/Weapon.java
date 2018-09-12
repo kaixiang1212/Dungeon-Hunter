@@ -28,6 +28,10 @@ public abstract class Weapon implements Item {
 		numUses--;
 	}
 
+	/*
+	 * Attack for arrow
+	 * Don't think this is good code design
+	 */
 	public void attack(Map<Point, ComputerAgent> agentMap, Point playerPos) {
 		// TODO Auto-generated method stub
 		numUses--;

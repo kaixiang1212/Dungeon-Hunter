@@ -13,32 +13,37 @@ public class Player {
 	}
 	
 	/*
-	 * generalised pickup function
+	 * generalised pickup function for potion and weapons
+	 * add potion status to player
+	 * weapon checks for arrow to stack or replaces weapon held
+	 * @TODO: Think of how we are implementing Treasure
 	 */
 	public void pickup(Item i) {
 		if (i instanceof Potion) {
 			this.status.add((Potion) i);
 		} else if (i instanceof Weapon) {
-			this.weapon = (Weapon) i;
+			if ((this.weapon instanceof Arrow) && (i instanceof Arrow)) {
+				((Arrow) this.weapon).addUses();
+			} else {
+				this.weapon = (Weapon) i;
+			}
 		}
 	}
 	
 	/*
 	 * add potion effect to player
+	 * if under the effect, refresh timer/moves
+	 * @TODO: is arraylist the best option?
 	 */
 	public void addStatus(Potion p) {
-		int check = 0;
 		for (Potion a: status) {
 			if (a.getName().equals(p.getName())) {
 				status.remove(a);
 				status.add(p);
-				check = 1;
-				break;
+				return;
 			}
 		}
-		if (check == 0) {
-			status.add(p);
-		}
+		status.add(p);
 	}
 
 	/*
@@ -55,6 +60,7 @@ public class Player {
 				}
 			}
 			a.attack(this);
+			return;
 		}
 
 		// weapon is NOT fist: player attacks ComputerAgent
@@ -74,6 +80,7 @@ public class Player {
 	/*
 	 * Check for invincibility
 	 * Reduce hitpoints, check and process death.
+	 * @TODO: Is checking status better or is invincibility influencing HP better?
 	 */
 	public void takeDamage(int damage) {
 		for (Potion p: status) {

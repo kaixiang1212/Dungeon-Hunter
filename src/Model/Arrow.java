@@ -3,15 +3,19 @@ package Model;
 import java.awt.Point;
 import java.util.Map;
 
-//maybe shouldn't extend weapon so easier to implement stackability
 public class Arrow extends Weapon{
 	
 	public Arrow() {
 		super(100, 1);
 	}
 	
+	public void addUses() {
+		this.numUses++;
+	}
+	
 	/*
 	 * Not sure how we're finding direction player is facing so implementation is just killing closest enemy
+	 * @TODO: think of how to find player direction
 	 */
 	@Override
 	public void attack(Map<Point, ComputerAgent> agentMap, Point playerPos) {
