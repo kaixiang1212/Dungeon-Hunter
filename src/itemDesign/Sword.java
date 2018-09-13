@@ -1,6 +1,7 @@
 package itemDesign;
 
-public class Sword extends Weapon {
+
+public class Sword extends MeleeWeapon {
 
 	public Sword() {
 		super(100, 5);
@@ -10,4 +11,5 @@ public class Sword extends Weapon {
 	public boolean isSword() {
 		return true;
 	}
+	
 }

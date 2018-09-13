@@ -21,4 +21,8 @@ public abstract class Potion extends Item {
 	public boolean isHover() {
 		return false;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
 }

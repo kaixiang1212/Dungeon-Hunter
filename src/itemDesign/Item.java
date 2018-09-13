@@ -5,7 +5,11 @@ public class Item {
 	public Item() {
 	}
 
-	public boolean isWeapon() {
+	public boolean isMeleeWeapon() {
+		return false;
+	}
+	
+	public boolean isRangedWeapon() {
 		return false;
 	}
 	
