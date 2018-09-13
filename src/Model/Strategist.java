@@ -1,9 +1,9 @@
 package Model;
 
-public class Strategist extends Agent {
+public class Strategist extends ComputerAgent {
 
-	public Strategist(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
-		super(100, new PredictiveChaseBehaviour(), new Staff());
+	public Strategist() {
+		super(100, new PredictiveChaseBehaviour());
 	}
 
 	

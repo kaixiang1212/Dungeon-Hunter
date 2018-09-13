@@ -7,29 +7,25 @@ public class StandardChaseBehaviour implements MoveBehaviour {
 
 	@Override
 	public Point move(Dungeon map, Point currPos) {
-		Point playerPos = map.getPlayerPos();
-		double posX = playerPos.getX();
-		double posY = playerPos.getY();
-		double currPosX = currPos.getX();
-		double currPosY = currPos.getY();
-		double xDist = Math.abs(posX - currPosX);
-		double yDist = Math.abs(posY - currPosY);
+		Point player = map.getPlayerPos();
+		double xDist = Math.abs(player.x - currPos.x);
+		double yDist = Math.abs(player.y - currPos.y);
 		Point newPos = null;
 		if(xDist >= yDist) {
-			if(posX > currPosX) {
-				newPos = new Point((int)currPosX+1, (int)currPosY);
+			if(player.x > currPos.x) {
+				newPos = new Point(currPos.x+1, currPos.y+1);
 				return newPos;
 			}
 			else {
-				newPos = new Point((int)currPosX-1, (int)currPosY);
+				newPos = new Point(currPos.x-1, currPos.y);
 			}
 		}
 		else if(yDist > xDist) {
-			if(posY > currPosX) {
-				newPos = new Point((int)currPosX, (int)currPosY+1);
+			if(player.y > currPos.x) {
+				newPos = new Point(currPos.x, currPos.y+1);
 			}
 			else {
-				newPos = new Point((int)currPosX, (int)currPosY-1);
+				newPos = new Point(currPos.x, currPos.y-1);
 			}
 		}
 				

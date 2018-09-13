@@ -5,7 +5,7 @@ package Model;
 import java.util.Objects;
 
 public class Tile {
-    enum TileType {
+    public enum TileType {
         INVINCIBLE_WALL,
         DESTRUCTABLE_WALL,
         EXIT,
