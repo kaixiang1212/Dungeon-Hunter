@@ -16,6 +16,7 @@ public class Dungeon {
     private Map<Point, Tile> tileGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
+    private Player player;
     //private Map<Point, Pickups> pickGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -166,8 +167,11 @@ public class Dungeon {
      */
     public void placePlayer(Player p, Point playerStart) {
     	playerPosition = playerStart;
+    	player = p;
     }
-
+    public Player getPlayer() {
+    	return this.player;
+    }
 
     /**
      * Utilises entrySet iterator
@@ -180,7 +184,9 @@ public class Dungeon {
     	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
-    		agentGrid.put(updatePos, entry.getValue());
+    		if(entry.getValue().getHealth() > 0) { //If agent still has health after its turn
+    			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		}
     	}
     }
     public Point getPlayerPos() {

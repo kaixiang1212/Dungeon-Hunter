@@ -38,7 +38,10 @@ public class Player {
 	}
 
 	// Reduce hitpoints, check and process death.
-	public void takeDamage(int damage) {
+	public void takeDamage(int damage, ComputerAgent a) {
+		if(this.weapon != null) {
+			this.attack(a);
+		}
 		this.healthPoints = this.healthPoints - damage;
 		if(this.healthPoints <= 0) {
 			System.out.println("Player has died");

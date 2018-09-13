@@ -24,19 +24,19 @@ public abstract class ComputerAgent {
 		return this.healthPoints;
 	}
 	public void attack(Player a) {
-		a.takeDamage(100);
+		a.takeDamage(100, this);
 	}
 	public void takeDamage(int damage) {
 		this.healthPoints = this.healthPoints - damage;
 		if(this.healthPoints <= 0) {
-			this.die();
+			System.out.println("Ded");
 		}
-	}
-	public void die() {
-		System.out.println("Enemy agent has died\n");
 	}
 	public Point move(Dungeon map) {
 		this.pos = moveBehaviour.move(map, pos);
+		if(this.pos.equals(map.getPlayerPos())) {
+			this.attack(map.getPlayer());
+		}
 		return this.pos;
 	}
 	public void setPos(Point newPos) {

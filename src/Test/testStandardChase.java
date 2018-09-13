@@ -14,8 +14,8 @@ public class testStandardChase {
 	Dungeon basicDungeon = new Dungeon(3);
 	ComputerAgent a1 = new Hunter();
 	Player p1 = new Player();
-	Point pPos = new Point(3,3);
-	Point aPos = new Point(1,1);
+	Point pPos = new Point(1,1);
+	Point aPos = new Point(1,2);
 	
 	@Test
 	public void testVanillaChase() {
