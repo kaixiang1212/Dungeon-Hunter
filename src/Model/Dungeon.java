@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import Model.Tile.TileType;
+
 public class Dungeon {
     public static final int MAX_SIZE = 20;
 
@@ -192,13 +194,37 @@ public class Dungeon {
     public Point getPlayerPos() {
     	return this.playerPosition;
     }
+    
+    
     /**
-     * Currently checks if that square currently has another computerAgent
-     * @TODO How do we check for walls, doors, ect?
+     * Checks if tile to be moved on is valid to move on.
      * @param check
      * @return
      */
-    public boolean isAgentMoveable(Point check) {
+    public boolean isValidMove(Point check) {
+    	//Checks cases for types of tiles that can't be moved on
+    	TileType tile;
+    	tile = tileGrid.get(check).getType();
+    	switch (tile) {
+    		case INVINCIBLE_WALL:
+    		case CLOSED_DOOR:
+    		case PIT:
+    		case DESTRUCTABLE_WALL:
+    			return false;
+    	}
+    		
+    	return true;
+    }
+    /**
+     * Typically called after isValidMove(Point) to further verify for
+     * agents, so agents do not overlap
+     * Player object do not call this, as they can fight agents, agents can't
+     * fight other agents
+     * @param check
+     * @return
+     */
+    public boolean isAgentExist(Point check) {
+    	//If agent already on that spot, invalid movement spot
     	if(agentGrid.containsKey(check)) {
     		return false;
     	}

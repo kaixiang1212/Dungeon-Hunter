@@ -39,7 +39,7 @@ public class Player {
 
 	// Reduce hitpoints, check and process death.
 	public void takeDamage(int damage, ComputerAgent a) {
-		if(this.weapon != null) {
+		if(this.weapon instanceof Sword) {
 			this.attack(a);
 		}
 		this.healthPoints = this.healthPoints - damage;
