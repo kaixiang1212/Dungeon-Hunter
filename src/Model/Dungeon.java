@@ -9,7 +9,7 @@ import java.util.Map;
 import Model.Tile.TileType;
 
 public class Dungeon {
-    public static final int MAX_SIZE = 20;
+    public final int MAX_SIZE = 20;
 
 
     private Point topLeft;
@@ -34,6 +34,7 @@ public class Dungeon {
         this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(size+1, size+1);
     }
+   
     //@Contract(pure = true)
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
@@ -141,7 +142,6 @@ public class Dungeon {
         }
 
         if (tileGrid.get(myPoint) == null) {
-
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
         }
@@ -191,6 +191,7 @@ public class Dungeon {
     		}
     	}
     }
+
     public Point getPlayerPos() {
     	return this.playerPosition;
     }
@@ -205,17 +206,16 @@ public class Dungeon {
     	//Checks cases for types of tiles that can't be moved on
 
     	Tile tileA = tileGrid.get(check);
-    	if(tileA != null) {	
+    	if (tileA != null) {
     		TileType type = tileA.getType();
-	    	switch (type) {
-	    		case INVINCIBLE_WALL:
-	    		case CLOSED_DOOR:
-	    		case PIT:
-	    		case DESTRUCTABLE_WALL:
-	    			return false;
-			default:
-				return true;
-	    	}
+    		switch (type) {
+    		case INVINCIBLE_WALL:
+    		case CLOSED_DOOR:
+    		case PIT:
+    		case DESTRUCTABLE_WALL:
+    			return false;
+    		}
+
     	}
     	return true;
 	    		
