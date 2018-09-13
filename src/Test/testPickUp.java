@@ -5,18 +5,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Arrow;
-import Model.ComputerAgent;
-import Model.Fist;
-import Model.Hover;
-import Model.Hunter;
-import Model.Invincibility;
-import Model.MoveBehaviour;
-import Model.Player;
-import Model.Potion;
-import Model.StandardChaseBehaviour;
-import Model.Sword;
-import Model.Treasure;
+import itemDesign.Arrow;
+import itemDesign.ComputerAgent;
+import itemDesign.Fist;
+import itemDesign.Hover;
+import itemDesign.Hunter;
+import itemDesign.Invincibility;
+import itemDesign.MoveBehaviour;
+import itemDesign.Player;
+import itemDesign.Potion;
+import itemDesign.Sword;
+import itemDesign.Treasure;
 
 public class testPickUp {
 	
@@ -25,18 +24,18 @@ public class testPickUp {
 	public void testHasInviPot() {
 		Player player = new Player();
 		Potion invi = new Invincibility();
-		assertFalse(player.getStatus().contains(invi));
+		assertFalse(player.isInvinc());
 		player.pickup(invi);
-		assert(player.getStatus().contains(invi));
+		assert(player.isInvinc());
 	}
 	
 	@Test
 	public void testHasHoverPot() {
 		Player player = new Player();
 		Potion hover = new Hover();
-		assertFalse(player.getStatus().contains(hover));
+		assertFalse(player.isHover());
 		player.pickup(hover);
-		assert(player.getStatus().contains(hover));
+		assert(player.isHover());
 	}
 	
 	@Test 
@@ -68,17 +67,17 @@ public class testPickUp {
 	@Test
 	public void testHasSword() {
 		Player player = new Player();
-		assert(player.getWeapon() instanceof Fist);
+		assert(player.getMeleeWeapon().isFist());
 		player.pickup(new Sword());
-		assertTrue(player.getWeapon() instanceof Sword);
+		assertTrue(player.getMeleeWeapon().isSword());
 	}
 	
 	@Test
 	public void testHasArrow() {
 		Player player = new Player();
-		assert(player.getWeapon() instanceof Fist);
+		assert(player.getRangedWeapon().getUses() == 0);
 		player.pickup(new Arrow());
-		assertTrue(player.getWeapon() instanceof Arrow);
+		assertTrue(player.getRangedWeapon().getUses() == 1);
 	}
 	
 	@Test
@@ -101,7 +100,7 @@ public class testPickUp {
 		player.pickup(new Arrow());
 		assert(ca.getHealth() == 100);
 		assert(player.getHealth() == 100);
-		player.attack(ca);
+		player.shoot();
 		assert(ca.getHealth() <= 0);
 		assert(player.getHealth() == 100);
 	}
