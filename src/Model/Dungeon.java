@@ -203,17 +203,22 @@ public class Dungeon {
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
-    	TileType tile;
-    	tile = tileGrid.get(check).getType();
-    	switch (tile) {
-    		case INVINCIBLE_WALL:
-    		case CLOSED_DOOR:
-    		case PIT:
-    		case DESTRUCTABLE_WALL:
-    			return false;
+
+    	Tile tileA = tileGrid.get(check);
+    	if(tileA != null) {	
+    		TileType type = tileA.getType();
+	    	switch (type) {
+	    		case INVINCIBLE_WALL:
+	    		case CLOSED_DOOR:
+	    		case PIT:
+	    		case DESTRUCTABLE_WALL:
+	    			return false;
+			default:
+				return true;
+	    	}
     	}
-    		
     	return true;
+	    		
     }
     /**
      * Typically called after isValidMove(Point) to further verify for
@@ -224,11 +229,11 @@ public class Dungeon {
      * @return
      */
     public boolean isAgentExist(Point check) {
-    	//If agent already on that spot, invalid movement spot
+    	//If agent already on that spot
     	if(agentGrid.containsKey(check)) {
-    		return false;
+    		return true;
     	}
-    	return true;
+    	return false;
     }
 
 }

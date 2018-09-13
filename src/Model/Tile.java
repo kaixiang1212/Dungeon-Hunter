@@ -5,7 +5,7 @@ package Model;
 import java.util.Objects;
 
 public class Tile {
-    enum TileType {
+    public enum TileType {
         INVINCIBLE_WALL,
         DESTRUCTABLE_WALL,
         EXIT,
@@ -41,5 +41,8 @@ public class Tile {
     @Override
     public int hashCode() {
         return Objects.hash(type);
+    }
+    public String toString() {
+    	return "Hello";
     }
 }

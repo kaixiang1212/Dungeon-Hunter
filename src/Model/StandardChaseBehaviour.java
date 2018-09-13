@@ -12,28 +12,36 @@ public class StandardChaseBehaviour implements MoveBehaviour {
 		double posY = playerPos.getY();
 		double currPosX = currPos.getX();
 		double currPosY = currPos.getY();
-		double xDist = Math.abs(posX - currPosX);
-		double yDist = Math.abs(posY - currPosY);
-		Point newPos = null;
+		double xDist = posX - currPosX;
+		double yDist = posY - currPosY;
+		Point newPos1 = null;
+		Point newPos2 = null;
+
 		if(xDist >= yDist) {
-			if(posX > currPosX) {
-				newPos = new Point((int)currPosX+1, (int)currPosY);
-				return newPos;
-			}
-			else {
-				newPos = new Point((int)currPosX-1, (int)currPosY);
-			}
+
+			newPos1 = new Point((int)currPosX+1, (int)currPosY);
+			newPos2 = new Point((int)currPosX-1, (int)currPosY);
+				if(posX > currPosX && map.isValidMove(newPos1) && !map.isAgentExist(newPos1)) {					
+					return newPos1;
+				}
+				else if(map.isValidMove(newPos2) && !map.isAgentExist(newPos2)) {
+					
+					return newPos2;
+				}
 		}
 		else if(yDist > xDist) {
-			if(posY > currPosX) {
-				newPos = new Point((int)currPosX, (int)currPosY+1);
+			newPos1 = new Point((int)currPosX, (int)currPosY+1);
+			newPos2 = new Point((int)currPosX, (int)currPosY-1);
+			if(posY > currPosX && map.isValidMove(newPos1) && !map.isAgentExist(newPos1)) {
+				return newPos1;
 			}
-			else {
-				newPos = new Point((int)currPosX, (int)currPosY-1);
+			else if (map.isValidMove(newPos2) && !map.isAgentExist(newPos2)) {
+				return newPos2;
 			}
-		}
-				
-		return newPos;
+		}				
+		return currPos;
+		
+		
 	}
 
 }
