@@ -1,26 +1,22 @@
 package Model;
 
 //Implements Item
-public class Treasure implements Item {
-	private String name;
+public class Treasure extends Item {
 	
-	public Treasure(String name) {
-		this.name = name;
+	public Treasure() {
+		super();
+	}
+
+	@Override
+	public void use(Dungeon map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isStackable() {
+		return true;
 	}
 	
-	public String getName() {
-		return this.name;
-	}
-	
-	public boolean isPotion() {
-		return false;
-	}
-	
-	public boolean isWeapon() {
-		return false;
-	}
-	
-	public boolean isArrow() {
-		return isWeapon();
-	}
+
 }
