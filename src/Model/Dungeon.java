@@ -204,21 +204,22 @@ public class Dungeon {
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
-
+    	if (check == null) return false;
     	Tile tileA = tileGrid.get(check);
     	if (tileA != null) {
     		TileType type = tileA.getType();
     		switch (type) {
     		case INVINCIBLE_WALL:
+    			return false;
     		case CLOSED_DOOR:
+    			return false;
     		case PIT:
+    			return false;
     		case DESTRUCTABLE_WALL:
     			return false;
     		}
-
     	}
     	return true;
-	    		
     }
     /**
      * Typically called after isValidMove(Point) to further verify for

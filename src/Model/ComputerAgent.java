@@ -33,7 +33,7 @@ public abstract class ComputerAgent {
 		}
 	}
 	public Point move(Dungeon map) {
-		this.pos = moveBehaviour.move(map, pos);
+		setPos(moveBehaviour.move(map, pos));
 		if(this.pos.equals(map.getPlayerPos())) {
 			this.attack(map.getPlayer());
 		}
