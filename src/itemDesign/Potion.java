@@ -1,28 +1,17 @@
 package itemDesign;
 
 public abstract class Potion extends Item {
-	String name;
 	int time;
 	
-	public Potion(String name, int time) {
-		this.name = name;
+	public Potion(int time, boolean stackable) {
+		super(stackable);
 		this.time = time;
+		
 	}
 	
-	@Override
-	public boolean isPotion() {
-		return true;
-	}
+	public abstract void consume(Player p);
 	
-	public boolean isInvinc() {
-		return false;
-	}
 	
-	public boolean isHover() {
-		return false;
-	}
 	
-	public String getName() {
-		return this.name;
-	}
+
 }
