@@ -4,6 +4,10 @@ package Model;
 public abstract class Item {
 	private boolean stackable;
 	
+	public Item(boolean stackable) {
+		this.stackable = stackable;
+	}
+	
 	public boolean isPotion() { return this instanceof Potion};
 	public boolean isMeleeWeapon() {return this instanceof MeleeWeapon};
 	public boolean isRangedWeapon() {return this instanceof RangedWeapon};
