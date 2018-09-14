@@ -35,9 +35,11 @@ public class testStandardChase {
 	}*/
 	@Test 
 	public void testObstacleChase() {
-		basicDungeon.placeComputerAgent(a1, aPos);
-		basicDungeon.placePlayer(p1, pPos);
+		basicDungeon.placeComputerAgent(a1, new Point(1,1));
+		basicDungeon.placePlayer(p1, new Point(3,3));
 		basicDungeon.placeTile(Tile.TileType.DESTRUCTABLE_WALL, new Point(2,2));
+		basicDungeon.updateAgents();
+		System.out.println(a1.getPos());
 		basicDungeon.updateAgents();
 		System.out.println(a1.getPos());
 		basicDungeon.updateAgents();
