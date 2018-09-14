@@ -4,7 +4,8 @@ public abstract class RangedWeapon extends Item {
 	int damage;
 	int numUses;
 	
-	public RangedWeapon(int damage, int numUses) {
+	public RangedWeapon(int damage, int numUses, boolean stackable) {
+		super(stackable);
 		this.damage = damage;
 		this.numUses = numUses;
 	}
