@@ -1,13 +1,20 @@
 package Model;
 
-//Extends Potion which implements Item
 public class Invincibility extends Potion{
 	public Invincibility() {
-		super("Invincibility", 20);
+		super(20);
 	}
 	
-	@Override 
-	public boolean isInvinc() {
-		return true;
+	public boolean equals(Object o) {
+		if(o instanceof Invincibility) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void use(Dungeon map) {
+		// TODO Auto-generated method stub
+		
 	}
 }

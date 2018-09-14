@@ -1,7 +1,5 @@
 package Model;
 
-//import org.jetbrains.annotations.Contract;
-
 import java.util.Objects;
 
 public class Tile {
@@ -44,7 +42,5 @@ public class Tile {
         return Objects.hash(type);
     }
 
-    public String toString() {
-    	return "Hello";
-    }
+
 }
