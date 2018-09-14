@@ -3,7 +3,7 @@ package itemDesign;
 public class Arrow extends RangedWeapon{
 	
 	public Arrow() {
-		super(100, 0);
+		super(100, 0, true);
 	}
 	
 	@Override
