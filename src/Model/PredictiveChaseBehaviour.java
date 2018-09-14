@@ -6,9 +6,16 @@ import Model.Tile.TileType;
 
 public class PredictiveChaseBehaviour implements MoveBehaviour {
 
+	/**
+	 * Get predicted point to move towards,
+	 * determine its direction then increment point axis by one (Move)
+	 */
 	@Override
 	public Point move(Dungeon map, Point currPos) {
+	
+		// Get its best Prediction
 		Point prediction = predict(map, currPos);
+
 		// if strategist is on the prediction point, run towards player
 		if (prediction.equals(currPos)) {
 			System.out.println("Running Towards player");
@@ -18,8 +25,10 @@ public class PredictiveChaseBehaviour implements MoveBehaviour {
 		int xDist = Math.abs(prediction.x - currPos.x);
 		int yDist = Math.abs(prediction.y - currPos.y);
 		Point newPos = null;
+		
+		// Increment Point axis by 1 (Move)
 		if(xDist >= yDist) {
-			if(player.x > currPos.x) {
+			if(prediction.x > currPos.x) {
 				newPos = new Point(currPos.x+1, currPos.y+1);
 				return newPos;
 			}
@@ -28,7 +37,7 @@ public class PredictiveChaseBehaviour implements MoveBehaviour {
 			}
 		}
 		else if(yDist > xDist) {
-			if(player.y > currPos.x) {
+			if(prediction.y > currPos.x) {
 				newPos = new Point(currPos.x, currPos.y+1);
 			}
 			else {
@@ -38,7 +47,6 @@ public class PredictiveChaseBehaviour implements MoveBehaviour {
 		
 		return newPos;
 	}
-	
 	
 	/**
 	 * Predict players next moves and return Point
