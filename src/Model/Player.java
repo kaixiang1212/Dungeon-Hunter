@@ -2,51 +2,33 @@ package Model;
 
 public class Player {
 
-	private int healthPoints;
-	private Weapon weapon;
+	private boolean isDead;
+	private PlayerInventory inventory;
+	private Item heldItem;
 	
 	public Player() {
-		this.healthPoints = 100;
-		this.weapon = new Fist();
+		this.inventory = new PlayerInventory();
+		this.isDead = false;
 	}
-
-	public void pickupWeapon(Weapon w) {
-		this.weapon = w;
+	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
+	//Coupled with a move method?
+	public void pickup(Item i) {
+		inventory.storeItem(i);
 	}
-
-	// Observe current weapon state then process interaction
-	public void attack(ComputerAgent a) {
-
-		// weapon is fist: agent attacks player
-		if(weapon instanceof Fist) {
-			a.attack(this);
-			return;
-		}
-
-		// weapon is NOT fist: player attacks ComputerAgent
-		weapon.attack(a);
-		if(this.weapon.getnumUses() <= 0) {
-			this.weapon = new Fist();
-		}
+	public void selectItem(int index) {
+		this.heldItem = inventory.getItem(index);
 	}
-
-	public Weapon getWeapon() {
-		return this.weapon;
+	
+	//Maybe pass in player itself as an argument to use, who is using it and where they are using it
+	//Consider usage for:
+	//Potion - Require player 
+	//MeleeWeapons - Should be fine, when we move and have equipped sword (how do we know eqipped?)
+	//RangedWeapons - Should be fine as above
+	//Bomb - Fine, dungeon square works
+	//Key - Find, move onto door, opens door no problem
+	public void useItem(Dungeon map) {
+		heldItem.use(map);
 	}
-	public int getHealth() {
-		return this.healthPoints;
-	}
-
-	// Reduce hitpoints, check and process death.
-	public void takeDamage(int damage, ComputerAgent a) {
-		if(this.weapon instanceof Sword) {
-			this.attack(a);
-		}
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Player has died");
-		}
-	}
-
+	public void move();
 	
 }
