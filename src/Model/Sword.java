@@ -1,9 +1,19 @@
 package Model;
 
-public class Sword extends Weapon {
+public class Sword extends MeleeWeapon {
 
 	public Sword() {
-		super(100, 5);
+		super(5);
+	}
+
+	@Override
+	public void use(Dungeon map) {
+		this.numUses--;
+	}
+
+	@Override
+	public boolean isStackable() {
+		return false;
 	}
 }
 

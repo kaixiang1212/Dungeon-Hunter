@@ -12,26 +12,15 @@ import java.util.Map;
  */
 public abstract class ComputerAgent {
 
-	private int healthPoints;
+	private boolean isDead;
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
 
 	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
-		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
+		this.isDead = false;
 	}
-	public int getHealth() {
-		return this.healthPoints;
-	}
-	public void attack(Player a) {
-		a.takeDamage(100, this);
-	}
-	public void takeDamage(int damage) {
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Ded");
-		}
-	}
+
 	public Point move(Dungeon map) {
 		setPos(moveBehaviour.move(map, pos));
 		if(this.pos.equals(map.getPlayerPos())) {
@@ -44,5 +33,8 @@ public abstract class ComputerAgent {
 	}
 	public Point getPos() {
 		return this.pos;
+	}
+	public boolean deathStatus() {
+		return this.isDead;
 	}
 }

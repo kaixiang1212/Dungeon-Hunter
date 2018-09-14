@@ -1,15 +1,20 @@
 package Model;
 
-//Anything that can be picked up
 public abstract class Item {
-	private boolean stackable;
+
+	private int quantity;
 	
-	public Item(boolean stackable) {
-		this.stackable = stackable;
+	public Item() {
+		this.quantity = 1;
 	}
 	
-	public boolean isPotion() { return this instanceof Potion};
-	public boolean isMeleeWeapon() {return this instanceof MeleeWeapon};
-	public boolean isRangedWeapon() {return this instanceof RangedWeapon};
-	public boolean isStackable() { return this.stackable};
+	public abstract void use(Dungeon map);
+	
+	public abstract boolean isStackable();
+	
+	public void stack() {
+		this.quantity++;
+	}
+	
 }
+>>>>>>> Model-agent

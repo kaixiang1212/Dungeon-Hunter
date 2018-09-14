@@ -28,7 +28,7 @@ public class PlayerInventory {
 
 	}
 	
-	public void getItem(int index) {
+	public Item getItem(int index) {
 		return items.get(index);
 	}
 	

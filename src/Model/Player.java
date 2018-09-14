@@ -3,79 +3,39 @@ import java.util.ArrayList;
 
 public class Player {
 
-	private int healthPoints;
-	private Weapon weapon;
+
+	private boolean isDead;
+	private PlayerInventory inventory;
+	private Item heldItem;
 	private ArrayList<Potion> status;
 	
 	public Player() {
-		this.healthPoints = 100;
-		this.weapon = new Fist();
-		this.status = new ArrayList<Potion>();
+		this.inventory = new PlayerInventory();
+		this.isDead = false;
 	}
-	
-	/*
-	 * generalised pickup function for potion and weapons
-	 * add potion status to player
-	 * weapon checks for arrow to stack or replaces weapon held
-	 * @TODO: Think of how we are implementing Treasure
-	 */
+	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
+	//Coupled with a move method?
 	public void pickup(Item i) {
-		if (i.isPotion()) {
-			this.addStatus((Potion) i);
-		} else if (i.isWeapon()) {
-			if ((this.weapon.isArrow()) && (i.isArrow())) {
-				this.weapon.addUses();
-			} else {
-				this.weapon = (Weapon) i;
-			}
-		}
+		inventory.storeItem(i);
+	}
+	public void selectItem(int index) {
+		this.heldItem = inventory.getItem(index);
 	}
 	
-	/*
-	 * add potion effect to player
-	 * if under the effect, refresh timer/moves
-	 * @TODO: is arraylist the best option?
-	 */
-	public void addStatus(Potion p) {
-		for (Potion a: this.status) {
-			if (a.getName().equals(p.getName())) {
-				this.status.remove(a);
-				this.status.add(p);
-				return;
-			}
-		}
-		this.status.add(p);
+	//Maybe pass in player itself as an argument to use, who is using it and where they are using it
+	//Consider usage for:
+	//Potion - Require player 
+	//MeleeWeapons - Should be fine, when we move and have equipped sword (how do we know eqipped?)
+	//RangedWeapons - Should be fine as above
+	//Bomb - Fine, dungeon square works
+	//Key - Find, move onto door, opens door no problem
+	public void useItem(Dungeon map) {
+		heldItem.use(map);
+	}
+	public boolean deathStatus() {
+		return this.isDead;
 	}
 
-	/*
-	 * Observe current weapon state then process interaction
-	 * added fist to kill enemy if player has invincible status
-	 * @TODO: implement arrow attack
-	 */
-	public void attack(ComputerAgent a) {
-		// weapon is fist: agent attacks player unless player is invincible
-		if(this.weapon.isFist()) {
-			if (this.isInvinc()) {
-				a.takeDamage(a.getHealth());
-				return;
-			}
-			a.attack(this);
-			return;
-		}
-
-		// weapon is NOT fist: player attacks ComputerAgent
-		this.weapon.attack(a);
-		if(this.weapon.getnumUses() <= 0) {
-			this.weapon = new Fist();
-		}
-	}
-
-	public Weapon getWeapon() {
-		return this.weapon;
-	}
-	public int getHealth() {
-		return this.healthPoints;
-	}
 	public ArrayList<Potion> getStatus() {
 		return this.status;
 	}
@@ -96,20 +56,5 @@ public class Player {
 		return false;
 	}
 
-	/*
-	 * Check for invincibility
-	 * Reduce hitpoints, check and process death.
-	 * @TODO: Is checking status better or is invincibility influencing HP better?
-	 */
-	public void takeDamage(int damage) {
-		if (this.isInvinc()) {
-			return;
-		}
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Player has died");
-		}
-	}
-	
 }
->>>>>>> item-wip-gary
+
