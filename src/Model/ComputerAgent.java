@@ -38,4 +38,19 @@ public abstract class ComputerAgent {
 	public boolean deathStatus() {
 		return this.isDead;
 	}
+	
+	public void attack(Player a) {
+		if (a.isInvinc()) {
+			//this.takeDamage(this.healthPoints);
+			//TODO: change to isDead
+		} else {
+			//a.takeDamage(100);
+			//TODO: kill player using isDead boolean rather
+		}
+	}
 }
+
+
+
+
+

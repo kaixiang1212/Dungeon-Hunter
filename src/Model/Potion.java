@@ -13,7 +13,11 @@ public abstract class Potion extends Item {
 	public boolean isStackable() {
 		return false;
 	}
+	public boolean isHover() {
+		return this instanceof Hover;
+	}
 	
+	public boolean isInvinc() {
+		return this instanceof Invincibility;
 
 }
-

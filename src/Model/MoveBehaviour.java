@@ -1,4 +1,4 @@
-package Model;
+package itemDesign;
 
 import java.awt.Point;
 import java.util.Map;

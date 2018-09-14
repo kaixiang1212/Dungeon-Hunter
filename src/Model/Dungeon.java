@@ -1,6 +1,5 @@
 package Model;
 
-//import org.jetbrains.annotations.Contract;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -35,17 +34,17 @@ public class Dungeon {
         this.bottomRight = new Point(size+1, size+1);
     }
    
-    //@Contract(pure = true)
+
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
     }
 
-    //@Contract(pure = true)
+
     public Point getTopLeft() {
         return topLeft;
     }
 
-    //@Contract(pure = true)
+
     public Point getBottomRight() {
         return bottomRight;
     }
@@ -60,7 +59,7 @@ public class Dungeon {
      * @param (size > 0 && size <= MAX_SIZE)
      * @return A default empty dungeon
      */
-    //@Contract(pure = true)
+
     private HashMap<Point, Tile> initTileGrid(int size) {
 
         if (size < 1) {
@@ -94,7 +93,7 @@ public class Dungeon {
      * Makes a Tile Grid of MAX_SIZE
      * @return A default empty dungeon size MAX_SIZE
      */
-    //@Contract(pure = true)
+ 
     private HashMap<Point, Tile> initTileGrid() {
         return initTileGrid(this.MAX_SIZE);
     }
@@ -104,7 +103,7 @@ public class Dungeon {
      * @param location
      * @return Tile.TileType
      */
-    //@Contract(pure = true)
+
     public Tile.TileType pointTileType(Point location) {
         Tile local = tileGrid.get(location);
         if (local == null) {
@@ -237,3 +236,4 @@ public class Dungeon {
     	return false;
     }
 }
+

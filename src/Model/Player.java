@@ -3,15 +3,18 @@ import java.util.ArrayList;
 
 public class Player {
 
-
 	private boolean isDead;
 	private PlayerInventory inventory;
 	private Item heldItem;
 	private ArrayList<Potion> status;
+	private String direction;
 	
 	public Player() {
 		this.inventory = new PlayerInventory();
 		this.isDead = false;
+		this.heldItem = null;
+		this.status = new ArrayList<Potion>();
+		this.direction = null;
 	}
 	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
 	//Coupled with a move method?
@@ -35,9 +38,18 @@ public class Player {
 	public boolean deathStatus() {
 		return this.isDead;
 	}
-
-	public ArrayList<Potion> getStatus() {
-		return this.status;
+	public void addStatus(Potion p) {
+		for (Potion a: this.status) {
+			if (a.equals(p)) {
+				this.status.remove(a);
+				this.status.add(p);
+				return;
+			}
+		}
+		this.status.add(p);
+	}
+	public String getDirection() {
+		return this.direction;
 	}
 	public boolean isInvinc() {
 		for (Potion p: this.status) {
@@ -47,6 +59,7 @@ public class Player {
 		}
 		return false;
 	}
+	
 	public boolean isHover() {
 		for (Potion p: this.status) {
 			if (p.isHover()) {
@@ -55,6 +68,20 @@ public class Player {
 		}
 		return false;
 	}
-
+	public ArrayList<Potion> getStatus() {
+		return this.status;
+	}
+	public PlayerInventory getInventory() {
+		return this.inventory;
+	}
 }
+
+	
+
+
+
+
+	
+
+
 

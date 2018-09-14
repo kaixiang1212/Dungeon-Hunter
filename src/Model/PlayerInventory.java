@@ -31,6 +31,12 @@ public class PlayerInventory {
 	public Item getItem(int index) {
 		return items.get(index);
 	}
-	
-	
+	public boolean isEmpty() {
+		if (this.items.isEmpty()) {
+			return true;
+		}
+		return false;
+	}	
 }
+
+

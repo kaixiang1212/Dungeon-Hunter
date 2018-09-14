@@ -1,6 +1,4 @@
-package Model;
-
-//import org.jetbrains.annotations.Contract;
+package itemDesign;
 
 import java.util.Objects;
 
@@ -44,7 +42,5 @@ public class Tile {
         return Objects.hash(type);
     }
 
-    public String toString() {
-    	return "Hello";
-    }
+
 }

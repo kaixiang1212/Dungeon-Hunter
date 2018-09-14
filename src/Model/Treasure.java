@@ -1,5 +1,4 @@
 package Model;
-
 //Implements Item
 public class Treasure extends Item {
 	
@@ -17,6 +16,5 @@ public class Treasure extends Item {
 	public boolean isStackable() {
 		return true;
 	}
-	
 
 }
