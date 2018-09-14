@@ -11,7 +11,12 @@ public abstract class Potion extends Item {
 	
 	public abstract void consume(Player p);
 	
+		public boolean isHover() {
+		return this instanceof Hover;
+	}
 	
-	
+	public boolean isInvinc() {
+		return this instanceof Invincibility;
+	}
 
 }
