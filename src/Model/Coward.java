@@ -7,8 +7,8 @@ public class Coward extends ComputerAgent {
 	private boolean courage;
 	private MoveBehaviour cowardBehavior;
 	
-	public Coward(int healthPoints, MoveBehaviour moveBehaviour) {
-		super(healthPoints, moveBehaviour);
+	public Coward() {
+		super(100, new StandardChaseBehaviour());
 		cowardBehavior = new cowardFleeBehavior();
 		courage = false;
 	}

@@ -29,12 +29,12 @@ public class StandardChaseBehaviour implements MoveBehaviour {
 			if (map.isValidMove(newPos)) return newPos;
 		}
 		if (!map.isValidMove(newPos)) {
-			if (player.y > curr.y) newPos = new Point(curr.x, curr.y+1);
+			if (player.y >= curr.y) newPos = new Point(curr.x, curr.y+1);
 			else newPos = new Point(curr.x, curr.y-1);
 			if (map.isValidMove(newPos)) return newPos;
 		}
 		if (!map.isValidMove(newPos)) {
-			if (player.x > curr.x && !map.isValidMove(newPos)) newPos = new Point(curr.x+1, curr.y);
+			if (player.x >= curr.x && !map.isValidMove(newPos)) newPos = new Point(curr.x+1, curr.y);
 			else newPos = new Point(curr.x-1, curr.y);
 			if (map.isValidMove(newPos)) return newPos;
 		}
@@ -42,3 +42,4 @@ public class StandardChaseBehaviour implements MoveBehaviour {
 		if (!map.isValidMove(newPos)) newPos = new Point(curr.x, curr.y);
 		return newPos;
 	}
+}
