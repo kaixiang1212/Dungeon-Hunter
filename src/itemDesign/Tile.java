@@ -1,12 +1,11 @@
-package Model;
+package itemDesign;
 
 //import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
 public class Tile {
-
-    public enum TileType {
+    enum TileType {
         INVINCIBLE_WALL,
         DESTRUCTABLE_WALL,
         EXIT,
@@ -42,9 +41,5 @@ public class Tile {
     @Override
     public int hashCode() {
         return Objects.hash(type);
-    }
-
-    public String toString() {
-    	return "Hello";
     }
 }

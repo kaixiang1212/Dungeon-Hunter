@@ -1,4 +1,4 @@
-package Model;
+package itemDesign;
 
 /**
  * At time of writing the intention of this class is to provide a
@@ -7,16 +7,22 @@ package Model;
  * on a null value.
  */
 
-public class Fist extends Weapon{
+public class Fist extends MeleeWeapon{
     public Fist() {
         super(0, 1);
     }
     
-<<<<<<< HEAD
-=======
-    @Override
-    public boolean isFist() {
-    	return true;
-    }
->>>>>>> item-wip-gary
+	public boolean equals(Object o) {
+		if(o instanceof Fist) {
+			Fist a = (Fist) o;
+			if(a.getDamage() == this.damage) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
+	}
+    
 }
