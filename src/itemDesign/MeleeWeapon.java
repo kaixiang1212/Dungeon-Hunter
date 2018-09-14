@@ -8,20 +8,7 @@ public abstract class MeleeWeapon extends Item {
 		this.damage = damage;
 		this.numUses = numUses;
 	}
-	
-	@Override
-	public boolean isMeleeWeapon() {
-		return true;
-	}
-	
-	public boolean isSword() {
-		return false;
-	}
-	
-	public boolean isFist() {
-		return false;
-	}
-	
+		
 	public int getNumUses() {
 		return this.numUses;
 	}
