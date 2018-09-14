@@ -3,8 +3,6 @@ import java.awt.Point;
 import java.util.Map;
 
 public abstract class RangedWeapon extends Item {
-	int damage;
-	boolean stackable;
 	
 	public RangedWeapon() {
 		super();
