@@ -1,40 +1,25 @@
-package Model;
+package itemDesign;
 
-//Implements item
-public abstract class Potion implements Item{
+public abstract class Potion extends Item {
 	String name;
 	int time;
+	boolean stackable;
 	
-	public Potion(String name, int time) {
+	public Potion(boolean Stackable, String name, int time) {
+		super(false);
 		this.name = name;
 		this.time = time;
-	}
-	
-	public void use(Player p) {
-		p.addStatus(this);
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public boolean isPotion() {
-		return true;
-	}
-	
-	public boolean isWeapon() {
-		return false;
-	}
-	
-	public boolean isArrow() {
-		return isWeapon();
+	public boolean isHover() {
+		return this instanceof Hover;
 	}
 	
 	public boolean isInvinc() {
-		return false;
-	}
-	
-	public boolean isHover() {
-		return false;
+		return this instanceof Invincibility;
 	}
 }

@@ -1,13 +1,20 @@
-package Model;
+package itemDesign;
 
-//Extends Potion which implements Item
 public class Invincibility extends Potion{
 	public Invincibility() {
-		super("Invincibility", 20);
+		super(false,"Invincibility", 20);
 	}
 	
-	@Override 
-	public boolean isInvinc() {
-		return true;
+	public boolean equals(Object o) {
+		if(o instanceof Invincibility) {
+			Invincibility a = (Invincibility) o;
+			if(a.getName() == this.name) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
 	}
 }

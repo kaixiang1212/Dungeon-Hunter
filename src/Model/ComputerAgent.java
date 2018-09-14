@@ -1,4 +1,4 @@
-package Model;
+package itemDesign;
 
 import java.awt.Point;
 import java.util.Map;
@@ -15,7 +15,7 @@ public abstract class ComputerAgent {
 	private int healthPoints;
 	private MoveBehaviour moveBehaviour;
 
-	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour, Weapon weapon) {
+	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
 		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
 	}
@@ -23,7 +23,11 @@ public abstract class ComputerAgent {
 		return this.healthPoints;
 	}
 	public void attack(Player a) {
-		a.takeDamage(100);
+		if (a.isInvinc()) {
+			this.takeDamage(this.healthPoints);
+		} else {
+			a.takeDamage(100);
+		}
 	}
 	public void takeDamage(int damage) {
 		this.healthPoints = this.healthPoints - damage;

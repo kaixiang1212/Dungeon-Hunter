@@ -1,13 +1,25 @@
-package Model;
+package itemDesign;
 
-//Extends Potion which implements Item
 public class Hover extends Potion{
 	public Hover() {
-		super("Hover", 999);
+		super(false,"Hover", 999);
 	}
 	
 	@Override
 	public boolean isHover() {
 		return true;
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof Hover) {
+			Hover a = (Hover) o;
+			if(a.getName() == this.name) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
 	}
 }

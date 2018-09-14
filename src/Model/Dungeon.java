@@ -1,13 +1,13 @@
-package Model;
-
-//import org.jetbrains.annotations.Contract;
+package itemDesign;
 
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import itemDesign.Tile;
+
 public class Dungeon {
-    public static final int MAX_SIZE = 20;
+    public final int MAX_SIZE = 20;
 
 
     private Point topLeft;
@@ -16,9 +16,13 @@ public class Dungeon {
     private Map<Point, Tile> tileGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
+    private Player player;
     //private Map<Point, Pickups> pickGrid;
 
     public Dungeon(int size) throws IllegalArgumentException{
+    	playerPosition = null;
+    	agentGrid = new HashMap<Point, ComputerAgent>();
+    	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
         }
@@ -28,6 +32,7 @@ public class Dungeon {
         this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(size+1, size+1);
     }
+   
     //@Contract(pure = true)
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
@@ -135,7 +140,6 @@ public class Dungeon {
         }
 
         if (tileGrid.get(myPoint) == null) {
-
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
         }
@@ -152,6 +156,7 @@ public class Dungeon {
      */
     public void placeComputerAgent(ComputerAgent a, Point agentPoint) {
     	agentGrid.put(agentPoint, a);
+    	//a.setPos(agentPoint);
     }
     /**
      * Inserts a new Player object into the dungeon
@@ -162,14 +167,76 @@ public class Dungeon {
      */
     public void placePlayer(Player p, Point playerStart) {
     	playerPosition = playerStart;
+    	player = p;
+    }
+    public Player getPlayer() {
+    	return this.player;
+    }
+    public Map<Point, ComputerAgent> getAgentGrid() {
+    	return this.agentGrid;
     }
 
     /**
+     * Utilises entrySet iterator
      * Iterates over agentGrid to move agents
+     * Grabs new position
+     * Deletes old entry in agent hashmap
+     * Enters new entry
      */
     public void updateAgents() {
-    	for(ComputerAgent a: agentGrid.values()) {
-    		a.move(playerPosition, agentGrid);
+    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
+    		Point updatePos = entry.getValue().move(this);
+    		agentGrid.remove(entry.getKey());
+    		if(entry.getValue().getHealth() > 0) { //If agent still has health after its turn
+    			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		}
     	}
     }
+
+    public Point getPlayerPos() {
+    	return this.playerPosition;
+    }
+    
+    
+    /**
+     * Checks if tile to be moved on is valid to move on.
+     * @param check
+     * @return
+     */
+    public boolean isValidMove(Point check) {
+    	//Checks cases for types of tiles that can't be moved on
+    	if (check == null) return false;
+    	Tile tileA = tileGrid.get(check);
+    	if (tileA != null) {
+    		TileType type = tileA.getType();
+    		switch (type) {
+    		case INVINCIBLE_WALL:
+    			return false;
+    		case CLOSED_DOOR:
+    			return false;
+    		case PIT:
+    			return false;
+    		case DESTRUCTABLE_WALL:
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    /**
+     * Typically called after isValidMove(Point) to further verify for
+     * agents, so agents do not overlap
+     * Player object do not call this, as they can fight agents, agents can't
+     * fight other agents
+     * @param check
+     * @return
+     */
+    public boolean isAgentExist(Point check) {
+    	//If agent already on that spot
+    	if(agentGrid.containsKey(check)) {
+    		return true;
+    	}
+    	return false;
+    }
+
 }
+

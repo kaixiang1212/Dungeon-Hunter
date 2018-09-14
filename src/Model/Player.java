@@ -1,16 +1,21 @@
-package Model;
+package itemDesign;
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Map;
+
 
 public class Player {
 
 	private int healthPoints;
-	private Weapon weapon;
 	private ArrayList<Potion> status;
+	private String direction;
+	private PlayerInventory inventory;
 	
 	public Player() {
 		this.healthPoints = 100;
-		this.weapon = new Fist();
 		this.status = new ArrayList<Potion>();
+		this.direction = "Right";
+		this.inventory = new PlayerInventory();
 	}
 	
 	/*
@@ -22,12 +27,8 @@ public class Player {
 	public void pickup(Item i) {
 		if (i.isPotion()) {
 			this.addStatus((Potion) i);
-		} else if (i.isWeapon()) {
-			if ((this.weapon.isArrow()) && (i.isArrow())) {
-				this.weapon.addUses();
-			} else {
-				this.weapon = (Weapon) i;
-			}
+		} else {
+			inventory.storeItem(i);
 		}
 	}
 	
@@ -38,7 +39,7 @@ public class Player {
 	 */
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
-			if (a.getName().equals(p.getName())) {
+			if (a.equals(p)) {
 				this.status.remove(a);
 				this.status.add(p);
 				return;
@@ -46,39 +47,19 @@ public class Player {
 		}
 		this.status.add(p);
 	}
-
-	/*
-	 * Observe current weapon state then process interaction
-	 * added fist to kill enemy if player has invincible status
-	 * @TODO: implement arrow attack
-	 */
-	public void attack(ComputerAgent a) {
-		// weapon is fist: agent attacks player unless player is invincible
-		if(this.weapon.isFist()) {
-			if (this.isInvinc()) {
-				a.takeDamage(a.getHealth());
-				return;
-			}
-			a.attack(this);
-			return;
-		}
-
-		// weapon is NOT fist: player attacks ComputerAgent
-		this.weapon.attack(a);
-		if(this.weapon.getnumUses() <= 0) {
-			this.weapon = new Fist();
-		}
-	}
-
-	public Weapon getWeapon() {
-		return this.weapon;
-	}
+	
 	public int getHealth() {
 		return this.healthPoints;
 	}
+	
+	public String getDirection() {
+		return this.direction;
+	}
+	
 	public ArrayList<Potion> getStatus() {
 		return this.status;
 	}
+	
 	public boolean isInvinc() {
 		for (Potion p: this.status) {
 			if (p.isInvinc()) {
@@ -87,6 +68,7 @@ public class Player {
 		}
 		return false;
 	}
+	
 	public boolean isHover() {
 		for (Potion p: this.status) {
 			if (p.isHover()) {
@@ -109,6 +91,19 @@ public class Player {
 		if(this.healthPoints <= 0) {
 			System.out.println("Player has died");
 		}
+	}
+	
+	public void use(Dungeon dungeon) {
+		Item equipped = this.inventory.getItem();
+		equipped.use(dungeon);
+	}
+	
+	public Item getEquipped() {
+		return this.inventory.getItem();
+	}
+	
+	public PlayerInventory getInventory() {
+		return this.inventory;
 	}
 	
 }
