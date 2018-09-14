@@ -6,9 +6,4 @@ public class Treasure extends Item {
 	public Treasure(int amount) {
 		this.amount = amount;
 	}
-	
-	@Override
-	public boolean isTreasure() {
-		return true;
-	}
 }

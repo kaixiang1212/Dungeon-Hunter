@@ -8,9 +8,20 @@ public abstract class MeleeWeapon extends Item {
 		this.damage = damage;
 		this.numUses = numUses;
 	}
-		
+	
+	public int getDamage() {
+		return this.damage;
+	}
 	public int getNumUses() {
 		return this.numUses;
+	}
+	
+	public boolean isFist() {
+		return this instanceof Fist;
+	}
+	
+	public boolean isSword() {
+		return this instanceof Sword;
 	}
 	
 	public void attack(ComputerAgent a) {

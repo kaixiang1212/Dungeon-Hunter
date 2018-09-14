@@ -12,8 +12,17 @@ public class Fist extends MeleeWeapon{
         super(0, 1);
     }
     
-    @Override
-    public boolean isFist() {
-    	return true;
-    }
+	public boolean equals(Object o) {
+		if(o instanceof Fist) {
+			Fist a = (Fist) o;
+			if(a.getDamage() == this.damage) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
+	}
+    
 }

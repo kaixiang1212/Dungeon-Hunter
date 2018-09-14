@@ -4,12 +4,14 @@ public abstract class RangedWeapon extends Item {
 	int damage;
 	int numUses;
 	
-	public RangedWeapon(int damage, int numUses, boolean stackable) {
-		super(stackable);
+	public RangedWeapon(int damage, int numUses) {
 		this.damage = damage;
 		this.numUses = numUses;
 	}
 	
+	public int getDamage() {
+		return this.damage;
+	}
 	
 	public int getUses() {
 		return this.numUses;
@@ -22,8 +24,5 @@ public abstract class RangedWeapon extends Item {
 	public void subUses() {
 		this.numUses--;
 	}
-	
-	public boolean isArrow() {
-		return false;
-	}
+
 }

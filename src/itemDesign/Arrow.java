@@ -3,18 +3,13 @@ package itemDesign;
 public class Arrow extends RangedWeapon{
 	
 	public Arrow() {
-		super(100, 0, true);
-	}
-	
-	@Override
-	public boolean isArrow() {
-		return true;
+		super(100, 0);
 	}
 	
 	public boolean equals(Object o) {
 		if(o instanceof Arrow) {
 			Arrow a = (Arrow) o;
-			if(a.getDamage == this.damage) {
+			if(a.getDamage() == this.damage) {
 				return true;
 			}
 			else {
@@ -23,6 +18,5 @@ public class Arrow extends RangedWeapon{
 		}
 		return false;
 	}
-	
 	
 }

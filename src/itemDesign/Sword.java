@@ -7,9 +7,17 @@ public class Sword extends MeleeWeapon {
 		super(100, 5);
 	}
 	
-	@Override
-	public boolean isSword() {
-		return true;
+	public boolean equals(Object o) {
+		if(o instanceof Sword) {
+			Sword a = (Sword) o;
+			if(a.getDamage() == this.damage) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
 	}
 	
 }

@@ -1,5 +1,8 @@
 package itemDesign;
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Map;
+
 
 public class Player {
 
@@ -74,10 +77,14 @@ public class Player {
 	/*
 	 * @TODO: Implement arrow attack
 	 */
-	public void shoot() {
+	public void shoot(Dungeon dungeon, Map<Point, ComputerAgent> agentMap) {
 		if (this.rangedWeapon.getUses() > 0) {
 			this.rangedWeapon.subUses();
+			Point playerPos = dungeon.getPlayerPos();
+			ArrowShot arrowS = new ArrowShot(this.direction, 100, dungeon, playerPos);
+			arrowS.fly();
 		}
+		return agentMap;
 	}
 
 	public MeleeWeapon getMeleeWeapon() {
