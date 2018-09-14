@@ -9,10 +9,6 @@ public abstract class RangedWeapon extends Item {
 		this.numUses = numUses;
 	}
 	
-	@Override
-	public boolean isRangedWeapon() {
-		return true;
-	}
 	
 	public int getUses() {
 		return this.numUses;
