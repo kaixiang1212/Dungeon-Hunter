@@ -6,19 +6,19 @@ public class Item {
 	}
 
 	public boolean isMeleeWeapon() {
-		return false;
+		return this instanceof MeleeWeapon;
 	}
 	
 	public boolean isRangedWeapon() {
-		return false;
+		return this instanceof RangedWeapon;
 	}
 	
 	public boolean isPotion() {
-		return false;
+		return this instanceof Potion;
 	}
 	
 	public boolean isTreasure() {
-		return false;
+		return this instanceof Treasure;
 	}
 
 }
