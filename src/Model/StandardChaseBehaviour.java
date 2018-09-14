@@ -42,3 +42,4 @@ public class StandardChaseBehaviour implements MoveBehaviour {
 		if (!map.isValidMove(newPos)) newPos = new Point(curr.x, curr.y);
 		return newPos;
 	}
+}
