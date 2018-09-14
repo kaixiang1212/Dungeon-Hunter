@@ -5,6 +5,7 @@ public class Player {
 	private boolean isDead;
 	private PlayerInventory inventory;
 	private Item heldItem;
+	private ArrayList<Potion> status;
 	
 	public Player() {
 		this.inventory = new PlayerInventory();
@@ -29,6 +30,19 @@ public class Player {
 	public void useItem(Dungeon map) {
 		heldItem.use(map);
 	}
-	public void move();
+	public boolean deathStatus() {
+		return this.isDead;
+	}
+	public void addStatus(Potion p) {
+		for (Potion a: this.status) {
+			if (a.equals(p)) {
+				this.status.remove(a);
+				this.status.add(p);
+				return;
+			}
+		}
+		this.status.add(p);
+	}
+	//public void move();
 	
 }

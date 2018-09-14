@@ -31,4 +31,7 @@ public abstract class ComputerAgent {
 	public Point getPos() {
 		return this.pos;
 	}
+	public boolean deathStatus() {
+		return this.isDead;
+	}
 }
