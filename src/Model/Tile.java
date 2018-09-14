@@ -1,4 +1,4 @@
-package itemDesign;
+package Model;
 
 import java.util.Objects;
 

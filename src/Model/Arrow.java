@@ -1,22 +1,22 @@
-package itemDesign;
+package Model;
 
 public class Arrow extends RangedWeapon{
 	
 	public Arrow() {
-		super(true,100,1);
+		super();
 	}
 	
 	public boolean equals(Object o) {
 		if(o instanceof Arrow) {
-			Arrow a = (Arrow) o;
-			if(a.getDamage() == this.damage) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isStackable() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

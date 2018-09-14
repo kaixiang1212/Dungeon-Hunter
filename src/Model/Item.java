@@ -15,6 +15,12 @@ public abstract class Item {
 	public void stack() {
 		this.quantity++;
 	}
+	public int getQuantity() {
+		return this.quantity;
+	}
+	public void subQuantity() {
+		this.quantity--;
+	}
 	
 }
 

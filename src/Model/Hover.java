@@ -1,8 +1,8 @@
-package itemDesign;
+package Model;
 
 public class Hover extends Potion{
 	public Hover() {
-		super(false,"Hover", 999);
+		super(999);
 	}
 	
 	@Override
@@ -12,14 +12,15 @@ public class Hover extends Potion{
 	
 	public boolean equals(Object o) {
 		if(o instanceof Hover) {
-			Hover a = (Hover) o;
-			if(a.getName() == this.name) {
-				return true;
-			}
-			else {
-				return false;
-			}
+
+			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void use(Dungeon map) {
+		// TODO Auto-generated method stub
+		
 	}
 }

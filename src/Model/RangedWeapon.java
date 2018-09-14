@@ -1,38 +1,21 @@
-package itemDesign;
-
+package Model;
 import java.awt.Point;
 import java.util.Map;
 
 public abstract class RangedWeapon extends Item {
 	int damage;
-	int numUses;
 	boolean stackable;
 	
-	public RangedWeapon(boolean stackable, int damage, int numUses) {
-		super(true);
-		this.damage = damage;
-		this.numUses = numUses;
+	public RangedWeapon() {
+		super();
 	}
+
 	
-	public int getDamage() {
-		return this.damage;
-	}
-	
-	public int getUses() {
-		return this.numUses;
-	}
-	
-	public void addUses() {
-		this.numUses++;
-	}
-	
-	public void subUses() {
-		this.numUses--;
-	}
-	
+	//TODO: Rethink the below, try use map API methods to achieve without needing
+	//to know the implementation of the hashmaps
 	public void use(Dungeon dungeon) {
-		if (this.getUses() > 0) {
-			this.subUses();
+		if (this.getQuantity() > 0) {
+			this.subQuantity();
 			Point shot = dungeon.getPlayerPos();
 			Map<Point, ComputerAgent> agentMap = dungeon.getAgentGrid();
 			Map<Point, Tile> tileMap = dungeon.getTileGrid();
@@ -44,7 +27,9 @@ public abstract class RangedWeapon extends Item {
 					if (tileMap.get(shot) instanceof Tile) {
 						return;
 					} else if (agentMap.get(shot) instanceof ComputerAgent) {
-						agentMap.get(shot).takeDamage(this.damage);
+						//agentMap.get(shot).takeDamage(this.damage);
+						//TODO: implement no healthpoint fighting, you
+						//can modify takeDamage to make it more basic
 					}
 				}
 			}

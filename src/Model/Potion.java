@@ -20,4 +20,5 @@ public abstract class Potion extends Item {
 	public boolean isInvinc() {
 		return this instanceof Invincibility;
 
+	}
 }
