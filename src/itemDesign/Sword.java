@@ -4,7 +4,7 @@ package itemDesign;
 public class Sword extends MeleeWeapon {
 
 	public Sword() {
-		super(100, 5);
+		super(false, 100, 5);
 	}
 	
 	public boolean equals(Object o) {

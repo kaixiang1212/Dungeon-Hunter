@@ -2,7 +2,7 @@ package itemDesign;
 
 public class Hover extends Potion{
 	public Hover() {
-		super("Hover", 999);
+		super(false,"Hover", 999);
 	}
 	
 	@Override

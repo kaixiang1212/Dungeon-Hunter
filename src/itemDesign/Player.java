@@ -7,17 +7,15 @@ import java.util.Map;
 public class Player {
 
 	private int healthPoints;
-	private MeleeWeapon meleeWeapon;
-	private RangedWeapon rangedWeapon;
 	private ArrayList<Potion> status;
 	private String direction;
+	private PlayerInventory inventory;
 	
 	public Player() {
 		this.healthPoints = 100;
-		this.meleeWeapon = new Fist();
-		this.rangedWeapon = new Arrow();
 		this.status = new ArrayList<Potion>();
 		this.direction = "Right";
+		this.inventory = new PlayerInventory();
 	}
 	
 	/*
@@ -29,10 +27,8 @@ public class Player {
 	public void pickup(Item i) {
 		if (i.isPotion()) {
 			this.addStatus((Potion) i);
-		} else if (i.isRangedWeapon()) {
-			this.rangedWeapon.addUses();
-		} else if (i.isMeleeWeapon()) {
-			this.meleeWeapon = (MeleeWeapon) i;
+		} else {
+			inventory.storeItem(i);
 		}
 	}
 	
@@ -43,7 +39,7 @@ public class Player {
 	 */
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
-			if (a.getName().equals(p.getName())) {
+			if (a.equals(p)) {
 				this.status.remove(a);
 				this.status.add(p);
 				return;
@@ -51,54 +47,19 @@ public class Player {
 		}
 		this.status.add(p);
 	}
-
-	/*
-	 * Observe current weapon state then process interaction
-	 * added fist to kill enemy if player has invincible status
-	 */
-	public void attack(ComputerAgent a) {
-		// weapon is fist: agent attacks player unless player is invincible
-		if(this.meleeWeapon.isFist()) {
-			if (this.isInvinc()) {
-				a.takeDamage(a.getHealth());
-				return;
-			}
-			a.attack(this);
-			return;
-		}
-
-		// weapon is NOT fist: player attacks ComputerAgent
-		this.meleeWeapon.attack(a);
-		if(this.meleeWeapon.getNumUses() <= 0) {
-			this.meleeWeapon = new Fist();
-		}
-	}
 	
-	/*
-	 * @TODO: Implement arrow attack
-	 */
-	public void shoot(Dungeon dungeon, Map<Point, ComputerAgent> agentMap) {
-		if (this.rangedWeapon.getUses() > 0) {
-			this.rangedWeapon.subUses();
-			Point playerPos = dungeon.getPlayerPos();
-			ArrowShot arrowS = new ArrowShot(this.direction, 100, dungeon, playerPos);
-			arrowS.fly();
-		}
-		return agentMap;
-	}
-
-	public MeleeWeapon getMeleeWeapon() {
-		return this.meleeWeapon;
-	}
-	public RangedWeapon getRangedWeapon() {
-		return this.rangedWeapon;
-	}
 	public int getHealth() {
 		return this.healthPoints;
 	}
+	
+	public String getDirection() {
+		return this.direction;
+	}
+	
 	public ArrayList<Potion> getStatus() {
 		return this.status;
 	}
+	
 	public boolean isInvinc() {
 		for (Potion p: this.status) {
 			if (p.isInvinc()) {
@@ -107,6 +68,7 @@ public class Player {
 		}
 		return false;
 	}
+	
 	public boolean isHover() {
 		for (Potion p: this.status) {
 			if (p.isHover()) {
@@ -129,6 +91,19 @@ public class Player {
 		if(this.healthPoints <= 0) {
 			System.out.println("Player has died");
 		}
+	}
+	
+	public void use(Dungeon dungeon) {
+		Item equipped = this.inventory.getItem();
+		equipped.use(dungeon);
+	}
+	
+	public Item getEquipped() {
+		return this.inventory.getItem();
+	}
+	
+	public PlayerInventory getInventory() {
+		return this.inventory;
 	}
 	
 }

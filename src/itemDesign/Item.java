@@ -2,7 +2,17 @@ package itemDesign;
 
 public class Item {
 	
-	public Item() {
+	private boolean stackable;
+	public Item(boolean stackable) {
+		this.stackable = stackable;
+	}
+	
+	public void use(Dungeon dungeon) {
+		return;
+	}
+	
+	public boolean isStackable() {
+		return this.stackable;
 	}
 
 	public boolean isMeleeWeapon() {

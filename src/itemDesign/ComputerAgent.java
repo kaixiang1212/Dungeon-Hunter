@@ -23,7 +23,11 @@ public abstract class ComputerAgent {
 		return this.healthPoints;
 	}
 	public void attack(Player a) {
-		a.takeDamage(100);
+		if (a.isInvinc()) {
+			this.takeDamage(this.healthPoints);
+		} else {
+			a.takeDamage(100);
+		}
 	}
 	public void takeDamage(int damage) {
 		this.healthPoints = this.healthPoints - damage;

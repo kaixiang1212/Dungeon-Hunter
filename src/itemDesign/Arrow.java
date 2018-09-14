@@ -3,7 +3,7 @@ package itemDesign;
 public class Arrow extends RangedWeapon{
 	
 	public Arrow() {
-		super(100, 0);
+		super(true,100,1);
 	}
 	
 	public boolean equals(Object o) {

@@ -2,7 +2,7 @@ package itemDesign;
 
 public class Invincibility extends Potion{
 	public Invincibility() {
-		super("Invincibility", 20);
+		super(false,"Invincibility", 20);
 	}
 	
 	public boolean equals(Object o) {

@@ -3,8 +3,10 @@ package itemDesign;
 public abstract class Potion extends Item {
 	String name;
 	int time;
+	boolean stackable;
 	
-	public Potion(String name, int time) {
+	public Potion(boolean Stackable, String name, int time) {
+		super(false);
 		this.name = name;
 		this.time = time;
 	}
