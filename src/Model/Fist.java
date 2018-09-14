@@ -11,4 +11,5 @@ public class Fist extends Weapon{
     public Fist() {
         super(0, 1);
     }
+    
 }

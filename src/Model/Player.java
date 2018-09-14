@@ -33,6 +33,7 @@ public class Player {
 	public Weapon getWeapon() {
 		return this.weapon;
 	}
+
 	public int getHealth() {
 		return this.healthPoints;
 	}
