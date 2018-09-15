@@ -1,29 +1,23 @@
-package itemDesign;
-import java.awt.Point;
+package Model;
 import java.util.ArrayList;
-import java.util.Map;
-
 
 public class Player {
 
-	private int healthPoints;
+	private boolean isDead;
+	private PlayerInventory inventory;
+	private Item heldItem;
 	private ArrayList<Potion> status;
 	private String direction;
-	private PlayerInventory inventory;
 	
 	public Player() {
-		this.healthPoints = 100;
-		this.status = new ArrayList<Potion>();
-		this.direction = "Right";
 		this.inventory = new PlayerInventory();
+		this.isDead = false;
+		this.heldItem = null;
+		this.status = new ArrayList<Potion>();
+		this.direction = null;
 	}
-	
-	/*
-	 * generalised pickup function for potion and weapons
-	 * add potion status to player
-	 * weapon checks for arrow to stack or replaces weapon held
-	 * @TODO: Think of how we are implementing Treasure
-	 */
+	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
+	//Coupled with a move method?
 	public void pickup(Item i) {
 		if (i.isPotion()) {
 			this.addStatus((Potion) i);
@@ -31,12 +25,35 @@ public class Player {
 			inventory.storeItem(i);
 		}
 	}
-	
-	/*
-	 * add potion effect to player
-	 * if under the effect, refresh timer/moves
-	 * @TODO: is arraylist the best option?
-	 */
+	public void selectItem(int index) {
+		this.heldItem = inventory.getItem(index);
+	}
+	public Item getHeld() {
+		return this.heldItem;
+	}
+	//Passes into use() if meleeWeapon equipped else player dies
+	public void fight(Dungeon map) {
+		if (this.heldItem != null && this.heldItem.isMeleeWeapon()) {
+			this.useItem(map);
+		} else if (this.isInvinc()) {
+			map.removeAgent(map.getPlayerPos());
+		} else {
+			this.isDead = true;
+		}
+	}
+	//Maybe pass in player itself as an argument to use, who is using it and where they are using it
+	//Consider usage for:
+	//Potion - Require player 
+	//MeleeWeapons - Should be fine, when we move and have equipped sword (how do we know eqipped?)
+	//RangedWeapons - Should be fine as above
+	//Bomb - Fine, dungeon square works
+	//Key - Find, move onto door, opens door no problem
+	public void useItem(Dungeon map) {
+		heldItem.use(map);
+	}
+	public boolean deathStatus() {
+		return this.isDead;
+	}
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
 			if (a.equals(p)) {
@@ -47,19 +64,9 @@ public class Player {
 		}
 		this.status.add(p);
 	}
-	
-	public int getHealth() {
-		return this.healthPoints;
-	}
-	
 	public String getDirection() {
 		return this.direction;
 	}
-	
-	public ArrayList<Potion> getStatus() {
-		return this.status;
-	}
-	
 	public boolean isInvinc() {
 		for (Potion p: this.status) {
 			if (p.isInvinc()) {
@@ -77,33 +84,20 @@ public class Player {
 		}
 		return false;
 	}
-
-	/*
-	 * Check for invincibility
-	 * Reduce hitpoints, check and process death.
-	 * @TODO: Is checking status better or is invincibility influencing HP better?
-	 */
-	public void takeDamage(int damage) {
-		if (this.isInvinc()) {
-			return;
-		}
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Player has died");
-		}
+	public ArrayList<Potion> getStatus() {
+		return this.status;
 	}
-	
-	public void use(Dungeon dungeon) {
-		Item equipped = this.inventory.getItem();
-		equipped.use(dungeon);
-	}
-	
-	public Item getEquipped() {
-		return this.inventory.getItem();
-	}
-	
 	public PlayerInventory getInventory() {
 		return this.inventory;
 	}
-	
 }
+
+	
+
+
+
+
+	
+
+
+
