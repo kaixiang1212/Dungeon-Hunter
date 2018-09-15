@@ -1,23 +1,14 @@
-package itemDesign;
-
+package Model;
 
 public class Sword extends MeleeWeapon {
 
 	public Sword() {
-		super(false, 100, 5);
+		super(5);
 	}
-	
-	public boolean equals(Object o) {
-		if(o instanceof Sword) {
-			Sword a = (Sword) o;
-			if(a.getDamage() == this.damage) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
+
+	@Override
+	public boolean isStackable() {
 		return false;
 	}
-	
 }
+

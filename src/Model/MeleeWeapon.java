@@ -25,6 +25,7 @@ public abstract class MeleeWeapon extends Item {
 	    this.numUses--;
 	    if (this.numUses == 0) {
 	    	player.getInventory().removeItem(this);
+	    	player.removeHeld();
 	    }
 	}
 	

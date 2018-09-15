@@ -14,7 +14,7 @@ public class Player {
 		this.isDead = false;
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
-		this.direction = null;
+		this.direction = "Right";
 	}
 	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
 	//Coupled with a move method?
@@ -30,6 +30,9 @@ public class Player {
 	}
 	public Item getHeld() {
 		return this.heldItem;
+	}
+	public void removeHeld() {
+		this.heldItem = null;
 	}
 	//Passes into use() if meleeWeapon equipped else player dies
 	public void fight(Dungeon map) {
