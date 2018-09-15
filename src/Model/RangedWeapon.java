@@ -18,8 +18,37 @@ public abstract class RangedWeapon extends Item {
 		    Point location = map.getPlayerPos();
 			if (player.getDirection().equals("Right")) {
 				for (double newX = location.getX() + 1; newX < map.getTileGrid().size(); newX++) {
-					System.out.println(newX);
 					location.setLocation(newX, location.getY());
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Left")) {
+				for (double newX = location.getX() - 1; newX < map.getTileGrid().size(); newX++) {
+					location.setLocation(newX, location.getY());
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Up")) {
+				for (double newY = location.getY() + 1; newY < map.getTileGrid().size(); newY++) {
+					location.setLocation(location.getX(), newY);
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Down")) {
+				for (double newY = location.getY() - 1; newY < map.getTileGrid().size(); newY++) {
+					location.setLocation(location.getX(), newY);
 					if (!map.isValidMove(location)) {
 						return;
 					} else if (map.isAgentExist(location)) {
