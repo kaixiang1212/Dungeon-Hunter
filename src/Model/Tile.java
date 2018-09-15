@@ -11,7 +11,8 @@ public class Tile {
         CLOSED_DOOR,
         OPEN_DOOR,
         SWITCH,
-        PIT
+        PIT,
+        DEFAULT
     }
 
     private TileType type;

@@ -83,6 +83,12 @@ public class Dungeon {
                 ret.put(new Point(i, j), new Tile(Tile.TileType.INVINCIBLE_WALL));
             }
         }
+        //Set rest of tiles to default tiles that allow for free movement
+        for(int i = 1; i <= size; i++) {
+        	for(int j = 1; j <= size; j++) {
+        		ret.put(new Point(i,j), new Tile(Tile.TileType.DEFAULT));
+        	}
+        }
 
         return ret;
     }
@@ -139,10 +145,15 @@ public class Dungeon {
             aY > bot || aY < top) {
             throw new IllegalArgumentException("Placement out of bounds");
         }
-
+        //If no tile
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
+        }
+        //If tile already exists, simply switch type!
+        if(tileGrid.get(myPoint) != null) {
+        	tileGrid.get(myPoint).setType(tileType);
+        	return true;
         }
 
         return false;
