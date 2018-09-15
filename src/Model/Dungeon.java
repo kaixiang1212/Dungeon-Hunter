@@ -242,6 +242,9 @@ public class Dungeon {
     	return this.playerPosition;
     }
     
+    public void removeAgent(Point p) {
+    	this.agentGrid.remove(p);
+    }
     
     /**
      * Checks if tile to be moved on is valid to move on.
