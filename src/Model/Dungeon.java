@@ -199,28 +199,28 @@ public class Dungeon {
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
-    				this.player.setDirection("left");
+    				this.player.setDirection("Left");
     			}
     			break;
     		case 's':
-    			Point down = new Point(x, y-1);
+    			Point down = new Point(x, y+1);
     			if (isValidMove(down)) {
     				this.playerPosition = down;
-    				this.player.setDirection("down");
+    				this.player.setDirection("Down");
     			}
     			break;
     		case 'd':
     			Point right = new Point(x+1, y);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
-    				this.player.setDirection("right");
+    				this.player.setDirection("Right");
     			}
     			break;
     		case 'w':
-    			Point up = new Point(x, y+1);
+    			Point up = new Point(x, y-1);
     			if (isValidMove(up)) {
     				this.playerPosition = up;
-    				this.player.setDirection("up");
+    				this.player.setDirection("Up");
     			}
     			break;
     	}
