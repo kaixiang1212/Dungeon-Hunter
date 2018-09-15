@@ -7,19 +7,20 @@ import java.awt.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import itemDesign.Arrow;
-import itemDesign.ComputerAgent;
-import itemDesign.Dungeon;
-import itemDesign.Fist;
-import itemDesign.Hover;
-import itemDesign.Hunter;
-import itemDesign.Invincibility;
-import itemDesign.MoveBehaviour;
-import itemDesign.Player;
-import itemDesign.Potion;
-import itemDesign.RangedWeapon;
-import itemDesign.Sword;
-import itemDesign.Treasure;
+import Model.Arrow;
+import Model.ComputerAgent;
+import Model.Dungeon;
+import Model.Hover;
+import Model.Hunter;
+import Model.Invincibility;
+import Model.MoveBehaviour;
+import Model.StandardChaseBehaviour;
+import Model.Strategist;
+import Model.Player;
+import Model.Potion;
+import Model.RangedWeapon;
+import Model.Sword;
+import Model.Treasure;
 
 public class testPickUp {
 	
@@ -46,25 +47,18 @@ public class testPickUp {
 	public void testInviPot() {
 		Player player = new Player();
 		Potion invi = new Invincibility();
-		assert(player.getHealth() == 100);
-		player.takeDamage(50);
-		assert(player.getHealth() == 50);
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(1,1);
+		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placePlayer(player, pPos);
+		assertFalse(player.deathStatus());
+		assertTrue(dungeon.isAgentExist(aPos));
 		player.pickup(invi);
-		player.takeDamage(100);
-		assert(player.getHealth() == 50);
-
-	}
-	
-	@Test
-	public void testInviPotAttack() {
-		Player player = new Player();
-		Potion invi = new Invincibility();
-		player.pickup(invi);
-		ComputerAgent ca = new Hunter();
-		assert(ca.getHealth() == 100);
-		ca.attack(player);
-		assert(ca.getHealth() <= 0);
-		assert(player.getHealth() == 100);
+		player.fight(dungeon);
+		assertFalse(player.deathStatus());
+		assertFalse(dungeon.isAgentExist(aPos));
 	}
 	
 	// Weapons
@@ -73,7 +67,8 @@ public class testPickUp {
 		Player player = new Player();
 		assert(player.getInventory().isEmpty());
 		player.pickup(new Sword());
-		assertTrue(player.getEquipped() instanceof Sword);
+		player.selectItem(0);
+		assertTrue(player.getHeld() instanceof Sword);
 	}
 	
 	@Test
@@ -81,58 +76,111 @@ public class testPickUp {
 		Player player = new Player();
 		assert(player.getInventory().isEmpty());
 		player.pickup(new Arrow());
-		assertTrue(player.getEquipped() instanceof Arrow);
-		assertTrue(((RangedWeapon) player.getEquipped()).getUses() == 1);
+		player.selectItem(0);
+		assertTrue(player.getHeld() instanceof Arrow);
+		assertTrue(player.getHeld().getQuantity() == 1);
 		player.pickup(new Arrow());
-		assertTrue(((RangedWeapon) player.getEquipped()).getUses() == 2);
+		assertTrue(player.getHeld().getQuantity() == 2);
 	}
 	
 	@Test
 	public void testMoveThroughInventory() {
 		Player player = new Player();
 		player.pickup(new Arrow());
-		assertTrue(player.getEquipped() instanceof Arrow);
+		player.selectItem(0);
+		assertTrue(player.getHeld() instanceof Arrow);
 		player.pickup(new Sword());
-		player.getInventory().moveThrough();
-		assertTrue(player.getEquipped() instanceof Sword);
+		player.selectItem(1);
+		assertTrue(player.getHeld() instanceof Sword);
 	}
 	
 	@Test
 	public void testSwordAttack() {
 		Player player = new Player();
-		ComputerAgent ca = new Hunter();
 		Dungeon dungeon = new Dungeon(3);
 		Point pPos = new Point(1,1);
-		Point aPos = new Point(2,1);
-		player.pickup(new Sword());
-		dungeon.placeComputerAgent(ca, aPos);
+		Point aPos = new Point(1,1);
 		dungeon.placePlayer(player, pPos);
-		assert(ca.getHealth() == 100);
-		assert(player.getHealth() == 100);
-		player.use(dungeon);
-		assert(ca.getHealth() <= 0);
-		assert(player.getHealth() == 100);
+		assertFalse(player.deathStatus());
+		player.pickup(new Sword());
+		player.selectItem(0);
+		for (int i = 0; i < 5; i++) {
+			ComputerAgent ca = new Strategist();
+			dungeon.placeComputerAgent(ca, aPos);
+			player.fight(dungeon);
+			assertFalse(player.deathStatus());
+			assertFalse(dungeon.isAgentExist(aPos));
+		}
+		ComputerAgent ca = new Strategist();
+		dungeon.placeComputerAgent(ca, aPos);
+		player.fight(dungeon);
+		assertTrue(player.deathStatus());
+		assertTrue(dungeon.isAgentExist(aPos));
 	}
 	
 	//Doesn't use arrow separate attack code
 	@Test
-	public void testArrowAttack() {
+	public void testArrowAttackRight() {
 		Player player = new Player();
-		ComputerAgent ca = new Hunter();
-		Dungeon dungeon = new Dungeon(4);
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
 		Point pPos = new Point(1,1);
-		Point aPos = new Point(3,1);
-		player.pickup(new Arrow());
-		dungeon.placeComputerAgent(ca, aPos);
+		Point aPos = new Point(2,1);
 		dungeon.placePlayer(player, pPos);
-		assert(ca.getHealth() == 100);
-		assert(player.getHealth() == 100);
-		player.use(dungeon);
-		System.out.println(ca.getHealth());
-		assert(ca.getHealth() <= 0);
-		assert(player.getHealth() == 100);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
 	}
 	
+	@Test
+	public void testArrowAttackLeft() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(2,1);
+		Point aPos = new Point(1,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Left");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testArrowAttackUp() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(1,2);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Up");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testArrowAttackDown() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,2);
+		Point aPos = new Point(1,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Down");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
 	
 		/*
 	 * @Test
