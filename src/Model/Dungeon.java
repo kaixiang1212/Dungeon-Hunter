@@ -14,15 +14,17 @@ public class Dungeon {
     private Point topLeft;
     private Point bottomRight;
 
+    private Map<Point, Item> itemGrid;
     private Map<Point, Tile> tileGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
-    //private Map<Point, Pickups> pickGrid;
+
 
     public Dungeon(int size) throws IllegalArgumentException{
     	playerPosition = null;
     	agentGrid = new HashMap<Point, ComputerAgent>();
+    	itemGrid = new HashMap<Point, Item>();
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -285,6 +287,30 @@ public class Dungeon {
     		return true;
     	}
     	return false;
+    }
+    
+    /**
+     * Place item on specified point. If item already on point, simply remove then place
+     * TODO: invalid coordinates, add exception for invalid item placement!
+     * @param i Item
+     * @param pos Position in Point form
+     */
+    public void placeItem(Item i, Point pos) {
+    	if(isItemExist(pos)) {
+    		removeItem(pos);
+    	}
+    	itemGrid.put(pos, i);
+    }
+    public boolean isItemExist(Point check) {
+    	if(itemGrid.containsKey(check)) {
+    		return true;
+    	}
+    	return false;
+    }
+    public void removeItem(Point pos) {
+    	if(isItemExist(pos)) {
+    		itemGrid.remove(pos);
+    	}
     }
 }
 
