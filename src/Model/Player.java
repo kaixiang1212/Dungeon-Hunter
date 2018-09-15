@@ -74,6 +74,9 @@ public class Player {
 	public PlayerInventory getInventory() {
 		return this.inventory;
 	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
 }
 
 	

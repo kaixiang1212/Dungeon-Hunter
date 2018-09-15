@@ -186,9 +186,45 @@ public class Dungeon {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
     		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
+    			//TODO: use collision checker to simply remove dead things! alot easier
     			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
     		}
     	}
+    }
+    public void updatePlayer(char key) {
+    	int x = (int) this.playerPosition.getX();
+    	int y = (int) this.playerPosition.getY();
+    	switch (key) {
+    		case 'a':
+    			Point left = new Point(x-1, y);
+    			if (isValidMove(left)) {
+    				this.playerPosition = left;
+    				this.player.setDirection("left");
+    			}
+    			break;
+    		case 's':
+    			Point down = new Point(x, y-1);
+    			if (isValidMove(down)) {
+    				this.playerPosition = down;
+    				this.player.setDirection("down");
+    			}
+    			break;
+    		case 'd':
+    			Point right = new Point(x+1, y);
+    			if (isValidMove(right)) {
+    				this.playerPosition = right;
+    				this.player.setDirection("right");
+    			}
+    			break;
+    		case 'w':
+    			Point up = new Point(x, y+1);
+    			if (isValidMove(up)) {
+    				this.playerPosition = up;
+    				this.player.setDirection("up");
+    			}
+    			break;
+    	}
+    	//TODO: some collision check function?		
     }
 
     public Point getPlayerPos() {
