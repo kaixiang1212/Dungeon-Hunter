@@ -21,7 +21,12 @@ public abstract class Item {
 	public void subQuantity() {
 		this.quantity--;
 	}
-	
+	public boolean isPotion() {
+		return this instanceof Potion;
+	}
+	public boolean isMeleeWeapon() {
+		return this instanceof MeleeWeapon;
+	}
 }
 
 

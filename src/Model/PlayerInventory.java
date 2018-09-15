@@ -31,6 +31,9 @@ public class PlayerInventory {
 	public Item getItem(int index) {
 		return items.get(index);
 	}
+	public void removeItem(Item i) {
+		this.items.remove(i);
+	}
 	public boolean isEmpty() {
 		if (this.items.isEmpty()) {
 			return true;

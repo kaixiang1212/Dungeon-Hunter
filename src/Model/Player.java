@@ -14,17 +14,36 @@ public class Player {
 		this.isDead = false;
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
-		this.direction = null;
+		this.direction = "Right";
 	}
 	//How do we make item disappear? are we allowed to pass dungeon in to make it disappear!
 	//Coupled with a move method?
 	public void pickup(Item i) {
-		inventory.storeItem(i);
+		if (i.isPotion()) {
+			this.addStatus((Potion) i);
+		} else {
+			inventory.storeItem(i);
+		}
 	}
 	public void selectItem(int index) {
 		this.heldItem = inventory.getItem(index);
 	}
-	
+	public Item getHeld() {
+		return this.heldItem;
+	}
+	public void removeHeld() {
+		this.heldItem = null;
+	}
+	//Passes into use() if meleeWeapon equipped else player dies
+	public void fight(Dungeon map) {
+		if (this.heldItem != null && this.heldItem.isMeleeWeapon()) {
+			this.useItem(map);
+		} else if (this.isInvinc()) {
+			map.removeAgent(map.getPlayerPos());
+		} else {
+			this.isDead = true;
+		}
+	}
 	//Maybe pass in player itself as an argument to use, who is using it and where they are using it
 	//Consider usage for:
 	//Potion - Require player 

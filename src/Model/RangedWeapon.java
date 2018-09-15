@@ -11,26 +11,56 @@ public abstract class RangedWeapon extends Item {
 	
 	//TODO: Rethink the below, try use map API methods to achieve without needing
 	//to know the implementation of the hashmaps
-	public void use(Dungeon dungeon) {
+	public void use(Dungeon map) {
 		if (this.getQuantity() > 0) {
 			this.subQuantity();
-			Point shot = dungeon.getPlayerPos();
-			Map<Point, ComputerAgent> agentMap = dungeon.getAgentGrid();
-			Map<Point, Tile> tileMap = dungeon.getTileGrid();
-			String direction = dungeon.getPlayer().getDirection();
-			if (direction.equals("Right")) {
-				for (double newX = shot.getX() + 1; newX < agentMap.size(); newX++) {
-					System.out.println(newX);
-					shot.setLocation(newX, shot.getY());
-					if (tileMap.get(shot) instanceof Tile) {
+			Player player = map.getPlayer();
+		    Point location = map.getPlayerPos();
+			if (player.getDirection().equals("Right")) {
+				for (double newX = location.getX() + 1; newX < map.getTileGrid().size(); newX++) {
+					location.setLocation(newX, location.getY());
+					if (!map.isValidMove(location)) {
 						return;
-					} else if (agentMap.get(shot) instanceof ComputerAgent) {
-						//agentMap.get(shot).takeDamage(this.damage);
-						//TODO: implement no healthpoint fighting, you
-						//can modify takeDamage to make it more basic
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Left")) {
+				for (double newX = location.getX() - 1; newX < map.getTileGrid().size(); newX++) {
+					location.setLocation(newX, location.getY());
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Up")) {
+				for (double newY = location.getY() + 1; newY < map.getTileGrid().size(); newY++) {
+					location.setLocation(location.getX(), newY);
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
+					}
+				}
+			} else if (player.getDirection().equals("Down")) {
+				for (double newY = location.getY() - 1; newY < map.getTileGrid().size(); newY++) {
+					location.setLocation(location.getX(), newY);
+					if (!map.isValidMove(location)) {
+						return;
+					} else if (map.isAgentExist(location)) {
+						map.removeAgent(location);
+						break;
 					}
 				}
 			}
+			if (this.getQuantity() == 0) {
+		    	player.getInventory().removeItem(this);
+		    	player.removeHeld();
+		    }
 		}
 	}
 
