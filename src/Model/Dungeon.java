@@ -250,6 +250,7 @@ public class Dungeon {
     			return false;
     		case PIT:
     			return false;
+    		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
     		case DESTRUCTABLE_WALL:
     			return false;
     		}
