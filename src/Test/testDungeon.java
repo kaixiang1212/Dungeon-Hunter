@@ -1,6 +1,8 @@
 package Test;
 
-import org.junit.jupiter.api.Test;
+import Model.Tile;
+import org.junit.Assert;
+import org.junit.Test;
 
 import Model.Dungeon;
 import Model.Tile.TileType;
@@ -10,7 +12,7 @@ import java.awt.Point;
 public class testDungeon {
 
     @Test
-    void newDungeonHasDoubleInvulnWalls () {
+    public void newDungeonHasDoubleInvulnWalls () {
         // Setup
         int[] sizes = {1, 5, 20};
         Dungeon testDun;
@@ -26,9 +28,9 @@ public class testDungeon {
 
                     if (row < 1 || row > size ||
                             col < 1 || col > size) {
-                        assert (testDun.pointTileType(myPoint) == TileType.INVINCIBLE_WALL);
+                        Assert.assertEquals (testDun.pointTileType(myPoint), TileType.INVINCIBLE_WALL);
                     } else {
-                        assert (testDun.pointTileType(myPoint) == null);
+                        Assert.assertEquals(testDun.pointTileType(myPoint), TileType.DEFAULT);
                     }
 
                     count++;
@@ -40,23 +42,23 @@ public class testDungeon {
              * We want to make sure we checked the square area, including double layer wall, and that the tile
              * grid size matches the number of tiles taken up by the double-layer wall.
              */
-            assert (count == (size + 4) * (size + 4));
-            assert (testDun.getTileGrid().size() == (8*size + 16));
+            Assert.assertEquals (count, (size + 4) * (size + 4));
+            Assert.assertEquals (testDun.getTileGrid().size(), count);
             /**
              * Make sure that the corners make sense. Tells us top-left, bottom right of screen is set correct
              *
              */
             myPoint.setLocation(0, 0);
-            assert (myPoint.equals(testDun.getTopLeft()));
+            Assert.assertTrue(myPoint.equals(testDun.getTopLeft()));
 
             myPoint.setLocation(size+1, size+1);
-            assert (myPoint.equals(testDun.getBottomRight()));
+            Assert.assertTrue(myPoint.equals(testDun.getBottomRight()));
 
         }
     }
 
     @Test
-    void newDungeonSizeLimits0To20() {
+    public void newDungeonSizeLimits0To20() {
         Dungeon testDun;
 
         // Boundary case, min size 1, should throw illegal arg exception
@@ -65,10 +67,10 @@ public class testDungeon {
             assert (false);
         } catch (IllegalArgumentException e) {
             // This block is good
-            assert(e.getMessage().contains("1-20"));
-            assert(e.getMessage().contains(Integer.toString(0)));
+            Assert.assertTrue(e.getMessage().contains("1-20"));
+            Assert.assertTrue(e.getMessage().contains(Integer.toString(0)));
         } catch (Exception e) {
-            assert (false);
+            Assert.assertTrue(false);
         }
 
         // Boundary case, max size 20, should throw illegal arg exception
@@ -77,8 +79,8 @@ public class testDungeon {
             assert (false);
         } catch (IllegalArgumentException e) {
             // this block is good
-            assert(e.getMessage().contains("1-20"));
-            assert(e.getMessage().contains(Integer.toString(0)));
+            Assert.assertTrue(e.getMessage().contains("1-20"));
+            Assert.assertTrue(e.getMessage().contains(Integer.toString(0)));
         } catch (Exception e) {
             assert (false);
         }
@@ -87,7 +89,7 @@ public class testDungeon {
         try {
             testDun = null;
             testDun = new Dungeon(1);
-            assert (testDun != null);
+            Assert.assertNotNull(testDun);
         } catch (IllegalArgumentException e) {
             assert (false);
         } catch (Exception e) {
@@ -98,7 +100,7 @@ public class testDungeon {
         try {
             testDun = null;
             testDun = new Dungeon(20);
-            assert (testDun != null);
+            Assert.assertNotNull(testDun);
         } catch (IllegalArgumentException e) {
             assert (false);
         } catch (Exception e) {
@@ -107,54 +109,50 @@ public class testDungeon {
     }
 
     @Test
-    void PlaceTileOnEmptyLocation() {
+    public void PlaceTileOnEmptyLocation() {
         Dungeon testDun = new Dungeon(4);
         Point myPoint = new Point(1, 1);
         int startSize = testDun.getTileGrid().size();
 
-        // Ensure Tile is default
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.DEFAULT);
+
+        // Ensure Tile is empty
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Tile.TileType.DEFAULT);
 
         // Cannot place Invincible Wall
-        assert(testDun.placeTile(TileType.INVINCIBLE_WALL, myPoint) == false);
+        Assert.assertFalse(testDun.placeTile(TileType.INVINCIBLE_WALL, myPoint));
 
         // Can place SWITCH
-        assert(testDun.placeTile(TileType.SWITCH, myPoint) == true);
-        assert(testDun.getTileGrid().containsKey(myPoint) == true);
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.SWITCH);
-        assert(testDun.getTileGrid().size() == startSize + 1);
+        Assert.assertTrue(testDun.placeTile(TileType.SWITCH, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.SWITCH);
+        Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 2);
-        assert(testDun.getTileGrid().containsKey(myPoint) == false);
-        assert(testDun.placeTile(TileType.OPEN_DOOR, myPoint) == true);
-        assert(testDun.getTileGrid().containsKey(myPoint) == true);
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.OPEN_DOOR);
-        assert(testDun.getTileGrid().size() == startSize + 2);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(TileType.OPEN_DOOR, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.OPEN_DOOR);
+        Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 3);
-        assert(testDun.getTileGrid().containsKey(myPoint) == false);
-        assert(testDun.placeTile(TileType.CLOSED_DOOR, myPoint) == true);
-        assert(testDun.getTileGrid().containsKey(myPoint) == true);
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.CLOSED_DOOR);
-        assert(testDun.getTileGrid().size() == startSize + 3);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(TileType.CLOSED_DOOR, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.CLOSED_DOOR);
+        Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 4);
-        assert(testDun.getTileGrid().containsKey(myPoint) == false);
-        assert(testDun.placeTile(TileType.PIT, myPoint) == true);
-        assert(testDun.getTileGrid().containsKey(myPoint) == true);
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.PIT);
-        assert(testDun.getTileGrid().size() == startSize + 4);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(TileType.PIT, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.PIT);
+        Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(2, 1);
-        assert(testDun.getTileGrid().containsKey(myPoint) == false);
-        assert(testDun.placeTile(TileType.EXIT, myPoint) == true);
-        assert(testDun.getTileGrid().containsKey(myPoint) == true);
-        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.EXIT);
-        assert(testDun.getTileGrid().size() == startSize + 5);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(TileType.EXIT, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.EXIT);
+        Assert.assertEquals(testDun.getTileGrid().size(), startSize);
     }
 
     @Test
-    void CannotPlaceOutsideGridDimensions() {
+    public void CannotPlaceOutsideGridDimensions() {
 
         int[] sizes = {1, 5, 10, 20};
         Dungeon testDun;
@@ -180,7 +178,7 @@ public class testDungeon {
                     assert (false);
                 } catch (IllegalArgumentException e) {
                     //System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
-                    assert (e.getMessage().contains("of bounds"));
+                    Assert.assertTrue(e.getMessage().contains("of bounds"));
                 } catch (Exception e) {
                     assert (false);
                 }
@@ -193,7 +191,7 @@ public class testDungeon {
                     assert (false);
                 } catch (IllegalArgumentException e) {
                     //System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
-                    assert (e.getMessage().contains("of bounds"));
+                    Assert.assertTrue(e.getMessage().contains("of bounds"));
                 } catch (Exception e) {
                     assert (false);
                 }
@@ -207,7 +205,7 @@ public class testDungeon {
                     assert (false);
                 } catch (IllegalArgumentException e) {
                     //System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
-                    assert (e.getMessage().contains("of bounds"));
+                    Assert.assertTrue(e.getMessage().contains("of bounds"));
                 } catch (Exception e) {
                     assert (false);
                 }
@@ -220,14 +218,14 @@ public class testDungeon {
                     assert (false);
                 } catch (IllegalArgumentException e) {
                     //System.out.format("Good catch! x: %d y: %d\n", myPoint.x, myPoint.y);
-                    assert (e.getMessage().contains("of bounds"));
+                    Assert.assertTrue(e.getMessage().contains("of bounds"));
                 } catch (Exception e) {
                     assert (false);
                 }
                 count++;
             }
             //System.out.format("count: %d\n", count);
-            assert (count == (size + 3) * 4);
+            Assert.assertEquals(count, (size + 3) * 4);
         }
 
 
