@@ -9,6 +9,7 @@ import java.awt.Point;
 import org.junit.Test;
 
 import Model.Arrow;
+import Model.Bomb;
 import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Hover;
@@ -187,5 +188,21 @@ public class testItemInteract {
 		assertFalse(dungeon.isAgentExist(brPos));
 		assertTrue(dungeon.isAgentExist(outPos));
 		assertTrue(player.deathStatus());
+	}
+	
+	@Test
+	public void testUseBomb() {
+		Dungeon dungeon = new Dungeon(4);
+		Player player = new Player();
+		Point bPos = new Point(2,2);
+		Bomb bomb = new Bomb();
+		player.pickup(bomb);
+		player.pickup(bomb);
+		player.selectItem(0);
+		assertTrue(player.getHeld().getQuantity() == 2);
+		dungeon.placePlayer(player, bPos);
+		player.useItem(dungeon);
+		assertTrue(player.getHeld().getQuantity() == 1);
+		assertTrue(dungeon.isItemExist(bPos));
 	}
 }

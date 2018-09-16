@@ -232,6 +232,10 @@ public class testPickUp {
 		assertFalse(dungeon.isItemExist(iPoint));
 		player.selectItem(0);
 		assert(player.getHeld() instanceof Bomb);
+		assertTrue(player.getHeld().getQuantity() == 1);
+		dungeon.placeItem(bomb, point);
+		dungeon.updatePlayer("a");
+		assertTrue(player.getHeld().getQuantity() == 2);
 	}
 	
 	@Test
