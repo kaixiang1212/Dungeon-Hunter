@@ -324,7 +324,8 @@ public class Dungeon {
     	if (!isValidMoveArrow(check)) {
     		return false;
     	}
-    	if(tileGrid.get(check).getType() == TileType.PIT && !agentGrid.get(check).isMoveable()) {
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(tileGrid.get(check).getType() == TileType.PIT && temp != null && !temp.isMoveable()) {
     		return false;
     	}
     	return true;
