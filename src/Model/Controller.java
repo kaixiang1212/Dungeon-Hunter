@@ -32,6 +32,7 @@ public class Controller {
 		d.placePlayer(player, new Point(1,1));
 		ComputerAgent hunter = new Hunter();
 		d.placeComputerAgent(hunter, new Point(5,5));
+		d.placeItem(new Treasure(), new Point(2,1));
 		return d;
 		
 	}

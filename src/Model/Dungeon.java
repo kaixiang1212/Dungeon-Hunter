@@ -199,7 +199,7 @@ public class Dungeon {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
     		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		
+    		triggerAgentAction(updatePos);
     	}
     }
     public void updatePlayer(String key) {
@@ -235,8 +235,7 @@ public class Dungeon {
     			}
     			break;
     	}
-    	triggerPlayerAction(playerPosition);
-    	//TODO: some collision check function?		
+    	triggerPlayerAction(playerPosition);	
     }
 
     public Point getPlayerPos() {
@@ -314,9 +313,11 @@ public class Dungeon {
     
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
-     	// The next Grid is Enemy
-
-    	
+     	// Grid is a PIT
+    	if(tileGrid.get(point).getType() == TileType.PIT) {
+    		this.player.die();
+    	}
+    	// Grid holds an Agent
 		if (agentGrid.get(point) != null) {
     		// fight
 			this.player.fight(this);
@@ -329,6 +330,7 @@ public class Dungeon {
     	}*/
 
      	// TODO boulder
+		//Grid is a EXIT
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
     	}
@@ -337,6 +339,8 @@ public class Dungeon {
     	if (itemGrid.get(point) != null) {
     		this.player.pickup(itemGrid.get(point));
     	}
+    	
+
     }
     private void triggerAgentAction(Point point) {
     	

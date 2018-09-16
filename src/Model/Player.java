@@ -23,6 +23,7 @@ public class Player {
 			this.addStatus((Potion) i);
 		} else {
 			inventory.storeItem(i);
+			System.out.println("An item has been stored!");
 		}
 	}
 	public void selectItem(int index) {
@@ -56,6 +57,9 @@ public class Player {
 	}
 	public boolean deathStatus() {
 		return this.isDead;
+	}
+	public void die() {
+		this.isDead = true;
 	}
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
