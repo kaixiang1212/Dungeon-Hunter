@@ -15,6 +15,7 @@ public class Dungeon {
     private Point bottomRight;
 
     private Map<Point, Tile> tileGrid;
+    private Map<Point, Item> itemGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
@@ -190,6 +191,42 @@ public class Dungeon {
     		}
     	}
     }
+    
+    public void updatePlayer(char key) {
+    	int x = (int) this.playerPosition.getX();
+    	int y = (int) this.playerPosition.getY();
+    	switch (key) {
+    		case 'a':
+    			Point left = new Point(x-1, y);
+    			if (isValidMove(left)) {
+    				this.playerPosition = left;
+    				this.player.setDirection("left");
+    			}
+    			break;
+    		case 's':
+    			Point down = new Point(x, y-1);
+    			if (isValidMove(down)) {
+    				this.playerPosition = down;
+    				this.player.setDirection("down");
+    			}
+    			break;
+    		case 'd':
+    			Point right = new Point(x+1, y);
+    			if (isValidMove(right)) {
+    				this.playerPosition = right;
+    				this.player.setDirection("right");
+    			}
+    			break;
+    		case 'w':
+    			Point up = new Point(x, y+1);
+    			if (isValidMove(up)) {
+    				this.playerPosition = up;
+    				this.player.setDirection("up");
+    			}
+    			break;
+    	}
+    	//TODO: some collision check function?		
+    }
 
     public Point getPlayerPos() {
     	return this.playerPosition;
@@ -224,6 +261,23 @@ public class Dungeon {
     	}
     	return true;
     }
+    
+    public boolean isValidMoveArrow(Point check) {
+    	if (check == null) return false;
+    	Tile tileA = tileGrid.get(check);
+    	if (tileA != null) {
+    		TileType type = tileA.getType();
+    		switch (type) {
+    		case INVINCIBLE_WALL:
+    			return false;
+    		case CLOSED_DOOR:
+    			return false;
+    		case DESTRUCTABLE_WALL:
+    			return false;
+    		}
+    	}
+    	return true;
+    }
     /**
      * Typically called after isValidMove(Point) to further verify for
      * agents, so agents do not overlap
@@ -239,5 +293,30 @@ public class Dungeon {
     	}
     	return false;
     }
+    
+    /**
+     * Place item on specified point. If item already on point, simply remove then place
+     * TODO: invalid coordinates, add exception for invalid item placement!
+     * @param i Item
+     * @param pos Position in Point form
+     */
+    public void placeItem(Item i, Point pos) {
+    	if(isItemExist(pos)) {
+    		removeItem(pos);
+    	}
+    	itemGrid.put(pos, i);
+    }
+    public boolean isItemExist(Point check) {
+    	if(itemGrid.containsKey(check)) {
+    		return true;
+    	}
+    	return false;
+    }
+    public void removeItem(Point pos) {
+    	if(isItemExist(pos)) {
+    		itemGrid.remove(pos);
+    	}
+    }
+
 }
 
