@@ -1,9 +1,11 @@
 package Test;
 
 
+
 import Model.Tile;
 import org.junit.Assert;
 import org.junit.Test;
+
 
 public class testTile {
 
@@ -19,6 +21,7 @@ public class testTile {
         Assert.assertEquals(test1.getType(), Tile.TileType.OPEN_DOOR);
         test1 = new Tile(Tile.TileType.CLOSED_DOOR);
         Assert.assertEquals(test1.getType(), Tile.TileType.CLOSED_DOOR);
+
     }
 
     @Test

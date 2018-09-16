@@ -199,35 +199,35 @@ public class Dungeon {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
     		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		
+    		triggerAgentAction(updatePos);
     	}
     }
-    public void updatePlayer(char key) {
+    public void updatePlayer(String key) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
     	switch (key) {
-    		case 'a':
+    		case "a":
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
     				this.player.setDirection("Left");
-    			}
+    			}			
     			break;
-    		case 's':
+    		case "s":
     			Point down = new Point(x, y+1);
     			if (isValidMove(down)) {
     				this.playerPosition = down;
     				this.player.setDirection("Down");
     			}
     			break;
-    		case 'd':
+    		case "d":
     			Point right = new Point(x+1, y);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
     				this.player.setDirection("Right");
     			}
     			break;
-    		case 'w':
+    		case "w":
     			Point up = new Point(x, y-1);
     			if (isValidMove(up)) {
     				this.playerPosition = up;
@@ -235,7 +235,7 @@ public class Dungeon {
     			}
     			break;
     	}
-    	//TODO: some collision check function?		
+    	triggerPlayerAction(playerPosition);	
     }
 
     public Point getPlayerPos() {
@@ -271,6 +271,25 @@ public class Dungeon {
     	}
     	return true;
     }
+  
+    public boolean isValidMoveArrow(Point check) {
+    	//Checks cases for types of tiles that can't be moved on
+    	if (check == null) return false;
+    	Tile tileA = tileGrid.get(check);
+    	if (tileA != null) {
+    		TileType type = tileA.getType();
+    		switch (type) {
+    		case INVINCIBLE_WALL:
+    			return false;
+    		case CLOSED_DOOR:
+    			return false;
+    		case DESTRUCTABLE_WALL:
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+  
     /**
      * Typically called after isValidMove(Point) to further verify for
      * agents, so agents do not overlap
@@ -313,7 +332,11 @@ public class Dungeon {
     
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
-     	// The next Grid is Enemy
+     	// Grid is a PIT
+    	if(tileGrid.get(point).getType() == TileType.PIT) {
+    		this.player.die();
+    	}
+    	// Grid holds an Agent
 		if (agentGrid.get(point) != null) {
     		// fight
 			this.player.fight(this);
@@ -324,7 +347,9 @@ public class Dungeon {
     		Door door = (Door )tileGrid.get(point);
     		door.unlockDoor(player.getKeys());
     	}*/
+
      	// TODO boulder
+		//Grid is a EXIT
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
     	}
@@ -332,6 +357,14 @@ public class Dungeon {
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
     		this.player.pickup(itemGrid.get(point));
+    	}
+    	
+
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
     	}
     }
 	
