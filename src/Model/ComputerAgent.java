@@ -12,8 +12,8 @@ import java.awt.Point;
 public abstract class ComputerAgent {
 
 	/**
-	 * @param moveBehaviour strategy which defines how computeragents traverse the map
-	 * @param pos current position in Point form within Dungeon
+	 * moveBehaviour strategy which defines how computeragents traverse the map
+	 * @pos current position in Point form within Dungeon
 	 */
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
