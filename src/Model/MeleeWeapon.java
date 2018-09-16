@@ -3,6 +3,9 @@ package Model;
 import java.awt.Point;
 import java.util.Map;
 
+/*
+ * Abstract class which contains use method for all melee weapons
+ */
 public abstract class MeleeWeapon extends Item {
 
 	int numUses;
@@ -12,10 +15,18 @@ public abstract class MeleeWeapon extends Item {
 		this.numUses = numUses;
 	}
 
+	/*
+	 * returns number of uses weapon has left
+	 * @return numUses
+	 */
 	public int getnumUses() {
 		return this.numUses;
 	}
-	//Rethink the below code: Do you really need to grab the grid?
+	
+	/*
+	 * Removes enemy that is on the same point player is, reduces number of uses, if uses is zero then it is removed form inventory
+	 * @param map, Dungeon that holds all entities
+	 */
 	public void use(Dungeon map) {
 	    Player player = map.getPlayer();
 	    Point playerPos = map.getPlayerPos();
@@ -27,6 +38,10 @@ public abstract class MeleeWeapon extends Item {
 	    }
 	}
 	
+	/*
+	 * Determines if melee weapons can be stacked
+	 * @return false
+	 */
 	public boolean isStackable() {
 		return false;
 	}
