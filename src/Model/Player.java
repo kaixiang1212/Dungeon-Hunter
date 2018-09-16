@@ -54,7 +54,7 @@ public class Player {
 	//Bomb - Fine, dungeon square works
 	//Key - Find, move onto door, opens door no problem
 	public void useItem(Dungeon map) {
-		heldItem.use(map);
+			heldItem.use(map);
 	}
 	public boolean deathStatus() {
 		return this.isDead;
