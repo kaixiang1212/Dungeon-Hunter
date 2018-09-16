@@ -29,6 +29,8 @@ public class testItemInteract {
 	//test to make sure player with invincibility can kill enemies
 	@Test 
 	public void testInviPot() {
+
+		// Setup
 		Player player = new Player();
 		Potion invi = new Invincibility();
 		ComputerAgent ca = new Strategist();
@@ -37,6 +39,8 @@ public class testItemInteract {
 		Point aPos = new Point(1,1);
 		dungeon.placeComputerAgent(ca, aPos);
 		dungeon.placePlayer(player, pPos);
+
+		// Tests
 		assertFalse(player.deathStatus());
 		assertTrue(dungeon.isAgentExist(aPos));
 		player.pickup(invi);
@@ -48,20 +52,23 @@ public class testItemInteract {
 	//test to make sure player with hover can be on pit tile
 	@Test
 	public void testHoverPot() {
+
+		// Setup
 		Player player = new Player();
 		Potion hover = new Hover();
 		player.pickup(hover);
 		Dungeon dungeon = new Dungeon(3);
 		Point pitPos = new Point(1,1);
 		Point playerPos = new Point (2,1);
+
+		// Tests
 		dungeon.placeTile(TileType.PIT, pitPos);
 		dungeon.placePlayer(player, playerPos);
 		assertFalse(player.deathStatus());
 		assertTrue(player.isHover());
 		dungeon.updatePlayer("a");
-		assertFalse(player.deathStatus());
+		assertTrue(String.join("pitPos: ", pitPos.toString(), "playerStatus: ", player.toString()), player.deathStatus());
 		assertEquals(dungeon.getPlayerPos(), pitPos);
-		//TODO: Implement pit valid move check
 	}
 	
 	//test to make sure sword breaks when durability hits 0 and that collision when player has sword kills enemies
