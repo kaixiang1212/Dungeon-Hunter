@@ -253,29 +253,38 @@ public class Dungeon {
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
-    	if (check == null) return false;
-    	Tile tileA = tileGrid.get(check);
-    	if (tileA != null) {
-    		TileType type = tileA.getType();
-    		switch (type) {
-    		case INVINCIBLE_WALL:
-    			return false;
-    		case CLOSED_DOOR:
-    			return false;
-    		case PIT:
-    			if (this.player.isHover()) {
-    				return true;
-    			}
-    			return false;
-    		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
-    		case DESTRUCTABLE_WALL:
-    			return false;
-    		}
+    	if(!isValidMoveBasic(check)) {
+    		return false;
     	}
-    	return true;
+    	//Checks if movable agent, ie. boulder can't move depending on player push direction
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(temp.isMoveable()) {
+    		String dir = player.getDirection();
+    		int x = (int) check.getX();
+    		int y = (int) check.getY();
+    		switch(dir) {
+    			case "Left":
+    				if(!isValidMoveBasic(new Point(x-1, y))) {
+    					return false;
+    				}
+    			case "Right":
+    				if(!isValidMoveBasic(new Point(x+1, y))) {
+    					return false;
+    				}
+    			case "Up":
+    				if(!isValidMoveBasic(new Point(x, y-1))) {
+    					return false;
+    				}
+    			case "Down":
+    				if(!isValidMoveBasic(new Point(x, y+1))) {
+    					return false;
+    				}  			
+    		}
+    	}   	   	
+    	return true;  	
     }
   
-    public boolean isValidMoveArrow(Point check) {
+    public boolean isValidMoveBasic(Point check) {
     	//Checks cases for types of tiles that can't be moved on
     	if (check == null) return false;
     	Tile tileA = tileGrid.get(check);
@@ -342,9 +351,15 @@ public class Dungeon {
     		}
     	}
     	// Grid holds an Agent
-		if (agentGrid.get(point) != null) {
+    	ComputerAgent temp = agentGrid.get(point);
+		if (temp != null) {
+			if(temp.isMoveable()) {
+				((Boulder) temp).push(player.getDirection());
+			}
+			else {
     		// fight
-			this.player.fight(this);
+				this.player.fight(this);
+			}
     	}
 /*     	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {

@@ -28,7 +28,9 @@ public abstract class ComputerAgent {
 	public Point getPos() {
 		return this.pos;
 	}
-	
+	public boolean isMoveable() {
+		return this instanceof Boulder;
+	}
 }
 
 
