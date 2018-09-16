@@ -120,6 +120,39 @@ public class testPickUp {
 	}
 	
 	@Test
+	public void testOnlyHaveOneSword() {
+		Player player = new Player();
+		Sword sword = new Sword();
+		Sword sword2 = new Sword();
+		player.pickup(sword);
+		assertTrue(player.getInventory().getNumItems() == 1);
+		player.pickup(sword2);
+		assertTrue(player.getInventory().getNumItems() == 1);
+	}
+	
+	@Test
+	public void testOnlyHaveOneSwordChangingUses() {
+		Player player = new Player();
+		Sword sword = new Sword();
+		Sword sword2 = new Sword();
+		Dungeon dungeon = new Dungeon(3);
+		ComputerAgent ca = new Strategist();
+		Point point = new Point(1,1);
+		dungeon.placeComputerAgent(ca, point);
+		dungeon.placePlayer(player, point);
+		player.pickup(sword);
+		player.selectItem(0);
+		assertTrue(player.getInventory().getNumItems() == 1);
+		assertTrue(((Sword) player.getHeld()).getnumUses() == 5);
+		player.useItem(dungeon);
+		assertTrue(((Sword) player.getHeld()).getnumUses() == 4);
+		player.pickup(sword2);
+		player.selectItem(0);
+		assertTrue(player.getInventory().getNumItems() == 1);
+		assertTrue(((Sword) player.getHeld()).getnumUses() == 5);
+	}
+	
+	@Test
 	public void testPickUpSword() {
 		Player player = new Player();
 		Sword sword = new Sword();
@@ -236,6 +269,21 @@ public class testPickUp {
 		player.pickup(new Sword());
 		player.selectItem(1);
 		assertTrue(player.getHeld() instanceof Sword);
+	}
+	
+	@Test
+	public void testItemInMapInteractionWithEntity() {
+		Sword sword = new Sword();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point iPos = new Point(1,1);
+		assertFalse(dungeon.isItemExist(iPos));
+		assertFalse(dungeon.isAgentExist(iPos));
+		dungeon.placeItem(sword, iPos);
+		assertTrue(dungeon.isItemExist(iPos));
+		dungeon.placeComputerAgent(ca, iPos);
+		assertTrue(dungeon.isAgentExist(iPos));
+		assertTrue(dungeon.isItemExist(iPos));
 	}
 
 }
