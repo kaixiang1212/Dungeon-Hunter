@@ -19,6 +19,7 @@ public class Dungeon {
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
+    private int doorCode = -1;
 
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -111,7 +112,6 @@ public class Dungeon {
      * @param location
      * @return Tile.TileType
      */
-
     public Tile.TileType pointTileType(Point location) {
         Tile local = tileGrid.get(location);
         if (local == null) {
@@ -119,6 +119,10 @@ public class Dungeon {
         }
 
         return local.getType();
+    }
+    
+    public Tile getTile(Point point) {
+    	return tileGrid.get(point);
     }
 
     /**
@@ -162,7 +166,7 @@ public class Dungeon {
     	if (outOfBound(doorPoint) || outOfBound(keyPoint)) return false;
 
     	if (tileGrid.get(doorPoint).isType(TileType.DEFAULT)) {
-    		Door newDoor = new Door();
+    		Door newDoor = new Door(doorCode++);
     		tileGrid.put(doorPoint, newDoor);
     		// place key on map (Not yet implemented)
     		placeItem(newDoor.generateKey(), keyPoint);

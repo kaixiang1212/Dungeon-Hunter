@@ -2,13 +2,14 @@ package Model;
 
 import java.util.ArrayList;
 
+
 public class Door extends Tile {
 	
-	private int code = 0;
+	private int code;
 
-	public Door() {
+	public Door(int code) {
 		super(TileType.CLOSED_DOOR);
-		code++;
+		this.code = code;
 	}
 	
 	public Key generateKey() {
