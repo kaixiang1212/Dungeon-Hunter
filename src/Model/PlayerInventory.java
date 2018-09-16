@@ -43,6 +43,14 @@ public class PlayerInventory {
 		}
 		return false;
 	}
+	
+	public ArrayList<Key> getKeys(){
+		ArrayList<Key> keys = new ArrayList<>();
+		for (Item item : items) {
+			if (item instanceof Key) keys.add((Key )item);
+		}
+		return keys;
+    
 	public int getNumItems() {
 		return this.items.size();
 	}

@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Point;
-import java.util.Map;
 
 /*
  * Abstract class which contains use method for all melee weapons
