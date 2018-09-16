@@ -188,11 +188,15 @@ public class testItemInteract {
 		Point bPos = new Point(2,2);
 		LitBomb litBomb = new LitBomb(bPos);
 		Point tlPos = new Point(1,1);
+		Point trPos = new Point(3,1);
 		Point brPos = new Point(3,3);
+		Point blPos = new Point(1,3);
 		Point outPos = new Point(4,4);
 		ComputerAgent ca = new Strategist();
 		dungeon.placeComputerAgent(ca, tlPos);
 		dungeon.placeComputerAgent(ca, brPos);
+		dungeon.placeComputerAgent(ca, trPos);
+		dungeon.placeComputerAgent(ca, blPos);
 		dungeon.placeComputerAgent(ca, outPos);
 		dungeon.placePlayer(player, bPos);
 		litBomb.use(dungeon);
@@ -200,6 +204,8 @@ public class testItemInteract {
 		litBomb.use(dungeon);
 		assertFalse(dungeon.isAgentExist(tlPos));
 		assertFalse(dungeon.isAgentExist(brPos));
+		assertFalse(dungeon.isAgentExist(trPos));
+		assertFalse(dungeon.isAgentExist(blPos));
 		assertTrue(dungeon.isAgentExist(outPos));
 		assertTrue(player.deathStatus());
 	}
