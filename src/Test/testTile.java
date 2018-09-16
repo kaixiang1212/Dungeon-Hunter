@@ -1,7 +1,10 @@
-package Model;
+package Test;
 
 
 import org.junit.jupiter.api.Test;
+
+import Model.Tile;
+import Model.Tile.TileType;
 
 public class testTile {
 
