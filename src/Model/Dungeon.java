@@ -201,7 +201,7 @@ public class Dungeon {
     		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
     			//TODO: use collision checker to simply remove dead things! alot easier
     			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    			System.out.println("Enemy now at" + updatePos);
+    			triggerAgentAction(updatePos);
     		}
     	}
     }
@@ -238,11 +238,7 @@ public class Dungeon {
     			}
     			break;
     	}
-    	System.out.println("Player is now at" + playerPosition);
     	triggerPlayerAction(playerPosition);
-    	if(player.deathStatus() == true) {
-    		System.out.println("Player has died");
-    	}
     	//TODO: some collision check function?		
     }
 
@@ -322,12 +318,11 @@ public class Dungeon {
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
      	// The next Grid is Enemy
-    	System.out.println("Checking for player action" + point);
+
     	
 		if (agentGrid.get(point) != null) {
     		// fight
 			this.player.fight(this);
-			System.out.println("Fight commencing");
     	}
      	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
@@ -346,7 +341,7 @@ public class Dungeon {
     		this.player.pickup(itemGrid.get(point));
     	}
     }
-    private void triggerEnemyAction(Point point) {
+    private void triggerAgentAction(Point point) {
     	
     	if(playerPosition.equals(point)) {
     		player.fight(this);
