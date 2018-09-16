@@ -112,8 +112,8 @@ public class testDungeon {
         Point myPoint = new Point(1, 1);
         int startSize = testDun.getTileGrid().size();
 
-        // Ensure Tile is empty
-        assert(testDun.getTileGrid().containsKey(myPoint) == false);
+        // Ensure Tile is default
+        assert(testDun.getTileGrid().get(myPoint).getType() == TileType.DEFAULT);
 
         // Cannot place Invincible Wall
         assert(testDun.placeTile(TileType.INVINCIBLE_WALL, myPoint) == false);

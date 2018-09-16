@@ -188,7 +188,7 @@ public class Dungeon {
     }
 
     /**
-     * Utilises entrySet iterator
+     * Utilizes entrySet iterator
      * Iterates over agentGrid to move agents
      * Grabs new position
      * Deletes old entry in agent hashmap
@@ -198,11 +198,16 @@ public class Dungeon {
     	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
+<<<<<<< HEAD
     		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
     			//TODO: use collision checker to simply remove dead things! alot easier
     			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
     			triggerAgentAction(updatePos);
     		}
+=======
+    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		
+>>>>>>> master-fix
     	}
     }
     public void updatePlayer(String key) {
@@ -324,18 +329,18 @@ public class Dungeon {
     		// fight
 			this.player.fight(this);
     	}
-     	// The next Grid is Door
+/*     	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
     		// unlock door
-    		//Door door = (Door )tileGrid.get(point);
-    		//door.unlockDoor(player.getKeys());
-    	}
+    		Door door = (Door )tileGrid.get(point);
+    		door.unlockDoor(player.getKeys());
+    	}*/
+
      	// TODO boulder
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
     	}
-    	
-    	
+    	    	
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
     		this.player.pickup(itemGrid.get(point));

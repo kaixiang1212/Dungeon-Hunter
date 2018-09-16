@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Point;
-import java.util.Map;
 
 /**
  * ComputerAgent encompasses non-player entities within the dungeon
@@ -12,21 +11,15 @@ import java.util.Map;
  */
 public abstract class ComputerAgent {
 
-	private boolean isDead;
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
 
 	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
 		this.moveBehaviour = moveBehaviour;
-		this.isDead = false;
 	}
 
 	public Point move(Dungeon map) {
 		setPos(moveBehaviour.move(map, pos));
-		if(this.pos.equals(map.getPlayerPos())) {
-			//TODO: make player die :(
-			//this.attack(map.getPlayer());
-		}
 		return this.pos;
 	}
 	public void setPos(Point newPos) {
@@ -35,19 +28,7 @@ public abstract class ComputerAgent {
 	public Point getPos() {
 		return this.pos;
 	}
-	public boolean deathStatus() {
-		return this.isDead;
-	}
 	
-	public void attack(Player a) {
-		if (a.isInvinc()) {
-			//this.takeDamage(this.healthPoints);
-			//TODO: change to isDead
-		} else {
-			//a.takeDamage(100);
-			//TODO: kill player using isDead boolean rather
-		}
-	}
 }
 
 
