@@ -22,7 +22,7 @@ public class Player {
 	
 	/*
 	 * adds Potion effect to status, ignores LitBombs and adds other items to inventory
-	 * @param i
+	 * @param i, The item being picked up
 	 */
 	public void pickup(Item i) {
 		if (i.isPotion()) {
@@ -35,7 +35,7 @@ public class Player {
 	}
 	/*
 	 * select item in inventory and equip it
-	 * @param index
+	 * @param index, Inventory index to get the item
 	 */
 	public void selectItem(int index) {
 		this.heldItem = inventory.getItem(index);
@@ -55,7 +55,7 @@ public class Player {
 	}
 	/*
 	 * Checks if MeleeWeapon is equipped, then if player is invincible else the player dies
-	 * @param map
+	 * @param map, Dungeon object that holds all entities
 	 */
 	public void fight(Dungeon map) {
 		if (this.heldItem != null && this.heldItem.isMeleeWeapon()) {
@@ -68,21 +68,21 @@ public class Player {
 	}
 	/*
 	 * Calls the use function for equipped item
-	 * @param map
+	 * @param map, Dungeon object that holds all entities
 	 */
 	public void useItem(Dungeon map) {
 		heldItem.use(map);
 	}
 	/*
 	 * returns if player is dead or not
-	 * @return isDead
+	 * @return isDead, true or false
 	 */
 	public boolean deathStatus() {
 		return this.isDead;
 	}
 	/*
 	 * adds potion effect to player status list
-	 * @param p
+	 * @param p, Potion that is being added to status list
 	 */
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
@@ -96,7 +96,7 @@ public class Player {
 	}
 	/*
 	 * returns player's direction
-	 * @return direction
+	 * @return direction, can be right,left,up or down
 	 */
 	public String getDirection() {
 		return this.direction;
