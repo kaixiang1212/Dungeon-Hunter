@@ -222,6 +222,7 @@ public class Dungeon {
     			break;
     		case "d":
     			Point right = new Point(x+1, y);
+    			System.out.println(right);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
     				this.player.setDirection("Right");
@@ -247,18 +248,20 @@ public class Dungeon {
     }
     
     /**
-     * Checks if tile to be moved on is valid to move on.
+     * Checks if tile to be moved on is valid to move on by players.
      * @param check
      * @return
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
     	if(!isValidMoveBasic(check)) {
+
     		return false;
     	}
     	//Checks if movable agent, ie. boulder can't move depending on player push direction
     	ComputerAgent temp = agentGrid.get(check);
-    	if(temp.isMoveable()) {
+    	if(temp != null && temp.isMoveable()) {
+
     		String dir = player.getDirection();
     		int x = (int) check.getX();
     		int y = (int) check.getY();
@@ -267,28 +270,36 @@ public class Dungeon {
     				if(!isValidMoveBasic(new Point(x-1, y))) {
     					return false;
     				}
+    				break;
     			case "Right":
     				if(!isValidMoveBasic(new Point(x+1, y))) {
     					return false;
     				}
+    				break;
     			case "Up":
     				if(!isValidMoveBasic(new Point(x, y-1))) {
     					return false;
     				}
+    				break;
     			case "Down":
     				if(!isValidMoveBasic(new Point(x, y+1))) {
     					return false;
-    				}  			
+    				}
+    				break;
     		}
-    	}   	   	
+    	}
+
     	return true;  	
     }
   
     public boolean isValidMoveBasic(Point check) {
     	//Checks cases for types of tiles that can't be moved on
+
     	if (check == null) return false;
+
     	Tile tileA = tileGrid.get(check);
     	if (tileA != null) {
+
     		TileType type = tileA.getType();
     		switch (type) {
     		case INVINCIBLE_WALL:
@@ -354,7 +365,11 @@ public class Dungeon {
     	ComputerAgent temp = agentGrid.get(point);
 		if (temp != null) {
 			if(temp.isMoveable()) {
-				((Boulder) temp).push(player.getDirection());
+				Point newPos = ((Boulder) temp).push(player.getDirection());
+				agentGrid.remove(point);
+				if(tileGrid.get(newPos).getType() != TileType.PIT) {
+					agentGrid.put(newPos, temp);
+				}	
 			}
 			else {
     		// fight
@@ -389,8 +404,9 @@ public class Dungeon {
     	if(playerPosition.equals(point)) {
     		player.fight(this);
     	}
-    	
-
+    }
+    public ComputerAgent getAgent(Point point) {
+    	return agentGrid.get(point);
     }
 	
 }
