@@ -4,11 +4,11 @@ import org.junit.Test;
 import Model.Dungeon;
 import Model.Player;
 
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 import java.awt.Point;
 
-import org.junit.Assert.*;
 
 public class testPlayerMovement {
 
