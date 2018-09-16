@@ -8,11 +8,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Model.Arrow;
+import Model.Bomb;
 import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Hover;
 import Model.Hunter;
 import Model.Invincibility;
+import Model.LitBomb;
 import Model.MoveBehaviour;
 import Model.StandardChaseBehaviour;
 import Model.Strategist;
@@ -20,11 +22,13 @@ import Model.Player;
 import Model.Potion;
 import Model.RangedWeapon;
 import Model.Sword;
+import Model.Tile;
+import Model.Tile.TileType;
 import Model.Treasure;
 
 public class testPickUp {
 	
-	//Potions
+	//PICKUP ITEMS
 	@Test
 	public void testHasInviPot() {
 		Player player = new Player();
@@ -43,25 +47,16 @@ public class testPickUp {
 		assert(player.isHover());
 	}
 	
-	@Test 
-	public void testInviPot() {
+	@Test
+	public void testHasTreasure() {
 		Player player = new Player();
-		Potion invi = new Invincibility();
-		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
-		Point aPos = new Point(1,1);
-		dungeon.placeComputerAgent(ca, aPos);
-		dungeon.placePlayer(player, pPos);
-		assertFalse(player.deathStatus());
-		assertTrue(dungeon.isAgentExist(aPos));
-		player.pickup(invi);
-		player.fight(dungeon);
-		assertFalse(player.deathStatus());
-		assertFalse(dungeon.isAgentExist(aPos));
+		Treasure treasure = new Treasure();
+		assert(player.getInventory().isEmpty());
+		player.pickup(new Treasure());
+		player.selectItem(0);
+		assertTrue(player.getHeld() instanceof Treasure);
 	}
 	
-	// Weapons
 	@Test
 	public void testHasSword() {
 		Player player = new Player();
@@ -84,6 +79,24 @@ public class testPickUp {
 	}
 	
 	@Test
+	public void testHasBomb() {
+		Player player = new Player();
+		assert(player.getInventory().isEmpty());
+		player.pickup(new Bomb());
+		player.selectItem(0);
+		assertTrue(player.getHeld() instanceof Bomb);
+	}
+	
+	@Test
+	public void testCantPickUpLitBomb() {
+		Player player = new Player();
+		Point point = new Point(1,1);
+		assert(player.getInventory().isEmpty());
+		player.pickup(new LitBomb(point));
+		assert(player.getInventory().isEmpty());
+	}
+	
+	@Test
 	public void testMoveThroughInventory() {
 		Player player = new Player();
 		player.pickup(new Arrow());
@@ -92,6 +105,36 @@ public class testPickUp {
 		player.pickup(new Sword());
 		player.selectItem(1);
 		assertTrue(player.getHeld() instanceof Sword);
+	}
+	
+	//TEST POTION AND SWORD FIGHT
+	
+	@Test 
+	public void testInviPot() {
+		Player player = new Player();
+		Potion invi = new Invincibility();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(1,1);
+		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placePlayer(player, pPos);
+		assertFalse(player.deathStatus());
+		assertTrue(dungeon.isAgentExist(aPos));
+		player.pickup(invi);
+		player.fight(dungeon);
+		assertFalse(player.deathStatus());
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testHoverPot() {
+		Player player = new Player();
+		Potion hover = new Hover();
+		Dungeon dungeon = new Dungeon(3);
+		Point pitPos = new Point(1,1);
+		dungeon.placeTile(TileType.DESTRUCTABLE_WALL, pitPos);
+		//TODO: Implement pit valid move check
 	}
 	
 	@Test
@@ -118,7 +161,7 @@ public class testPickUp {
 		assertTrue(dungeon.isAgentExist(aPos));
 	}
 	
-	//Doesn't use arrow separate attack code
+	//TEST ARROW USE
 	@Test
 	public void testArrowAttackRight() {
 		Player player = new Player();
@@ -155,8 +198,8 @@ public class testPickUp {
 		Player player = new Player();
 		ComputerAgent ca = new Strategist();
 		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
-		Point aPos = new Point(1,2);
+		Point pPos = new Point(1,2);
+		Point aPos = new Point(1,1);
 		dungeon.placePlayer(player, pPos);
 		dungeon.placeComputerAgent(ca, aPos);
 		player.pickup(new Arrow());
@@ -171,8 +214,8 @@ public class testPickUp {
 		Player player = new Player();
 		ComputerAgent ca = new Strategist();
 		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,2);
-		Point aPos = new Point(1,1);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(1,2);
 		dungeon.placePlayer(player, pPos);
 		dungeon.placeComputerAgent(ca, aPos);
 		player.pickup(new Arrow());
@@ -182,25 +225,44 @@ public class testPickUp {
 		assertFalse(dungeon.isAgentExist(aPos));
 	}
 	
-		/*
-	 * @Test
-	 * public void testHoverPot(){
-		player.pickupPotion(hover);
-		assertTrue(player.isImmunePit());
+	@Test
+	public void testArrowBlock() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(3,1);
+		Point tPos = new Point(2,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeTile(TileType.DESTRUCTABLE_WALL, tPos);
+		player.pickup(new Arrow());
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertTrue(dungeon.isAgentExist(aPos));
 	}
-	 */
 	
-	// Treasure	
-	/*
-	 * @Test
-	 * public void testTreasure() {
-		player.pickup(new Treasure());
-		assert(player.getNumTreasure() == 1);
+	//TEST BOMB EXPLOSION
+	@Test
+	public void testLitBombExplode() {
+		Dungeon dungeon = new Dungeon(4);
+		Player player = new Player();
+		Point bPos = new Point(2,2);
+		LitBomb litBomb = new LitBomb(bPos);
+		Point tlPos = new Point(1,1);
+		Point brPos = new Point(3,3);
+		Point outPos = new Point(4,4);
+		ComputerAgent ca = new Strategist();
+		dungeon.placeComputerAgent(ca, tlPos);
+		dungeon.placeComputerAgent(ca, brPos);
+		dungeon.placeComputerAgent(ca, outPos);
+		dungeon.placePlayer(player, bPos);
+		litBomb.use(dungeon);
+		litBomb.use(dungeon);
+		litBomb.use(dungeon);
+		assertFalse(dungeon.isAgentExist(tlPos));
+		assertFalse(dungeon.isAgentExist(brPos));
+		assertTrue(dungeon.isAgentExist(outPos));
 	}
-	 */
-	
-
-	// Key
-	// Bomb
 
 }

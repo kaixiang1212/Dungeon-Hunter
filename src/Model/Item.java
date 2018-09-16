@@ -27,6 +27,9 @@ public abstract class Item {
 	public boolean isMeleeWeapon() {
 		return this instanceof MeleeWeapon;
 	}
+	public boolean isLitBomb() {
+		return this instanceof LitBomb;
+	}
 }
 
 
