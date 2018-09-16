@@ -263,6 +263,9 @@ public class Dungeon {
     		case CLOSED_DOOR:
     			return false;
     		case PIT:
+    			if (this.player.isHover()) {
+    				return true;
+    			}
     			return false;
     		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
     		case DESTRUCTABLE_WALL:
@@ -334,7 +337,9 @@ public class Dungeon {
     private void triggerPlayerAction(Point point) {
      	// Grid is a PIT
     	if(tileGrid.get(point).getType() == TileType.PIT) {
-    		this.player.die();
+    		if (!this.player.isHover()) {
+    			this.player.die();
+    		}
     	}
     	// Grid holds an Agent
 		if (agentGrid.get(point) != null) {
@@ -356,7 +361,18 @@ public class Dungeon {
     	    	
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
-    		this.player.pickup(itemGrid.get(point));
+    		if (!itemGrid.get(point).isLitBomb()) {
+    			this.player.pickup(itemGrid.get(point));
+    			this.itemGrid.remove(point);
+    		}
+    	}
+    	
+
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
     	}
     	
 
@@ -369,4 +385,3 @@ public class Dungeon {
     }
 	
 }
-
