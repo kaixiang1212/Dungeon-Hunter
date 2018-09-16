@@ -3,9 +3,18 @@ package Model;
 import java.awt.Point;
 import java.util.Scanner;
 
+/**
+ * Incomplete controller class which allows user to navigate menus and play chosen dungeons
+ * @author Richard
+ *
+ */
 public class Controller {
 
-
+	/**
+	 * Starts dungeon game, loops through certain amount of turns
+	 * asking for player input.
+	 * @param d Dungeon level to be played
+	 */
 	public void startGame(Dungeon d) {
 		//Temporary game loop, allowing for 100 moves
 		Scanner reader = new Scanner(System.in);
@@ -22,10 +31,16 @@ public class Controller {
 		reader.close();
 		
 	}
+	/**
+	 * Updates state of the dungeon
+	 * @param d
+	 * @param move
+	 */
 	public void update(Dungeon d, String move) {
 		d.updatePlayer(move);
 		d.updateAgents();
 	}
+	
 	public Dungeon createTestLevel() {
 		Dungeon d = new Dungeon(5);
 		Player player = new Player();

@@ -3,7 +3,11 @@ package Model;
 import java.awt.Point;
 
 public class Coward extends ComputerAgent {
-
+	
+	/**
+	 * courage represents state of running away or chasing player
+	 * cowardBehaviour defines movement strategy of the coward at any point in time
+	 */
 	private boolean courage;
 	private MoveBehaviour cowardBehavior;
 	
@@ -25,6 +29,11 @@ public class Coward extends ComputerAgent {
 		return false;
 	}
 
+	/**
+	 * Moves the coward around the dungeon map based on its movement strategy and courage state
+	 * @param Current dungeon map being played
+	 * @return Newly calculated movement position in Point form
+	 */
 	@Override
 	public Point move(Dungeon map) {
 		courage = determineCourage(map);

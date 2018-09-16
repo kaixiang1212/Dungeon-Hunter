@@ -10,5 +10,12 @@ public class Sword extends MeleeWeapon {
 	public boolean isStackable() {
 		return false;
 	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof Sword) {
+			return true;
+		}
+		return false;
+	}
 }
 
