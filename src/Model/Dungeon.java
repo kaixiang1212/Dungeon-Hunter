@@ -263,39 +263,58 @@ public class Dungeon {
     }
     
     /**
-     * Checks if tile to be moved on is valid to move on.
+     * Checks if tile to be moved on is valid to move on by players.
      * @param check
      * @return
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
-    	if (check == null) return false;
-    	Tile tileA = tileGrid.get(check);
-    	if (tileA != null) {
-    		TileType type = tileA.getType();
-    		switch (type) {
-    		case INVINCIBLE_WALL:
-    			return false;
-    		case CLOSED_DOOR:
-    			return false;
-    		case PIT:
-    			if (this.player.isHover()) {
-    				return true;
-    			}
-    			return false;
-    		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
-    		case DESTRUCTABLE_WALL:
-    			return false;
+    	if(!isValidMoveBasic(check)) {
+
+    		return false;
+    	}
+    	//Checks if movable agent, ie. boulder can't move depending on player push direction
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(temp != null && temp.isMoveable()) {
+
+    		String dir = player.getDirection();
+    		int x = (int) check.getX();
+    		int y = (int) check.getY();
+    		switch(dir) {
+    			case "Left":
+    				if(!isValidMoveAgent(new Point(x-1, y))) {
+    					return false;
+    				}
+    				break;
+    			case "Right":
+    				if(!isValidMoveAgent(new Point(x+1, y))) {
+    					return false;
+    				}
+    				break;
+    			case "Up":
+    				if(!isValidMoveAgent(new Point(x, y-1))) {
+    					return false;
+    				}
+    				break;
+    			case "Down":
+    				if(!isValidMoveAgent(new Point(x, y+1))) {
+    					return false;
+    				}
+    				break;
     		}
     	}
-    	return true;
-    }
 
-    public boolean isValidMoveArrow(Point check) {
+    	return true;  	
+    }
+  
+    public boolean isValidMoveBasic(Point check) {
     	//Checks cases for types of tiles that can't be moved on
+
     	if (check == null) return false;
+
     	Tile tileA = tileGrid.get(check);
     	if (tileA != null) {
+
     		TileType type = tileA.getType();
     		switch (type) {
     		case INVINCIBLE_WALL:
@@ -308,7 +327,27 @@ public class Dungeon {
     	}
     	return true;
     }
-
+  
+    public boolean isValidMoveArrow(Point check) {
+    	if (!isValidMoveBasic(check)) {
+    		return false;
+    	}
+    	if(agentGrid.get(check) != null && agentGrid.get(check).isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+    public boolean isValidMoveAgent(Point check) {
+    	if (!isValidMoveArrow(check)) {
+    		return false;
+    	}
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(tileGrid.get(check).getType() == TileType.PIT && temp != null && !temp.isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+  
     /**
      * Typically called after isValidMove(Point) to further verify for
      * agents, so agents do not overlap
@@ -367,9 +406,19 @@ public class Dungeon {
     		}
     	}
     	// Grid holds an Agent
-		if (agentGrid.get(point) != null) {
+    	ComputerAgent temp = agentGrid.get(point);
+		if (temp != null) {
+			if(temp.isMoveable()) {
+				Point newPos = ((Boulder) temp).push(player.getDirection());
+				agentGrid.remove(point);
+				if(tileGrid.get(newPos).getType() != TileType.PIT) {
+					agentGrid.put(newPos, temp);
+				}	
+			}
+			else {
     		// fight
-			this.player.fight(this);
+				this.player.fight(this);
+			}
     	}
 /*     	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
@@ -378,7 +427,6 @@ public class Dungeon {
     		door.unlockDoor(player.getKeys());
     	}*/
 
-     	// TODO boulder
 		//Grid is a EXIT
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
@@ -399,7 +447,8 @@ public class Dungeon {
     	if(playerPosition.equals(point)) {
     		player.fight(this);
     	}
-    	
-
+    }
+    public ComputerAgent getAgent(Point point) {
+    	return agentGrid.get(point);
     }
 }

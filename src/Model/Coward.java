@@ -12,7 +12,7 @@ public class Coward extends ComputerAgent {
 	private MoveBehaviour cowardBehavior;
 	
 	public Coward() {
-		super(100, new StandardChaseBehaviour());
+		super(new StandardChaseBehaviour());
 		cowardBehavior = new cowardFleeBehavior();
 		courage = false;
 	}
