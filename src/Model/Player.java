@@ -21,6 +21,8 @@ public class Player {
 	public void pickup(Item i) {
 		if (i.isPotion()) {
 			this.addStatus((Potion) i);
+		} else if (i.isLitBomb()) {
+			return;
 		} else {
 			inventory.storeItem(i);
 		}
@@ -98,6 +100,9 @@ public class Player {
 	}
 	public void setDirection(String direction) {
 		this.direction = direction;
+	}
+	public void die() {
+		this.isDead = true;
 	}
 }
 
