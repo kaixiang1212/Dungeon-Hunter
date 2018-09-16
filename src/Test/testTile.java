@@ -6,7 +6,6 @@ import Model.Tile;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 public class testTile {
 
     @Test
