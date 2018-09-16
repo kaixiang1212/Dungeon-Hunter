@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import Model.Arrow;
 import Model.Bomb;
+import Model.Boulder;
 import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Hover;
@@ -183,7 +184,7 @@ public class testItemInteract {
 	public void testArrowBlockBoulder() {
 		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		ComputerAgent boulder = new Boulder();
+		ComputerAgent boulder = new Boulder(null);
 		Dungeon dungeon = new Dungeon(3);
 		Point pPos = new Point(1,1);
 		Point aPos = new Point(3,1);
@@ -194,6 +195,7 @@ public class testItemInteract {
 		player.pickup(new Arrow());
 		player.selectItem(0);
 		player.useItem(dungeon);
+		assertTrue(dungeon.isAgentExist(tPos));
 		assertTrue(dungeon.isAgentExist(aPos));
 	}
 	
