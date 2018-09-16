@@ -1,10 +1,20 @@
-package itemDesign;
-
+package Model;
+//Implements Item
 public class Treasure extends Item {
-	int amount;
 	
-	public Treasure(boolean stackable, int amount) {
-		super(true);
-		this.amount = amount;
+	public Treasure() {
+		super();
 	}
+
+	@Override
+	public void use(Dungeon map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isStackable() {
+		return true;
+	}
+
 }

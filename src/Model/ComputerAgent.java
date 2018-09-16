@@ -1,4 +1,4 @@
-package itemDesign;
+package Model;
 
 import java.awt.Point;
 import java.util.Map;
@@ -12,33 +12,45 @@ import java.util.Map;
  */
 public abstract class ComputerAgent {
 
-	private int healthPoints;
+	private boolean isDead;
 	private MoveBehaviour moveBehaviour;
+	private Point pos;
 
 	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
-		this.healthPoints = healthPoints;
 		this.moveBehaviour = moveBehaviour;
+		this.isDead = false;
 	}
-	public int getHealth() {
-		return this.healthPoints;
+
+	public Point move(Dungeon map) {
+		setPos(moveBehaviour.move(map, pos));
+		if(this.pos.equals(map.getPlayerPos())) {
+			//TODO: make player die :(
+			//this.attack(map.getPlayer());
+		}
+		return this.pos;
 	}
+	public void setPos(Point newPos) {
+		this.pos = newPos;
+	}
+	public Point getPos() {
+		return this.pos;
+	}
+	public boolean deathStatus() {
+		return this.isDead;
+	}
+	
 	public void attack(Player a) {
 		if (a.isInvinc()) {
-			this.takeDamage(this.healthPoints);
+			//this.takeDamage(this.healthPoints);
+			//TODO: change to isDead
 		} else {
-			a.takeDamage(100);
+			//a.takeDamage(100);
+			//TODO: kill player using isDead boolean rather
 		}
-	}
-	public void takeDamage(int damage) {
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			this.die();
-		}
-	}
-	public void die() {
-		System.out.println("Enemy agent has died\n");
-	}
-	public void move(Point playerPos, Map<Point, ComputerAgent> agentPos) {
-		moveBehaviour.move(playerPos, agentPos);
 	}
 }
+
+
+
+
+

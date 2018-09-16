@@ -1,8 +1,13 @@
 package Test;
 
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import static org.junit.Assert.assertEquals;
 
+import Model.Fist;
 import Model.Hunter;
 import Model.Player;
 import Model.Sword;
@@ -36,7 +41,8 @@ public class testSwordAttack {
 		p.attack(h3);
 		p.attack(h4);
 		assertEquals(s.getnumUses(), 0);
-		assertEquals(p.getWeapon(), null);
+		// Assert Player is using Fist
+		assertTrue(p.getWeapon().getClass().equals(new Fist().getClass()));
 		assertEquals(p.getHealth(), 100);
 		p.attack(h5);
 		assertEquals(p.getHealth(), 0);
