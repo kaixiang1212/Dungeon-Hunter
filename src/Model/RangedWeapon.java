@@ -1,6 +1,5 @@
 package Model;
 import java.awt.Point;
-import java.util.Map;
 
 public abstract class RangedWeapon extends Item {
 	

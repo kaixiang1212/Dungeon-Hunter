@@ -15,13 +15,11 @@ public class testPredictiveChase {
 	Dungeon basicDungeon = new Dungeon(3);
 	ComputerAgent strategist = new Strategist();
 	Player player = new Player();
-	Point pPos = new Point(1,1);
-	Point aPos = new Point(1,2);
 	
 	@Test
 	public void testNoWinCondition() {
-		basicDungeon.placeComputerAgent(strategist, aPos);
-		basicDungeon.placePlayer(player, pPos);
+		basicDungeon.placeComputerAgent(strategist, new Point(2, 2));
+		basicDungeon.placePlayer(player, new Point(1,2));
 		basicDungeon.updateAgents();
 		System.out.println("Expected: [1,1]");
 		System.out.println("Reality: " + strategist.getPos()+"\n");

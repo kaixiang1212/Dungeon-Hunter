@@ -2,7 +2,7 @@ package Model;
 
 import java.awt.Point;
 
-public class cowardFleeBehavior implements MoveBehaviour {
+public class cowardFleeBehavior extends MoveBehaviour {
 
 	/**
 	 * Exact different from chasing
@@ -38,9 +38,15 @@ public class cowardFleeBehavior implements MoveBehaviour {
 			else newPos = new Point(curr.x+1, curr.y);
 			if (map.isValidMove(newPos)) return newPos;
 		}
-		// I too desperated to move
+		// I too desperate to move
 		if (!map.isValidMove(newPos)) newPos = new Point(curr.x, curr.y);
 	
 		return newPos;
+	}
+
+	@Override
+	public Point getTarget(Dungeon map, Point currPos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

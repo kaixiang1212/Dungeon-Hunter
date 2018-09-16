@@ -1,6 +1,7 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.awt.Point;
 
@@ -10,42 +11,34 @@ import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Hunter;
 import Model.Player;
-import Model.Tile;
+import Model.Tile.TileType;
 
 public class testStandardChase {
 
 	Dungeon basicDungeon = new Dungeon(3);
-	ComputerAgent a1 = new Hunter();
-	Player p1 = new Player();
-	Point pPos = new Point(3,3);
-	Point aPos = new Point(1,1);
+	ComputerAgent enemy = new Hunter();
+	Player player = new Player();
 	
-/*	@Test
+	@Test
 	public void testVanillaChase() {
-		basicDungeon.placeComputerAgent(a1, aPos);
-		basicDungeon.placePlayer(p1, pPos);
+		basicDungeon.placeComputerAgent(enemy, new Point(3, 1));
+		basicDungeon.placePlayer(player, new Point(1, 1));
 		basicDungeon.updateAgents();
-		assertEquals(new Point(2,3), a1.getPos());
+		assertEquals(new Point(2,1), enemy.getPos());
 		basicDungeon.updateAgents();
-		assertEquals(new Point(2,2), a1.getPos());
-		basicDungeon.updateAgents();
-		assertEquals(new Point(1,2), a1.getPos());
-		basicDungeon.updateAgents();
-		assertEquals(new Point(1,1), a1.getPos());
-	}*/
-	@Test 
-	public void testObstacleChase() {
-		basicDungeon.placeComputerAgent(a1, new Point(1,1));
-		basicDungeon.placePlayer(p1, new Point(3,3));
-		basicDungeon.placeTile(Tile.TileType.DESTRUCTABLE_WALL, new Point(2,2));
-		basicDungeon.updateAgents();
-		System.out.println(a1.getPos());
-		basicDungeon.updateAgents();
-		System.out.println(a1.getPos());
-		basicDungeon.updateAgents();
-		System.out.println(a1.getPos());
-		basicDungeon.updateAgents();
-		System.out.println(a1.getPos());
+		assertEquals(new Point(1,1), enemy.getPos());
 	}
-	
+
+	@Test
+	public void testObstacleChase() {
+		basicDungeon.placeComputerAgent(enemy, new Point(3, 1));
+		basicDungeon.placePlayer(player, new Point(1, 1));
+		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 1));
+		basicDungeon.updateAgents();
+		assertNotEquals(new Point(2,1), enemy.getPos());
+		basicDungeon.updateAgents();
+		basicDungeon.updateAgents();
+		basicDungeon.updateAgents();
+		assertEquals(basicDungeon.getPlayerPos(), enemy.getPos());
+	}
 }

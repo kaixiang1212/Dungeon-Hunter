@@ -374,6 +374,14 @@ public class Dungeon {
     	if(playerPosition.equals(point)) {
     		player.fight(this);
     	}
+    	
+
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
+    	}
     }
 	
 }
