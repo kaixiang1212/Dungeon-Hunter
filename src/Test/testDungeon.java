@@ -3,7 +3,6 @@ package Test;
 import Model.Tile;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Assert.*;
 
 import Model.Dungeon;
 import Model.Tile.TileType;
