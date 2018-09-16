@@ -327,6 +327,25 @@ public class Dungeon {
     	}
     	return true;
     }
+    public boolean isValidMoveArrow(Point check) {
+    	if (!isValidMoveBasic(check)) {
+    		return false;
+    	}
+    	if(agentGrid.get(check) != null && agentGrid.get(check).isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+    public boolean isValidMoveAgent(Point check) {
+    	if (!isValidMoveArrow(check)) {
+    		return false;
+    	}
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(tileGrid.get(check).getType() == TileType.PIT && temp != null && !temp.isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
   
     public boolean isValidMoveArrow(Point check) {
     	if (!isValidMoveBasic(check)) {

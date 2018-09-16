@@ -1,6 +1,9 @@
 package Model;
 import java.awt.Point;
 
+/*
+ * Abstract class which contains use method for all ranged weapons
+ */
 public abstract class RangedWeapon extends Item {
 	
 	public RangedWeapon() {
@@ -8,8 +11,11 @@ public abstract class RangedWeapon extends Item {
 	}
 
 	
-	//TODO: Rethink the below, try use map API methods to achieve without needing
-	//to know the implementation of the hashmaps
+	/*
+	 * Depending on direction, checks tiles to see if weapon will be blocked or hit and kill certain agents
+	 * removed from inventory when player runs out
+	 * @param map Dungeon that contains all entities
+	 */
 	public void use(Dungeon map) {
 		if (this.getQuantity() > 0) {
 			this.subQuantity();
