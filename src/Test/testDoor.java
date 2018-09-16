@@ -61,7 +61,7 @@ public class testDoor {
 		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 1));
 		basic.placeDoorKey(new Point(2, 2), new Point(3, 3));
 		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 3));
-		basic.placeComputerAgent(enemy, new Point(3, 1));
+		basic.placeComputerAgent(enemy, new Point(3, 2));
 
 		assertFalse(basic.isValidMove(new Point(2, 1)));
 		assertFalse(basic.isValidMove(new Point(2, 2)));
@@ -69,7 +69,7 @@ public class testDoor {
 
 		basic.updateAgents();
 
-		assertEquals(new Point(3, 1), enemy.getPos());
+		assertEquals(new Point(3, 2), enemy.getPos());
 	}
 
 	@Test
