@@ -328,8 +328,7 @@ public class Dungeon {
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
     	}
-    	
-    	
+    	    	
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
     		this.player.pickup(itemGrid.get(point));
