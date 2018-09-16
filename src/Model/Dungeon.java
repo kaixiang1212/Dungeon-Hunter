@@ -188,7 +188,7 @@ public class Dungeon {
     }
 
     /**
-     * Utilises entrySet iterator
+     * Utilizes entrySet iterator
      * Iterates over agentGrid to move agents
      * Grabs new position
      * Deletes old entry in agent hashmap
@@ -198,10 +198,8 @@ public class Dungeon {
     	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
-    		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
-    			//TODO: use collision checker to simply remove dead things! alot easier
-    			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		}
+    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		
     	}
     }
     public void updatePlayer(char key) {
