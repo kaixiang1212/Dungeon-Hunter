@@ -188,7 +188,7 @@ public class Dungeon {
     }
 
     /**
-     * Utilises entrySet iterator
+     * Utilizes entrySet iterator
      * Iterates over agentGrid to move agents
      * Grabs new position
      * Deletes old entry in agent hashmap
@@ -198,38 +198,36 @@ public class Dungeon {
     	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
-    		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
-    			//TODO: use collision checker to simply remove dead things! alot easier
-    			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		}
+    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		triggerAgentAction(updatePos);
     	}
     }
-    public void updatePlayer(char key) {
+    public void updatePlayer(String key) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
     	switch (key) {
-    		case 'a':
+    		case "a":
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
     				this.player.setDirection("Left");
-    			}
+    			}			
     			break;
-    		case 's':
+    		case "s":
     			Point down = new Point(x, y+1);
     			if (isValidMove(down)) {
     				this.playerPosition = down;
     				this.player.setDirection("Down");
     			}
     			break;
-    		case 'd':
+    		case "d":
     			Point right = new Point(x+1, y);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
     				this.player.setDirection("Right");
     			}
     			break;
-    		case 'w':
+    		case "w":
     			Point up = new Point(x, y-1);
     			if (isValidMove(up)) {
     				this.playerPosition = up;
@@ -237,7 +235,7 @@ public class Dungeon {
     			}
     			break;
     	}
-    	//TODO: some collision check function?		
+    	triggerPlayerAction(playerPosition);	
     }
 
     public Point getPlayerPos() {
@@ -265,7 +263,11 @@ public class Dungeon {
     		case CLOSED_DOOR:
     			return false;
     		case PIT:
-    			return false;
+    			if (this.player.isHover()) {
+    				return true;
+    			} else {
+    				return false;
+    			}
     		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
     		case DESTRUCTABLE_WALL:
     			return false;
@@ -334,26 +336,44 @@ public class Dungeon {
     
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
-     	// The next Grid is Enemy
+     	// Grid is a PIT
+    	if(tileGrid.get(point).getType() == TileType.PIT) {
+    		if (!this.player.isHover()) {
+    			this.player.die();
+    		}
+    	}
+    	// Grid holds an Agent
 		if (agentGrid.get(point) != null) {
     		// fight
 			this.player.fight(this);
     	}
-     	// The next Grid is Door
+/*     	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
     		// unlock door
     		Door door = (Door )tileGrid.get(point);
     		door.unlockDoor(player.getKeys());
-    	}
+    	}*/
+
      	// TODO boulder
+		//Grid is a EXIT
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
     	}
-    	
-    	
+    	    	
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
-    		this.player.pickup(itemGrid.get(point));
+    		if (!itemGrid.get(point).isLitBomb()) {
+    			this.player.pickup(itemGrid.get(point));
+    			this.itemGrid.remove(point);
+    		}
+    	}
+    	
+
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
     	}
     }
 	
