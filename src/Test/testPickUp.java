@@ -120,7 +120,7 @@ public class testPickUp {
 	
 	//Doesn't use arrow separate attack code
 	@Test
-	public void testArrowAttack() {
+	public void testArrowAttackRight() {
 		Player player = new Player();
 		ComputerAgent ca = new Strategist();
 		Dungeon dungeon = new Dungeon(3);
@@ -134,6 +134,53 @@ public class testPickUp {
 		assertFalse(dungeon.isAgentExist(aPos));
 	}
 	
+	@Test
+	public void testArrowAttackLeft() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(2,1);
+		Point aPos = new Point(1,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Left");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testArrowAttackUp() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,2);
+		Point aPos = new Point(1,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Up");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testArrowAttackDown() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(1,2);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		player.pickup(new Arrow());
+		player.setDirection("Down");
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertFalse(dungeon.isAgentExist(aPos));
+	}
 	
 		/*
 	 * @Test
