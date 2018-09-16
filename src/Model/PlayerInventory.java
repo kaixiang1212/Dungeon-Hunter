@@ -50,7 +50,8 @@ public class PlayerInventory {
 			if (item instanceof Key) keys.add((Key )item);
 		}
 		return keys;
-    
+	}
+	
 	public int getNumItems() {
 		return this.items.size();
 	}
