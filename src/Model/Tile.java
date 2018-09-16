@@ -1,8 +1,9 @@
-package itemDesign;
+package Model;
 
 import java.util.Objects;
 
 public class Tile {
+
     public enum TileType {
         INVINCIBLE_WALL,
         DESTRUCTABLE_WALL,
@@ -10,7 +11,8 @@ public class Tile {
         CLOSED_DOOR,
         OPEN_DOOR,
         SWITCH,
-        PIT
+        PIT,
+        DEFAULT
     }
 
     private TileType type;
@@ -40,7 +42,6 @@ public class Tile {
     public int hashCode() {
         return Objects.hash(type);
     }
-    public String toString() {
-    	return "Hello";
-    }
+
+
 }

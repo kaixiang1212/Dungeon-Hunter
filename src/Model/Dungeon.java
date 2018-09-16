@@ -14,16 +14,17 @@ public class Dungeon {
     private Point topLeft;
     private Point bottomRight;
 
-    private Map<Point, Tile> tileGrid;
     private Map<Point, Item> itemGrid;
+    private Map<Point, Tile> tileGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
-    //private Map<Point, Pickups> pickGrid;
+
 
     public Dungeon(int size) throws IllegalArgumentException{
     	playerPosition = null;
     	agentGrid = new HashMap<Point, ComputerAgent>();
+    	itemGrid = new HashMap<Point, Item>();
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -84,6 +85,12 @@ public class Dungeon {
                 ret.put(new Point(i, j), new Tile(Tile.TileType.INVINCIBLE_WALL));
             }
         }
+        //Set rest of tiles to default tiles that allow for free movement
+        for(int i = 1; i <= size; i++) {
+        	for(int j = 1; j <= size; j++) {
+        		ret.put(new Point(i,j), new Tile(Tile.TileType.DEFAULT));
+        	}
+        }
 
         return ret;
     }
@@ -140,10 +147,15 @@ public class Dungeon {
             aY > bot || aY < top) {
             throw new IllegalArgumentException("Placement out of bounds");
         }
-
+        //If no tile
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
+        }
+        //If tile already exists, simply switch type!
+        if(tileGrid.get(myPoint) != null) {
+        	tileGrid.get(myPoint).setType(tileType);
+        	return true;
         }
 
         return false;
@@ -187,11 +199,11 @@ public class Dungeon {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
     		if(!entry.getValue().deathStatus()) { //If agent still has health after its turn
+    			//TODO: use collision checker to simply remove dead things! alot easier
     			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
     		}
     	}
     }
-    
     public void updatePlayer(char key) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
@@ -200,28 +212,28 @@ public class Dungeon {
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
-    				this.player.setDirection("left");
+    				this.player.setDirection("Left");
     			}
     			break;
     		case 's':
-    			Point down = new Point(x, y-1);
+    			Point down = new Point(x, y+1);
     			if (isValidMove(down)) {
     				this.playerPosition = down;
-    				this.player.setDirection("down");
+    				this.player.setDirection("Down");
     			}
     			break;
     		case 'd':
     			Point right = new Point(x+1, y);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
-    				this.player.setDirection("right");
+    				this.player.setDirection("Right");
     			}
     			break;
     		case 'w':
-    			Point up = new Point(x, y+1);
+    			Point up = new Point(x, y-1);
     			if (isValidMove(up)) {
     				this.playerPosition = up;
-    				this.player.setDirection("up");
+    				this.player.setDirection("Up");
     			}
     			break;
     	}
@@ -235,7 +247,6 @@ public class Dungeon {
     public void removeAgent(Point p) {
     	this.agentGrid.remove(p);
     }
-    
     
     /**
      * Checks if tile to be moved on is valid to move on.
@@ -255,6 +266,7 @@ public class Dungeon {
     			return false;
     		case PIT:
     			return false;
+    		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
     		case DESTRUCTABLE_WALL:
     			return false;
     		}
@@ -263,6 +275,7 @@ public class Dungeon {
     }
     
     public boolean isValidMoveArrow(Point check) {
+    	//Checks cases for types of tiles that can't be moved on
     	if (check == null) return false;
     	Tile tileA = tileGrid.get(check);
     	if (tileA != null) {
@@ -317,6 +330,30 @@ public class Dungeon {
     		itemGrid.remove(pos);
     	}
     }
-
+    
+    //TODO: Is it bad to put so many if statements? probably a better way
+    private void triggerPlayerAction(Point point) {
+     	// The next Grid is Enemy
+		if (agentGrid.get(point) != null) {
+    		// fight
+			this.player.fight(this);
+    	}
+     	// The next Grid is Door
+    	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
+    		// unlock door
+    		Door door = (Door )tileGrid.get(point);
+    		door.unlockDoor(player.getKeys());
+    	}
+     	// TODO boulder
+    	if(tileGrid.get(point).getType() == TileType.EXIT) {
+    		//Win?
+    	}
+    	
+    	
+    	// If item, attempt to pickup the item
+    	if (itemGrid.get(point) != null) {
+    		this.player.pickup(itemGrid.get(point));
+    	}
+    }
+	
 }
-
