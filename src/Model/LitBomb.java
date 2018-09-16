@@ -31,6 +31,7 @@ public class LitBomb extends Item{
 					}
 				}
 			}
+			map.removeItem(this.location);
 		} else {
 			this.counter--;
 		}
