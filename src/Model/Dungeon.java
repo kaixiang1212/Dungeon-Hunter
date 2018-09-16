@@ -320,12 +320,12 @@ public class Dungeon {
     		// fight
 			this.player.fight(this);
     	}
-     	// The next Grid is Door
+/*     	// The next Grid is Door
     	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
     		// unlock door
     		Door door = (Door )tileGrid.get(point);
     		door.unlockDoor(player.getKeys());
-    	}
+    	}*/
      	// TODO boulder
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
