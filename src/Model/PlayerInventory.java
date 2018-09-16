@@ -20,12 +20,15 @@ public class PlayerInventory {
 					return;
 				}
 			}
+		} 
+		else if ((!i.isStackable()) && (items.contains(i))) {
+			items.remove(i);
+			items.add(i);
 		}
 		else if(items.size() < maxCapacity) {
 			items.add(i);
 		}
 		return;
-
 	}
 	
 	public Item getItem(int index) {
@@ -39,7 +42,10 @@ public class PlayerInventory {
 			return true;
 		}
 		return false;
-	}	
+	}
+	public int getNumItems() {
+		return this.items.size();
+	}
 }
 
 

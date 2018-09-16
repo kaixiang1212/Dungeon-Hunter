@@ -24,7 +24,16 @@ public class Bomb extends Item {
 		return true;
 	}
 	
-	/**
+
+	public boolean equals(Object o) {
+		if(o instanceof Bomb) {
+			return true;
+		}
+		return false;
+	}
+	
+
+  	/**
 	 * If quantity is above 0, minus quantity and place
 	 * lit bomb item on player position it was used.
 	 * Where quantity of bombs is 0, remove bomb from player inventory and hand.
