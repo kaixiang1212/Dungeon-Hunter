@@ -8,8 +8,10 @@ public class StandardChaseBehaviour extends MoveBehaviour {
 		super();
 	}
 
+
 	public Point getTarget(Dungeon map, Point currPos) {
 		return map.getPlayerPos();
 	}
 
 }
+

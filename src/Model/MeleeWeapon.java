@@ -16,8 +16,6 @@ public abstract class MeleeWeapon extends Item {
 		return this.numUses;
 	}
 	//Rethink the below code: Do you really need to grab the grid?
-	//You can make API methods to simply check if there exists an agent
-	//The grid guarantees everything stored at a valid key is agent!
 	public void use(Dungeon map) {
 	    Player player = map.getPlayer();
 	    Point playerPos = map.getPlayerPos();

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import Model.Arrow;
@@ -12,7 +11,6 @@ import Model.Bomb;
 import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Hover;
-import Model.Hunter;
 import Model.Invincibility;
 import Model.LitBomb;
 import Model.MoveBehaviour;
@@ -20,11 +18,11 @@ import Model.StandardChaseBehaviour;
 import Model.Strategist;
 import Model.Player;
 import Model.Potion;
-import Model.RangedWeapon;
 import Model.Sword;
 import Model.Tile;
 import Model.Tile.TileType;
 import Model.Treasure;
+
 
 public class testPickUp {
 	

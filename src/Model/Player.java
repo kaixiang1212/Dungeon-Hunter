@@ -59,6 +59,9 @@ public class Player {
 	public boolean deathStatus() {
 		return this.isDead;
 	}
+	public void die() {
+		this.isDead = true;
+	}
 	public void addStatus(Potion p) {
 		for (Potion a: this.status) {
 			if (a.equals(p)) {
