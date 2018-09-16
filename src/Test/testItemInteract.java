@@ -178,6 +178,25 @@ public class testItemInteract {
 		assertTrue(dungeon.isAgentExist(aPos));
 	}
 	
+	//test that arrows can be blocked by boulders and that boulders aren't destoryed
+	@Test
+	public void testArrowBlockBoulder() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		ComputerAgent boulder = new Boulder();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(3,1);
+		Point tPos = new Point(2,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeComputerAgent(boulder, tPos);
+		player.pickup(new Arrow());
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertTrue(dungeon.isAgentExist(aPos));
+	}
+	
 	//TEST BOMB EXPLOSION
 	
 	//test that lit bombs can kill player and agents within a 3x3 square
