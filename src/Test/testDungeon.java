@@ -115,6 +115,7 @@ public class testDungeon {
         Point myPoint = new Point(1, 1);
         int startSize = testDun.getTileGrid().size();
 
+
         // Ensure Tile is empty
         Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Tile.TileType.DEFAULT);
 

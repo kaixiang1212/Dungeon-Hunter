@@ -4,50 +4,13 @@ import java.awt.Point;
 
 import Model.Tile.TileType;
 
-public class PredictiveChaseBehaviour implements MoveBehaviour {
+public class PredictiveChaseBehaviour extends MoveBehaviour {
 
-	/**
-	 * Get predicted point to move towards,
-	 * determine its direction then increment point axis by one (Move)
-	 */
 	@Override
-	public Point move(Dungeon map, Point currPos) {
-	
-		// Get its best Prediction
-		Point prediction = predict(map, currPos);
-
-		// if strategist is on the prediction point, run towards player
-		if (prediction.equals(currPos)) {
-			System.out.println("Running Towards player");
-			prediction = map.getPlayerPos();
-		}
-		Point player = map.getPlayerPos();
-		int xDist = Math.abs(prediction.x - currPos.x);
-		int yDist = Math.abs(prediction.y - currPos.y);
-		Point newPos = null;
-		
-		// Increment Point axis by 1 (Move)
-		if(xDist >= yDist) {
-			if(prediction.x > currPos.x) {
-				newPos = new Point(currPos.x+1, currPos.y+1);
-				return newPos;
-			}
-			else {
-				newPos = new Point(currPos.x-1, currPos.y);
-			}
-		}
-		else if(yDist > xDist) {
-			if(prediction.y > currPos.x) {
-				newPos = new Point(currPos.x, currPos.y+1);
-			}
-			else {
-				newPos = new Point(currPos.x, currPos.y-1);
-			}
-		}
-		
-		return newPos;
+	public Point getTarget(Dungeon map, Point currPos) {
+		return predict(map, currPos);
 	}
-	
+
 	/**
 	 * Predict players next moves and return Point
 	 * @param map the whole map
@@ -111,4 +74,5 @@ public class PredictiveChaseBehaviour implements MoveBehaviour {
 		// To-Do
 		return null;
 	}
+
 }
