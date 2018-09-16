@@ -279,6 +279,9 @@ public class Dungeon {
     		case CLOSED_DOOR:
     			return false;
     		case PIT:
+    			if (this.player.isHover()) {
+    				return true;
+    			}
     			return false;
     		//TODO: make it so players will go in pit valid movement, but enemies wont? how to implement reuse
     		case DESTRUCTABLE_WALL:
@@ -357,41 +360,46 @@ public class Dungeon {
 
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
-        // Grid is a PIT
-       if(tileGrid.get(point).getType() == TileType.PIT) {
-           this.player.die();
-       }
-       // Grid holds an Agent
-       if (agentGrid.get(point) != null) {
-           // fight
-           this.player.fight(this);
-       }
+     	// Grid is a PIT
+    	if(tileGrid.get(point).getType() == TileType.PIT) {
+    		if (!this.player.isHover()) {
+    			this.player.die();
+    		}
+    	}
+    	// Grid holds an Agent
+		if (agentGrid.get(point) != null) {
+    		// fight
+			this.player.fight(this);
+    	}
 /*     	// The next Grid is Door
-       if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
-           // unlock door
-           Door door = (Door )tileGrid.get(point);
-           door.unlockDoor(player.getKeys());
-       }*/
+    	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
+    		// unlock door
+    		Door door = (Door )tileGrid.get(point);
+    		door.unlockDoor(player.getKeys());
+    	}*/
 
-        // TODO boulder
-       //Grid is a EXIT
-       if(tileGrid.get(point).getType() == TileType.EXIT) {
-           //Win?
-       }
-               
-       // If item, attempt to pickup the item
-       if (itemGrid.get(point) != null) {
-           this.player.pickup(itemGrid.get(point));
-       }
-       
+     	// TODO boulder
+		//Grid is a EXIT
+    	if(tileGrid.get(point).getType() == TileType.EXIT) {
+    		//Win?
+    	}
+    	    	
+    	// If item, attempt to pickup the item
+    	if (itemGrid.get(point) != null) {
+    		if (!itemGrid.get(point).isLitBomb()) {
+    			this.player.pickup(itemGrid.get(point));
+    			this.itemGrid.remove(point);
+    		}
+    	}
+    	
 
-   }
-   private void triggerAgentAction(Point point) {
-       
-       if(playerPosition.equals(point)) {
-           player.fight(this);
-       }
-   }
-   
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
+    	}
+    	
+
+    }
 }
-
