@@ -11,6 +11,10 @@ import java.awt.Point;
  */
 public abstract class ComputerAgent {
 
+	/**
+	 * moveBehaviour strategy which defines how computeragents traverse the map
+	 * @pos current position in Point form within Dungeon
+	 */
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
 
@@ -18,13 +22,26 @@ public abstract class ComputerAgent {
 		this.moveBehaviour = moveBehaviour;
 	}
 
+	/**
+	 * Moves the ComputerAgent based on movement strategy
+	 * @param map The dungeon currently being played
+	 * @return position which has been calculated for movement
+	 */
 	public Point move(Dungeon map) {
 		setPos(moveBehaviour.move(map, pos));
 		return this.pos;
 	}
+	/**
+	 * Sets updated position in Point form of the ComputerAgent
+	 * @param newPos New position to update to
+	 */
 	public void setPos(Point newPos) {
 		this.pos = newPos;
 	}
+	/**
+	 * Gives current position
+	 * @return Current position in Point form
+	 */
 	public Point getPos() {
 		return this.pos;
 	}
