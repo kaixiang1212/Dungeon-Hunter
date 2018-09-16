@@ -14,6 +14,13 @@ public class Bomb extends Item {
 		return true;
 	}
 	
+	public boolean equals(Object o) {
+		if(o instanceof Bomb) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void use(Dungeon map) {
 		if (this.getQuantity() > 0) {
 			this.subQuantity();
