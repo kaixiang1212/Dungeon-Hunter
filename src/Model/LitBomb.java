@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class LitBomb extends Item{
 
-	private int counter = 3;
+	private int counter = 2;
 	private Point location;
 	
 	public LitBomb(Point location) {
@@ -26,6 +26,9 @@ public class LitBomb extends Item{
 				for (double j = temp.getY(); j < temp.getY()+3; j++) {
 					Point remove = new Point();
 					remove.setLocation(i, j);
+					if (map.getPlayerPos().equals(remove)) {
+						map.getPlayer().die();
+					}
 					if (map.isAgentExist(remove)) {
 						map.removeAgent(remove);
 					}

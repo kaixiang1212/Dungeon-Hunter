@@ -98,6 +98,9 @@ public class Player {
 	public void setDirection(String direction) {
 		this.direction = direction;
 	}
+	public void die() {
+		this.isDead = true;
+	}
 }
 
 	
