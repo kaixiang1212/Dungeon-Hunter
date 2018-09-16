@@ -42,6 +42,10 @@ public class Tile {
     public int hashCode() {
         return Objects.hash(type);
     }
+    
+    public boolean isType(TileType type) {
+    	return this.type.equals(type);
+    }
 
 
 }

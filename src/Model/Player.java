@@ -101,6 +101,10 @@ public class Player {
 	public void die() {
 		this.isDead = true;
 	}
+	
+	public ArrayList<Key> getKeys(){
+		return inventory.getKeys();
+	}
 }
 
 	

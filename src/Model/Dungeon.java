@@ -131,23 +131,13 @@ public class Dungeon {
     public boolean placeTile(Tile.TileType tileType, Point myPoint) throws IllegalArgumentException {
 
         // Cannot place invincible wall
-        if(tileType == Tile.TileType.INVINCIBLE_WALL) {
+        if (tileType == TileType.INVINCIBLE_WALL || tileType == TileType.CLOSED_DOOR) {
             return false;
         }
 
-        int aX = myPoint.x;
-        int aY = myPoint.y;
+        // Out of Bound Check
+        if (outOfBound(myPoint)) return false;
 
-        int top = topLeft.y;
-        int left = topLeft.x;
-        int bot = bottomRight.y;
-        int right = bottomRight.x;
-
-        if (aX < left || aX > right ||
-            aY > bot || aY < top) {
-            throw new IllegalArgumentException("Placement out of bounds");
-        }
-        //If no tile
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
@@ -160,6 +150,27 @@ public class Dungeon {
 
         return false;
     }
+    
+    /**
+     * Create a new door and return the key to this door
+     * @param myPoint Point to create a closed door
+     * @return a key to the door
+     * @throws IllegalArgumentException
+     */
+    public boolean placeDoorKey(Point doorPoint, Point keyPoint) throws IllegalArgumentException {
+
+    	if (outOfBound(doorPoint) || outOfBound(keyPoint)) return false;
+
+    	if (tileGrid.get(doorPoint).isType(TileType.DEFAULT)) {
+    		Door newDoor = new Door();
+    		tileGrid.put(doorPoint, newDoor);
+    		// place key on map (Not yet implemented)
+    		placeItem(newDoor.generateKey(), keyPoint);
+    		return true;
+    	}
+    	return false;
+    }
+    
 
     /**
      * Inserts a new ComputerAgent object into the agentGrid
@@ -188,7 +199,7 @@ public class Dungeon {
     }
 
     /**
-     * Utilizes entrySet iterator
+     * Utilises entrySet iterator
      * Iterates over agentGrid to move agents
      * Grabs new position
      * Deletes old entry in agent hashmap
@@ -199,19 +210,20 @@ public class Dungeon {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
     		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		triggerAgentAction(updatePos);
+            triggerAgentAction(updatePos);
     	}
     }
-    public void updatePlayer(String key) {
+
+    public void updatePlayer(String c) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
-    	switch (key) {
+    	switch (c) {
     		case "a":
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
     				this.player.setDirection("Left");
-    			}			
+    			}
     			break;
     		case "s":
     			Point down = new Point(x, y+1);
@@ -234,8 +246,8 @@ public class Dungeon {
     				this.player.setDirection("Up");
     			}
     			break;
-    	}
-    	triggerPlayerAction(playerPosition);	
+        }
+        triggerPlayerAction(playerPosition);
     }
 
     public Point getPlayerPos() {
@@ -271,7 +283,7 @@ public class Dungeon {
     	}
     	return true;
     }
-  
+
     public boolean isValidMoveArrow(Point check) {
     	//Checks cases for types of tiles that can't be moved on
     	if (check == null) return false;
@@ -289,7 +301,7 @@ public class Dungeon {
     	}
     	return true;
     }
-  
+
     /**
      * Typically called after isValidMove(Point) to further verify for
      * agents, so agents do not overlap
@@ -330,43 +342,52 @@ public class Dungeon {
     	}
     }
     
+    public boolean outOfBound(Point toCheck) throws IllegalArgumentException {
+
+        if (toCheck.x < topLeft.x || toCheck.x > bottomRight.x ||
+            toCheck.y > bottomRight.y || toCheck.y < topLeft.y) {
+            throw new IllegalArgumentException("Placement out of bounds");
+        }
+    	return false;
+    }
+
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {
-     	// Grid is a PIT
-    	if(tileGrid.get(point).getType() == TileType.PIT) {
-    		this.player.die();
-    	}
-    	// Grid holds an Agent
-		if (agentGrid.get(point) != null) {
-    		// fight
-			this.player.fight(this);
-    	}
+        // Grid is a PIT
+       if(tileGrid.get(point).getType() == TileType.PIT) {
+           this.player.die();
+       }
+       // Grid holds an Agent
+       if (agentGrid.get(point) != null) {
+           // fight
+           this.player.fight(this);
+       }
 /*     	// The next Grid is Door
-    	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
-    		// unlock door
-    		Door door = (Door )tileGrid.get(point);
-    		door.unlockDoor(player.getKeys());
-    	}*/
+       if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
+           // unlock door
+           Door door = (Door )tileGrid.get(point);
+           door.unlockDoor(player.getKeys());
+       }*/
 
-     	// TODO boulder
-		//Grid is a EXIT
-    	if(tileGrid.get(point).getType() == TileType.EXIT) {
-    		//Win?
-    	}
-    	    	
-    	// If item, attempt to pickup the item
-    	if (itemGrid.get(point) != null) {
-    		this.player.pickup(itemGrid.get(point));
-    	}
-    	
+        // TODO boulder
+       //Grid is a EXIT
+       if(tileGrid.get(point).getType() == TileType.EXIT) {
+           //Win?
+       }
+               
+       // If item, attempt to pickup the item
+       if (itemGrid.get(point) != null) {
+           this.player.pickup(itemGrid.get(point));
+       }
+       
 
-    }
-    private void triggerAgentAction(Point point) {
-    	
-    	if(playerPosition.equals(point)) {
-    		player.fight(this);
-    	}
-    }
-	
+   }
+   private void triggerAgentAction(Point point) {
+       
+       if(playerPosition.equals(point)) {
+           player.fight(this);
+       }
+   }
+   
 }
 
