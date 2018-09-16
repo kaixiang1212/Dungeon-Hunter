@@ -401,7 +401,6 @@ public class Dungeon {
     		door.unlockDoor(player.getKeys());
     	}*/
 
-     	// TODO boulder
 		//Grid is a EXIT
     	if(tileGrid.get(point).getType() == TileType.EXIT) {
     		//Win?
