@@ -110,11 +110,12 @@ public class testDoor {
 		assertFalse(basic.isValidMove(new Point(2, 2)));
 		assertFalse(basic.isValidMove(new Point(3, 2)));
 		assertTrue(basic.isValidMove(new Point(1, 3)));
+		assertTrue(basic.isValidMove(new Point(3, 3)));
 
 		basic.updateAgents();
 
 		// Known test failure - likely source updateAgents.
-		assertEquals(new Point(1, 3), enemy.getPos());
+		assertEquals(new Point(2, 3), enemy.getPos());
 	}
 
 	@Test

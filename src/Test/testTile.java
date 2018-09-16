@@ -1,15 +1,14 @@
 package Test;
 
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import Model.Tile;
-import Model.Tile.TileType;
 
 public class testTile {
 
     @Test
-    void CanMakeTile() {
+    public void CanMakeTile() {
         Tile test1 = new Tile(Tile.TileType.INVINCIBLE_WALL);
         assert(test1.getType() == Tile.TileType.INVINCIBLE_WALL);
         test1 = new Tile(Tile.TileType.DESTRUCTABLE_WALL);
@@ -23,7 +22,7 @@ public class testTile {
     }
 
     @Test
-    void CanSetTile() {
+    public void CanSetTile() {
         Tile test1 = new Tile(Tile.TileType.INVINCIBLE_WALL);
         assert(test1.getType() == Tile.TileType.INVINCIBLE_WALL);
         test1.setType(Tile.TileType.EXIT);

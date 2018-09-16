@@ -1,6 +1,6 @@
 package Test;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import Model.Dungeon;
 import Model.Tile.TileType;
@@ -10,7 +10,7 @@ import java.awt.Point;
 public class testDungeon {
 
     @Test
-    void newDungeonHasDoubleInvulnWalls () {
+    public void newDungeonHasDoubleInvulnWalls () {
         // Setup
         int[] sizes = {1, 5, 20};
         Dungeon testDun;
@@ -56,7 +56,7 @@ public class testDungeon {
     }
 
     @Test
-    void newDungeonSizeLimits0To20() {
+    public void newDungeonSizeLimits0To20() {
         Dungeon testDun;
 
         // Boundary case, min size 1, should throw illegal arg exception
@@ -107,7 +107,7 @@ public class testDungeon {
     }
 
     @Test
-    void PlaceTileOnEmptyLocation() {
+    public void PlaceTileOnEmptyLocation() {
         Dungeon testDun = new Dungeon(4);
         Point myPoint = new Point(1, 1);
         int startSize = testDun.getTileGrid().size();
@@ -154,7 +154,7 @@ public class testDungeon {
     }
 
     @Test
-    void CannotPlaceOutsideGridDimensions() {
+    public void CannotPlaceOutsideGridDimensions() {
 
         int[] sizes = {1, 5, 10, 20};
         Dungeon testDun;

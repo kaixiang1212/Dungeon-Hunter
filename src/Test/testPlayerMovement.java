@@ -4,7 +4,7 @@ import org.junit.Test;
 import Model.Dungeon;
 import Model.Player;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
 import java.awt.Point;
 
