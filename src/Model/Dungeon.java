@@ -222,7 +222,6 @@ public class Dungeon {
     			break;
     		case "d":
     			Point right = new Point(x+1, y);
-    			System.out.println(right);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
     				this.player.setDirection("Right");
@@ -267,22 +266,22 @@ public class Dungeon {
     		int y = (int) check.getY();
     		switch(dir) {
     			case "Left":
-    				if(!isValidMoveBasic(new Point(x-1, y))) {
+    				if(!isValidMoveAgent(new Point(x-1, y))) {
     					return false;
     				}
     				break;
     			case "Right":
-    				if(!isValidMoveBasic(new Point(x+1, y))) {
+    				if(!isValidMoveAgent(new Point(x+1, y))) {
     					return false;
     				}
     				break;
     			case "Up":
-    				if(!isValidMoveBasic(new Point(x, y-1))) {
+    				if(!isValidMoveAgent(new Point(x, y-1))) {
     					return false;
     				}
     				break;
     			case "Down":
-    				if(!isValidMoveBasic(new Point(x, y+1))) {
+    				if(!isValidMoveAgent(new Point(x, y+1))) {
     					return false;
     				}
     				break;
@@ -309,6 +308,24 @@ public class Dungeon {
     		case DESTRUCTABLE_WALL:
     			return false;
     		}
+    	}
+    	return true;
+    }
+    public boolean isValidMoveArrow(Point check) {
+    	if (!isValidMoveBasic(check)) {
+    		return false;
+    	}
+    	if(agentGrid.get(check) != null && agentGrid.get(check).isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+    public boolean isValidMoveAgent(Point check) {
+    	if (!isValidMoveArrow(check)) {
+    		return false;
+    	}
+    	if(tileGrid.get(check).getType() == TileType.PIT && !agentGrid.get(check).isMoveable()) {
+    		return false;
     	}
     	return true;
     }
