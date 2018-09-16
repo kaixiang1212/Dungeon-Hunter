@@ -20,17 +20,32 @@ public class PlayerInventory {
 					return;
 				}
 			}
+		} 
+		else if ((!i.isStackable()) && (items.contains(i))) {
+			items.remove(i);
+			items.add(i);
 		}
 		else if(items.size() < maxCapacity) {
 			items.add(i);
 		}
 		return;
-
 	}
 	
-	public void getItem(int index) {
+	public Item getItem(int index) {
 		return items.get(index);
 	}
-	
-	
+	public void removeItem(Item i) {
+		this.items.remove(i);
+	}
+	public boolean isEmpty() {
+		if (this.items.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	public int getNumItems() {
+		return this.items.size();
+	}
 }
+
+

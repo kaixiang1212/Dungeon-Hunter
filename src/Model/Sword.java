@@ -1,8 +1,21 @@
 package Model;
 
-public class Sword extends Weapon {
+public class Sword extends MeleeWeapon {
 
 	public Sword() {
-		super(100, 5);
+		super(5);
+	}
+
+	@Override
+	public boolean isStackable() {
+		return false;
+	}
+	
+	public boolean equals(Object o) {
+		if(o instanceof Sword) {
+			return true;
+		}
+		return false;
 	}
 }
+

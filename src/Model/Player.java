@@ -1,53 +1,168 @@
 package Model;
+import java.util.ArrayList;
 
+/*
+ * Player class that holds; inventory, status effects, equipped item, and direction
+ */
 public class Player {
 
-	private int healthPoints;
-	private Weapon weapon;
+	private boolean isDead;
+	private PlayerInventory inventory;
+	private Item heldItem;
+	private ArrayList<Potion> status;
+	private String direction;
 	
 	public Player() {
-		this.healthPoints = 100;
-		this.weapon = new Fist();
+		this.inventory = new PlayerInventory();
+		this.isDead = false;
+		this.heldItem = null;
+		this.status = new ArrayList<Potion>();
+		this.direction = "Right";
 	}
-
-	public void pickupWeapon(Weapon w) {
-		this.weapon = w;
-	}
-
-	// Observe current weapon state then process interaction
-	public void attack(ComputerAgent a) {
-
-		// weapon is fist: agent attacks player
-		if(weapon instanceof Fist) {
-			a.attack(this);
+	
+	/*
+	 * adds Potion effect to status, ignores LitBombs and adds other items to inventory
+	 * @param i, The item being picked up
+	 */
+	public void pickup(Item i) {
+		if (i.isPotion()) {
+			this.addStatus((Potion) i);
+		} else if (i.isLitBomb()) {
 			return;
-		}
-
-		// weapon is NOT fist: player attacks ComputerAgent
-		weapon.attack(a);
-		if(this.weapon.getnumUses() <= 0) {
-			this.weapon = new Fist();
+		} else {
+			inventory.storeItem(i);
 		}
 	}
-
-	public Weapon getWeapon() {
-		return this.weapon;
+	/*
+	 * select item in inventory and equip it
+	 * @param index, Inventory index to get the item
+	 */
+	public void selectItem(int index) {
+		this.heldItem = inventory.getItem(index);
 	}
-
-	public int getHealth() {
-		return this.healthPoints;
+	/*
+	 * returns item that's equipped
+	 * @return heldItem
+	 */
+	public Item getHeld() {
+		return this.heldItem;
 	}
-
-	// Reduce hitpoints, check and process death.
-	public void takeDamage(int damage, ComputerAgent a) {
-		if(this.weapon instanceof Sword) {
-			this.attack(a);
+	/*
+	 * unequip item
+	 */
+	public void removeHeld() {
+		this.heldItem = null;
+	}
+	/*
+	 * Checks if MeleeWeapon is equipped, then if player is invincible else the player dies
+	 * @param map, Dungeon object that holds all entities
+	 */
+	public void fight(Dungeon map) {
+		if (this.heldItem != null && this.heldItem.isMeleeWeapon()) {
+			this.useItem(map);
+		} else if (this.isInvinc()) {
+			map.removeAgent(map.getPlayerPos());
+		} else {
+			this.isDead = true;
 		}
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Player has died");
-		}
 	}
+	/*
+	 * Calls the use function for equipped item
+	 * @param map, Dungeon object that holds all entities
+	 */
+	public void useItem(Dungeon map) {
+		heldItem.use(map);
+	}
+	/*
+	 * returns if player is dead or not
+	 * @return isDead, true or false
+	 */
+	public boolean deathStatus() {
+		return this.isDead;
+	}
+	/*
+	 * adds potion effect to player status list
+	 * @param p, Potion that is being added to status list
+	 */
+	public void addStatus(Potion p) {
+		for (Potion a: this.status) {
+			if (a.equals(p)) {
+				this.status.remove(a);
+				this.status.add(p);
+				return;
+			}
+		}
+		this.status.add(p);
+	}
+	/*
+	 * returns player's direction
+	 * @return direction, can be right,left,up or down
+	 */
+	public String getDirection() {
+		return this.direction;
+	}
+	/*
+	 * returns if player is invincible or not
+	 */
+	public boolean isInvinc() {
+		for (Potion p: this.status) {
+			if (p.isInvinc()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * returns if player is hovering or not
+	 */
+	public boolean isHover() {
+		for (Potion p: this.status) {
+			if (p.isHover()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * return arraylist of player status effect
+	 * @return status
+	 */
+	public ArrayList<Potion> getStatus() {
+		return this.status;
+	}
+	
+	/*
+	 * return player inventory
+	 * @return inventory
+	 */
+	public PlayerInventory getInventory() {
+		return this.inventory;
+	}
+	
+	/*
+	 * sets direction of player
+	 * @param direction
+	 */
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	
+	/*
+	 * sets player death status to true
+	 */
+	public void die() {
+		this.isDead = true;
+	}
+}
 
 	
-}
+
+
+
+
+	
+
+
+

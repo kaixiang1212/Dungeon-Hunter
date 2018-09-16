@@ -1,6 +1,5 @@
 package Model;
 
-//import org.jetbrains.annotations.Contract;
 
 import java.awt.Point;
 import java.util.HashMap;
@@ -15,15 +14,17 @@ public class Dungeon {
     private Point topLeft;
     private Point bottomRight;
 
+    private Map<Point, Item> itemGrid;
     private Map<Point, Tile> tileGrid;
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
-    //private Map<Point, Pickups> pickGrid;
+
 
     public Dungeon(int size) throws IllegalArgumentException{
     	playerPosition = null;
     	agentGrid = new HashMap<Point, ComputerAgent>();
+    	itemGrid = new HashMap<Point, Item>();
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -35,17 +36,17 @@ public class Dungeon {
         this.bottomRight = new Point(size+1, size+1);
     }
    
-    //@Contract(pure = true)
+
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
     }
 
-    //@Contract(pure = true)
+
     public Point getTopLeft() {
         return topLeft;
     }
 
-    //@Contract(pure = true)
+
     public Point getBottomRight() {
         return bottomRight;
     }
@@ -60,7 +61,7 @@ public class Dungeon {
      * @param (size > 0 && size <= MAX_SIZE)
      * @return A default empty dungeon
      */
-    //@Contract(pure = true)
+
     private HashMap<Point, Tile> initTileGrid(int size) {
 
         if (size < 1) {
@@ -84,6 +85,12 @@ public class Dungeon {
                 ret.put(new Point(i, j), new Tile(Tile.TileType.INVINCIBLE_WALL));
             }
         }
+        //Set rest of tiles to default tiles that allow for free movement
+        for(int i = 1; i <= size; i++) {
+        	for(int j = 1; j <= size; j++) {
+        		ret.put(new Point(i,j), new Tile(Tile.TileType.DEFAULT));
+        	}
+        }
 
         return ret;
     }
@@ -94,7 +101,7 @@ public class Dungeon {
      * Makes a Tile Grid of MAX_SIZE
      * @return A default empty dungeon size MAX_SIZE
      */
-    //@Contract(pure = true)
+ 
     private HashMap<Point, Tile> initTileGrid() {
         return initTileGrid(this.MAX_SIZE);
     }
@@ -104,7 +111,7 @@ public class Dungeon {
      * @param location
      * @return Tile.TileType
      */
-    //@Contract(pure = true)
+
     public Tile.TileType pointTileType(Point location) {
         Tile local = tileGrid.get(location);
         if (local == null) {
@@ -140,10 +147,15 @@ public class Dungeon {
             aY > bot || aY < top) {
             throw new IllegalArgumentException("Placement out of bounds");
         }
-
+        //If no tile
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, new Tile(tileType));
             return true;
+        }
+        //If tile already exists, simply switch type!
+        if(tileGrid.get(myPoint) != null) {
+        	tileGrid.get(myPoint).setType(tileType);
+        	return true;
         }
 
         return false;
@@ -176,7 +188,7 @@ public class Dungeon {
     }
 
     /**
-     * Utilises entrySet iterator
+     * Utilizes entrySet iterator
      * Iterates over agentGrid to move agents
      * Grabs new position
      * Deletes old entry in agent hashmap
@@ -186,40 +198,139 @@ public class Dungeon {
     	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
     		Point updatePos = entry.getValue().move(this);
     		agentGrid.remove(entry.getKey());
-    		if(entry.getValue().getHealth() > 0) { //If agent still has health after its turn
-    			agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-    		}
+    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+    		triggerAgentAction(updatePos);
     	}
+    }
+    public void updatePlayer(String key) {
+    	int x = (int) this.playerPosition.getX();
+    	int y = (int) this.playerPosition.getY();
+    	switch (key) {
+    		case "a":
+    			Point left = new Point(x-1, y);
+    			if (isValidMove(left)) {
+    				this.playerPosition = left;
+    				this.player.setDirection("Left");
+    			}			
+    			break;
+    		case "s":
+    			Point down = new Point(x, y+1);
+    			if (isValidMove(down)) {
+    				this.playerPosition = down;
+    				this.player.setDirection("Down");
+    			}
+    			break;
+    		case "d":
+    			Point right = new Point(x+1, y);
+    			if (isValidMove(right)) {
+    				this.playerPosition = right;
+    				this.player.setDirection("Right");
+    			}
+    			break;
+    		case "w":
+    			Point up = new Point(x, y-1);
+    			if (isValidMove(up)) {
+    				this.playerPosition = up;
+    				this.player.setDirection("Up");
+    			}
+    			break;
+    	}
+    	triggerPlayerAction(playerPosition);	
     }
 
     public Point getPlayerPos() {
     	return this.playerPosition;
     }
     
+    public void removeAgent(Point p) {
+    	this.agentGrid.remove(p);
+    }
     
     /**
-     * Checks if tile to be moved on is valid to move on.
+     * Checks if tile to be moved on is valid to move on by players.
      * @param check
      * @return
      */
     public boolean isValidMove(Point check) {
     	//Checks cases for types of tiles that can't be moved on
+    	if(!isValidMoveBasic(check)) {
+
+    		return false;
+    	}
+    	//Checks if movable agent, ie. boulder can't move depending on player push direction
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(temp != null && temp.isMoveable()) {
+
+    		String dir = player.getDirection();
+    		int x = (int) check.getX();
+    		int y = (int) check.getY();
+    		switch(dir) {
+    			case "Left":
+    				if(!isValidMoveAgent(new Point(x-1, y))) {
+    					return false;
+    				}
+    				break;
+    			case "Right":
+    				if(!isValidMoveAgent(new Point(x+1, y))) {
+    					return false;
+    				}
+    				break;
+    			case "Up":
+    				if(!isValidMoveAgent(new Point(x, y-1))) {
+    					return false;
+    				}
+    				break;
+    			case "Down":
+    				if(!isValidMoveAgent(new Point(x, y+1))) {
+    					return false;
+    				}
+    				break;
+    		}
+    	}
+
+    	return true;  	
+    }
+  
+    public boolean isValidMoveBasic(Point check) {
+    	//Checks cases for types of tiles that can't be moved on
+
+    	if (check == null) return false;
 
     	Tile tileA = tileGrid.get(check);
     	if (tileA != null) {
+
     		TileType type = tileA.getType();
     		switch (type) {
     		case INVINCIBLE_WALL:
+    			return false;
     		case CLOSED_DOOR:
-    		case PIT:
+    			return false;
     		case DESTRUCTABLE_WALL:
     			return false;
     		}
-
     	}
     	return true;
-	    		
     }
+    public boolean isValidMoveArrow(Point check) {
+    	if (!isValidMoveBasic(check)) {
+    		return false;
+    	}
+    	if(agentGrid.get(check) != null && agentGrid.get(check).isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+    public boolean isValidMoveAgent(Point check) {
+    	if (!isValidMoveArrow(check)) {
+    		return false;
+    	}
+    	ComputerAgent temp = agentGrid.get(check);
+    	if(tileGrid.get(check).getType() == TileType.PIT && temp != null && !temp.isMoveable()) {
+    		return false;
+    	}
+    	return true;
+    }
+  
     /**
      * Typically called after isValidMove(Point) to further verify for
      * agents, so agents do not overlap
@@ -235,5 +346,84 @@ public class Dungeon {
     	}
     	return false;
     }
+    
+    /**
+     * Place item on specified point. If item already on point, simply remove then place
+     * TODO: invalid coordinates, add exception for invalid item placement!
+     * @param i Item
+     * @param pos Position in Point form
+     */
+    public void placeItem(Item i, Point pos) {
+    	if(isItemExist(pos)) {
+    		removeItem(pos);
+    	}
+    	itemGrid.put(pos, i);
+    }
+    public boolean isItemExist(Point check) {
+    	if(itemGrid.containsKey(check)) {
+    		return true;
+    	}
+    	return false;
+    }
+    public void removeItem(Point pos) {
+    	if(isItemExist(pos)) {
+    		itemGrid.remove(pos);
+    	}
+    }
+    
+    //TODO: Is it bad to put so many if statements? probably a better way
+    private void triggerPlayerAction(Point point) {
+     	// Grid is a PIT
+    	if(tileGrid.get(point).getType() == TileType.PIT) {
+    		if (!this.player.isHover()) {
+    			this.player.die();
+    		}
+    	}
+    	// Grid holds an Agent
+    	ComputerAgent temp = agentGrid.get(point);
+		if (temp != null) {
+			if(temp.isMoveable()) {
+				Point newPos = ((Boulder) temp).push(player.getDirection());
+				agentGrid.remove(point);
+				if(tileGrid.get(newPos).getType() != TileType.PIT) {
+					agentGrid.put(newPos, temp);
+				}	
+			}
+			else {
+    		// fight
+				this.player.fight(this);
+			}
+    	}
+/*     	// The next Grid is Door
+    	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
+    		// unlock door
+    		Door door = (Door )tileGrid.get(point);
+    		door.unlockDoor(player.getKeys());
+    	}*/
 
+		//Grid is a EXIT
+    	if(tileGrid.get(point).getType() == TileType.EXIT) {
+    		//Win?
+    	}
+    	    	
+    	// If item, attempt to pickup the item
+    	if (itemGrid.get(point) != null) {
+    		if (!itemGrid.get(point).isLitBomb()) {
+    			this.player.pickup(itemGrid.get(point));
+    			this.itemGrid.remove(point);
+    		}
+    	}
+    	
+
+    }
+    private void triggerAgentAction(Point point) {
+    	
+    	if(playerPosition.equals(point)) {
+    		player.fight(this);
+    	}
+    }
+    public ComputerAgent getAgent(Point point) {
+    	return agentGrid.get(point);
+    }
+	
 }

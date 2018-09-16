@@ -1,7 +1,6 @@
 package Model;
 
 import java.awt.Point;
-import java.util.Map;
 
 /**
  * ComputerAgent encompasses non-player entities within the dungeon
@@ -12,37 +11,46 @@ import java.util.Map;
  */
 public abstract class ComputerAgent {
 
-	private int healthPoints;
+	/**
+	 * moveBehaviour strategy which defines how computeragents traverse the map
+	 * @pos current position in Point form within Dungeon
+	 */
 	private MoveBehaviour moveBehaviour;
 	private Point pos;
 
-	public ComputerAgent(int healthPoints, MoveBehaviour moveBehaviour) {
-		this.healthPoints = healthPoints;
+	public ComputerAgent(MoveBehaviour moveBehaviour) {
 		this.moveBehaviour = moveBehaviour;
 	}
-	public int getHealth() {
-		return this.healthPoints;
-	}
-	public void attack(Player a) {
-		a.takeDamage(100, this);
-	}
-	public void takeDamage(int damage) {
-		this.healthPoints = this.healthPoints - damage;
-		if(this.healthPoints <= 0) {
-			System.out.println("Ded");
-		}
-	}
+
+	/**
+	 * Moves the ComputerAgent based on movement strategy
+	 * @param map The dungeon currently being played
+	 * @return position which has been calculated for movement
+	 */
 	public Point move(Dungeon map) {
-		this.pos = moveBehaviour.move(map, pos);
-		if(this.pos.equals(map.getPlayerPos())) {
-			this.attack(map.getPlayer());
-		}
+		setPos(moveBehaviour.move(map, pos));
 		return this.pos;
 	}
+	/**
+	 * Sets updated position in Point form of the ComputerAgent
+	 * @param newPos New position to update to
+	 */
 	public void setPos(Point newPos) {
 		this.pos = newPos;
 	}
+	/**
+	 * Gives current position
+	 * @return Current position in Point form
+	 */
 	public Point getPos() {
 		return this.pos;
 	}
+	public boolean isMoveable() {
+		return this instanceof Boulder;
+	}
 }
+
+
+
+
+
