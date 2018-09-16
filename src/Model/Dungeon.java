@@ -312,5 +312,31 @@ public class Dungeon {
     		itemGrid.remove(pos);
     	}
     }
+    
+    //TODO: Is it bad to put so many if statements? probably a better way
+    private void triggerPlayerAction(Point point) {
+     	// The next Grid is Enemy
+		if (agentGrid.get(point) != null) {
+    		// fight
+			this.player.fight(this);
+    	}
+     	// The next Grid is Door
+    	if (tileGrid.get(point).getType() == TileType.CLOSED_DOOR) {
+    		// unlock door
+    		Door door = (Door )tileGrid.get(point);
+    		door.unlockDoor(player.getKeys());
+    	}
+     	// TODO boulder
+    	if(tileGrid.get(point).getType() == TileType.EXIT) {
+    		//Win?
+    	}
+    	
+    	
+    	// If item, attempt to pickup the item
+    	if (itemGrid.get(point) != null) {
+    		this.player.pickup(itemGrid.get(point));
+    	}
+    }
+	
 }
 
