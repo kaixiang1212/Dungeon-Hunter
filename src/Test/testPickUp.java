@@ -13,6 +13,7 @@ import Model.Dungeon;
 import Model.Hover;
 import Model.Hunter;
 import Model.Invincibility;
+import Model.LitBomb;
 import Model.MoveBehaviour;
 import Model.StandardChaseBehaviour;
 import Model.Strategist;
@@ -20,6 +21,8 @@ import Model.Player;
 import Model.Potion;
 import Model.RangedWeapon;
 import Model.Sword;
+import Model.Tile;
+import Model.Tile.TileType;
 import Model.Treasure;
 
 public class testPickUp {
@@ -180,6 +183,42 @@ public class testPickUp {
 		player.selectItem(0);
 		player.useItem(dungeon);
 		assertFalse(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testArrowBlock() {
+		Player player = new Player();
+		ComputerAgent ca = new Strategist();
+		Dungeon dungeon = new Dungeon(3);
+		Point pPos = new Point(1,1);
+		Point aPos = new Point(3,1);
+		Point tPos = new Point(2,1);
+		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeTile(TileType.DESTRUCTABLE_WALL, tPos);
+		player.pickup(new Arrow());
+		player.selectItem(0);
+		player.useItem(dungeon);
+		assertTrue(dungeon.isAgentExist(aPos));
+	}
+	
+	@Test
+	public void testLitBombExplode() {
+		Dungeon dungeon = new Dungeon(3);
+		Player player = new Player();
+		Point bPos = new Point(2,2);
+		LitBomb litBomb = new LitBomb(bPos);
+		Point tlPos = new Point(1,1);
+		Point brPos = new Point(3,3);
+		ComputerAgent ca = new Strategist();
+		dungeon.placeComputerAgent(ca, tlPos);
+		dungeon.placeComputerAgent(ca, brPos);
+		dungeon.placePlayer(player, bPos);
+		litBomb.use(dungeon);
+		litBomb.use(dungeon);
+		litBomb.use(dungeon);
+		assertFalse(dungeon.isAgentExist(tlPos));
+		assertFalse(dungeon.isAgentExist(brPos));
 	}
 	
 		/*
