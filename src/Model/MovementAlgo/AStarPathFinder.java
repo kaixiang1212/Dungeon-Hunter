@@ -58,7 +58,7 @@ public class AStarPathFinder implements PathFinder {
 					int dx = x + currentNode.x;
 					int dy = y + currentNode.y;
 					
-					if (map.isValidMove(new Point(dx,dy))) {
+					if (map.isValidMoveAgent(new Point(dx,dy))) {
 						double nextStepCost = currentNode.getCost() + 1;
 						Node neighbour = nodes[dx][dy];
 						
