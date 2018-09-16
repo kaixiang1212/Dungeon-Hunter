@@ -23,7 +23,6 @@ public class Player {
 			this.addStatus((Potion) i);
 		} else {
 			inventory.storeItem(i);
-			System.out.println("An item has been stored!");
 		}
 	}
 	public void selectItem(int index) {
