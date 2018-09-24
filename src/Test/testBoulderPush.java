@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import Model.Boulder;
@@ -14,10 +16,19 @@ import Model.Tile.TileType;
 
 public class testBoulderPush {
 
-	Dungeon d = new Dungeon(3);
-	Player p = new Player();
-	Boulder b = new Boulder(null);
-	
+	Dungeon d;
+	Player p;
+	Boulder b;
+
+	@Before public void initTest() {
+
+		d = new Dungeon(3);
+		p = new Player();
+		b = new Boulder(null);
+	} // no @After required
+
+
+
 	//Pushes boulder into empty square, attempts to push into map boundary, fails
 	@Test
 	public void testPushInvuln() {
@@ -64,7 +75,7 @@ public class testBoulderPush {
 		d.placeComputerAgent(b, new Point(2,1));
 		d.placeTile(TileType.CLOSED_DOOR, new Point(3,1));
 		d.updatePlayer("d");
-		assertEquals(b.getPos(), new Point(2,1));
+		assertEquals(new Point(2, 1), b.getPos());
 		assertEquals(d.getPlayerPos(), new Point(1,1));
 	}
 }
