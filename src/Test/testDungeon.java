@@ -12,11 +12,12 @@ import java.awt.Point;
 
 public class testDungeon {
 
+    Dungeon testDun;
+
     @Test
     public void newDungeonHasDoubleInvulnWalls () {
         // Setup
         int[] sizes = {1, 5, 20};
-        Dungeon testDun;
         Point myPoint = new Point();
 
         // test
@@ -58,55 +59,31 @@ public class testDungeon {
         }
     }
 
-    @Test
-    public void newDungeonSizeLimits0To20() {
-        Dungeon testDun;
+    @Test(expected = Exception.class)
+    public void newDungeonSize0() {
 
         // Boundary case, min size 1, should throw illegal arg exception
-        try {
-            testDun = new Dungeon(0);
-            assert (false);
-        } catch (IllegalArgumentException e) {
-            // This block is good
-            Assert.assertTrue(e.getMessage().contains("1-20"));
-            Assert.assertTrue(e.getMessage().contains(Integer.toString(0)));
-        } catch (Exception e) {
-            Assert.assertTrue(false);
-        }
+        testDun = new Dungeon(0);
+    }
+
+
+    @Test(expected = Exception.class)
+    public void newDungeonSize21() {
 
         // Boundary case, max size 20, should throw illegal arg exception
-        try {
-            testDun = new Dungeon(21);
-            assert (false);
-        } catch (IllegalArgumentException e) {
-            // this block is good
-            Assert.assertTrue(e.getMessage().contains("1-20"));
-            Assert.assertTrue(e.getMessage().contains(Integer.toString(0)));
-        } catch (Exception e) {
-            assert (false);
-        }
+        testDun = new Dungeon(21);
+    }
 
-        // Boundary case, min size 20, should have a good Dungeon
-        try {
-            testDun = null;
-            testDun = new Dungeon(1);
-            Assert.assertNotNull(testDun);
-        } catch (IllegalArgumentException e) {
-            assert (false);
-        } catch (Exception e) {
-            assert (false);
-        }
+    @Test(expected = Test.None.class)
+    public void newDungeonSize1() {
+        // Boundary case, min size 1, should have a good Dungeon
+        testDun = new Dungeon(1);
+    }
 
+    @Test(expected = Test.None.class)
+    public void newDungeonSize20() {
         // Boundary case, max size 20, should have a good Dungeon
-        try {
-            testDun = null;
-            testDun = new Dungeon(20);
-            Assert.assertNotNull(testDun);
-        } catch (IllegalArgumentException e) {
-            assert (false);
-        } catch (Exception e) {
-            assert (false);
-        }
+        testDun = new Dungeon(20);
     }
 
     @Test
