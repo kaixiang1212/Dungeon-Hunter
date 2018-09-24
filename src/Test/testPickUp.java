@@ -5,17 +5,21 @@ import static org.junit.Assert.*;
 import java.awt.Point;
 
 import Model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class testPickUp {
 	
 	//PICKUP ITEMS
+    Player player;
+    @Before public void initTest() {
+    	player = new Player();
+	}
 	
 	//test to make sure pickup adds invincibility effect on player upon pickup
 	@Test
 	public void testHasInviPot() {
-		Player player = new Player();
 		Potion invi = new Invincibility();
 		assertFalse(player.isInvinc());
 		player.pickup(invi);
@@ -26,7 +30,6 @@ public class testPickUp {
 	//test to make sure collision with invincibility potion calls pickup
 	@Test
 	public void testPickUpInviPot() {
-		Player player = new Player();
 		Potion invi = new Invincibility();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
@@ -45,7 +48,6 @@ public class testPickUp {
 	//test to make sure pickup adds hover effect on player
 	@Test
 	public void testHasHoverPot() {
-		Player player = new Player();
 		Potion hover = new Hover();
 		assertFalse(player.isHover());
 		player.pickup(hover);
@@ -56,7 +58,6 @@ public class testPickUp {
 	//test to make sure collision with hover potion calls pickup
 	@Test
 	public void testPickUpHoverPot() {
-		Player player = new Player();
 		Potion hover = new Hover();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
@@ -75,7 +76,6 @@ public class testPickUp {
 	//test to make sure pickup adds Treasure
 	@Test
 	public void testHasTreasure() {
-		Player player = new Player();
 		Treasure treasure = new Treasure();
 		assert(player.getInventory().isEmpty());
 		player.pickup(new Treasure());
@@ -87,7 +87,6 @@ public class testPickUp {
 	//test to make sure collision with treasure calls pickup and that treasure can be stacked
 	@Test
 	public void testPickUpTreasure() {
-		Player player = new Player();
 		Treasure treasure = new Treasure();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(2,1);
@@ -110,7 +109,6 @@ public class testPickUp {
 	//test to make sure pickup adds sword to inventory
 	@Test
 	public void testHasSword() {
-		Player player = new Player();
 		assert(player.getInventory().isEmpty());
 		player.pickup(new Sword());
 		player.selectItem(0);
@@ -121,7 +119,6 @@ public class testPickUp {
 	//test to make sure player can only hold one sword at a time
 	@Test
 	public void testOnlyHaveOneSword() {
-		Player player = new Player();
 		Sword sword = new Sword();
 		Sword sword2 = new Sword();
 		player.pickup(sword);
@@ -133,7 +130,6 @@ public class testPickUp {
 	//test to make sure collision with sword calls pickup
 	@Test
 	public void testPickUpSword() {
-		Player player = new Player();
 		Sword sword = new Sword();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
@@ -153,7 +149,6 @@ public class testPickUp {
 	//test to make sure player swaps out sword with new one if pickup is called and that Sword durability works
 	@Test
 	public void testOnlyHaveOneSwordChangingUses() {
-		Player player = new Player();
 		Sword sword = new Sword();
 		Sword sword2 = new Sword();
 		Dungeon dungeon = new Dungeon(3);
@@ -176,8 +171,7 @@ public class testPickUp {
 	//test to make sure pickup adds arrows to inventory and that they can be stacked
 	@Test
 	public void testHasArrow() {
-		Player player = new Player();
-		assert(player.getInventory().isEmpty());
+		assertTrue(player.getInventory().isEmpty());
 		player.pickup(new Arrow());
 		player.selectItem(0);
 		assertTrue(player.getHeld() instanceof Arrow);
@@ -190,7 +184,6 @@ public class testPickUp {
 	//test to make sure collision calls pickup on arrows
 	@Test
 	public void testPickUpArrow() {
-		Player player = new Player();
 		Arrow arrow = new Arrow();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
@@ -214,7 +207,6 @@ public class testPickUp {
 	//test to make sure pickup adds bombs to inventory
 	@Test
 	public void testHasBomb() {
-		Player player = new Player();
 		assert(player.getInventory().isEmpty());
 		player.pickup(new Bomb());
 		player.selectItem(0);
@@ -224,7 +216,6 @@ public class testPickUp {
 	//test to make sure collision with bomb calls pickup and that bombs are stackable
 	@Test
 	public void testPickUpBomb() {
-		Player player = new Player();
 		Bomb bomb = new Bomb();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
@@ -248,7 +239,6 @@ public class testPickUp {
 	//test to make sure player can't pickup lit bomb
 	@Test
 	public void testCantHaveLitBomb() {
-		Player player = new Player();
 		Point point = new Point(1,1);
 		assert(player.getInventory().isEmpty());
 		player.pickup(new LitBomb(point));
@@ -258,7 +248,6 @@ public class testPickUp {
 	//test to make sure collision doesn't pick up lit bomb
 	@Test
 	public void testCantPickUpLitBomb() {
-		Player player = new Player();
 		Dungeon dungeon = new Dungeon(3);
 		Point point = new Point(1,1);
 		Point iPoint = new Point(2,1);
@@ -276,7 +265,6 @@ public class testPickUp {
 	//test that player can move through inventory
 	@Test
 	public void testMoveThroughInventory() {
-		Player player = new Player();
 		player.pickup(new Arrow());
 		player.selectItem(0);
 		assertTrue(player.getHeld() instanceof Arrow);

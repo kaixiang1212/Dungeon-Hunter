@@ -1,6 +1,8 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.Point;
@@ -15,15 +17,18 @@ import Model.Tile.TileType;
 public class testCowardFlee {
 
 
-	Dungeon basicDungeon = null;
-	ComputerAgent coward = null;
-	Player player = null;
+	Dungeon basicDungeon;
+	ComputerAgent coward;
+	Player player;
 
-	@Test
-	public void testDirectChase() {
+	@Before public void initTest() {
 		this.basicDungeon = new Dungeon(6);
 		this.coward = new Coward();
 		this.player = new Player();
+	}
+
+	@Test
+	public void testDirectChase() {
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
@@ -35,9 +40,6 @@ public class testCowardFlee {
 	
 	@Test
 	public void testDirectFlee() {
-	    this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
@@ -54,9 +56,6 @@ public class testCowardFlee {
 	
 	@Test
 	public void testObstacleChase() {
-		this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
@@ -73,9 +72,6 @@ public class testCowardFlee {
 	
 	@Test
 	public void testObstacleFlee() {
-		this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
