@@ -4,18 +4,8 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
+import Model.*;
 import org.junit.Test;
-
-import Model.Arrow;
-import Model.Bomb;
-import Model.Dungeon;
-import Model.Hover;
-import Model.Invincibility;
-import Model.LitBomb;
-import Model.Player;
-import Model.Potion;
-import Model.Sword;
-import Model.Treasure;
 
 
 public class testPickUp {
