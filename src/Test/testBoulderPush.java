@@ -4,14 +4,11 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
+import Model.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Boulder;
-import Model.Dungeon;
-import Model.Player;
-import Model.Tile;
 import Model.Tile.TileType;
 
 public class testBoulderPush {
@@ -34,10 +31,10 @@ public class testBoulderPush {
 	public void testPushInvuln() {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(2,1));
 		assertEquals(testBoulder.getPos(), new Point(3,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(2,1));
 	}
 	//Boulder disappears if pushed into pit!
@@ -46,7 +43,7 @@ public class testBoulderPush {
 		testDun.placeTile(TileType.PIT, new Point(3,1));
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getAgent(new Point(3,1)), null);
 	}
 	//Push boulder into destructable wall, fails
@@ -55,7 +52,7 @@ public class testBoulderPush {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
 		testDun.placeTile(TileType.DESTRUCTABLE_WALL, new Point(3,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testBoulder.getPos(), new Point(2,1));
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
 	}
@@ -64,7 +61,7 @@ public class testBoulderPush {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
 		testDun.placeComputerAgent(new Boulder(null), new Point(3,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testBoulder.getPos(), new Point(2,1));
 	
 	}
@@ -74,7 +71,7 @@ public class testBoulderPush {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
 		testDun.placeTile(TileType.CLOSED_DOOR, new Point(3,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(new Point(2, 1), testBoulder.getPos());
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
 	}

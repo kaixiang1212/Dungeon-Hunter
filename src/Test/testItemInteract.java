@@ -6,21 +6,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
+import Model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Arrow;
-import Model.Bomb;
-import Model.Boulder;
-import Model.ComputerAgent;
-import Model.Dungeon;
-import Model.Hover;
-import Model.Invincibility;
-import Model.LitBomb;
-import Model.Player;
-import Model.Potion;
-import Model.Strategist;
-import Model.Sword;
 import Model.Tile.TileType;
 
 public class testItemInteract {
@@ -71,7 +60,7 @@ public class testItemInteract {
 		dungeon.placePlayer(player, playerPos);
 		assertFalse(player.deathStatus());
 		assertTrue(player.isHover());
-		dungeon.updatePlayer("a");
+		dungeon.updatePlayer(Direction.LEFT);
 		assertEquals(dungeon.getPlayerPos(), topL);
 		assertFalse(player.deathStatus());
 	}
@@ -123,7 +112,7 @@ public class testItemInteract {
 		dungeon.placePlayer(player, pPos);
 		dungeon.placeComputerAgent(ca, topL);
 		player.pickup(new Arrow());
-		player.setDirection("Left");
+		player.setDirection(Direction.LEFT);
 		player.selectItem(0);
 		player.useItem(dungeon);
 		assertFalse(dungeon.isAgentExist(topL));
@@ -137,7 +126,7 @@ public class testItemInteract {
 		dungeon.placePlayer(player, pPos);
 		dungeon.placeComputerAgent(ca, topL);
 		player.pickup(new Arrow());
-		player.setDirection("Up");
+		player.setDirection(Direction.UP);
 		player.selectItem(0);
 		player.useItem(dungeon);
 		assertFalse(dungeon.isAgentExist(topL));
@@ -151,7 +140,7 @@ public class testItemInteract {
 		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
 		player.pickup(new Arrow());
-		player.setDirection("Down");
+		player.setDirection(Direction.DOWN);
 		player.selectItem(0);
 		player.useItem(dungeon);
 		assertFalse(dungeon.isAgentExist(aPos));

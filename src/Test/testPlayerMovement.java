@@ -1,5 +1,6 @@
 package Test;
 
+import Model.Direction;
 import org.junit.Before;
 import org.junit.Test;
 import Model.Dungeon;
@@ -25,7 +26,7 @@ public class testPlayerMovement {
 
 		testDun.placePlayer(testPlayer, playerStart);
 		assertEquals(testDun.getPlayerPos(), playerStart);
-		testDun.updatePlayer("w");
+		testDun.updatePlayer(Direction.UP);
 		assertEquals(testDun.getPlayerPos(), new Point(2,1));
 	}
 	
@@ -34,7 +35,7 @@ public class testPlayerMovement {
 		Point playerStart = new Point(2,2);
 
 		testDun.placePlayer(testPlayer, playerStart);
-		testDun.updatePlayer("s");
+		testDun.updatePlayer(Direction.DOWN);
 		assertEquals(testDun.getPlayerPos(), new Point(2,3));
 	}
 	
@@ -43,7 +44,7 @@ public class testPlayerMovement {
 		Point playerStart = new Point(2,2);
 
 		testDun.placePlayer(testPlayer, playerStart);
-		testDun.updatePlayer("a");
+		testDun.updatePlayer(Direction.LEFT);
 		assertEquals(testDun.getPlayerPos(), new Point(1,2));
 	}
 	
@@ -52,7 +53,7 @@ public class testPlayerMovement {
 		Point playerStart = new Point(2,2);
 
 		testDun.placePlayer(testPlayer, playerStart);
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(3,2));
 	}
 	
@@ -61,29 +62,29 @@ public class testPlayerMovement {
 		Point playerStart = new Point(2,2);
 
 		testDun.placePlayer(testPlayer, playerStart);
-		testDun.updatePlayer("a");
+		testDun.updatePlayer(Direction.LEFT);
 		assertEquals(testDun.getPlayerPos(), new Point(1,2));
-		testDun.updatePlayer("w");
+		testDun.updatePlayer(Direction.UP);
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(2,1));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(3,1));
-		testDun.updatePlayer("s");
+		testDun.updatePlayer(Direction.DOWN);
 		assertEquals(testDun.getPlayerPos(), new Point(3,2));
-		testDun.updatePlayer("s");
+		testDun.updatePlayer(Direction.DOWN);
 		assertEquals(testDun.getPlayerPos(), new Point(3,3));
-		testDun.updatePlayer("a");
+		testDun.updatePlayer(Direction.LEFT);
 		assertEquals(testDun.getPlayerPos(), new Point(2,3));
-		testDun.updatePlayer("a");
+		testDun.updatePlayer(Direction.LEFT);
 		assertEquals(testDun.getPlayerPos(), new Point(1,3));
-		testDun.updatePlayer("w");
+		testDun.updatePlayer(Direction.UP);
 		assertEquals(testDun.getPlayerPos(), new Point(1,2));
-		testDun.updatePlayer("w");
+		testDun.updatePlayer(Direction.UP);
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
-		testDun.updatePlayer("s");
+		testDun.updatePlayer(Direction.DOWN);
 		assertEquals(testDun.getPlayerPos(), new Point(1,2));
-		testDun.updatePlayer("d");
+		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testDun.getPlayerPos(), new Point(2,2));
 		
 	}

@@ -39,7 +39,7 @@ public class testPickUp {
 		dungeon.placeItem(invi, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertFalse(player.isInvinc());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		assert(player.isInvinc());
@@ -67,7 +67,7 @@ public class testPickUp {
 		dungeon.placeItem(hover, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertFalse(player.isInvinc());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		assert(player.isHover());
@@ -96,7 +96,7 @@ public class testPickUp {
 		dungeon.placeItem(treasure, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertFalse(player.isInvinc());
-		dungeon.updatePlayer("a");
+		dungeon.updatePlayer(Direction.LEFT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		player.selectItem(0);
@@ -139,7 +139,7 @@ public class testPickUp {
 		dungeon.placeItem(sword, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertTrue(player.getInventory().isEmpty());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		player.selectItem(0);
@@ -193,14 +193,14 @@ public class testPickUp {
 		dungeon.placeItem(arrow, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertTrue(player.getInventory().isEmpty());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		player.selectItem(0);
 		assert(player.getHeld() instanceof Arrow);
 		assertTrue(player.getHeld().getQuantity() == 1);
 		dungeon.placeItem(arrow, point);
-		dungeon.updatePlayer("a");
+		dungeon.updatePlayer(Direction.LEFT);
 		assertTrue(player.getHeld().getQuantity() == 2);
 	}
 	
@@ -225,14 +225,14 @@ public class testPickUp {
 		dungeon.placeItem(bomb, iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertTrue(player.getInventory().isEmpty());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertFalse(dungeon.isItemExist(iPoint));
 		player.selectItem(0);
 		assert(player.getHeld() instanceof Bomb);
 		assertTrue(player.getHeld().getQuantity() == 1);
 		dungeon.placeItem(bomb, point);
-		dungeon.updatePlayer("a");
+		dungeon.updatePlayer(Direction.LEFT);
 		assertTrue(player.getHeld().getQuantity() == 2);
 	}
 	
@@ -256,7 +256,7 @@ public class testPickUp {
 		dungeon.placeItem(new LitBomb(iPoint), iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertTrue(player.getInventory().isEmpty());
-		dungeon.updatePlayer("d");
+		dungeon.updatePlayer(Direction.RIGHT);
 		assertEquals(dungeon.getPlayerPos(), iPoint);
 		assertTrue(dungeon.isItemExist(iPoint));
 		assertTrue(player.getInventory().isEmpty());

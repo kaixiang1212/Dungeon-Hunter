@@ -218,36 +218,36 @@ public class Dungeon {
     	}
     }
 
-    public void updatePlayer(String c) {
+    public void updatePlayer(Direction dir) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
-    	switch (c) {
-    		case "a":
+    	switch (dir) {
+    		case LEFT:
     			Point left = new Point(x-1, y);
     			if (isValidMove(left)) {
     				this.playerPosition = left;
-    				this.player.setDirection("Left");
+    				this.player.setDirection(Direction.LEFT);
     			}
     			break;
-    		case "s":
+			case DOWN:
     			Point down = new Point(x, y+1);
     			if (isValidMove(down)) {
     				this.playerPosition = down;
-    				this.player.setDirection("Down");
+    				this.player.setDirection(Direction.DOWN);
     			}
     			break;
-    		case "d":
+    		case RIGHT:
     			Point right = new Point(x+1, y);
     			if (isValidMove(right)) {
     				this.playerPosition = right;
-    				this.player.setDirection("Right");
+    				this.player.setDirection(Direction.RIGHT);
     			}
     			break;
-    		case "w":
+    		case UP:
     			Point up = new Point(x, y-1);
     			if (isValidMove(up)) {
     				this.playerPosition = up;
-    				this.player.setDirection("Up");
+    				this.player.setDirection(Direction.UP);
     			}
     			break;
         }
@@ -277,26 +277,26 @@ public class Dungeon {
     	ComputerAgent temp = agentGrid.get(check);
     	if(temp != null && temp.isMoveable()) {
 
-    		String dir = player.getDirection();
+    		Direction dir = player.getDirection();
     		int x = (int) check.getX();
     		int y = (int) check.getY();
     		switch(dir) {
-    			case "Left":
+    			case LEFT:
     				if(!isValidMoveAgent(new Point(x-1, y))) {
     					return false;
     				}
     				break;
-    			case "Right":
+    			case RIGHT:
     				if(!isValidMoveAgent(new Point(x+1, y))) {
     					return false;
     				}
     				break;
-    			case "Up":
+    			case UP:
     				if(!isValidMoveAgent(new Point(x, y-1))) {
     					return false;
     				}
     				break;
-    			case "Down":
+    			case DOWN:
     				if(!isValidMoveAgent(new Point(x, y+1))) {
     					return false;
     				}
