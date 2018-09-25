@@ -1,7 +1,9 @@
-package Model;
+package Controller;
 
 import java.awt.Point;
 
+import Controller.MoveBehaviour;
+import Model.Dungeon;
 import Model.Tile.TileType;
 
 public class PredictiveChaseBehaviour extends MoveBehaviour {

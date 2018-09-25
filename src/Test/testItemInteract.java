@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
+import Controller.Direction;
 import Model.*;
 import org.junit.Before;
 import org.junit.Test;

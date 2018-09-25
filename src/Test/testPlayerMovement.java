@@ -1,6 +1,6 @@
 package Test;
 
-import Model.Direction;
+import Controller.Direction;
 import org.junit.Before;
 import org.junit.Test;
 import Model.Dungeon;

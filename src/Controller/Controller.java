@@ -1,5 +1,6 @@
-package Model;
+package Controller;
 
+import Model.*;
 import org.junit.Test;
 
 import java.awt.Point;

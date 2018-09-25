@@ -1,10 +1,10 @@
-package Model;
+package Controller;
 
 import java.awt.Point;
-import java.util.Map;
 
-import Model.MovementAlgo.AStarPathFinder;
-import Model.MovementAlgo.PathFinder;
+import Model.Dungeon;
+import Controller.MovementAlgo.AStarPathFinder;
+import Controller.MovementAlgo.PathFinder;
 
 public abstract class MoveBehaviour {
 	

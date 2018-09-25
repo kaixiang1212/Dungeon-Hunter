@@ -1,4 +1,4 @@
-package Model.MovementAlgo;
+package Controller.MovementAlgo;
 
 import java.awt.Point;
 import java.util.ArrayList;

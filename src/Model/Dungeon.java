@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+import Controller.Direction;
 import Model.Tile.TileType;
 
 public class Dungeon {

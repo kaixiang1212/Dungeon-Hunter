@@ -1,7 +1,9 @@
 package Model;
+import Controller.Direction;
+
 import java.util.ArrayList;
 
-import static Model.Direction.RIGHT;
+import static Controller.Direction.RIGHT;
 
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction

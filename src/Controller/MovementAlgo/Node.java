@@ -1,4 +1,4 @@
-package Model.MovementAlgo;
+package Controller.MovementAlgo;
 
 public class Node {
 

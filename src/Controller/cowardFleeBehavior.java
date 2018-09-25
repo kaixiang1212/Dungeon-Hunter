@@ -1,4 +1,6 @@
-package Model;
+package Controller;
+
+import Model.Dungeon;
 
 import java.awt.Point;
 

@@ -1,5 +1,8 @@
 package Model;
 
+
+import Controller.*;
+
 import java.awt.Point;
 
 public class Coward extends ComputerAgent {
