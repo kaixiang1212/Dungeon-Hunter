@@ -1,9 +1,11 @@
-package Model;
+package Model.Item;
+
+import Model.Dungeon;
 
 /*
  * Representation of Invincibility Potion which allows player to not die except from pits
  */
-public class Invincibility extends Potion{
+public class Invincibility extends Potion {
 	public Invincibility() {
 		super(20);
 	}

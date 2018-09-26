@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import Model.Item.Treasure;
 import org.junit.Test;
 
 import java.awt.Point;

@@ -8,10 +8,11 @@ import java.awt.Point;
 
 import Controller.Direction;
 import Model.*;
+import Model.Tile.Door;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Tile.TileType;
+import Model.Tile.Type;
 
 public class testDoor {
 
@@ -43,8 +44,8 @@ public class testDoor {
 
 		//divide player and hunter with a closed door and walls.
 		basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 2));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 3));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 2));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 3));
 		basic.placeComputerAgent(enemy, new Point(3, 1));
 
 		assertFalse(basic.isValidMove(new Point(2, 1)));
@@ -62,9 +63,9 @@ public class testDoor {
 		basic.placePlayer(player, new Point(1, 1));
 
 		//divide player and hunter with a closed door and walls.
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 1));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 1));
 		basic.placeDoorKey(new Point(2, 2), new Point(3, 3));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 3));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 3));
 		basic.placeComputerAgent(enemy, new Point(3, 2));
 
 		assertFalse(basic.isValidMove(new Point(2, 1)));
@@ -86,8 +87,8 @@ public class testDoor {
 
 		//divide player and hunter with a closed door and walls.
 		basic.placeDoorKey(new Point(1, 2), new Point(3, 3));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 2));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(3, 3));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 2));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 3));
 		basic.placeComputerAgent(enemy, new Point(1, 3));
 
 		assertFalse(basic.isValidMove(new Point(1, 2)));
@@ -105,9 +106,9 @@ public class testDoor {
 		basic.placePlayer(player, new Point(1, 1));
 
 		//divide player and hunter with a closed door and walls.
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(1, 2));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(1, 2));
 		basic.placeDoorKey(new Point(2, 2), new Point(3, 3));
-		basic.placeTile(TileType.DESTRUCTABLE_WALL, new Point(3, 2));
+		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 2));
 		basic.placeComputerAgent(enemy, new Point(2, 3));
 
 		assertFalse(basic.isValidMove(new Point(1, 2)));
@@ -135,7 +136,7 @@ public class testDoor {
 		player.pickup(door.generateKey());
 		door.unlockDoor(player.getKeys());
 	
-		assert(basic.getTile(new Point(2, 2)).isType(TileType.OPEN_DOOR));
+		assert(basic.getTile(new Point(2, 2)).isType(Type.OPEN_DOOR));
 	}
 	
 	@Test
@@ -166,10 +167,10 @@ public class testDoor {
 		doorOne.unlockDoor(player.getKeys());
 
 		// door one with key 2 wrong key 
-		assert(doorOne.isType(TileType.CLOSED_DOOR));
+		assert(doorOne.isType(Type.CLOSED_DOOR));
 		// door two with key two
 		doorTwo.unlockDoor(player.getKeys());
-		assert(doorTwo.isType(TileType.OPEN_DOOR));
+		assert(doorTwo.isType(Type.OPEN_DOOR));
 		
 	}
 

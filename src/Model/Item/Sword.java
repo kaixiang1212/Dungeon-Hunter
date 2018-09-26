@@ -1,4 +1,4 @@
-package Model;
+package Model.Item;
 
 public class Sword extends MeleeWeapon {
 

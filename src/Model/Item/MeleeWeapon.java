@@ -1,4 +1,8 @@
-package Model;
+package Model.Item;
+
+import Model.Dungeon;
+import Model.Item.Item;
+import Model.Player;
 
 import java.awt.Point;
 
@@ -8,7 +12,7 @@ import java.awt.Point;
 public abstract class MeleeWeapon extends Item {
 
 	int numUses;
-	
+
 	public MeleeWeapon(int numUses) {
 		super();
 		this.numUses = numUses;

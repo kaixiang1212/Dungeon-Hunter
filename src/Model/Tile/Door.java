@@ -1,4 +1,7 @@
-package Model;
+package Model.Tile;
+
+import Model.Item.Key;
+import Model.Tile.Tile;
 
 import java.util.ArrayList;
 
@@ -8,7 +11,7 @@ public class Door extends Tile {
 	private int code;
 
 	public Door(int code) {
-		super(TileType.CLOSED_DOOR);
+		super(Type.CLOSED_DOOR);
 		this.code = code;
 	}
 	
@@ -18,7 +21,7 @@ public class Door extends Tile {
 	
 	public boolean unlockDoor(Key key) {
 		if (key.getCode() == this.code) {
-			super.setType(TileType.OPEN_DOOR);
+			super.setType(Type.OPEN_DOOR);
 			return true;
 		}
 		return false;

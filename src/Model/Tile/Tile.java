@@ -1,32 +1,22 @@
-package Model;
+package Model.Tile;
 
 import java.util.Objects;
 
 public class Tile {
 
-    public enum TileType {
-        INVINCIBLE_WALL,
-        DESTRUCTABLE_WALL,
-        EXIT,
-        CLOSED_DOOR,
-        OPEN_DOOR,
-        SWITCH,
-        PIT,
-        DEFAULT
-    }
 
-    private TileType type;
+    private Type type;
 
-    public Tile(TileType aType) {
+    public Tile(Type aType) {
         this.type = aType;
     }
 
     //@Contract(pure = true)
-    public TileType getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TileType type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -43,7 +33,7 @@ public class Tile {
         return Objects.hash(type);
     }
     
-    public boolean isType(TileType type) {
+    public boolean isType(Type type) {
     	return this.type.equals(type);
     }
 
