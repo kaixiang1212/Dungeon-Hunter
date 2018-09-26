@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.MoveBehaviour;
+
 import java.awt.Point;
 
 /**

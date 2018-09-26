@@ -6,23 +6,25 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
+import Controller.Direction;
+import Model.*;
+import org.junit.Before;
 import org.junit.Test;
 
-import Model.Arrow;
-import Model.Bomb;
-import Model.Boulder;
-import Model.ComputerAgent;
-import Model.Dungeon;
-import Model.Hover;
-import Model.Invincibility;
-import Model.LitBomb;
-import Model.Player;
-import Model.Potion;
-import Model.Strategist;
-import Model.Sword;
 import Model.Tile.TileType;
 
 public class testItemInteract {
+
+	Dungeon dungeon;
+	Player player;
+	Point topL;
+
+
+	@Before public void initTest() {
+		dungeon = new Dungeon(3);
+		player = new Player();
+		topL = new Point (1, 1);
+	}
 	
 	//TEST POTION AND SWORD FIGHT
 	
@@ -31,22 +33,18 @@ public class testItemInteract {
 	public void testInviPot() {
 
 		// Setup
-		Player player = new Player();
 		Potion invi = new Invincibility();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
-		Point aPos = new Point(1,1);
-		dungeon.placeComputerAgent(ca, aPos);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placeComputerAgent(ca, topL);
+		dungeon.placePlayer(player, topL);
 
 		// Tests
 		assertFalse(player.deathStatus());
-		assertTrue(dungeon.isAgentExist(aPos));
+		assertTrue(dungeon.isAgentExist(topL));
 		player.pickup(invi);
 		player.fight(dungeon);
 		assertFalse(player.deathStatus());
-		assertFalse(dungeon.isAgentExist(aPos));
+		assertFalse(dungeon.isAgentExist(topL));
 	}
 	
 	//test to make sure player with hover can be on pit tile
@@ -54,46 +52,39 @@ public class testItemInteract {
 	public void testHoverPot() {
 
 		// Setup
-		Player player = new Player();
 		Potion hover = new Hover();
 		player.pickup(hover);
-		Dungeon dungeon = new Dungeon(3);
-		Point pitPos = new Point(1,1);
 		Point playerPos = new Point (2,1);
 
 		// Tests
-		dungeon.placeTile(TileType.PIT, pitPos);
+		dungeon.placeTile(TileType.PIT, topL);
 		dungeon.placePlayer(player, playerPos);
 		assertFalse(player.deathStatus());
 		assertTrue(player.isHover());
-		dungeon.updatePlayer("a");
-		assertTrue(String.join("pitPos: ", pitPos.toString(), "playerStatus: ", player.toString()), player.deathStatus());
-		assertEquals(dungeon.getPlayerPos(), pitPos);
+		dungeon.updatePlayer(Direction.LEFT);
+		assertEquals(dungeon.getPlayerPos(), topL);
+		assertFalse(player.deathStatus());
 	}
 	
 	//test to make sure sword breaks when durability hits 0 and that collision when player has sword kills enemies
 	@Test
 	public void testSwordAttack() {
-		Player player = new Player();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
-		Point aPos = new Point(1,1);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placePlayer(player, topL);
 		assertFalse(player.deathStatus());
 		player.pickup(new Sword());
 		player.selectItem(0);
 		for (int i = 0; i < 5; i++) {
 			ComputerAgent ca = new Strategist();
-			dungeon.placeComputerAgent(ca, aPos);
+			dungeon.placeComputerAgent(ca, topL);
 			player.fight(dungeon);
 			assertFalse(player.deathStatus());
-			assertFalse(dungeon.isAgentExist(aPos));
+			assertFalse(dungeon.isAgentExist(topL));
 		}
 		ComputerAgent ca = new Strategist();
-		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeComputerAgent(ca, topL);
 		player.fight(dungeon);
 		assertTrue(player.deathStatus());
-		assertTrue(dungeon.isAgentExist(aPos));
+		assertTrue(dungeon.isAgentExist(topL));
 	}
 	
 	//TEST ARROW USE
@@ -101,12 +92,9 @@ public class testItemInteract {
 	//test that shot arrows can kill enemies to the right and that stacking works
 	@Test
 	public void testArrowAttackRight() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
 		Point aPos = new Point(2,1);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
 		player.pickup(new Arrow());
 		player.pickup(new Arrow());
@@ -120,49 +108,40 @@ public class testItemInteract {
 	//test that shot arrow can kill enemies to the left
 	@Test
 	public void testArrowAttackLeft() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
 		Point pPos = new Point(2,1);
-		Point aPos = new Point(1,1);
 		dungeon.placePlayer(player, pPos);
-		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeComputerAgent(ca, topL);
 		player.pickup(new Arrow());
-		player.setDirection("Left");
+		player.setDirection(Direction.LEFT);
 		player.selectItem(0);
 		player.useItem(dungeon);
-		assertFalse(dungeon.isAgentExist(aPos));
+		assertFalse(dungeon.isAgentExist(topL));
 	}
 	
 	//test that shot arrow can kill enemies above
 	@Test
 	public void testArrowAttackUp() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
 		Point pPos = new Point(1,2);
-		Point aPos = new Point(1,1);
 		dungeon.placePlayer(player, pPos);
-		dungeon.placeComputerAgent(ca, aPos);
+		dungeon.placeComputerAgent(ca, topL);
 		player.pickup(new Arrow());
-		player.setDirection("Up");
+		player.setDirection(Direction.UP);
 		player.selectItem(0);
 		player.useItem(dungeon);
-		assertFalse(dungeon.isAgentExist(aPos));
+		assertFalse(dungeon.isAgentExist(topL));
 	}
 	
 	//test that shot arrow can kill enemies below
 	@Test
 	public void testArrowAttackDown() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
 		Point aPos = new Point(1,2);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
 		player.pickup(new Arrow());
-		player.setDirection("Down");
+		player.setDirection(Direction.DOWN);
 		player.selectItem(0);
 		player.useItem(dungeon);
 		assertFalse(dungeon.isAgentExist(aPos));
@@ -171,13 +150,10 @@ public class testItemInteract {
 	//test that arrows can be blocked by obstacle tiles
 	@Test
 	public void testArrowBlock() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
 		Point aPos = new Point(3,1);
 		Point tPos = new Point(2,1);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
 		dungeon.placeTile(TileType.DESTRUCTABLE_WALL, tPos);
 		player.pickup(new Arrow());
@@ -189,14 +165,11 @@ public class testItemInteract {
 	//test that arrows can be blocked by boulders and that boulders aren't destoryed
 	@Test
 	public void testArrowBlockBoulder() {
-		Player player = new Player();
 		ComputerAgent ca = new Strategist();
 		ComputerAgent boulder = new Boulder(null);
-		Dungeon dungeon = new Dungeon(3);
-		Point pPos = new Point(1,1);
 		Point aPos = new Point(3,1);
 		Point tPos = new Point(2,1);
-		dungeon.placePlayer(player, pPos);
+		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
 		dungeon.placeComputerAgent(boulder, tPos);
 		player.pickup(new Arrow());
@@ -211,17 +184,15 @@ public class testItemInteract {
 	//test that lit bombs can kill player and agents within a 3x3 square
 	@Test
 	public void testLitBombExplode() {
-		Dungeon dungeon = new Dungeon(4);
-		Player player = new Player();
+		dungeon = new Dungeon(4);
 		Point bPos = new Point(2,2);
 		LitBomb litBomb = new LitBomb(bPos);
-		Point tlPos = new Point(1,1);
 		Point trPos = new Point(3,1);
 		Point brPos = new Point(3,3);
 		Point blPos = new Point(1,3);
 		Point outPos = new Point(4,4);
 		ComputerAgent ca = new Strategist();
-		dungeon.placeComputerAgent(ca, tlPos);
+		dungeon.placeComputerAgent(ca, topL);
 		dungeon.placeComputerAgent(ca, brPos);
 		dungeon.placeComputerAgent(ca, trPos);
 		dungeon.placeComputerAgent(ca, blPos);
@@ -230,7 +201,7 @@ public class testItemInteract {
 		litBomb.use(dungeon);
 		litBomb.use(dungeon);
 		litBomb.use(dungeon);
-		assertFalse(dungeon.isAgentExist(tlPos));
+		assertFalse(dungeon.isAgentExist(topL));
 		assertFalse(dungeon.isAgentExist(brPos));
 		assertFalse(dungeon.isAgentExist(trPos));
 		assertFalse(dungeon.isAgentExist(blPos));
@@ -241,8 +212,7 @@ public class testItemInteract {
 	//test that bombs can be used from inventory and that stacking works
 	@Test
 	public void testUseBomb() {
-		Dungeon dungeon = new Dungeon(4);
-		Player player = new Player();
+		dungeon = new Dungeon(4);
 		Point bPos = new Point(2,2);
 		Bomb bomb = new Bomb();
 		player.pickup(bomb);

@@ -1,7 +1,9 @@
-package Model;
+package Controller;
 
 import java.awt.Point;
 
+import Controller.MoveBehaviour;
+import Model.Dungeon;
 import Model.Tile.TileType;
 
 public class PredictiveChaseBehaviour extends MoveBehaviour {
@@ -52,8 +54,8 @@ public class PredictiveChaseBehaviour extends MoveBehaviour {
 	 * @return the point of EXIT, null if not exist
 	 */
 	private Point getExitPoint(Dungeon map) {
-		for (int x=0;x<map.MAX_SIZE;x++) {
-			for (int y=0;y<map.MAX_SIZE;y++) {
+		for (int x=0; x < map.MAX_SIZE; x++) {
+			for (int y=0; y < map.MAX_SIZE; y++) {
 				Point temp = new Point(x, y);
 				//System.out.println(temp.toString() + map.pointTileType(temp));
 				if (map.pointTileType(temp) == TileType.EXIT) {

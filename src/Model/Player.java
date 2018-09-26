@@ -1,5 +1,9 @@
 package Model;
+import Controller.Direction;
+
 import java.util.ArrayList;
+
+import static Controller.Direction.RIGHT;
 
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction
@@ -10,14 +14,14 @@ public class Player {
 	private PlayerInventory inventory;
 	private Item heldItem;
 	private ArrayList<Potion> status;
-	private String direction;
+	private Direction direction;
 	
 	public Player() {
 		this.inventory = new PlayerInventory();
 		this.isDead = false;
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
-		this.direction = "Right";
+		this.direction = RIGHT;
 	}
 	
 	/*
@@ -98,7 +102,7 @@ public class Player {
 	 * returns player's direction
 	 * @return direction, can be right,left,up or down
 	 */
-	public String getDirection() {
+	public Direction getDirection() {
 		return this.direction;
 	}
 	/*
@@ -145,7 +149,7 @@ public class Player {
 	 * sets direction of player
 	 * @param direction
 	 */
-	public void setDirection(String direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 	

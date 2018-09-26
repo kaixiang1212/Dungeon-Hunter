@@ -1,4 +1,4 @@
-package Model.MovementAlgo;
+package Controller.MovementAlgo;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class AStarPathFinder implements PathFinder {
 	private ArrayList<Node> closed;
 	private PriorityQueue<Node> open;
 	private Node[][] nodes;
-	
+
 	public AStarPathFinder() {
 		closed = new ArrayList<>();
 		open = new PriorityQueue<>(12, new Comparator<Node>() {
@@ -26,8 +26,8 @@ public class AStarPathFinder implements PathFinder {
 	
 	private void init(Dungeon map) {
 		nodes = new Node[map.MAX_SIZE][map.MAX_SIZE];
-		for (int x=0;x<map.MAX_SIZE;x++) {
-			for (int y=0;y<map.MAX_SIZE;y++) {
+		for (int x = 0;x < map.MAX_SIZE; x++) {
+			for (int y = 0; y < map.MAX_SIZE; y++) {
 				nodes[x][y] = new Node(x,y);
 			}
 		}
@@ -51,14 +51,14 @@ public class AStarPathFinder implements PathFinder {
 			open.remove(currentNode);
 			closed.add(currentNode);
 			
-			for (int x=-1;x<2;x++) {
-				for (int y=-1;y<2;y++) {
+			for (int x = -1; x<2; x++) {
+				for (int y = -1; y<2; y++) {
 					if ((x == 0 && y == 0) || (x != 0 && y != 0)) continue;
 					
 					int dx = x + currentNode.x;
 					int dy = y + currentNode.y;
 					
-					if (map.isValidMoveAgent(new Point(dx,dy))) {
+					if (map.isValidMoveAgent(new Point(dx, dy))) {
 						double nextStepCost = currentNode.getCost() + 1;
 						Node neighbour = nodes[dx][dy];
 						

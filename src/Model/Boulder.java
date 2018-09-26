@@ -1,5 +1,8 @@
 package Model;
 
+import Controller.Direction;
+import Controller.MoveBehaviour;
+
 import java.awt.Point;
 
 
@@ -19,24 +22,24 @@ public class Boulder extends ComputerAgent {
 	 * @param playerDirection Direction which player is facing (left,right,up,down)
 	 * @return Point to update position of Boulder after pushing
 	 */
-	public Point push(String playerDirection) {
+	public Point push(Direction playerDirection) {
 		int currX = (int) this.getPos().getX();
 		int currY = (int) this.getPos().getY();
 		Point newPos = null;
 		switch(playerDirection) {
-			case "Left":
+			case LEFT:
 				newPos = new Point(currX-1, currY);
 				this.setPos(newPos);
 				break;
-			case "Right":
+			case RIGHT:
 				newPos = new Point(currX+1, currY);
 				this.setPos(newPos);
 				break;
-			case "Up":
+			case UP:
 				newPos = new Point(currX, currY-1);
 				this.setPos(newPos);
 				break;
-			case "Down":
+			case DOWN:
 				newPos = new Point(currX, currY+1);
 				this.setPos(newPos);
 				break;

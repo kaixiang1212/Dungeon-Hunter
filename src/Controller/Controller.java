@@ -1,4 +1,7 @@
-package Model;
+package Controller;
+
+import Model.*;
+import org.junit.Test;
 
 import java.awt.Point;
 import java.util.Scanner;
@@ -18,25 +21,59 @@ public class Controller {
 	public void startGame(Dungeon d) {
 		//Temporary game loop, allowing for 100 moves
 		Scanner reader = new Scanner(System.in);
+		String move = "1";
+		Direction dir;
 		for(int i = 0; i < 100; i++) {
 			//Take in player input
 			  // Reading from System.in
-			System.out.println("Enter your move: ");
-			String n = reader.next();
-			System.out.println(n);
-			update(d, n);
+
+			while(!tempBadMethodChangeMeValidMove(move)) {
+				System.out.println("Enter your move (wasd): ");
+				String n = reader.next();
+				System.out.println(n);
+			}
+
+			dir = tempBadMethodChangeMeGetInputDirection(move);
+			update(d, dir);
 			
 			
 		}
 		reader.close();
 		
 	}
+
+	private Direction tempBadMethodChangeMeGetInputDirection(String moveInput) {
+		if (moveInput.equals("w")) {
+			return Direction.UP;
+		} else if (moveInput.equals("a")) {
+			return Direction.LEFT;
+		} else if (moveInput.equals("s")) {
+			return Direction.DOWN;
+		} else if (moveInput.equals("d")) {
+			return Direction.RIGHT;
+		}
+
+		return null;
+	}
+
+	private boolean tempBadMethodChangeMeValidMove(String move) {
+	    String[] valids = {"w", "a", "s", "d"};
+		for (String v : valids) {
+			if (move.equals(v)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Test
+
 	/**
 	 * Updates state of the dungeon
 	 * @param d
 	 * @param move
 	 */
-	public void update(Dungeon d, String move) {
+	public void update(Dungeon d, Direction move) {
 		d.updatePlayer(move);
 		d.updateAgents();
 	}

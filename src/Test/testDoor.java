@@ -6,25 +6,29 @@ import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
 
+import Controller.Direction;
+import Model.*;
+import org.junit.Before;
 import org.junit.Test;
 
-import Model.ComputerAgent;
-import Model.Door;
-import Model.Dungeon;
-import Model.Hunter;
-import Model.Player;
 import Model.Tile.TileType;
 
 public class testDoor {
 
+	Dungeon basic;
+	Player player;
+
+	@Before public void initTest() {
+		basic = new Dungeon(3);
+		player = new Player();
+	}
+
 	@Test
 	public void testClosedDoorObstructPlayer() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
 
 		basic.placePlayer(player, new Point(1, 1));
 		basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
-		basic.updatePlayer("d");
+		basic.updatePlayer(Direction.RIGHT);
 		
 		assertEquals(new Point(1, 1), basic.getPlayerPos());
 	}
