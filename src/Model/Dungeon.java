@@ -139,7 +139,7 @@ public class Dungeon {
     public boolean placeTile(Type tileType, Point myPoint) throws IllegalArgumentException {
 
         // Cannot place invincible wall
-        if (tileType == Type.INVINCIBLE_WALL || tileType == Type.CLOSED_DOOR) {
+        if (tileType == Type.INVINCIBLE_WALL) {
             return false;
         }
 
