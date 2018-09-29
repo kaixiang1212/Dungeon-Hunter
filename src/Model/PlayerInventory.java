@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Item.Item;
+import Model.Item.Key;
+
 import java.util.ArrayList;
 
 public class PlayerInventory {

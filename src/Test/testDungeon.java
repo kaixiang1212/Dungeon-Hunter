@@ -1,17 +1,16 @@
 package Test;
 
 
-import Model.Tile;
+import Model.Tile.Tile;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
 import Model.Dungeon;
-import Model.Tile.TileType;
+import Model.Tile.Type;
 import org.junit.rules.ExpectedException;
 
 import java.awt.Point;
-import java.util.regex.Matcher;
 
 public class testDungeon {
 
@@ -35,9 +34,9 @@ public class testDungeon {
 
                     if (row < 1 || row > size ||
                             col < 1 || col > size) {
-                        Assert.assertEquals (testDun.pointTileType(myPoint), TileType.INVINCIBLE_WALL);
+                        Assert.assertEquals (testDun.pointTileType(myPoint), Type.INVINCIBLE_WALL);
                     } else {
-                        Assert.assertEquals(testDun.pointTileType(myPoint), TileType.DEFAULT);
+                        Assert.assertEquals(testDun.pointTileType(myPoint), Type.DEFAULT);
                     }
 
                     count++;
@@ -99,38 +98,38 @@ public class testDungeon {
 
 
         // Ensure Tile is empty
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Tile.TileType.DEFAULT);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.DEFAULT);
 
         // Cannot place Invincible Wall
-        Assert.assertFalse(testDun.placeTile(TileType.INVINCIBLE_WALL, myPoint));
+        Assert.assertFalse(testDun.placeTile(Type.INVINCIBLE_WALL, myPoint));
 
         // Can place SWITCH
-        Assert.assertTrue(testDun.placeTile(TileType.SWITCH, myPoint));
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.SWITCH);
+        Assert.assertTrue(testDun.placeTile(Type.SWITCH, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.SWITCH);
         Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 2);
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
-        Assert.assertTrue(testDun.placeTile(TileType.OPEN_DOOR, myPoint));
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.OPEN_DOOR);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(Type.OPEN_DOOR, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.OPEN_DOOR);
         Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 3);
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
-        Assert.assertTrue(testDun.placeTile(TileType.CLOSED_DOOR, myPoint));
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.CLOSED_DOOR);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(Type.CLOSED_DOOR, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.CLOSED_DOOR);
         Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 4);
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
-        Assert.assertTrue(testDun.placeTile(TileType.PIT, myPoint));
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.PIT);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(Type.PIT, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.PIT);
         Assert.assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(2, 1);
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.DEFAULT);
-        Assert.assertTrue(testDun.placeTile(TileType.EXIT, myPoint));
-        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), TileType.EXIT);
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.DEFAULT);
+        Assert.assertTrue(testDun.placeTile(Type.EXIT, myPoint));
+        Assert.assertEquals(testDun.getTileGrid().get(myPoint).getType(), Type.EXIT);
         Assert.assertEquals(testDun.getTileGrid().size(), startSize);
     }
 
@@ -146,7 +145,7 @@ public class testDungeon {
         for (int size : sizes) {
             myPoint.setLocation(1,1);
             testDun = new Dungeon(size);
-            testDun.placeTile(TileType.PIT, myPoint);
+            testDun.placeTile(Type.PIT, myPoint);
 
             int count = 0;
             for (int i = 0; i < size + 3; i++) {
@@ -154,20 +153,20 @@ public class testDungeon {
                 // top edge
                 myPoint.setLocation(-1 + i, -1);
                 thrown.expect(IllegalArgumentException.class);
-                testDun.placeTile(TileType.PIT, myPoint);
+                testDun.placeTile(Type.PIT, myPoint);
                 count++;
 
                 // bottom edge
                 thrown.expect(IllegalArgumentException.class);
                 myPoint.setLocation(-1 + i, size + 2);
-                testDun.placeTile(TileType.PIT, myPoint);
+                testDun.placeTile(Type.PIT, myPoint);
                 count++;
 
 
                 // left edge
                 myPoint.setLocation(-1, 0 + i);
                 thrown.expect(IllegalArgumentException.class);
-                testDun.placeTile(TileType.PIT, myPoint);
+                testDun.placeTile(Type.PIT, myPoint);
                 count++;
 
                 // right edge

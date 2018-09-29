@@ -1,5 +1,8 @@
-package Model;
-//Implements Item
+package Model.Item;
+
+import Model.Dungeon;
+import Model.Item.Item;
+
 public class Treasure extends Item {
 	
 	public Treasure() {

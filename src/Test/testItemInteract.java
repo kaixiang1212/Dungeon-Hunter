@@ -8,10 +8,11 @@ import java.awt.Point;
 
 import Controller.Direction;
 import Model.*;
+import Model.Item.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Tile.TileType;
+import Model.Tile.Type;
 
 public class testItemInteract {
 
@@ -57,7 +58,7 @@ public class testItemInteract {
 		Point playerPos = new Point (2,1);
 
 		// Tests
-		dungeon.placeTile(TileType.PIT, topL);
+		dungeon.placeTile(Type.PIT, topL);
 		dungeon.placePlayer(player, playerPos);
 		assertFalse(player.deathStatus());
 		assertTrue(player.isHover());
@@ -155,7 +156,7 @@ public class testItemInteract {
 		Point tPos = new Point(2,1);
 		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
-		dungeon.placeTile(TileType.DESTRUCTABLE_WALL, tPos);
+		dungeon.placeTile(Type.DESTRUCTIBLE_WALL, tPos);
 		player.pickup(new Arrow());
 		player.selectItem(0);
 		player.useItem(dungeon);

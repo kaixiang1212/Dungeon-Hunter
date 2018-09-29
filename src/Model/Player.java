@@ -1,5 +1,8 @@
 package Model;
 import Controller.Direction;
+import Model.Item.Item;
+import Model.Item.Key;
+import Model.Item.Potion;
 
 import java.util.ArrayList;
 

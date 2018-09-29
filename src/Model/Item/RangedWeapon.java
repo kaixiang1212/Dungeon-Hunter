@@ -1,4 +1,8 @@
-package Model;
+package Model.Item;
+import Model.Dungeon;
+import Model.Item.Item;
+import Model.Player;
+
 import java.awt.Point;
 
 /*

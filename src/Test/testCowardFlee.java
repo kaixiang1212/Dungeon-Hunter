@@ -12,7 +12,7 @@ import Model.ComputerAgent;
 import Model.Coward;
 import Model.Dungeon;
 import Model.Player;
-import Model.Tile.TileType;
+import Model.Tile.Type;
 
 public class testCowardFlee {
 
@@ -37,7 +37,7 @@ public class testCowardFlee {
 		basicDungeon.updateAgents();
 		assertEquals(new Point(3,1), coward.getPos());
 	}
-	
+
 	@Test
 	public void testDirectFlee() {
 
@@ -53,13 +53,13 @@ public class testCowardFlee {
 		basicDungeon.updateAgents();
 		assertEquals(new Point(3,1), coward.getPos());
 	}
-	
+
 	@Test
 	public void testObstacleChase() {
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(4, 1));
+		basicDungeon.placeTile(Type.DESTRUCTIBLE_WALL, new Point(4, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();
@@ -69,13 +69,13 @@ public class testCowardFlee {
 		basicDungeon.updateAgents();
 		assertEquals(new Point(4, 2), coward.getPos());
 	}
-	
+
 	@Test
 	public void testObstacleFlee() {
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(3, 1));
+		basicDungeon.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();

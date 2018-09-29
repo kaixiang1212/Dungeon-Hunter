@@ -1,11 +1,11 @@
-package Model;
+package Model.Item;
 
 /**
  * Representation of an arrow, which can kill enemies at range
  * at the direction it was used by the player.
  *
  */
-public class Arrow extends RangedWeapon{
+public class Arrow extends RangedWeapon {
 	
 	public Arrow() {
 		super();

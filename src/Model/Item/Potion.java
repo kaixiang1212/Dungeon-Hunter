@@ -1,4 +1,4 @@
-package Model;
+package Model.Item;
 
 /*
  * abstract class that contains information of all potions

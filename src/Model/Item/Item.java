@@ -1,4 +1,6 @@
-package Model;
+package Model.Item;
+
+import Model.Dungeon;
 
 public abstract class Item {
 

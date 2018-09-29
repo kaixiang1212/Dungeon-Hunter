@@ -1,8 +1,11 @@
-package Model;
+package Model.Item;
+
+import Model.Dungeon;
+import Model.Item.Item;
 
 import java.awt.Point;
 
-public class LitBomb extends Item{
+public class LitBomb extends Item {
 
 	private int counter = 2;
 	private Point location;

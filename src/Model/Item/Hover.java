@@ -1,9 +1,11 @@
-package Model;
+package Model.Item;
+
+import Model.Dungeon;
 
 /*
  * Representation of Hover Potion which allows player to move onto Pits without dying
  */
-public class Hover extends Potion{
+public class Hover extends Potion {
 	public Hover() {
 		super(999);
 	}
