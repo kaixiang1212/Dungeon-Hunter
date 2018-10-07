@@ -17,7 +17,7 @@ public class Switch extends Tile {
 		pressed = false;
 	}
 	
-	public boolean isTriggered() {
+	public boolean isActivated() {
 		return pressed;
 	}
 

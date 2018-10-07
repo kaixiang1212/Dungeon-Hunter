@@ -11,6 +11,7 @@ import Controller.Direction;
 import Model.Boulder;
 import Model.Dungeon;
 import Model.Player;
+import Model.Tile.Switch;
 
 
 public class testSwitch {
@@ -18,6 +19,8 @@ public class testSwitch {
 	Dungeon basic;
 	Player player;
 	Boulder testBoulder;
+	Switch switch1;
+	Point switchPoint;
 
 	@Before
 	public void init() {
@@ -25,55 +28,59 @@ public class testSwitch {
 		player = new Player();
 		testBoulder = new Boulder(null);
 	}
-	
+
+	/**
+	 * Test initial switch is not activated
+	 */
+	@Test
+	public void testInitSwitch() {
+		basic.placeSwitch(switchPoint = new Point(1, 1));
+		switch1 = (Switch )basic.getTile(switchPoint);
+		assertFalse(switch1.isActivated());
+	}
+
 	/**
 	 * Test simple trigger switch
 	 */
 	@Test
 	public void testSimpleTrigger() {
-		basic.placeSwitch(new Point(3, 1));
 		basic.placePlayer(player, new Point(1, 1));
 		basic.placeComputerAgent(testBoulder, new Point(2, 1));
-		assert(basic.winConditionSwitch() == false);
+		basic.placeSwitch(switchPoint = new Point(3, 1));
+
+		switch1 = (Switch )basic.getTile(switchPoint);
+		// player pushes boulder to a switch
 		basic.updatePlayer(Direction.RIGHT);
-		assert(basic.getPlayerPos().equals(new Point(2,1)));
-		assert(basic.winConditionSwitch() == true);
+		assertTrue(switch1.isActivated());
 	}
-	/**
-	 * Test boulder triggered when boulder is place on it
-	 */
-	@Test
-	public void testPlaceBoulderOnSwitch() {
-		basic.placeSwitch(new Point(3, 1));
-		basic.placeComputerAgent(testBoulder, new Point(3, 1));
-		assert(basic.winConditionSwitch() == true);
-	}
-	
+
 	/**
 	 * Test simple untrigger switch
 	 */
 	@Test
 	public void testSimpleUntrigger() {
-		basic.placeSwitch(new Point(2, 1));
-		basic.placeComputerAgent(testBoulder, new Point(2, 1));
+		basic.placeSwitch(switchPoint = new Point(2, 1));
+		basic.placeComputerAgent(testBoulder, switchPoint);
 		basic.placePlayer(player, new Point(1, 1));
+		// player pushes boulder off a switch
 		basic.updatePlayer(Direction.RIGHT);
-		assert(basic.winConditionSwitch() == false);
+		
+		switch1 = (Switch )basic.getTile(switchPoint);
+		assertFalse(switch1.isActivated());
 	}
-	
+
 	/**
-	 * test 2 switch
+	 * Test boulder triggered when boulder is place on it
 	 */
 	@Test
-	public void testTwoSwitch() {
-		basic.placeSwitch(new Point(2, 1));
-		basic.placeComputerAgent(testBoulder, new Point(2, 1));
-		basic.placePlayer(player, new Point(1, 1));
-		basic.placeSwitch(new Point(1, 3));
-		basic.placeComputerAgent(testBoulder, new Point(1, 2));
-		assert(basic.winConditionSwitch() == false);
-		basic.updatePlayer(Direction.DOWN);
-		assert(basic.winConditionSwitch() == true);
+	public void testPlaceBoulderOnSwitch() {
+		basic.placeSwitch(switchPoint = new Point(3, 1));
+		// place boulder on top of switch
+		basic.placeComputerAgent(testBoulder, switchPoint);
+		switch1 = (Switch )basic.getTile(switchPoint);
+
+		assertTrue(switch1.isActivated());
 	}
+	
 
 }

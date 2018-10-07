@@ -14,7 +14,8 @@ import Model.Tile.Type;
 import Model.Tile.Switch;
 
 public class Dungeon {
-    public final int MAX_SIZE = 20;
+
+	public final int MAX_SIZE = 20;
 
 
     private Point topLeft;
@@ -497,7 +498,7 @@ public class Dungeon {
      */
     public boolean placeSwitch(Point point) throws IllegalArgumentException {
 
-    	if (outOfBound(point)) return false;
+    	if (outOfBound(point)) throw new IllegalArgumentException("Placement out of bounds");
 
     	if (tileGrid.get(point).isType(Type.DEFAULT)) {
     		Switch newSwitch = new Switch();
@@ -509,12 +510,12 @@ public class Dungeon {
     }
     
     /**
-     * Win condition for switchs
-     * @return true if all switchs is triggered false otherwise
+     * Win condition for switches
+     * @return true if all switches is triggered false otherwise
      */
     public boolean winConditionSwitch() {
     	for (Switch sw : switchs) {
-    		if (sw.isTriggered() == false) return false;
+    		if (sw.isActivated() == false) return false;
     	}
     	return true;
     }
