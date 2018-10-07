@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Tile {
 
-
     private Type type;
 
     public Tile(Type aType) {

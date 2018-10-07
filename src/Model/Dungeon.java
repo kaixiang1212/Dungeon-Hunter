@@ -2,6 +2,7 @@ package Model;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import Model.Item.Item;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
+import Model.Tile.Switch;
 
 public class Dungeon {
     public final int MAX_SIZE = 20;
@@ -24,6 +26,8 @@ public class Dungeon {
     private Point playerPosition;
     private Player player;
     private int doorCode = -1;
+    // TODO: Easier to track win condition
+    private ArrayList<Switch> switchs;
 
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -39,6 +43,7 @@ public class Dungeon {
 
         this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(size+1, size+1);
+        this.switchs = new ArrayList<>();
     }
    
 
@@ -190,6 +195,8 @@ public class Dungeon {
     public void placeComputerAgent(ComputerAgent a, Point agentPoint) {
     	agentGrid.put(agentPoint, a);
     	a.setPos(agentPoint);
+    	// if Boulder is on Switch, trigger
+    	if (a.isMoveable() == true) triggerSwitch(agentPoint);
     }
     /**
      * Inserts a new Player object into the dungeon
@@ -412,11 +419,15 @@ public class Dungeon {
     	// Grid holds an Agent
     	ComputerAgent temp = agentGrid.get(point);
 		if (temp != null) {
-			if(temp.isMoveable()) {
+			if (temp.isMoveable()) {
+				// if tile is on a switch moving it would untriggers switch
+				untriggerSwitch(point);
 				Point newPos = ((Boulder) temp).push(player.getDirection());
 				agentGrid.remove(point);
-				if(tileGrid.get(newPos).getType() != Type.PIT) {
+				if (tileGrid.get(newPos).getType() != Type.PIT) {
 					agentGrid.put(newPos, temp);
+					// if boulder is on Switch then triggers it
+					triggerSwitch(newPos);
 				}	
 			}
 			else {
@@ -454,5 +465,57 @@ public class Dungeon {
     }
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
+    }
+    
+    /**
+     * Trigger a switch on the point given
+     * @param point switch on point
+     */
+    private void triggerSwitch(Point point) {
+    	if (tileGrid.get(point).getType() == Type.SWITCH) {
+    		Switch sw = (Switch) tileGrid.get(point);
+			sw.trigger();
+    	}
+    }
+    
+    /**
+     * Trigger a switch on the point given
+     * @param point switch on point
+     */
+    private void untriggerSwitch(Point point) {
+    	if (tileGrid.get(point).getType() == Type.SWITCH) {
+    		Switch sw = (Switch) tileGrid.get(point);
+			sw.untrigger();
+    	}
+    }
+    
+    /**
+     * Place a Switch on Point given
+     * @param point Point to place a Switch
+     * @return true if legit, false otherwise
+     * @throws IllegalArgumentException
+     */
+    public boolean placeSwitch(Point point) throws IllegalArgumentException {
+
+    	if (outOfBound(point)) return false;
+
+    	if (tileGrid.get(point).isType(Type.DEFAULT)) {
+    		Switch newSwitch = new Switch();
+    		switchs.add(newSwitch);
+    		tileGrid.put(point, newSwitch);
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Win condition for switchs
+     * @return true if all switchs is triggered false otherwise
+     */
+    public boolean winConditionSwitch() {
+    	for (Switch sw : switchs) {
+    		if (sw.isTriggered() == false) return false;
+    	}
+    	return true;
     }
 }
