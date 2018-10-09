@@ -455,4 +455,15 @@ public class Dungeon {
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
     }
+    public int numEnemies() {
+    	return this.agentGrid.size();
+    }
+    public boolean hasTreasure() {
+    	for(Map.Entry<Point,Item> entry : itemGrid.entrySet()) {
+    		if(entry.getValue().isTreasure()) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }

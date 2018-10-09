@@ -32,6 +32,9 @@ public abstract class Item {
 	public boolean isLitBomb() {
 		return this instanceof LitBomb;
 	}
+	public boolean isTreasure() {
+		return this instanceof Treasure;
+	}
 }
 
 

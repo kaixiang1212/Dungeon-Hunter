@@ -19,5 +19,4 @@ public class Treasure extends Item {
 	public boolean isStackable() {
 		return true;
 	}
-
 }
