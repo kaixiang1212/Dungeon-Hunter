@@ -15,7 +15,7 @@ public class GameScreen {
     public GameScreen(Stage s) {
         this.s = s;
         this.title = "Rental Screen";
-        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/test.fxml"));
+        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/test2.fxml"));
     }
 
     public void start()  {
@@ -28,8 +28,10 @@ public class GameScreen {
             Scene sc = new Scene(root, 500, 300);
             s.setScene(sc);
             s.show();
+            root.requestFocus();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
 }

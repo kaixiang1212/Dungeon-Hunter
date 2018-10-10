@@ -12,8 +12,6 @@ public class GameController {
 	private Stage stage;
 	
 	@FXML
-	private Label label1;
-	@FXML
 	private ImageView jj;
 	
 	public GameController(Stage s) {
@@ -25,19 +23,23 @@ public class GameController {
 		//label1.setText("Hi");
 	}
 	@FXML
-	public void keyPressed(KeyEvent key) {
-		switch (key.getCode()) {
-		case LEFT:
-			jj.setX(1);
-			jj.setY(1);
-		default:
-		}
-	}
-	@FXML
-	public void mouseClick(MouseEvent mouse) {
+	public void playerMovement(KeyEvent key) {
 		double x = jj.getX();
 		double y = jj.getY();
-		jj.setX(x+1);
-		jj.setY(x+1);
+		System.out.print(key.getCode());
+		switch (key.getCode()) {
+		case A:
+			jj.setX(x-32);
+			break;
+		case S:
+			jj.setY(y+32);
+			break;
+		case D:
+			jj.setX(x+32);
+			break;
+		case W:
+			jj.setY(y-32);
+			
+		}
 	}
 }
