@@ -26,19 +26,15 @@ public class GameController {
 	}
 	@FXML
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Tony gay");
 		switch (key.getCode()) {
 		case LEFT:
-			System.out.println("Tony gay");
 			jj.setX(1);
 			jj.setY(1);
 		default:
-			System.out.println("Tony gay");
 		}
 	}
 	@FXML
 	public void mouseClick(MouseEvent mouse) {
-		System.out.println("Tony gay");
 		double x = jj.getX();
 		double y = jj.getY();
 		jj.setX(x+1);
