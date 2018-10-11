@@ -2,13 +2,16 @@ package Model.Tile;
 
 import java.util.Objects;
 
+import javafx.scene.image.Image;
+
 public class Tile {
 
 
     private Type type;
-
+    private Image image;
     public Tile(Type aType) {
         this.type = aType;
+        image = new Image("application/defaulttile.png");
     }
 
     //@Contract(pure = true)
@@ -37,6 +40,9 @@ public class Tile {
     	return this.type.equals(type);
     }
 
+    public Image getImage() {
+    	return this.image;
+    }
 
 }
 

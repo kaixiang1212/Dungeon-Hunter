@@ -10,6 +10,7 @@ import Model.Item.Item;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
+import javafx.scene.image.Image;
 
 public class Dungeon {
     public final int MAX_SIZE = 20;
@@ -24,12 +25,15 @@ public class Dungeon {
     private Point playerPosition;
     private Player player;
     private int doorCode = -1;
+    private int savesize;
 
 
     public Dungeon(int size) throws IllegalArgumentException{
     	playerPosition = null;
     	agentGrid = new HashMap<Point, ComputerAgent>();
     	itemGrid = new HashMap<Point, Item>();
+    	savesize = size;
+    	
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -454,5 +458,16 @@ public class Dungeon {
     }
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
+    }
+    /**
+     * Proxy method, gets tile image at location.
+     * @return
+     */
+    public Image proxygettiles(Point point) {
+    	Tile temp = tileGrid.get(point);
+    	return temp.getImage();
+    }
+    public int getSize() {
+    	return savesize;
     }
 }

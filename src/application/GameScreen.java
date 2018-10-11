@@ -1,7 +1,10 @@
 package application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +27,7 @@ public class GameScreen {
         fxmlLoader.setController(new GameController(s));
         try {
             // load into a Parent node called root
-            Parent root = fxmlLoader.load();
+            Parent root = fxmlLoader.load();        
             Scene sc = new Scene(root, 500, 300);
             s.setScene(sc);
             s.show();
@@ -34,4 +37,6 @@ public class GameScreen {
         }
         
     }
+    
+
 }
