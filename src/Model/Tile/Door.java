@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 public class Door extends Tile {
 	
-	private int code;
+	private static int counter = 0;
+	private final int code;
 
-	public Door(int code) {
+	public Door() {
 		super(Type.CLOSED_DOOR);
-		this.code = code;
+		this.code = counter++;
 	}
 	
 	public Key generateKey() {

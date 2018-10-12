@@ -26,7 +26,6 @@ public class Dungeon {
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
-    private int doorCode = -1;
     // TODO: Easier to track win condition
     private ArrayList<Switch> switchs;
 
@@ -176,7 +175,7 @@ public class Dungeon {
     	if (outOfBound(doorPoint) || outOfBound(keyPoint)) return false;
 
     	if (tileGrid.get(doorPoint).isType(Type.DEFAULT)) {
-    		Door newDoor = new Door(doorCode++);
+    		Door newDoor = new Door();
     		tileGrid.put(doorPoint, newDoor);
     		// place key on map (Not yet implemented)
     		placeItem(newDoor.generateKey(), keyPoint);
