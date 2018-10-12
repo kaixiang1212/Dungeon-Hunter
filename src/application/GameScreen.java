@@ -27,11 +27,12 @@ public class GameScreen {
         fxmlLoader.setController(new GameController(s));
         try {
             // load into a Parent node called root
-            Parent root = fxmlLoader.load();        
+            Parent root = fxmlLoader.load();  
             Scene sc = new Scene(root, 500, 300);
             s.setScene(sc);
             s.show();
-            root.requestFocus();
+            sc.getRoot().requestFocus();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

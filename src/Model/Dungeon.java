@@ -483,4 +483,7 @@ public class Dungeon {
     public Map<Point, Item> getItemGrid() {
     	return itemGrid;
     }
+    public Image getPlayerImage() {
+    	return player.getImage();
+    }
 }

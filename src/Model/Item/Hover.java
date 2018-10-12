@@ -1,6 +1,7 @@
 package Model.Item;
 
 import Model.Dungeon;
+import javafx.scene.image.Image;
 
 /*
  * Representation of Hover Potion which allows player to move onto Pits without dying
@@ -8,6 +9,7 @@ import Model.Dungeon;
 public class Hover extends Potion {
 	public Hover() {
 		super(999);
+		this.setImage(new Image("assets/itemassets/hover.png"));
 	}
 	
 	/*
