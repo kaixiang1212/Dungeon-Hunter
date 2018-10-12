@@ -24,8 +24,6 @@ public class GameController {
 
 	@FXML
 	private Pane mainPane;
-	@FXML
-	private Pane agentPane;
 	
 	public GameController(Stage s) {
 		this.stage = s;
