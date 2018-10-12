@@ -480,4 +480,7 @@ public class Dungeon {
     public Map<Point, ComputerAgent> getAgentGrid() {
     	return agentGrid;
     }
+    public Map<Point, Item> getItemGrid() {
+    	return itemGrid;
+    }
 }

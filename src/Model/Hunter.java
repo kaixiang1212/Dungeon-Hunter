@@ -7,7 +7,7 @@ public class Hunter extends ComputerAgent {
 
 	public Hunter() {
 		super(new StandardChaseBehaviour());
-		this.setImage(new Image("application/bee.png"));
+		this.setImage(new Image("assets/agentassets/hunter.png"));
 	}
 	
 	@Override

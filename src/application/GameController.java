@@ -3,9 +3,12 @@ package application;
 import java.awt.Point;
 import java.util.Map;
 
+import Model.Coward;
 import Model.Dungeon;
 import Model.Hunter;
 import Model.Paintable;
+import Model.Strategist;
+import Model.Item.Treasure;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -34,25 +37,39 @@ public class GameController {
 		
 		Dungeon test = new Dungeon(8);
 		test.placeComputerAgent(new Hunter(), new Point(1,1));
+		test.placeComputerAgent(new Strategist(), new Point(5,5));
+		test.placeComputerAgent(new Coward(), new Point(3,3));
+		test.placeItem(new Treasure(), new Point(2,3));
 		//Loops through all possible points on dungeon tiles
 		//Possible to refactor into reusable method! Only thing changing is
 		//What method is being called to retrieve image at a location
 		//Func pointers? Maybe we can violate law of demeter
 		//Get grid (of any type), then pass into renderGrid() function?
-		int size = test.getSize();
-		renderUtil(test, test.getTileGrid(), mainPane);
-		renderUtil(test, test.getAgentGrid(), mainPane);
+		render(test);
 	}
-	
+	/**
+	 * Calls renderUtil to render multiple grids
+	 * Encapsulated away from initialize so it can be called again on every
+	 * move.
+	 * @param d
+	 */
+	public void render(Dungeon d) {
+		int size = d.getSize();
+		renderUtil(d, d.getTileGrid(), mainPane);
+		renderUtil(d, d.getAgentGrid(), mainPane);
+		renderUtil(d, d.getItemGrid(), mainPane);
+		
+	}
 	/**
 	 * 
 	 * @param d Dungeon reference, for size and to utilise check method
 	 * @param map Reference of grid to paint
 	 * @param pane Pane to paint onto
 	 */
+
 	public void renderUtil(Dungeon d, Map<Point, ? extends Paintable> map, Pane pane) {
-		for(int y = 0; y < d.getSize(); y++) {
-			for(int x = 0; x < d.getSize(); x++) {
+		for(int y = 1; y < d.getSize(); y++) {
+			for(int x = 1; x < d.getSize(); x++) {
 				Image check = d.proxygettiles(new Point(x, y), map);
 				if(check != null) {
 					ImageView insertview = new ImageView(check);

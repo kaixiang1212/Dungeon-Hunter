@@ -12,7 +12,7 @@ public class Tile extends Paintable {
 
     public Tile(Type aType) {
         this.type = aType;
-        this.setImage(new Image("application/defaulttile.png"));
+        this.setImage(new Image("assets/tileassets/default.png"));
     }
 
     //@Contract(pure = true)
