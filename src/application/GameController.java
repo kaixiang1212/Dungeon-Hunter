@@ -1,8 +1,11 @@
 package application;
 
 import java.awt.Point;
+import java.util.Map;
 
 import Model.Dungeon;
+import Model.Hunter;
+import Model.Paintable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -21,6 +24,8 @@ public class GameController {
 
 	@FXML
 	private Pane mainPane;
+	@FXML
+	private Pane agentPane;
 	
 	public GameController(Stage s) {
 		this.stage = s;
@@ -29,45 +34,40 @@ public class GameController {
 	@FXML 
 	public void initialize() {
 		
-		Dungeon test = new Dungeon(3);
-//		Image insert = new Image("application/defaulttile.png");
-//		ImageView insertview = new ImageView(insert);
-//		insertview.setFitHeight(32);
-//		insertview.setFitWidth(32);
-//		insertview.setLayoutX(32);
-//		insertview.setLayoutY(32);
-//		
-//		ImageView insertview2 = new ImageView(insert);
-//		insertview2.setFitHeight(32);
-//		insertview2.setFitWidth(32);
-//		insertview2.setLayoutX(0);
-//		insertview2.setLayoutY(0);
-//
-//		
-//		
-//		mainPane.getChildren().add(insertview);
-//		mainPane.getChildren().add(insertview2);
-
+		Dungeon test = new Dungeon(8);
+		test.placeComputerAgent(new Hunter(), new Point(1,1));
 		//Loops through all possible points on dungeon tiles
 		//Possible to refactor into reusable method! Only thing changing is
 		//What method is being called to retrieve image at a location
 		//Func pointers? Maybe we can violate law of demeter
 		//Get grid (of any type), then pass into renderGrid() function?
 		int size = test.getSize();
-		for(int y = 0; y < size; y++) {
-			for(int x = 0; x < size; x++) {
-				Image check = test.proxygettiles(new Point(x, y));
+		renderUtil(test, test.getTileGrid(), mainPane);
+		renderUtil(test, test.getAgentGrid(), mainPane);
+	}
+	
+	/**
+	 * 
+	 * @param d Dungeon reference, for size and to utilise check method
+	 * @param map Reference of grid to paint
+	 * @param pane Pane to paint onto
+	 */
+	public void renderUtil(Dungeon d, Map<Point, ? extends Paintable> map, Pane pane) {
+		for(int y = 0; y < d.getSize(); y++) {
+			for(int x = 0; x < d.getSize(); x++) {
+				Image check = d.proxygettiles(new Point(x, y), map);
 				if(check != null) {
 					ImageView insertview = new ImageView(check);
 					insertview.setFitHeight(32);
 					insertview.setFitWidth(32);
 					insertview.setLayoutX(x * 32);
 					insertview.setLayoutY(y * 32);
-					mainPane.getChildren().add(insertview);
+					pane.getChildren().add(insertview);
 				}
 			}
 		}
 	}
+}
 //	@FXML
 //	public void playerMovement(KeyEvent key) {
 //		double x = jj.getX();
@@ -88,4 +88,4 @@ public class GameController {
 //			
 //		}
 //	}
-}
+//

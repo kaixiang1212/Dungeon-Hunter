@@ -461,13 +461,23 @@ public class Dungeon {
     }
     /**
      * Proxy method, gets tile image at location.
+     * Maybe we can specify it can take in any HashMap with point?
+     * Then its a generic method!
+     * We could also do this to refactor incredibly similar reptitive methods.
      * @return
      */
-    public Image proxygettiles(Point point) {
-    	Tile temp = tileGrid.get(point);
-    	return temp.getImage();
+    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
+    	Paintable p = map.get(point);
+    	if(p != null) {
+    		return p.getImage();
+    	}
+    	return null;
     }
+    
     public int getSize() {
     	return savesize;
+    }
+    public Map<Point, ComputerAgent> getAgentGrid() {
+    	return agentGrid;
     }
 }
