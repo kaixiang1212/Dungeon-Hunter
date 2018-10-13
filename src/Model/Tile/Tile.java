@@ -1,5 +1,6 @@
 package Model.Tile;
 
+import java.util.EnumMap;
 import java.util.Objects;
 
 import Model.Paintable;
@@ -9,10 +10,18 @@ public class Tile extends Paintable {
 
 
     private Type type;
+    private EnumMap<Type, Image> images;
 
     public Tile(Type aType) {
         this.type = aType;
-        this.setImage(new Image("assets/tileassets/default.png"));
+        images = new EnumMap<>(Type.class);
+        this.images.put(Type.DEFAULT, new Image("assets/tileassets/default.png"));
+        this.images.put(Type.INVINCIBLE_WALL, new Image("assets/tileassets/wall.png"));
+        this.images.put(Type.OPEN_DOOR, new Image("assets/tileassets/opendoor.png"));
+        this.images.put(Type.CLOSED_DOOR, new Image("assets/tileassets/closeddoor.png"));
+        this.images.put(Type.EXIT, new Image("assets/tileassets/exit.png"));
+        this.images.put(Type.PIT, new Image("assets/tileassets/pit.png"));
+        this.images.put(Type.SWITCH, new Image("assets/tileassets/switch.png"));
     }
 
     //@Contract(pure = true)
@@ -40,7 +49,13 @@ public class Tile extends Paintable {
     public boolean isType(Type type) {
     	return this.type.equals(type);
     }
-
+    /**
+     * Can create strategy pattern for image storage? in future of course
+     */
+    @Override
+    public Image getImage() {
+    	return this.images.get(this.type);
+    }
 
 
 }

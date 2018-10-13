@@ -14,6 +14,7 @@ import Model.Item.Hover;
 import Model.Item.Invincibility;
 import Model.Item.Sword;
 import Model.Item.Treasure;
+import Model.Tile.Type;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -33,6 +34,9 @@ public class GameController {
 	@FXML
 	private Pane mainPane;
 	
+	@FXML
+	private Pane inventoryPane;
+	
 	public GameController(Stage s) {
 		this.stage = s;
 	}
@@ -43,7 +47,7 @@ public class GameController {
 		Dungeon test = new Dungeon(8);
 		//test.placeComputerAgent(new Hunter(), new Point(1,1));
 		//test.placeComputerAgent(new Hunter(), new Point(2,1));
-		//test.placeComputerAgent(new Strategist(), new Point(2,2));
+		test.placeComputerAgent(new Strategist(), new Point(2,2));
 		//test.placeComputerAgent(new Coward(), new Point(2,3));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
@@ -51,8 +55,19 @@ public class GameController {
 		test.placeItem(new Hover(), new Point(4,1));
 		test.placeItem(new Sword(), new Point(5,1));
 		test.placePlayer(new Player(), new Point(4,4));
+		test.placeTile(Type.EXIT, new Point(8,8));
+		test.placeTile(Type.PIT, new Point(6,8));
+		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
+		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
+		
 		this.d = test;
 		//Starts game
+		ImageView insertview = new ImageView(d.getPlayerImage());
+		insertview.setFitHeight(32);
+		insertview.setFitWidth(32);
+		insertview.setLayoutX(0 * 32);
+		insertview.setLayoutY(0 * 32);	
+		inventoryPane.getChildren().add(insertview);
 		render();
 	}
 	/**
