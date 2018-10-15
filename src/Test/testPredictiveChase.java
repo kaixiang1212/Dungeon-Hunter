@@ -10,6 +10,7 @@ import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Player;
 import Model.Strategist;
+import Model.Tile.Exit;
 import Model.Tile.Type;
 
 public class testPredictiveChase {
@@ -50,7 +51,7 @@ public class testPredictiveChase {
 
 		testDun.placeComputerAgent(strategist, new Point(2, 2));
 		testDun.placePlayer(testPlayer, new Point(1, 1));
-		testDun.placeTile(Type.EXIT, new Point(3,1));
+		testDun.placeTile(new Exit(), new Point(3,1));
 		testDun.updateAgents();
 		assertEquals(strategist.getPos(),new Point(2, 1));
 	}
@@ -62,7 +63,7 @@ public class testPredictiveChase {
 
 		basicDungeon.placeComputerAgent(strategist, new Point(4, 3));
 		basicDungeon.placePlayer(testPlayer, new Point(1, 1));
-		basicDungeon.placeTile(Type.EXIT, new Point(4,1));
+		basicDungeon.placeTile(new Exit(), new Point(4,1));
 		basicDungeon.updateAgents();
 		assertEquals(strategist.getPos(),new Point(3, 3));
 	}
@@ -74,7 +75,7 @@ public class testPredictiveChase {
 
 		basicDungeon.placeComputerAgent(strategist, new Point(2, 1));
 		basicDungeon.placePlayer(testPlayer, new Point(1, 1));
-		basicDungeon.placeTile(Type.EXIT, new Point(4,1));
+		basicDungeon.placeTile(new Exit(), new Point(4,1));
 		basicDungeon.updateAgents();
 		assertEquals(strategist.getPos(),new Point(2, 1));
 	}
@@ -86,7 +87,7 @@ public class testPredictiveChase {
 
 		basicDungeon.placeComputerAgent(strategist, new Point(1, 2));
 		basicDungeon.placePlayer(testPlayer, new Point(1, 1));
-		basicDungeon.placeTile(Type.EXIT, new Point(4,1));
+		basicDungeon.placeTile(new Exit(), new Point(4,1));
 
 		//kill
 		basicDungeon.updateAgents();
@@ -100,7 +101,7 @@ public class testPredictiveChase {
 
 		basicDungeon.placeComputerAgent(strategist, new Point(3, 1));
 		basicDungeon.placePlayer(testPlayer, new Point(4, 1));
-		basicDungeon.placeTile(Type.EXIT, new Point(4,4));
+		basicDungeon.placeTile(new Exit(), new Point(4,4));
 
 		//kill
 		basicDungeon.updateAgents();
@@ -114,7 +115,7 @@ public class testPredictiveChase {
 
 		basicDungeon.placeComputerAgent(strategist, new Point(4, 3));
 		basicDungeon.placePlayer(testPlayer, new Point(4, 4));
-		basicDungeon.placeTile(Type.EXIT, new Point(1,4));
+		basicDungeon.placeTile(new Exit(), new Point(1,4));
 
 		//kill
 		basicDungeon.updateAgents();

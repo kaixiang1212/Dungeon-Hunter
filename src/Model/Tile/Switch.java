@@ -32,5 +32,10 @@ public class Switch extends Tile {
 	public boolean isActivated() {
 		return isTriggered;
 	}
+
+	@Override
+	public Type getType() {
+		return Type.Switch;
+	}
 	
 }

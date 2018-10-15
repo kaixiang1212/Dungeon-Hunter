@@ -1,16 +1,16 @@
 package Test;
 
 
-import Model.Tile.DefaultTile;
 import Model.Tile.Door;
 import Model.Tile.Exit;
 import Model.Tile.Pit;
 import Model.Tile.Switch;
+import Model.Tile.Type;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import Model.Dungeon;
-import Model.Tile.Wall;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,9 +40,9 @@ public class testDungeon {
 
                     if (row < 1 || row > size ||
                             col < 1 || col > size) {
-                        assertTrue(testDun.getTile(myPoint) instanceof Wall);
+                        assertTrue(testDun.getTile(myPoint).isType(Type.Wall));
                     } else {
-                        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+                        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
                     }
 
                     count++;
@@ -104,35 +104,35 @@ public class testDungeon {
 
 
         // Ensure Tile is empty
-        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
 
         // Can place SWITCH
         assertTrue(testDun.placeTile(new Switch(), myPoint));
-        assertTrue(testDun.getTile(myPoint) instanceof Switch);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Switch));
         assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 2);
-        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
         assertTrue(testDun.placeTile(new Door(), myPoint));
-        assertTrue(testDun.getTile(myPoint) instanceof Door);
+        assertTrue(testDun.getTile(myPoint).isType(Type.ClosedDoor));
         assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 3);
-        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
         assertTrue(testDun.placeTile(new Door(), myPoint));
-        assertTrue(testDun.getTile(myPoint) instanceof Door);
+        assertTrue(testDun.getTile(myPoint).isType(Type.ClosedDoor));
         assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(1, 4);
-        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
         assertTrue(testDun.placeTile(new Pit(), myPoint));
-        assertTrue(testDun.getTile(myPoint) instanceof Pit);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Pit));
         assertEquals(testDun.getTileGrid().size(), startSize);
 
         myPoint.setLocation(2, 1);
-        assertTrue(testDun.getTile(myPoint) instanceof DefaultTile);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Default));
         assertTrue(testDun.placeTile(new Exit(), myPoint));
-        assertTrue(testDun.getTile(myPoint) instanceof Exit);
+        assertTrue(testDun.getTile(myPoint).isType(Type.Exit));
         assertEquals(testDun.getTileGrid().size(), startSize);
     }
 

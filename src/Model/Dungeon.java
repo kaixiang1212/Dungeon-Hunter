@@ -205,17 +205,17 @@ public class Dungeon {
     }
 
     public void updatePlayer(Direction dir) {
-    	int x = (int) this.playerPosition.getX();
-    	int y = (int) this.playerPosition.getY();
+    	int x = playerPosition.x;
+    	int y = playerPosition.y;
     	Point desireDir;
     	switch (dir) {
     		case LEFT:
-    			desireDir = new Point(x-1, y);
+    			desireDir = new Point(x-1, y);	
     			this.player.setDirection(Direction.LEFT);
     			break;
 			case DOWN:
 				desireDir = new Point(x, y+1);
-    			this.player.setDirection(Direction.DOWN);
+				this.player.setDirection(Direction.DOWN);
     			break;
     		case RIGHT:
     			desireDir = new Point(x+1, y);
@@ -227,9 +227,9 @@ public class Dungeon {
     			break;
     		default:
     			return;
-        }
-		triggerTileAction(desireDir);
-		if (isValidMove(desireDir)) this.playerPosition = desireDir;
+        };
+        triggerTileAction(desireDir);
+        if (isValidMove(desireDir)) this.playerPosition = desireDir;
         triggerPlayerAction(playerPosition);
     }
 
@@ -247,48 +247,41 @@ public class Dungeon {
      * @return
      */
     public boolean isValidMove(Point check) {
-    	// Checks cases for types of tiles that can't be moved on
-    	if(!isValidMoveBasic(check)) {
+    	if (!tileIsReachable(check, EntityType.Default)) {
     		return false;
     	}
-    	//Checks if movable agent, ie. boulder can't move depending on player push direction
     	ComputerAgent temp = agentGrid.get(check);
     	if (temp != null && temp.isMoveable()) {
-
     		Direction dir = player.getDirection();
-    		int x = (int) check.getX();
-    		int y = (int) check.getY();
-    		switch(dir) {
-    			case LEFT:
-    				if(!isValidMoveBasic(new Point(x-1, y))) {
-    					return false;
-    				}
-    				break;
-    			case RIGHT:
-    				if(!isValidMoveBasic(new Point(x+1, y))) {
-    					return false;
-    				}
-    				break;
-    			case UP:
-    				if(!isValidMoveBasic(new Point(x, y-1))) {
-    					return false;
-    				}
-    				break;
-    			case DOWN:
-    				if(!isValidMoveBasic(new Point(x, y+1))) {
-    					return false;
-    				}
-    				break;
-    		}
+    		Point bol;
+    		switch (dir) {
+			case LEFT:
+				bol = new Point(check.x-1, check.y);
+				if (!isValidMoveBoulder(bol)) return false;
+				break;
+			case RIGHT:
+				bol = new Point(check.x+1, check.y);
+				if (!isValidMoveBoulder(bol)) return false;
+				break;
+			case UP:
+				bol = new Point(check.x, check.y-1);
+				if (!isValidMoveBoulder(bol)) return false;
+				break;
+			case DOWN:
+				bol = new Point(check.x, check.y+1);
+				if (!isValidMoveBoulder(bol)) return false;
+				break;
+			default:
+				break;
+			}
     	}
-
-    	return true;  	
+    	return true;
     }
 
     public boolean tileIsReachable(Point point, EntityType type) {
     	if (point == null) return false;
     	Tile tile = tileGrid.get(point);
-    	if (tile != null && !tile.isReachable(type)) return false;
+    	if (tile == null || !tile.isReachable(type)) return false;
     	return true;
     }
     
@@ -297,11 +290,21 @@ public class Dungeon {
     }
   
     public boolean isValidMoveAgent(Point check) {
-    	return tileIsReachable(check, EntityType.Computer);
+    	return tileIsReachable(check, EntityType.Computer) && !isAgentExist(check);
+    }
+    
+    public boolean isValidMoveBoulder(Point check) {
+    	return isValidMoveBasic(check) && !isAgentExist(check);
     }
     
     public boolean isValidMoveArrow(Point point) {
-    	return isAgentExist(point) && (!getAgent(point).getClass().getSimpleName().equals("Boulder"));
+    	if (!isValidMoveBasic(point)) {
+    		return false;
+    	}
+    	if(agentGrid.get(point) != null && agentGrid.get(point).isMoveable()) {
+    		return false;
+    	}
+    	return true;
     }
 
 
@@ -357,6 +360,20 @@ public class Dungeon {
 
     //TODO: Is it bad to put so many if statements? probably a better way
     private void triggerPlayerAction(Point point) {	
+    	ComputerAgent temp = agentGrid.get(point);
+    	if (temp != null) {
+    		if (temp.isMoveable()) {
+    			Point newPos = ((Boulder) temp).push(player.getDirection());
+    			agentGrid.remove(point);
+    			if (!tileGrid.get(newPos).isType(Type.Pit)) {
+    				agentGrid.put(newPos, temp);
+    			}	
+    		}
+    		else {
+    			// fight
+    			this.player.fight(this);
+    		}
+    	}
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
     		if (!itemGrid.get(point).isLitBomb()) {
@@ -366,11 +383,21 @@ public class Dungeon {
     	}
     }
 
+    /**
+     * Trigger Agent Fight Action
+     * @param point Agent's Position
+     */
     private void triggerAgentAction(Point point) {
     	if (playerPosition.equals(point)) {
     		player.fight(this);
     	}
     }
+    
+    /**
+     * Get agent on a specific point
+     * @param point Point
+     * @return Computer Agent on given Point
+     */
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
     }
@@ -392,11 +419,10 @@ public class Dungeon {
      * @param point
      */
     public void addSwitch(Tile tile, Point point) {
-    	if (tile instanceof Switch) {
+    	if (tile.isType(Type.Switch)) {
     		Switch sw = (Switch )tile;
     		switches.add(sw);
     		sw.setPoint(point);
-    		
     	}
     }
     
@@ -410,6 +436,10 @@ public class Dungeon {
     	}
     }
     
+    /**
+     * Trigger any Tile Action (like unlockDoor)
+     * @param point
+     */
     public void triggerTileAction(Point point) {
     	Tile tile = tileGrid.get(point);
     	if (tile instanceof FunctionalTile) {

@@ -172,13 +172,3 @@ public class Player {
 		else die();
 	}
 }
-
-	
-
-
-
-
-	
-
-
-

@@ -11,6 +11,7 @@ import Controller.Direction;
 import Model.Boulder;
 import Model.Dungeon;
 import Model.Player;
+import Model.Tile.Switch;
 
 public class testWinCondition {
 	
@@ -29,9 +30,10 @@ public class testWinCondition {
 	 */
 	@Test
 	public void testPlaceBoulderOnSwitch() {
-		basic.placeSwitch(new Point(3, 1));
+		basic.placeTile(new Switch(), new Point(3, 1));
 		assertFalse(basic.winConditionSwitch());
 		basic.placeComputerAgent(testBoulder, new Point(3, 1));
+		basic.updateTile();
 		assertTrue(basic.winConditionSwitch());
 	}
 	
@@ -40,13 +42,14 @@ public class testWinCondition {
 	 */
 	@Test
 	public void testTwoSwitch() {
-		basic.placeSwitch(new Point(2, 1));
+		basic.placeTile(new Switch(), new Point(2, 1));
 		basic.placeComputerAgent(testBoulder, new Point(2, 1));
 		basic.placePlayer(player, new Point(1, 1));
-		basic.placeSwitch(new Point(1, 3));
+		basic.placeTile(new Switch(), new Point(1, 3));
 		basic.placeComputerAgent(testBoulder, new Point(1, 2));
 		assertFalse(basic.winConditionSwitch());
 		basic.updatePlayer(Direction.DOWN);
+		basic.updateTile();
 		assertTrue(basic.winConditionSwitch());
 	}
 	

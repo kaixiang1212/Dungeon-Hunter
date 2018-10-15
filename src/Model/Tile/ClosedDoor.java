@@ -27,4 +27,9 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 		return false;
 	}
 
+	@Override
+	public Type getType() {
+		return Type.ClosedDoor;
+	}
+
 }

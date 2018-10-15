@@ -10,6 +10,9 @@ import Controller.Direction;
 import Model.*;
 import Model.Item.Key;
 import Model.Tile.Door;
+import Model.Tile.Tile;
+import Model.Tile.Type;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -145,6 +148,16 @@ public class testDoor {
 		door1 = new Door();
 		key1 = new Key(door1.getCode());
 		assertTrue(key1.unlocks(door1));
+	}
+	
+	@Test
+	public void testUnlockDoorChangeState(){
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		player.pickup(key1);
+		assertEquals(door1.getType(), Type.ClosedDoor);
+		door1.doOperation(player);
+		assertEquals(door1.getType(), Type.OpenedDoor);
 	}
 
 	@Test

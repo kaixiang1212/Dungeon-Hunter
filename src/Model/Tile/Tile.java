@@ -6,5 +6,11 @@ public abstract class Tile {
 		return true;
 	}
 	
+	public abstract Type getType();
+	
+	public boolean isType(Type tiletype) {
+		return getType().equals(tiletype);
+	}
+	
 	// render image maybe?
 }

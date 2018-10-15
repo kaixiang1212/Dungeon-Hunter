@@ -7,4 +7,9 @@ public class OpenedDoor extends Tile {
 		return true;
 	}
 
+	@Override
+	public Type getType() {
+		return Type.OpenedDoor;
+	}
+
 }

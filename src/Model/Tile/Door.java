@@ -36,4 +36,9 @@ public class Door extends Tile implements FunctionalTile {
 		return state.isReachable(type);
 	}
 
+	@Override
+	public Type getType() {
+		return state.getType();
+	}
+
 }

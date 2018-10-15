@@ -19,7 +19,7 @@ public class testSwitch {
 	Dungeon basic;
 	Player player;
 	Boulder testBoulder;
-	Switch switch1;
+	Switch sw;
 	Point switchPoint;
 
 	@Before
@@ -34,9 +34,9 @@ public class testSwitch {
 	 */
 	@Test
 	public void testInitSwitch() {
-		basic.placeSwitch(switchPoint = new Point(1, 1));
-		switch1 = (Switch )basic.getTile(switchPoint);
-		assertFalse(switch1.isActivated());
+		basic.placeTile(new Switch(), switchPoint = new Point(1, 1));
+		sw = (Switch )basic.getTile(switchPoint);
+		assertFalse(sw.isActivated());
 	}
 
 	/**
@@ -44,14 +44,12 @@ public class testSwitch {
 	 */
 	@Test
 	public void testSimpleTrigger() {
-		basic.placePlayer(player, new Point(1, 1));
-		basic.placeComputerAgent(testBoulder, new Point(2, 1));
-		basic.placeSwitch(switchPoint = new Point(3, 1));
-
-		switch1 = (Switch )basic.getTile(switchPoint);
-		// player pushes boulder to a switch
-		basic.updatePlayer(Direction.RIGHT);
-		assertTrue(switch1.isActivated());
+		basic.placeTile(new Switch(), switchPoint = new Point(1, 1));
+		sw = (Switch )basic.getTile(switchPoint);
+		assertFalse(sw.isActivated());
+		basic.placeComputerAgent(new Boulder(null), new Point(1, 1));
+		basic.updateTile();
+		assertTrue(sw.isActivated());
 	}
 
 	/**
@@ -59,28 +57,30 @@ public class testSwitch {
 	 */
 	@Test
 	public void testSimpleUntrigger() {
-		basic.placeSwitch(switchPoint = new Point(2, 1));
-		basic.placeComputerAgent(testBoulder, switchPoint);
-		basic.placePlayer(player, new Point(1, 1));
-		// player pushes boulder off a switch
-		basic.updatePlayer(Direction.RIGHT);
-		
-		switch1 = (Switch )basic.getTile(switchPoint);
-		assertFalse(switch1.isActivated());
+		basic.placeTile(new Switch(), switchPoint = new Point(1, 1));
+		sw = (Switch )basic.getTile(switchPoint);
+		basic.placeComputerAgent(new Boulder(null), new Point(1, 1));
+		basic.updateTile();
+		assertTrue(sw.isActivated());
+		basic.removeAgent(new Point(1, 1));
+		basic.updateTile();
+		assertFalse(sw.isActivated());
 	}
 
 	/**
-	 * Test boulder triggered when boulder is place on it
+	 * Test player pushes boulder to trigger
 	 */
 	@Test
-	public void testPlaceBoulderOnSwitch() {
-		basic.placeSwitch(switchPoint = new Point(3, 1));
-		// place boulder on top of switch
-		basic.placeComputerAgent(testBoulder, switchPoint);
-		switch1 = (Switch )basic.getTile(switchPoint);
-
-		assertTrue(switch1.isActivated());
+	public void testPlayerPushTrigger() {
+		
 	}
 	
+	/**
+	 * Test player pushes boulder to untrigger
+	 */
+	@Test
+	public void testPlayerPushUntrigger() {
+		
+	}
 
 }
