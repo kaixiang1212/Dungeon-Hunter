@@ -11,7 +11,7 @@ public class Pit extends Tile implements FunctionalTile {
 
 	@Override
 	public void doOperation(Player player) {
-		player.die();
+		player.fallsIntoPit();
 	}
 
 }

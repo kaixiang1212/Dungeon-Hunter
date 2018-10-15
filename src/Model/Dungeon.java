@@ -260,22 +260,22 @@ public class Dungeon {
     		int y = (int) check.getY();
     		switch(dir) {
     			case LEFT:
-    				if(!isValidMoveAgent(new Point(x-1, y))) {
+    				if(!isValidMoveBasic(new Point(x-1, y))) {
     					return false;
     				}
     				break;
     			case RIGHT:
-    				if(!isValidMoveAgent(new Point(x+1, y))) {
+    				if(!isValidMoveBasic(new Point(x+1, y))) {
     					return false;
     				}
     				break;
     			case UP:
-    				if(!isValidMoveAgent(new Point(x, y-1))) {
+    				if(!isValidMoveBasic(new Point(x, y-1))) {
     					return false;
     				}
     				break;
     			case DOWN:
-    				if(!isValidMoveAgent(new Point(x, y+1))) {
+    				if(!isValidMoveBasic(new Point(x, y+1))) {
     					return false;
     				}
     				break;
@@ -298,6 +298,10 @@ public class Dungeon {
   
     public boolean isValidMoveAgent(Point check) {
     	return tileIsReachable(check, EntityType.Computer);
+    }
+    
+    public boolean isValidMoveArrow(Point point) {
+    	return isAgentExist(point) && (!getAgent(point).getClass().getSimpleName().equals("Boulder"));
     }
 
 
@@ -329,6 +333,7 @@ public class Dungeon {
     	}
     	itemGrid.put(pos, i);
     }
+
     public boolean isItemExist(Point check) {
     	if(itemGrid.containsKey(check)) {
     		return true;

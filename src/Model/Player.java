@@ -166,6 +166,11 @@ public class Player {
 	public ArrayList<Key> getKeys(){
 		return inventory.getKeys();
 	}
+	
+	public void fallsIntoPit() {
+		if (isHover()) return;
+		else die();
+	}
 }
 
 	
