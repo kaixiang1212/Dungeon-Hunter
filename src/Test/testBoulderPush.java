@@ -9,7 +9,9 @@ import Model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Tile.Type;
+import Model.Tile.Door;
+import Model.Tile.Pit;
+import Model.Tile.Wall;
 
 public class testBoulderPush {
 
@@ -40,7 +42,7 @@ public class testBoulderPush {
 	//Boulder disappears if pushed into pit!
 	@Test
 	public void testPushIntoPit() {
-		testDun.placeTile(Type.PIT, new Point(3,1));
+		testDun.placeTile(new Pit(), new Point(3,1));
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
 		testDun.updatePlayer(Direction.RIGHT);
@@ -51,7 +53,7 @@ public class testBoulderPush {
 	public void testPushWall() {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
-		testDun.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3,1));
+		testDun.placeTile(new Wall(), new Point(3,1));
 		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(testBoulder.getPos(), new Point(2,1));
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
@@ -70,7 +72,7 @@ public class testBoulderPush {
 	public void testPushClosedDoor() {
 		testDun.placePlayer(testPlayer, new Point(1,1));
 		testDun.placeComputerAgent(testBoulder, new Point(2,1));
-		testDun.placeTile(Type.CLOSED_DOOR, new Point(3,1));
+		testDun.placeTile(new Door(), new Point(3,1));
 		testDun.updatePlayer(Direction.RIGHT);
 		assertEquals(new Point(2, 1), testBoulder.getPos());
 		assertEquals(testDun.getPlayerPos(), new Point(1,1));
