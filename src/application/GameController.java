@@ -44,10 +44,10 @@ public class GameController {
 	@FXML 
 	public void initialize() {
 		//Temporary setup
-		Dungeon test = new Dungeon(8);
+		Dungeon test = new Dungeon(20);
 		//test.placeComputerAgent(new Hunter(), new Point(1,1));
-		//test.placeComputerAgent(new Hunter(), new Point(2,1));
-		test.placeComputerAgent(new Strategist(), new Point(2,2));
+		test.placeComputerAgent(new Hunter(), new Point(2,1));
+		//test.placeComputerAgent(new Strategist(), new Point(2,2));
 		//test.placeComputerAgent(new Coward(), new Point(2,3));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
