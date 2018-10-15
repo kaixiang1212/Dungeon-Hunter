@@ -1,24 +1,36 @@
 package Model.Tile;
 
+import java.awt.Point;
+
+import Model.ComputerAgent;
+
 public class Switch extends Tile {
 	
-	private boolean pressed;
-
+	private boolean isTriggered;
+	private Point point;
+	
 	public Switch() {
-		super(Type.SWITCH);
-		pressed = false;
+		isTriggered = false;
 	}
 	
-	public void trigger() {
-		pressed = true;
+	public void update(ComputerAgent agent) {
+		if (agent != null && agent.isMoveable()) {
+			isTriggered = true;
+			return;
+		}
+		isTriggered = false;
 	}
 	
-	public void untrigger() {
-		pressed = false;
+	public void setPoint(Point point) {
+		this.point = point;
+	}
+	
+	public Point getPoint() {
+		return this.point;
 	}
 	
 	public boolean isActivated() {
-		return pressed;
+		return isTriggered;
 	}
-
+	
 }

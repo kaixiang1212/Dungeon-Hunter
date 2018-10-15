@@ -1,10 +1,10 @@
 package Model.Tile;
 
-public abstract class Tile {
+public class OpenedDoor extends Tile {
 
+	@Override
 	public boolean isReachable(EntityType type) {
 		return true;
 	}
-	
-	// render image maybe?
+
 }

@@ -8,15 +8,18 @@ import java.util.Map;
 
 import Controller.Direction;
 import Model.Item.Item;
+import Model.Tile.DefaultTile;
 import Model.Tile.Door;
+import Model.Tile.EntityType;
+import Model.Tile.FunctionalTile;
 import Model.Tile.Tile;
 import Model.Tile.Type;
+import Model.Tile.Wall;
 import Model.Tile.Switch;
 
 public class Dungeon {
 
 	public final int MAX_SIZE = 20;
-
 
     private Point topLeft;
     private Point bottomRight;
@@ -27,7 +30,7 @@ public class Dungeon {
     private Point playerPosition;
     private Player player;
     // TODO: Easier to track win condition
-    private ArrayList<Switch> switchs;
+    private ArrayList<Switch> switches;
 
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -43,7 +46,7 @@ public class Dungeon {
 
         this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(size+1, size+1);
-        this.switchs = new ArrayList<>();
+        this.switches = new ArrayList<>();
     }
    
 
@@ -51,11 +54,9 @@ public class Dungeon {
         return tileGrid;
     }
 
-
     public Point getTopLeft() {
         return topLeft;
     }
-
 
     public Point getBottomRight() {
         return bottomRight;
@@ -85,20 +86,20 @@ public class Dungeon {
         // Set the dungeons walls on left/right sides
         for(int i = -1; i <= size + 2; i++) {
             for (int j : edges) {
-                ret.put(new Point(i, j), new Tile(Type.INVINCIBLE_WALL));
+                ret.put(new Point(i, j), new Wall());
             }
         }
 
         // Set the dungeons walls on remaining top/bottom sides
         for (int i : edges) {
             for (int j = 1; j <= size; j++) {
-                ret.put(new Point(i, j), new Tile(Type.INVINCIBLE_WALL));
+                ret.put(new Point(i, j), new Wall());
             }
         }
         //Set rest of tiles to default tiles that allow for free movement
         for(int i = 1; i <= size; i++) {
         	for(int j = 1; j <= size; j++) {
-        		ret.put(new Point(i,j), new Tile(Type.DEFAULT));
+        		ret.put(new Point(i,j), new DefaultTile());
         	}
         }
 
@@ -111,24 +112,23 @@ public class Dungeon {
      * Makes a Tile Grid of MAX_SIZE
      * @return A default empty dungeon size MAX_SIZE
      */
- 
     private HashMap<Point, Tile> initTileGrid() {
         return initTileGrid(this.MAX_SIZE);
     }
 
-    /**
-     * Exposes the type of tile at a location
-     * @param location
-     * @return Tile.Type
-     */
-    public Type pointTileType(Point location) {
-        Tile local = tileGrid.get(location);
-        if (local == null) {
-            return null;
-        }
-
-        return local.getType();
-    }
+//    /**
+//     * Exposes the type of tile at a location
+//     * @param location
+//     * @return Tile.Type
+//     */
+//    public Type pointTileType(Point location) {
+//        Tile local = tileGrid.get(location);
+//        if (local == null) {
+//            return null;
+//        }
+//
+//        return local.getType();
+//    }
     
     public Tile getTile(Point point) {
     	return tileGrid.get(point);
@@ -141,49 +141,24 @@ public class Dungeon {
      * @return true if Tile placed
      * @throws IllegalArgumentException when myPoint outside topLeft and bottomRight defined boundaries
      */
-    public boolean placeTile(Type tileType, Point myPoint) throws IllegalArgumentException {
-
-        // Cannot place invincible wall
-        if (tileType == Type.INVINCIBLE_WALL) {
-            return false;
-        }
+    public boolean placeTile(Tile tile, Point myPoint) throws IllegalArgumentException {
 
         // Out of Bound Check
         if (outOfBound(myPoint)) return false;
 
+        addSwitch(tile, myPoint);
         if (tileGrid.get(myPoint) == null) {
-            tileGrid.put(myPoint, new Tile(tileType));
+            tileGrid.put(myPoint, tile);
             return true;
         }
         //If tile already exists, simply switch type!
-        if(tileGrid.get(myPoint) != null) {
-        	tileGrid.get(myPoint).setType(tileType);
+        else if (tileGrid.get(myPoint) != null) {
+        	tileGrid.replace(myPoint, tile);
         	return true;
         }
 
         return false;
     }
-    
-    /**
-     * Create a new door and return the key to this door
-     * @param doorPoint Point to create a closed door
-     * @return a key to the door
-     * @throws IllegalArgumentException
-     */
-    public boolean placeDoorKey(Point doorPoint, Point keyPoint) throws IllegalArgumentException {
-
-    	if (outOfBound(doorPoint) || outOfBound(keyPoint)) return false;
-
-    	if (tileGrid.get(doorPoint).isType(Type.DEFAULT)) {
-    		Door newDoor = new Door();
-    		tileGrid.put(doorPoint, newDoor);
-    		// place key on map (Not yet implemented)
-    		placeItem(newDoor.generateKey(), keyPoint);
-    		return true;
-    	}
-    	return false;
-    }
-    
 
     /**
      * Inserts a new ComputerAgent object into the agentGrid
@@ -196,7 +171,7 @@ public class Dungeon {
     	agentGrid.put(agentPoint, a);
     	a.setPos(agentPoint);
     	// if Boulder is on Switch, trigger
-    	if (a.isMoveable() == true) triggerSwitch(agentPoint);
+    	//if (a.isMoveable() == true) triggerSwitch(agentPoint);
     }
     /**
      * Inserts a new Player object into the dungeon
@@ -232,36 +207,29 @@ public class Dungeon {
     public void updatePlayer(Direction dir) {
     	int x = (int) this.playerPosition.getX();
     	int y = (int) this.playerPosition.getY();
+    	Point desireDir;
     	switch (dir) {
     		case LEFT:
-    			Point left = new Point(x-1, y);
-    			if (isValidMove(left)) {
-    				this.playerPosition = left;
-    				this.player.setDirection(Direction.LEFT);
-    			}
+    			desireDir = new Point(x-1, y);
+    			this.player.setDirection(Direction.LEFT);
     			break;
 			case DOWN:
-    			Point down = new Point(x, y+1);
-    			if (isValidMove(down)) {
-    				this.playerPosition = down;
-    				this.player.setDirection(Direction.DOWN);
-    			}
+				desireDir = new Point(x, y+1);
+    			this.player.setDirection(Direction.DOWN);
     			break;
     		case RIGHT:
-    			Point right = new Point(x+1, y);
-    			if (isValidMove(right)) {
-    				this.playerPosition = right;
-    				this.player.setDirection(Direction.RIGHT);
-    			}
+    			desireDir = new Point(x+1, y);
+    			this.player.setDirection(Direction.RIGHT);
     			break;
     		case UP:
-    			Point up = new Point(x, y-1);
-    			if (isValidMove(up)) {
-    				this.playerPosition = up;
-    				this.player.setDirection(Direction.UP);
-    			}
+    			desireDir = new Point(x, y-1);
+    			this.player.setDirection(Direction.UP);
     			break;
+    		default:
+    			return;
         }
+		triggerTileAction(desireDir);
+		if (isValidMove(desireDir)) this.playerPosition = desireDir;
         triggerPlayerAction(playerPosition);
     }
 
@@ -274,19 +242,18 @@ public class Dungeon {
     }
     
     /**
-     * Checks if tile to be moved on is valid to move on by players.
+     * Checks if tile to be moved on is valid to move on by Player.
      * @param check
      * @return
      */
     public boolean isValidMove(Point check) {
-    	//Checks cases for types of tiles that can't be moved on
+    	// Checks cases for types of tiles that can't be moved on
     	if(!isValidMoveBasic(check)) {
-
     		return false;
     	}
     	//Checks if movable agent, ie. boulder can't move depending on player push direction
     	ComputerAgent temp = agentGrid.get(check);
-    	if(temp != null && temp.isMoveable()) {
+    	if (temp != null && temp.isMoveable()) {
 
     		Direction dir = player.getDirection();
     		int x = (int) check.getX();
@@ -317,47 +284,22 @@ public class Dungeon {
 
     	return true;  	
     }
-  
+
+    public boolean tileIsReachable(Point point, EntityType type) {
+    	if (point == null) return false;
+    	Tile tile = tileGrid.get(point);
+    	if (tile != null && !tile.isReachable(type)) return false;
+    	return true;
+    }
+    
     public boolean isValidMoveBasic(Point check) {
-    	//Checks cases for types of tiles that can't be moved on
-
-    	if (check == null) return false;
-
-    	Tile tileA = tileGrid.get(check);
-    	if (tileA != null) {
-
-    		Type type = tileA.getType();
-    		switch (type) {
-    		case INVINCIBLE_WALL:
-    			return false;
-    		case CLOSED_DOOR:
-    			return false;
-    		case DESTRUCTIBLE_WALL:
-    			return false;
-    		}
-    	}
-    	return true;
-    }
-    public boolean isValidMoveArrow(Point check) {
-    	if (!isValidMoveBasic(check)) {
-    		return false;
-    	}
-    	if(agentGrid.get(check) != null && agentGrid.get(check).isMoveable()) {
-    		return false;
-    	}
-    	return true;
-    }
-    public boolean isValidMoveAgent(Point check) {
-    	if (!isValidMoveArrow(check)) {
-    		return false;
-    	}
-    	ComputerAgent temp = agentGrid.get(check);
-    	if(tileGrid.get(check).getType() == Type.PIT && temp != null && !temp.isMoveable()) {
-    		return false;
-    	}
-    	return true;
+    	return tileIsReachable(check, EntityType.Default);
     }
   
+    public boolean isValidMoveAgent(Point check) {
+    	return tileIsReachable(check, EntityType.Computer);
+    }
+
 
     /**
      * Typically called after isValidMove(Point) to further verify for
@@ -409,44 +351,7 @@ public class Dungeon {
     }
 
     //TODO: Is it bad to put so many if statements? probably a better way
-    private void triggerPlayerAction(Point point) {
-     	// Grid is a PIT
-    	if(tileGrid.get(point).getType() == Type.PIT) {
-    		if (!this.player.isHover()) {
-    			this.player.die();
-    		}
-    	}
-    	// Grid holds an Agent
-    	ComputerAgent temp = agentGrid.get(point);
-		if (temp != null) {
-			if (temp.isMoveable()) {
-				// if tile is on a switch moving it would untriggers switch
-				untriggerSwitch(point);
-				Point newPos = ((Boulder) temp).push(player.getDirection());
-				agentGrid.remove(point);
-				if (tileGrid.get(newPos).getType() != Type.PIT) {
-					agentGrid.put(newPos, temp);
-					// if boulder is on Switch then triggers it
-					triggerSwitch(newPos);
-				}	
-			}
-			else {
-    		// fight
-				this.player.fight(this);
-			}
-    	}
-/*     	// The next Grid is Door
-    	if (tileGrid.get(point).getType() == Type.CLOSED_DOOR) {
-    		// unlock door
-    		Door door = (Door )tileGrid.get(point);
-    		door.unlockDoor(player.getKeys());
-    	}*/
-
-		//Grid is a EXIT
-    	if(tileGrid.get(point).getType() == Type.EXIT) {
-    		//Win?
-    	}
-    	    	
+    private void triggerPlayerAction(Point point) {	
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
     		if (!itemGrid.get(point).isLitBomb()) {
@@ -454,68 +359,56 @@ public class Dungeon {
     			this.itemGrid.remove(point);
     		}
     	}
-    	
-
     }
+
     private void triggerAgentAction(Point point) {
-    	
-    	if(playerPosition.equals(point)) {
+    	if (playerPosition.equals(point)) {
     		player.fight(this);
     	}
     }
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
     }
-    
-    /**
-     * Trigger a switch on the point given
-     * @param point switch on point
-     */
-    private void triggerSwitch(Point point) {
-    	if (tileGrid.get(point).getType() == Type.SWITCH) {
-    		Switch sw = (Switch) tileGrid.get(point);
-			sw.trigger();
-    	}
-    }
-    
-    /**
-     * Trigger a switch on the point given
-     * @param point switch on point
-     */
-    private void untriggerSwitch(Point point) {
-    	if (tileGrid.get(point).getType() == Type.SWITCH) {
-    		Switch sw = (Switch) tileGrid.get(point);
-			sw.untrigger();
-    	}
-    }
-    
-    /**
-     * Place a Switch on Point given
-     * @param point Point to place a Switch
-     * @return true if legit, false otherwise
-     * @throws IllegalArgumentException
-     */
-    public boolean placeSwitch(Point point) throws IllegalArgumentException {
 
-    	if (outOfBound(point)) throw new IllegalArgumentException("Placement out of bounds");
-
-    	if (tileGrid.get(point).isType(Type.DEFAULT)) {
-    		Switch newSwitch = new Switch();
-    		switchs.add(newSwitch);
-    		tileGrid.put(point, newSwitch);
-    		return true;
-    	}
-    	return false;
-    }
-    
     /**
      * Win condition for switches
      * @return true if all switches is triggered false otherwise
      */
     public boolean winConditionSwitch() {
-    	for (Switch sw : switchs) {
+    	for (Switch sw : switches) {
     		if (sw.isActivated() == false) return false;
     	}
     	return true;
+    }
+    
+    /**
+     * Assign additional records required for Switch
+     * @param tile
+     * @param point
+     */
+    public void addSwitch(Tile tile, Point point) {
+    	if (tile instanceof Switch) {
+    		Switch sw = (Switch )tile;
+    		switches.add(sw);
+    		sw.setPoint(point);
+    		
+    	}
+    }
+    
+    /**
+     * Pass in the agent on the same grid to trigger or not trigger switch
+     */
+    public void updateTile() {
+    	for (Switch switch1 : switches) {
+    		Point point = switch1.getPoint();
+    		switch1.update(agentGrid.get(point));
+    	}
+    }
+    
+    public void triggerTileAction(Point point) {
+    	Tile tile = tileGrid.get(point);
+    	if (tile instanceof FunctionalTile) {
+    		((FunctionalTile )tile).doOperation(player);
+    	}
     }
 }

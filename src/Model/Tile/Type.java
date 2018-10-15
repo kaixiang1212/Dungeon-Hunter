@@ -1,11 +1,9 @@
 package Model.Tile;
 
 public enum Type {
-    INVINCIBLE_WALL,
-    DESTRUCTIBLE_WALL,
+	WALL,
     EXIT,
-    CLOSED_DOOR,
-    OPEN_DOOR,
+    DOOR,
     SWITCH,
     PIT,
     DEFAULT
