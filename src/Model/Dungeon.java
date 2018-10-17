@@ -7,6 +7,7 @@ import java.util.Map;
 
 import Controller.Direction;
 import Model.Item.Item;
+import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
@@ -441,6 +442,16 @@ public class Dungeon {
     		if (!itemGrid.get(point).isLitBomb()) {
     			this.player.pickup(itemGrid.get(point));
     			this.itemGrid.remove(point);
+    		}
+    	}
+    	
+    	for (Potion p: this.player.getStatus()) {
+    		if (p.isInvinc()) {
+    			if (p.getDuration() == 1) {
+    				this.player.getStatus().remove(p);
+    			} else {
+    				p.reduceDuration();
+    			}
     		}
     	}
     	

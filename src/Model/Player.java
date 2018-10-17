@@ -32,13 +32,7 @@ public class Player {
 	 * @param i, The item being picked up
 	 */
 	public void pickup(Item i) {
-		if (i.isPotion()) {
-			this.addStatus((Potion) i);
-		} else if (i.isLitBomb()) {
-			return;
-		} else {
-			inventory.storeItem(i);
-		}
+		i.pickedUp(this);
 	}
 	/*
 	 * select item in inventory and equip it
