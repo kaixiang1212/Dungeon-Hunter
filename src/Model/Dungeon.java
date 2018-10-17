@@ -9,7 +9,6 @@ import java.util.Map;
 import Controller.Direction;
 import Model.Item.Item;
 import Model.Tile.DefaultTile;
-import Model.Tile.Door;
 import Model.Tile.EntityType;
 import Model.Tile.FunctionalTile;
 import Model.Tile.Tile;
@@ -445,5 +444,25 @@ public class Dungeon {
     	if (tile instanceof FunctionalTile) {
     		((FunctionalTile )tile).doOperation(player);
     	}
+    }
+    
+    /**
+     * Return true if Tile on given Point is not null
+     * @param point Point to Check 
+     * @return true if the point given is a tile
+     */
+    public boolean hasTile(Point point) {
+    	return tileGrid.get(point) != null;
+    }
+    
+    /**
+     * Function to check tileType on a given point
+     * @param point Point to check
+     * @param type Tile Type
+     * @return true if given point is a given type
+     */
+    // TODO: Rename
+    public boolean isPointTileType(Point point, Type type) {
+    	return (hasTile(point) && getTile(point).isType(type));
     }
 }

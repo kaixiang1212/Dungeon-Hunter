@@ -57,13 +57,11 @@ public class PredictiveChaseBehaviour extends MoveBehaviour {
 		for (int x=0; x < map.MAX_SIZE; x++) {
 			for (int y=0; y < map.MAX_SIZE; y++) {
 				Point temp = new Point(x, y);
-				//System.out.println(temp.toString() + map.pointTileType(temp));
-				if (map.getTile(temp) instanceof Exit) {
+				if (map.isPointTileType(temp, Type.Exit)){
 					return temp;
 				}
 			}
 		}
-		System.out.println("no exit found");
 		return null;
 	}
 

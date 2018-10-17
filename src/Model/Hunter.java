@@ -6,7 +6,6 @@ public class Hunter extends ComputerAgent {
 
 	public Hunter() {
 		super(new StandardChaseBehaviour());
-
 	}
 	
 	@Override

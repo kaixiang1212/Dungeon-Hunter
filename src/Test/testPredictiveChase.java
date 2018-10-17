@@ -11,7 +11,6 @@ import Model.Dungeon;
 import Model.Player;
 import Model.Strategist;
 import Model.Tile.Exit;
-import Model.Tile.Type;
 
 public class testPredictiveChase {
 
