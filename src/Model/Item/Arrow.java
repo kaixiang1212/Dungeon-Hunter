@@ -1,5 +1,7 @@
 package Model.Item;
 
+import Model.Player;
+
 /**
  * Representation of an arrow, which can kill enemies at range
  * at the direction it was used by the player.
@@ -11,6 +13,9 @@ public class Arrow extends RangedWeapon {
 		super();
 	}
 	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 	/**
 	 * Returns true/false if arrow is being compared to arrow
 	 * @param Object to be compared to

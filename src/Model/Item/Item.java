@@ -1,6 +1,7 @@
 package Model.Item;
 
 import Model.Dungeon;
+import Model.Player;
 
 public abstract class Item {
 
@@ -9,6 +10,8 @@ public abstract class Item {
 	public Item() {
 		this.quantity = 1;
 	}
+	
+	public abstract void pickedUp(Player player);
 	
 	public abstract void use(Dungeon map);
 	
