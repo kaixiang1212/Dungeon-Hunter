@@ -445,16 +445,17 @@ public class Dungeon {
     		}
     	}
     	
-    	for (Potion p: this.player.getStatus()) {
-    		if (p.isInvinc()) {
-    			if (p.getDuration() == 1) {
-    				this.player.getStatus().remove(p);
+    	for (int i = 0; i < this.player.getStatus().size(); i++) {
+    		Potion curr = this.player.getStatus().get(i);
+    		if (curr.isInvinc()) {
+    			if (curr.getDuration() == 1) {
+    				this.player.getStatus().remove(i);
+    				i--;
     			} else {
-    				p.reduceDuration();
+    				this.player.getStatus().get(i).reduceDuration();
     			}
     		}
     	}
-    	
 
     }
     private void triggerAgentAction(Point point) {
