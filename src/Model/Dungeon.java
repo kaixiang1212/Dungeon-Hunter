@@ -465,4 +465,10 @@ public class Dungeon {
     public boolean isPointTileType(Point point, Type type) {
     	return (hasTile(point) && getTile(point).isType(type));
     }
+    
+    // TODO: Give some comment on this function: good? bad?
+    public void endTurn() {
+    	updateAgents();
+    	updateTile();
+    }
 }
