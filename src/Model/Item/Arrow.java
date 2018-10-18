@@ -1,5 +1,7 @@
 package Model.Item;
 
+import javafx.scene.image.Image;
+
 /**
  * Representation of an arrow, which can kill enemies at range
  * at the direction it was used by the player.
@@ -9,6 +11,7 @@ public class Arrow extends RangedWeapon {
 	
 	public Arrow() {
 		super();
+		this.setImage(new Image("assets/itemassets/arrow.png"));
 	}
 	
 	/**
@@ -31,6 +34,9 @@ public class Arrow extends RangedWeapon {
 	public boolean isStackable() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+	public String toString() {
+		return "Arrow x" + getQuantity();
 	}
 	
 }

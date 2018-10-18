@@ -21,5 +21,8 @@ public class Treasure extends Item {
 	public boolean isStackable() {
 		return true;
 	}
+	public String toString() {
+		return "Treasure x" + getQuantity();
+	}
 
 }

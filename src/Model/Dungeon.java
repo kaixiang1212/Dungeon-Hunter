@@ -2,8 +2,11 @@ package Model;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import Controller.Direction;
 import Model.Item.Item;
@@ -207,7 +210,7 @@ public class Dungeon {
     	player = p;
     }
     public Player getPlayer() {
-    	return this.player;
+    	return player;
     }
 
     /**
@@ -217,12 +220,31 @@ public class Dungeon {
      * Deletes old entry in agent hashmap
      * Enters new entry
      */
+//    public void updateAgents() {
+//
+//    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
+//    		
+//    		Point updatePos = entry.getValue().move(this);
+//    		agentGrid.remove(entry.getKey());
+//    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+//            triggerAgentAction(updatePos);
+//    	}
+//    }
     public void updateAgents() {
-    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
-    		Point updatePos = entry.getValue().move(this);
-    		agentGrid.remove(entry.getKey());
-    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-            triggerAgentAction(updatePos);
+    	
+    	ArrayList<ComputerAgent> alreadyMoved = new ArrayList<ComputerAgent>();   	
+    	for(int x = 0; x<this.savesize; x++) {
+    		for(int y = 0; y<this.savesize; y++) {
+    			Point check = new Point(x,y);
+    			ComputerAgent agent = this.agentGrid.get(check);
+    			if(agent != null && !alreadyMoved.contains(agent)) {
+    				Point updatePos = agent.move(this);
+    				agentGrid.remove(check);
+    				agentGrid.put(updatePos,  agent);
+    				alreadyMoved.add(agent);
+    				triggerAgentAction(updatePos);
+    			}
+    		}
     	}
     }
 
@@ -348,6 +370,7 @@ public class Dungeon {
     	if (!isValidMoveArrow(check)) {
     		return false;
     	}
+    	
     	ComputerAgent temp = agentGrid.get(check);
     	if(tileGrid.get(check).getType() == Type.PIT && temp != null && !temp.isMoveable()) {
     		return false;
@@ -485,5 +508,8 @@ public class Dungeon {
     }
     public Image getPlayerImage() {
     	return player.getImage();
+    }
+    public Item selectItemSlot(int index) {
+    	return player.selectItem(index);
     }
 }

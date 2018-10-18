@@ -34,5 +34,7 @@ public class Key extends Item {
 	public int getCode() {
 		return code;
 	}
-
+	public String toString() {
+		return "Key";
+	}
 }
