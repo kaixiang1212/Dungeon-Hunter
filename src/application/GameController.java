@@ -7,11 +7,14 @@ import Controller.Direction;
 import Controller.NoMoveBehaviour;
 import Model.Boulder;
 import Model.Coward;
+import Model.DefaultWinCondition;
 import Model.Dungeon;
+import Model.EnemiesKilledDecorator;
 import Model.Hunter;
 import Model.Paintable;
 import Model.Player;
 import Model.Strategist;
+import Model.WinCondition;
 import Model.Item.Arrow;
 import Model.Item.Hover;
 import Model.Item.Invincibility;
@@ -53,7 +56,9 @@ public class GameController {
 		//Temporary setup
 		Dungeon test = new Dungeon(17);
 		this.d = test;
-		this.setupStageDimensions();
+		WinCondition testwc = new DefaultWinCondition();
+		testwc = new EnemiesKilledDecorator(testwc);
+		test.setWinCondition(testwc);
 		//int fullscreensize = test.getSize() + 2;
 		//int bytepertile = 32;
         //stage.setMaxWidth(fullscreensize * bytepertile);
@@ -79,6 +84,7 @@ public class GameController {
 		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
 		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
 		
+		this.setupStageDimensions();
 		render();
 	}
 	public void setupStageDimensions() {
@@ -146,7 +152,7 @@ public class GameController {
 	//Ideally some game loop with threading and animation
 	@FXML
 	public void playerMovement(KeyEvent key) {
-		System.out.print(key.getCode());
+		System.out.print(key.getCode() + "\n");
 		switch (key.getCode()) {
 		case A:
 			d.updatePlayer(Direction.LEFT);
@@ -178,6 +184,19 @@ public class GameController {
 			promptLabel.setText(selected.toString());
 		}
 		render();
+		checkDungeonState();
+	}
+	
+	/**
+	 * TODO: Add loading of win or loss screen, which allows exit of game or restart?
+	 */
+	public void checkDungeonState() {
+		if(d.hasLost()) {
+			System.out.println("You have Lost \n");
+		}
+		else if(d.hasWon()) {
+			System.out.println("You have Won\n");
+		}
 	}
 }
 

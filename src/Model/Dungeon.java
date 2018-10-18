@@ -38,6 +38,7 @@ public class Dungeon {
     	agentGrid = new HashMap<Point, ComputerAgent>();
     	itemGrid = new HashMap<Point, Item>();
     	savesize = size;
+    	winCheck = new DefaultNoWinCondition();
     	
     	
         if (size > MAX_SIZE || size < 1) {
@@ -531,6 +532,8 @@ public class Dungeon {
     }
     public Item selectItemSlot(int index) {
     	return player.selectItem(index);
-
+    }
+    public void setWinCondition(WinCondition wc) {
+    	this.winCheck = wc;
     }
 }
