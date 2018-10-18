@@ -2,8 +2,9 @@ package Model.Item;
 
 import Model.Dungeon;
 import Model.Player;
+import Model.Paintable;
 
-public abstract class Item {
+public abstract class Item extends Paintable {
 
 	private int quantity;
 	

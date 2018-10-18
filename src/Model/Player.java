@@ -3,6 +3,7 @@ import Controller.Direction;
 import Model.Item.Item;
 import Model.Item.Key;
 import Model.Item.Potion;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import static Controller.Direction.RIGHT;
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction
  */
-public class Player {
+public class Player extends Paintable {
 
 	private boolean isDead;
 	private PlayerInventory inventory;
@@ -25,10 +26,12 @@ public class Player {
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
 		this.direction = RIGHT;
+		this.setImage(new Image("assets/agentassets/player.png"));
 	}
 	
 	/*
 	 * adds Potion effect to status, ignores LitBombs and adds other items to inventory
+	 * maybe pickup method refactored into items?
 	 * @param i, The item being picked up
 	 */
 	public void pickup(Item i) {
@@ -38,8 +41,11 @@ public class Player {
 	 * select item in inventory and equip it
 	 * @param index, Inventory index to get the item
 	 */
-	public void selectItem(int index) {
-		this.heldItem = inventory.getItem(index);
+	public Item selectItem(int index) {
+		if(inventory.getItem(index) != null) {
+			this.heldItem = inventory.getItem(index);
+		}
+		return this.heldItem;
 	}
 	/*
 	 * returns item that's equipped
