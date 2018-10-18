@@ -24,6 +24,7 @@ public class Dungeon {
     private Point playerPosition;
     private Player player;
     private int doorCode = -1;
+    private WinCondition winCheck;
 
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -465,5 +466,11 @@ public class Dungeon {
     		}
     	}
     	return false;
+    }
+    public boolean hasWon() {
+    	return winCheck.hasWon(this);
+    }
+    public boolean hasLost() {
+    	return player.deathStatus();
     }
 }
