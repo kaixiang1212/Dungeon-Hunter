@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import Controller.Direction;
 import Model.Item.Item;
+import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
@@ -471,6 +472,17 @@ public class Dungeon {
     		}
     	}
     	
+    	for (int i = 0; i < this.player.getStatus().size(); i++) {
+    		Potion curr = this.player.getStatus().get(i);
+    		if (curr.isInvinc()) {
+    			if (curr.getDuration() == 1) {
+    				this.player.getStatus().remove(i);
+    				i--;
+    			} else {
+    				this.player.getStatus().get(i).reduceDuration();
+    			}
+    		}
+    	}
 
     }
     private void triggerAgentAction(Point point) {

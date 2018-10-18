@@ -17,6 +17,10 @@ public class Bomb extends Item {
 		super();
 	}
 	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
+	
 	/**
 	 * Determines if bombs can be stacked in inventory
 	 * @return Returns true
