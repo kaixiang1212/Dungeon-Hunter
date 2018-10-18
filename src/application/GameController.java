@@ -4,14 +4,18 @@ import java.awt.Point;
 import java.util.Map;
 
 import Controller.Direction;
+import Controller.NoMoveBehaviour;
+import Model.Boulder;
 import Model.Coward;
 import Model.Dungeon;
 import Model.Hunter;
 import Model.Paintable;
 import Model.Player;
 import Model.Strategist;
+import Model.Item.Arrow;
 import Model.Item.Hover;
 import Model.Item.Invincibility;
+import Model.Item.Item;
 import Model.Item.Sword;
 import Model.Item.Treasure;
 import Model.Tile.Type;
@@ -30,10 +34,12 @@ public class GameController {
 
 	private Stage stage;
 	private Dungeon d;
+	private Item selected;
 
 	@FXML
 	private Pane mainPane;
-	
+	@FXML
+	private Label promptLabel;
 	@FXML
 	private Pane inventoryPane;
 	
@@ -43,32 +49,43 @@ public class GameController {
 	
 	@FXML 
 	public void initialize() {
+
 		//Temporary setup
+
 		Dungeon test = new Dungeon(20);
-		//test.placeComputerAgent(new Hunter(), new Point(1,1));
 		test.placeComputerAgent(new Hunter(), new Point(2,1));
-		//test.placeComputerAgent(new Strategist(), new Point(2,2));
-		//test.placeComputerAgent(new Coward(), new Point(2,3));
+		test.placeComputerAgent(new Hunter(), new Point(1,1));
+		test.placeComputerAgent(new Hunter(), new Point(17,1));
+		test.placeComputerAgent(new Hunter(), new Point(12,1));
+		test.placeComputerAgent(new Hunter(), new Point(14,1));
+		test.placeComputerAgent(new Hunter(), new Point(15,1));
+		//test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
+		test.placeComputerAgent(new Coward(), new Point(13,12));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
 		test.placeItem(new Invincibility(), new Point(3,1));
 		test.placeItem(new Hover(), new Point(4,1));
 		test.placeItem(new Sword(), new Point(5,1));
+		test.placeItem(new Arrow(), new Point(6,2));
 		test.placePlayer(new Player(), new Point(4,4));
 		test.placeTile(Type.EXIT, new Point(8,8));
 		test.placeTile(Type.PIT, new Point(6,8));
 		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
 		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
-		
-		this.d = test;
-		//Starts game
-		ImageView insertview = new ImageView(d.getPlayerImage());
-		insertview.setFitHeight(32);
-		insertview.setFitWidth(32);
-		insertview.setLayoutX(0 * 32);
-		insertview.setLayoutY(0 * 32);	
-		inventoryPane.getChildren().add(insertview);
+    
+		this.setupStageDimensions();		
+    this.d = test;
 		render();
+	}
+	public void setupStageDimensions() {
+
+		double centreX = 977.0;
+		double centreY = 576.0;
+		double increment = (this.d.getSize() + 3)/2;
+		mainPane.setLayoutX(centreX - increment*32);
+		mainPane.setLayoutY(centreY - increment*32);
+		
+        stage.setMaximized(true);
 	}
 	/**
 	 * Calls renderUtil to render multiple grids
@@ -84,20 +101,7 @@ public class GameController {
 		renderPlayer(mainPane);
 		
 	}
-//	public void startGame(Dungeon d) {
-		//Initial rendering of game
-//		render(d);
 
-		//d.updateAgents();
-		//render(d);
-//		int maxmoves = 100;
-//		for(int i=0;i<maxmoves;i++) {
-//			
-//			d.updateAgents();
-//			render(d);
-//			
-//		}
-//	}
 	/**
 	 * 
 	 * @param d Dungeon reference, for size and to utilise check method
@@ -142,18 +146,33 @@ public class GameController {
 		switch (key.getCode()) {
 		case A:
 			d.updatePlayer(Direction.LEFT);
+			d.updateAgents();
 			break;
 		case S:
 			d.updatePlayer(Direction.DOWN);
+			d.updateAgents();
 			break;
 		case D:
 			d.updatePlayer(Direction.RIGHT);
+			d.updateAgents();
 			break;
 		case W:
 			d.updatePlayer(Direction.UP);
-			
+			d.updateAgents();
+			break;
+		case DIGIT1:
+			selected = d.selectItemSlot(0);
+			break;
+		case DIGIT2:
+			selected = d.selectItemSlot(1);
+			break;
+		case DIGIT3:
+			selected = d.selectItemSlot(2);
+			break;
 		}
-		d.updateAgents();
+		if(selected != null) {
+			promptLabel.setText(selected.toString());
+		}
 		render();
 	}
 }

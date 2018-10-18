@@ -20,5 +20,8 @@ public class Sword extends MeleeWeapon {
 		}
 		return false;
 	}
+	public String toString() {
+		return "Sword x" + getnumUses();
+	}
 }
 

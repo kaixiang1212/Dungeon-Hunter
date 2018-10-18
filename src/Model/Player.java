@@ -47,8 +47,11 @@ public class Player extends Paintable {
 	 * select item in inventory and equip it
 	 * @param index, Inventory index to get the item
 	 */
-	public void selectItem(int index) {
-		this.heldItem = inventory.getItem(index);
+	public Item selectItem(int index) {
+		if(inventory.getItem(index) != null) {
+			this.heldItem = inventory.getItem(index);
+		}
+		return this.heldItem;
 	}
 	/*
 	 * returns item that's equipped

@@ -56,6 +56,9 @@ public class Bomb extends Item {
 		    }
 		}
 	}
+	public String toString() {
+		return "Bomb";
+	}
 	
 
 }
