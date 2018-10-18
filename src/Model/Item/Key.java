@@ -18,6 +18,10 @@ public class Key extends Item {
 		player.getInventory().removeItem(this);
 
 	}
+	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 
 	@Override
 	public boolean isStackable() {

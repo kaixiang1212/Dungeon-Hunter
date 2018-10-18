@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import Controller.Direction;
 import Model.Item.Item;
+import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
@@ -236,8 +237,8 @@ public class Dungeon {
     public void updateAgents() {
     	
     	ArrayList<ComputerAgent> alreadyMoved = new ArrayList<ComputerAgent>();   	
-    	for(int x = 0; x<this.savesize; x++) {
-    		for(int y = 0; y<this.savesize; y++) {
+    	for(int x = 0; x<this.savesize+2; x++) {
+    		for(int y = 0; y<this.savesize+2; y++) {
     			Point check = new Point(x,y);
     			ComputerAgent agent = this.agentGrid.get(check);
     			if(agent != null && !alreadyMoved.contains(agent)) {
@@ -474,6 +475,17 @@ public class Dungeon {
     		}
     	}
     	
+    	for (int i = 0; i < this.player.getStatus().size(); i++) {
+    		Potion curr = this.player.getStatus().get(i);
+    		if (curr.isInvinc()) {
+    			if (curr.getDuration() == 1) {
+    				this.player.getStatus().remove(i);
+    				i--;
+    			} else {
+    				this.player.getStatus().get(i).reduceDuration();
+    			}
+    		}
+    	}
 
     }
     private void triggerAgentAction(Point point) {

@@ -1,5 +1,6 @@
 package Model.Item;
 
+import Model.Player;
 import javafx.scene.image.Image;
 
 /**
@@ -14,6 +15,9 @@ public class Arrow extends RangedWeapon {
 		this.setImage(new Image("assets/itemassets/arrow.png"));
 	}
 	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 	/**
 	 * Returns true/false if arrow is being compared to arrow
 	 * @param Object to be compared to

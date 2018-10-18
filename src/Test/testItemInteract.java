@@ -22,7 +22,7 @@ public class testItemInteract {
 
 
 	@Before public void initTest() {
-		dungeon = new Dungeon(3);
+		dungeon = new Dungeon(20);
 		player = new Player();
 		topL = new Point (1, 1);
 	}
@@ -48,6 +48,30 @@ public class testItemInteract {
 		assertFalse(dungeon.isAgentExist(topL));
 	}
 	
+	@Test
+	public void testInviPotDuration() {
+		Potion invi = new Invincibility();
+		player.pickup(invi);
+		dungeon.placePlayer(player, new Point(1, 1));
+		dungeon.updatePlayer(Direction.RIGHT);
+		assertTrue(invi.getDuration() == 19);
+	}
+	
+	@Test
+	public void testInviDisappear() {
+		Potion invi = new Invincibility();
+		player.pickup(invi);
+		dungeon.placePlayer(player, new Point(1, 1));
+		assertTrue(player.isInvinc());
+		for (int i = 0; i < 10; i++) {
+			dungeon.updatePlayer(Direction.RIGHT);
+		}
+		for (int i = 0; i < 10; i++) {
+			dungeon.updatePlayer(Direction.LEFT);
+		}
+		assertFalse(player.isInvinc());
+	}
+	
 	//test to make sure player with hover can be on pit tile
 	@Test
 	public void testHoverPot() {
@@ -65,6 +89,15 @@ public class testItemInteract {
 		dungeon.updatePlayer(Direction.LEFT);
 		assertEquals(dungeon.getPlayerPos(), topL);
 		assertFalse(player.deathStatus());
+	}
+	
+	@Test
+	public void testHoverPotDuration() {
+		Potion hover = new Hover();
+		player.pickup(hover);
+		dungeon.placePlayer(player, new Point(1, 1));
+		dungeon.updatePlayer(Direction.RIGHT);
+		assertTrue(hover.getDuration() == 999);
 	}
 	
 	//test to make sure sword breaks when durability hits 0 and that collision when player has sword kills enemies
