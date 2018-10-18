@@ -2,6 +2,7 @@ package Model;
 
 import Controller.Direction;
 import Controller.MoveBehaviour;
+import javafx.scene.image.Image;
 
 import java.awt.Point;
 
@@ -15,6 +16,7 @@ public class Boulder extends ComputerAgent {
 
 	public Boulder(MoveBehaviour moveBehaviour) {
 		super(moveBehaviour);
+		this.setImage(new Image("assets/agentassets/boulder.png"));
 	}
 
 	/**

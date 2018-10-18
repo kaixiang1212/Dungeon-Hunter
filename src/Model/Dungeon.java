@@ -2,14 +2,18 @@ package Model;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import Controller.Direction;
 import Model.Item.Item;
 import Model.Tile.Door;
 import Model.Tile.Tile;
 import Model.Tile.Type;
+import javafx.scene.image.Image;
 
 public class Dungeon {
     public final int MAX_SIZE = 20;
@@ -25,12 +29,16 @@ public class Dungeon {
     private Player player;
     private int doorCode = -1;
     private WinCondition winCheck;
+    private int savesize;
+
 
 
     public Dungeon(int size) throws IllegalArgumentException{
     	playerPosition = null;
     	agentGrid = new HashMap<Point, ComputerAgent>();
     	itemGrid = new HashMap<Point, Item>();
+    	savesize = size;
+    	
     	
         if (size > MAX_SIZE || size < 1) {
             throw new IllegalArgumentException("Dungeon constructor size param 1-20. Received " + size);
@@ -204,7 +212,7 @@ public class Dungeon {
     	player = p;
     }
     public Player getPlayer() {
-    	return this.player;
+    	return player;
     }
 
     /**
@@ -214,12 +222,31 @@ public class Dungeon {
      * Deletes old entry in agent hashmap
      * Enters new entry
      */
+//    public void updateAgents() {
+//
+//    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
+//    		
+//    		Point updatePos = entry.getValue().move(this);
+//    		agentGrid.remove(entry.getKey());
+//    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
+//            triggerAgentAction(updatePos);
+//    	}
+//    }
     public void updateAgents() {
-    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
-    		Point updatePos = entry.getValue().move(this);
-    		agentGrid.remove(entry.getKey());
-    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-            triggerAgentAction(updatePos);
+    	
+    	ArrayList<ComputerAgent> alreadyMoved = new ArrayList<ComputerAgent>();   	
+    	for(int x = 0; x<this.savesize; x++) {
+    		for(int y = 0; y<this.savesize; y++) {
+    			Point check = new Point(x,y);
+    			ComputerAgent agent = this.agentGrid.get(check);
+    			if(agent != null && !alreadyMoved.contains(agent)) {
+    				Point updatePos = agent.move(this);
+    				agentGrid.remove(check);
+    				agentGrid.put(updatePos,  agent);
+    				alreadyMoved.add(agent);
+    				triggerAgentAction(updatePos);
+    			}
+    		}
     	}
     }
 
@@ -345,6 +372,7 @@ public class Dungeon {
     	if (!isValidMoveArrow(check)) {
     		return false;
     	}
+    	
     	ComputerAgent temp = agentGrid.get(check);
     	if(tileGrid.get(check).getType() == Type.PIT && temp != null && !temp.isMoveable()) {
     		return false;
@@ -456,6 +484,7 @@ public class Dungeon {
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
     }
+
     public int numEnemies() {
     	return this.agentGrid.size();
     }
@@ -472,5 +501,36 @@ public class Dungeon {
     }
     public boolean hasLost() {
     	return player.deathStatus();
+    }
+    /**
+     * Proxy method, gets tile image at location.
+     * Maybe we can specify it can take in any HashMap with point?
+     * Then its a generic method!
+     * We could also do this to refactor incredibly similar reptitive methods.
+     * @return
+     */
+    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
+    	Paintable p = map.get(point);
+    	if(p != null) {
+    		return p.getImage();
+    	}
+    	return null;
+    }
+    
+    public int getSize() {
+    	return savesize;
+    }
+    public Map<Point, ComputerAgent> getAgentGrid() {
+    	return agentGrid;
+    }
+    public Map<Point, Item> getItemGrid() {
+    	return itemGrid;
+    }
+    public Image getPlayerImage() {
+    	return player.getImage();
+    }
+    public Item selectItemSlot(int index) {
+    	return player.selectItem(index);
+
     }
 }

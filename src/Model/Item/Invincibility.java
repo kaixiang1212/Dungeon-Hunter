@@ -1,6 +1,7 @@
 package Model.Item;
 
 import Model.Dungeon;
+import javafx.scene.image.Image;
 
 /*
  * Representation of Invincibility Potion which allows player to not die except from pits
@@ -8,6 +9,7 @@ import Model.Dungeon;
 public class Invincibility extends Potion {
 	public Invincibility() {
 		super(20);
+		this.setImage(new Image("assets/itemassets/invincibility.png"));
 	}
 	
 	/*

@@ -12,7 +12,7 @@ public class PlayerInventory {
 	
 	public PlayerInventory() {
 		items = new ArrayList<>();
-		maxCapacity = 5;
+		maxCapacity = 3;
 	}
 	
 	public void storeItem(Item i) {
@@ -35,7 +35,10 @@ public class PlayerInventory {
 	}
 	
 	public Item getItem(int index) {
-		return items.get(index);
+		if(items.size() >= index+1) {
+			return items.get(index);
+		}
+		return null;
 	}
 	public void removeItem(Item i) {
 		this.items.remove(i);
