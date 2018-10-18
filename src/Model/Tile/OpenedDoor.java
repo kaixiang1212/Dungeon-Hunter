@@ -1,10 +1,11 @@
 package Model.Tile;
 
-public class OpenedDoor extends Tile {
+import javafx.scene.image.Image;
 
-	@Override
-	public boolean isReachable(EntityType type) {
-		return true;
+public class OpenedDoor extends Tile {
+	
+	public OpenedDoor() {
+		super(new Image("assets/tileassets/opendoor.png"));
 	}
 
 	@Override

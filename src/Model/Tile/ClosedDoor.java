@@ -2,12 +2,14 @@ package Model.Tile;
 
 import Model.Player;
 import Model.Item.Key;
+import javafx.scene.image.Image;
 
 public class ClosedDoor extends Tile implements FunctionalTile {
 	
 	private Door door;
 	
 	public ClosedDoor(Door door) {
+		super(new Image("assets/tileassets/closeddoor.png"));
 		this.door = door;
 	}
 

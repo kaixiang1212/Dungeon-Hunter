@@ -3,6 +3,7 @@ package Model.Tile;
 import java.awt.Point;
 
 import Model.ComputerAgent;
+import javafx.scene.image.Image;
 
 public class Switch extends Tile {
 	
@@ -10,6 +11,7 @@ public class Switch extends Tile {
 	private Point point;
 	
 	public Switch() {
+		super(new Image("assets/tileassets/switch.png"));
 		isTriggered = false;
 	}
 	

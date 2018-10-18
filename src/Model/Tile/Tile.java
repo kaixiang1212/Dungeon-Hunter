@@ -1,6 +1,14 @@
 package Model.Tile;
 
+import javafx.scene.image.Image;
+
 public abstract class Tile {
+	
+	private Image image;
+	
+	public Tile(Image image) {
+		this.image = image;
+	}
 
 	public boolean isReachable(EntityType type) {
 		return true;
@@ -12,5 +20,8 @@ public abstract class Tile {
 		return getType().equals(tiletype);
 	}
 	
-	// render image maybe?
+	public Image getImage() {
+		return this.image;
+	}
+	
 }

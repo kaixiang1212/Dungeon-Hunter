@@ -1,6 +1,7 @@
 package Model.Tile;
 
 import Model.Player;
+import javafx.scene.image.Image;
 
 public class Door extends Tile implements FunctionalTile {
 
@@ -11,6 +12,7 @@ public class Door extends Tile implements FunctionalTile {
 	private Tile state;
 	
 	public Door() {
+		super(null);
 		this.code = counter++;
 		this.closedDoor = new ClosedDoor(this);
 		this.openedDoor = new OpenedDoor();
@@ -39,6 +41,11 @@ public class Door extends Tile implements FunctionalTile {
 	@Override
 	public Type getType() {
 		return state.getType();
+	}
+
+	@Override
+	public Image getImage() {
+		return state.getImage();
 	}
 
 }

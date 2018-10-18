@@ -1,8 +1,13 @@
 package Model.Tile;
 
 import Model.Player;
+import javafx.scene.image.Image;
 
 public class Pit extends Tile implements FunctionalTile {
+	
+	public Pit() {
+		super(new Image("assets/tileassets/pit.png"));
+	}
 	
 	@Override
 	public boolean isReachable(EntityType type) {
