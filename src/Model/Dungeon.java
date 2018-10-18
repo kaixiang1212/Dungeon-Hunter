@@ -29,7 +29,9 @@ public class Dungeon {
     private Point playerPosition;
     private Player player;
     private int doorCode = -1;
+    private WinCondition winCheck;
     private int savesize;
+
 
 
     public Dungeon(int size) throws IllegalArgumentException{
@@ -37,6 +39,7 @@ public class Dungeon {
     	agentGrid = new HashMap<Point, ComputerAgent>();
     	itemGrid = new HashMap<Point, Item>();
     	savesize = size;
+    	winCheck = new DefaultNoWinCondition();
     	
     	
         if (size > MAX_SIZE || size < 1) {
@@ -494,6 +497,24 @@ public class Dungeon {
     public ComputerAgent getAgent(Point point) {
     	return agentGrid.get(point);
     }
+
+    public int numEnemies() {
+    	return this.agentGrid.size();
+    }
+    public boolean hasTreasure() {
+    	for(Map.Entry<Point,Item> entry : itemGrid.entrySet()) {
+    		if(entry.getValue().isTreasure()) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    public boolean hasWon() {
+    	return winCheck.hasWon(this);
+    }
+    public boolean hasLost() {
+    	return player.deathStatus();
+    }
     /**
      * Proxy method, gets tile image at location.
      * Maybe we can specify it can take in any HashMap with point?
@@ -523,5 +544,8 @@ public class Dungeon {
     }
     public Item selectItemSlot(int index) {
     	return player.selectItem(index);
+    }
+    public void setWinCondition(WinCondition wc) {
+    	this.winCheck = wc;
     }
 }

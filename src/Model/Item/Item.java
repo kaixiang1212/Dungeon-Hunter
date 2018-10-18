@@ -36,6 +36,9 @@ public abstract class Item extends Paintable {
 	public boolean isLitBomb() {
 		return this instanceof LitBomb;
 	}
+	public boolean isTreasure() {
+		return this instanceof Treasure;
+	}
 }
 
 
