@@ -29,8 +29,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -56,17 +54,17 @@ public class GameController {
 		//Temporary setup
 
 		Dungeon test = new Dungeon(20);
-    WinCondition testwc = new DefaultWinCondition();
+		WinCondition testwc = new DefaultWinCondition();
 		testwc = new EnemiesKilledDecorator(testwc);
 		test.setWinCondition(testwc);
-		test.placeComputerAgent(new Hunter(), new Point(2,1));
-		test.placeComputerAgent(new Hunter(), new Point(1,1));
-		test.placeComputerAgent(new Hunter(), new Point(17,1));
-		test.placeComputerAgent(new Hunter(), new Point(12,1));
-		test.placeComputerAgent(new Hunter(), new Point(14,1));
-		test.placeComputerAgent(new Hunter(), new Point(15,1));
-		//test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
-		test.placeComputerAgent(new Coward(), new Point(13,12));
+//		test.placeComputerAgent(new Hunter(), new Point(2,1));
+//		test.placeComputerAgent(new Hunter(), new Point(1,1));
+//		test.placeComputerAgent(new Hunter(), new Point(17,1));
+//		test.placeComputerAgent(new Hunter(), new Point(12,1));
+//		test.placeComputerAgent(new Hunter(), new Point(14,1));
+//		test.placeComputerAgent(new Hunter(), new Point(15,1));
+//		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
+//		test.placeComputerAgent(new Coward(), new Point(13,12));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
 		test.placeItem(new Invincibility(), new Point(3,1));
@@ -74,6 +72,7 @@ public class GameController {
 		test.placeItem(new Sword(), new Point(5,1));
 		test.placeItem(new Arrow(), new Point(6,2));
 		test.placePlayer(new Player(), new Point(4,4));
+		test.placeComputerAgent(new Hunter(), new Point(18,1));
 		test.placeTile(Type.EXIT, new Point(8,8));
 		test.placeTile(Type.PIT, new Point(6,8));
 		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
@@ -166,6 +165,9 @@ public class GameController {
 		case W:
 			d.updatePlayer(Direction.UP);
 			d.updateAgents();
+			break;
+		case E:
+			d.playerUseItem();
 			break;
 		case DIGIT1:
 			selected = d.selectItemSlot(0);

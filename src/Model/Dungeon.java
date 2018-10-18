@@ -546,6 +546,9 @@ public class Dungeon {
     	return player.selectItem(index);
     }
     public void setWinCondition(WinCondition wc) {
-    	this.winCheck = wc;
+    	winCheck = wc;
+    }
+    public void playerUseItem() {
+    	player.useItem(this);
     }
 }

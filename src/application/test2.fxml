@@ -13,5 +13,25 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Label layoutY="730.0" text="Controls:" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="5.0" layoutY="771.0" text="A,S,D,W to Move" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutY="806.0" text="E to use Item" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutY="841.0" text="1,2,3 to select items in Inventory" textFill="RED">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
