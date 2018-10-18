@@ -234,8 +234,8 @@ public class Dungeon {
     public void updateAgents() {
     	
     	ArrayList<ComputerAgent> alreadyMoved = new ArrayList<ComputerAgent>();   	
-    	for(int x = 0; x<this.savesize; x++) {
-    		for(int y = 0; y<this.savesize; y++) {
+    	for(int x = 0; x<this.savesize+2; x++) {
+    		for(int y = 0; y<this.savesize+2; y++) {
     			Point check = new Point(x,y);
     			ComputerAgent agent = this.agentGrid.get(check);
     			if(agent != null && !alreadyMoved.contains(agent)) {

@@ -73,8 +73,8 @@ public class GameController {
 		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
 		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
     
+		this.d = test;
 		this.setupStageDimensions();		
-    this.d = test;
 		render();
 	}
 	public void setupStageDimensions() {
