@@ -51,15 +51,9 @@ public class GameController {
 	public void initialize() {
 
 		//Temporary setup
-		Dungeon test = new Dungeon(17);
-		this.d = test;
-		this.setupStageDimensions();
-		//int fullscreensize = test.getSize() + 2;
-		//int bytepertile = 32;
-        //stage.setMaxWidth(fullscreensize * bytepertile);
-        //stage.setMaxHeight(fullscreensize * bytepertile + bytepertile);
-		
 
+		Dungeon test = new Dungeon(20);
+		test.placeComputerAgent(new Hunter(), new Point(2,1));
 		test.placeComputerAgent(new Hunter(), new Point(1,1));
 		test.placeComputerAgent(new Hunter(), new Point(17,1));
 		test.placeComputerAgent(new Hunter(), new Point(12,1));
@@ -78,7 +72,9 @@ public class GameController {
 		test.placeTile(Type.PIT, new Point(6,8));
 		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
 		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
-		
+    
+		this.setupStageDimensions();		
+    this.d = test;
 		render();
 	}
 	public void setupStageDimensions() {

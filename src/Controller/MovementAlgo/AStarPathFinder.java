@@ -12,6 +12,7 @@ public class AStarPathFinder implements PathFinder {
 	private ArrayList<Node> closed;
 	private PriorityQueue<Node> open;
 	private Node[][] nodes;
+	private int maxSize;
 
 	public AStarPathFinder() {
 		closed = new ArrayList<>();
@@ -25,9 +26,10 @@ public class AStarPathFinder implements PathFinder {
 	}
 	
 	private void init(Dungeon map) {
-		nodes = new Node[map.MAX_SIZE][map.MAX_SIZE];
-		for (int x = 0;x < map.MAX_SIZE; x++) {
-			for (int y = 0; y < map.MAX_SIZE; y++) {
+		maxSize = map.MAX_SIZE;
+		nodes = new Node[maxSize+1][maxSize+1];
+		for (int x = 0;x <= maxSize; x++) {
+			for (int y = 0; y <= maxSize; y++) {
 				nodes[x][y] = new Node(x,y);
 			}
 		}
@@ -57,6 +59,7 @@ public class AStarPathFinder implements PathFinder {
 					
 					int dx = x + currentNode.x;
 					int dy = y + currentNode.y;
+					if (dx > maxSize|| dy > maxSize) continue;
 					
 					if (map.isValidMoveAgent(new Point(dx, dy))) {
 						double nextStepCost = currentNode.getCost() + 1;
