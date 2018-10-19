@@ -20,7 +20,7 @@ public class AgentRenderer extends Renderer {
 		images.put(AgentType.Hunter, new Image("assets/agentassets/hunter.png"));
 		images.put(AgentType.Strategist, new Image("assets/agentassets/strategist.png"));
 		// TODO:
-		images.put(AgentType.Hound, null);
+		images.put(AgentType.Hound, new Image("assets/agentassets/hound.png"));
 		
 	}
 
