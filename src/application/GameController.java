@@ -27,6 +27,7 @@ import Model.Item.Treasure;
 import Model.Tile.Door;
 import Model.Tile.Exit;
 import Model.Tile.Pit;
+import Model.Tile.Switch;
 import Model.Tile.Tile;
 import Model.Tile.Type;
 import View.AgentRenderer;
@@ -91,6 +92,7 @@ public class GameController {
 		test.placeTile(new Exit(), new Point(8,8));
 		test.placeTile(new Pit(), new Point(6,8));
 		test.placeTile(new Door(), new Point(6,6));
+		test.placeTile(new Switch(), new Point(7,7));
 		test.placeItem(new Key(), new Point(5,6));
 
     
