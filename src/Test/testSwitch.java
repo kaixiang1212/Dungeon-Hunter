@@ -67,20 +67,20 @@ public class testSwitch {
 		assertFalse(sw.isActivated());
 	}
 
-	/**
-	 * Test player pushes boulder to trigger
-	 */
-	@Test
-	public void testPlayerPushTrigger() {
-		
-	}
-	
-	/**
-	 * Test player pushes boulder to untrigger
-	 */
-	@Test
-	public void testPlayerPushUntrigger() {
-		
-	}
+//	/**
+//	 * Test player pushes boulder to trigger
+//	 */
+//	@Test
+//	public void testPlayerPushTrigger() {
+//		
+//	}
+//	
+//	/**
+//	 * Test player pushes boulder to untrigger
+//	 */
+//	@Test
+//	public void testPlayerPushUntrigger() {
+//		
+//	}
 
 }

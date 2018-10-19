@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Map;
 
 import Controller.Direction;
@@ -24,7 +25,11 @@ import Model.Item.Treasure;
 import Model.Tile.Door;
 import Model.Tile.Exit;
 import Model.Tile.Pit;
+import Model.Tile.Tile;
 import Model.Tile.Type;
+import View.PlayerRenderer;
+import View.Renderer;
+import View.TileRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -39,6 +44,7 @@ public class GameController {
 	private Stage stage;
 	private Dungeon d;
 	private Item selected;
+	ArrayList<Renderer> renderers;
 
 	@FXML
 	private Pane mainPane;
@@ -56,7 +62,10 @@ public class GameController {
 
 		//Temporary setup
 
+
 		Dungeon test = new Dungeon(20);
+		renderers = new ArrayList<>();
+		initRenderer(test);
 		WinCondition testwc = new DefaultWinCondition();
 		testwc = new EnemiesKilledDecorator(testwc);
 		test.setWinCondition(testwc);
@@ -85,6 +94,11 @@ public class GameController {
 		this.setupStageDimensions();		
 		render();
 	}
+	private void initRenderer(Dungeon dungeon) {
+		renderers.add(new TileRenderer(dungeon));
+		renderers.add(new PlayerRenderer(dungeon));
+	}
+
 	public void setupStageDimensions() {
 
 		double centreX = 977.0;
@@ -99,20 +113,17 @@ public class GameController {
 	 * Calls renderUtil to render multiple grids
 	 * Encapsulated away from initialize so it can be called again on every
 	 * move.
-	 * @param d
+	 * @param dungeon
 	 */
 	public void render() {
-		int size = d.getSize();
-		renderUtil(d.getTileGrid(), mainPane);
-		renderUtil(d.getItemGrid(), mainPane);
-		renderUtil(d.getAgentGrid(), mainPane);
-		renderPlayer(mainPane);
-		
+		for (Renderer renderer : renderers) {
+			renderer.render(mainPane);
+		}
 	}
 
 	/**
 	 * 
-	 * @param d Dungeon reference, for size and to utilise check method
+	 * @param dungeon Dungeon reference, for size and to utilise check method
 	 * @param map Reference of grid to paint
 	 * @param pane Pane to paint onto
 	 * Note plus 2, as size specifies walkable area, we need to include the invincible walls as possible area for placement
@@ -132,18 +143,6 @@ public class GameController {
 				}
 			}
 		}
-	}
-	//Issue is player is no part of grids, done separately in this case.
-	public void renderPlayer(Pane pane) {
-		Point playerPos = d.getPlayerPos();
-		int x = playerPos.x;
-		int y = playerPos.y;
-		ImageView insertview = new ImageView(d.getPlayerImage());
-		insertview.setFitHeight(32);
-		insertview.setFitWidth(32);
-		insertview.setLayoutX(x * 32);
-		insertview.setLayoutY(y * 32);	
-		pane.getChildren().add(insertview);
 	}
 
 	//Temporary solution

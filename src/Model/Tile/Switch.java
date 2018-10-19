@@ -11,7 +11,6 @@ public class Switch extends Tile {
 	private Point point;
 	
 	public Switch() {
-		super(new Image("assets/tileassets/switch.png"));
 		isTriggered = false;
 	}
 	

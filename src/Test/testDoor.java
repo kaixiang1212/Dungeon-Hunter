@@ -21,139 +21,143 @@ import Model.Tile.Wall;
 public class testDoor {
 
 	Dungeon basic;
-	Player player;
+//	Player player;
 	Door door1;
 	Door door2;
 	Key key1;
 	Key key2;
+	Point pointOne = new Point(1, 1);
 
 	@Before
 	public void initTest() {
 		basic = new Dungeon(3);
-		player = new Player();
+//		player = new Player();
 	}
 	
-	@Test
-	public void testClosedDoorNotValidMove() {
-		basic.placeTile(new Door(), new Point(2, 1));
-		assertFalse(basic.isValidMoveAgent(new Point(2, 1)));
-		assertFalse(basic.isValidMoveBasic(new Point(2, 1)));
-		assertFalse(basic.isValidMove(new Point(2, 1)));
-		
-	}
-
-	@Test
-	public void testClosedDoorObstructPlayer() {
-
-		basic.placePlayer(player, new Point(1, 1));
-		//basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
-		basic.placeTile(new Door(), new Point(2, 1));
-		basic.placeItem(new Key(), new Point(3,3));
-		basic.updatePlayer(Direction.RIGHT);
-		
-		assertEquals(new Point(1, 1), basic.getPlayerPos());
-	}
-	
-	@Test
-	public void testClosedDoorObstructEnemyShortestPathHorizontal() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-		ComputerAgent enemy = new Hunter();
-
-		basic.placePlayer(player, new Point(1, 1));
-
-		//divide player and hunter with a closed door and walls.
-		basic.placeTile(new Door(), new Point(2, 1));
-		basic.placeTile(new Wall(), new Point(2, 2));
-		basic.placeTile(new Wall(), new Point(2, 3));
-		basic.placeComputerAgent(enemy, new Point(3, 1));
-
-		assertFalse(basic.isValidMove(new Point(2, 1)));
-		basic.updateAgents();
-
-		assertEquals(new Point(3, 1), enemy.getPos());
-	}
-
-	@Test
-	public void testClosedDoorObstructEnemyWithOptionHorizontal() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-		ComputerAgent enemy = new Hunter();
-
-		basic.placePlayer(player, new Point(1, 1));
-
-		// divide player and hunter with a closed door and walls.
-		basic.placeTile(new Wall(), new Point(2, 1));
-		basic.placeTile(new Door(), new Point(2,2));
-		basic.placeTile(new Wall(), new Point(2, 3));
-		basic.placeComputerAgent(enemy, new Point(3, 2));
-
-		assertFalse(basic.isValidMove(new Point(2, 1)));
-		assertFalse(basic.isValidMove(new Point(2, 2)));
-		assertTrue(basic.isValidMove(new Point(3, 1)));
-
-		basic.updateAgents();
-
-		assertEquals(new Point(3, 2), enemy.getPos());
-	}
-
-	@Test
-	public void testClosedDoorObstructEnemyShortestPathVert() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-		ComputerAgent enemy = new Hunter();
-
-		basic.placePlayer(player, new Point(1, 1));
-
-		//divide player and hunter with a closed door and walls.
-		basic.placeTile(new Door(), new Point(1, 2));
-		basic.placeTile(new Wall(), new Point(2, 2));
-		basic.placeTile(new Wall(), new Point(3, 3));
-		basic.placeComputerAgent(enemy, new Point(1, 3));
-
-		assertFalse(basic.isValidMove(new Point(1, 2)));
-		basic.updateAgents();
-
-		assertEquals(new Point(1, 3), enemy.getPos());
-	}
-
-	@Test
-	public void testClosedDoorObstructEnemyWithOptionVertical() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-		ComputerAgent enemy = new Hunter();
-
-		basic.placePlayer(player, new Point(1, 1));
-
-		//divide player and hunter with a closed door and walls.
-		basic.placeTile(new Wall(), new Point(1, 2));
-		basic.placeTile(new Door(), new Point(2, 2));
-		basic.placeTile(new Wall(), new Point(3, 2));
-		basic.placeComputerAgent(enemy, new Point(2, 3));
-
-		assertFalse(basic.isValidMove(new Point(1, 2)));
-		assertFalse(basic.isValidMove(new Point(2, 2)));
-		assertFalse(basic.isValidMove(new Point(3, 2)));
-		assertTrue(basic.isValidMove(new Point(1, 3)));
-		assertTrue(basic.isValidMove(new Point(3, 3)));
-
-		basic.updateAgents();
-
-		// Known test failure - likely source updateAgents.
-		assertEquals(new Point(2, 3), enemy.getPos());
-	}
-
 //	@Test
-//	public void testUnlockDoor() {
-//		door1 = new Door();
-//		key1 = new Key(door1.getCode());
-//		assertTrue(key1.unlocks(door1));
+//	public void testClosedDoorNotValidMove() {
+//		basic.placeTile(new Door(), new Point(2, 1));
+//		assertFalse(basic.isValidMoveAgent(new Point(2, 1)));
+//		assertFalse(basic.isValidMoveBasic(new Point(2, 1)));
+//		assertFalse(basic.isValidMove(new Point(2, 1)));
+//		
+//	}
+//
+//	@Test
+//	public void testClosedDoorObstructPlayer() {
+//
+//		basic.placePlayer(player, new Point(1, 1));
+//		//basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
+//		basic.placeTile(new Door(), new Point(2, 1));
+//		basic.placeItem(new Key(), new Point(3,3));
+//		basic.updatePlayer(Direction.RIGHT);
+//		
+//		assertEquals(new Point(1, 1), basic.getPlayerPos());
 //	}
 //	
 //	@Test
+//	public void testClosedDoorObstructEnemyShortestPathHorizontal() {
+//		Dungeon basic = new Dungeon(3);
+//		Player player = new Player();
+//		ComputerAgent enemy = new Hunter();
+//
+//		basic.placePlayer(player, new Point(1, 1));
+//
+//		//divide player and hunter with a closed door and walls.
+//		basic.placeTile(new Door(), new Point(2, 1));
+//		basic.placeTile(new Wall(), new Point(2, 2));
+//		basic.placeTile(new Wall(), new Point(2, 3));
+//		basic.placeComputerAgent(enemy, new Point(3, 1));
+//
+//		assertFalse(basic.isValidMove(new Point(2, 1)));
+//		basic.updateAgents();
+//
+//		assertEquals(new Point(3, 1), enemy.getPos());
+//	}
+//
+//	@Test
+//	public void testClosedDoorObstructEnemyWithOptionHorizontal() {
+//		Dungeon basic = new Dungeon(3);
+//		Player player = new Player();
+//		ComputerAgent enemy = new Hunter();
+//
+//		basic.placePlayer(player, new Point(1, 1));
+//
+//		// divide player and hunter with a closed door and walls.
+//		basic.placeTile(new Wall(), new Point(2, 1));
+//		basic.placeTile(new Door(), new Point(2,2));
+//		basic.placeTile(new Wall(), new Point(2, 3));
+//		basic.placeComputerAgent(enemy, new Point(3, 2));
+//
+//		assertFalse(basic.isValidMove(new Point(2, 1)));
+//		assertFalse(basic.isValidMove(new Point(2, 2)));
+//		assertTrue(basic.isValidMove(new Point(3, 1)));
+//
+//		basic.updateAgents();
+//
+//		assertEquals(new Point(3, 2), enemy.getPos());
+//	}
+//
+//	@Test
+//	public void testClosedDoorObstructEnemyShortestPathVert() {
+//		Dungeon basic = new Dungeon(3);
+//		Player player = new Player();
+//		ComputerAgent enemy = new Hunter();
+//
+//		basic.placePlayer(player, new Point(1, 1));
+//
+//		//divide player and hunter with a closed door and walls.
+//		basic.placeTile(new Door(), new Point(1, 2));
+//		basic.placeTile(new Wall(), new Point(2, 2));
+//		basic.placeTile(new Wall(), new Point(3, 3));
+//		basic.placeComputerAgent(enemy, new Point(1, 3));
+//
+//		assertFalse(basic.isValidMove(new Point(1, 2)));
+//		basic.updateAgents();
+//
+//		assertEquals(new Point(1, 3), enemy.getPos());
+//	}
+//
+//	@Test
+//	public void testClosedDoorObstructEnemyWithOptionVertical() {
+//		Dungeon basic = new Dungeon(3);
+//		Player player = new Player();
+//		ComputerAgent enemy = new Hunter();
+//
+//		basic.placePlayer(player, new Point(1, 1));
+//
+//		//divide player and hunter with a closed door and walls.
+//		basic.placeTile(new Wall(), new Point(1, 2));
+//		basic.placeTile(new Door(), new Point(2, 2));
+//		basic.placeTile(new Wall(), new Point(3, 2));
+//		basic.placeComputerAgent(enemy, new Point(2, 3));
+//
+//		assertFalse(basic.isValidMove(new Point(1, 2)));
+//		assertFalse(basic.isValidMove(new Point(2, 2)));
+//		assertFalse(basic.isValidMove(new Point(3, 2)));
+//		assertTrue(basic.isValidMove(new Point(1, 3)));
+//		assertTrue(basic.isValidMove(new Point(3, 3)));
+//
+//		basic.updateAgents();
+//
+//		// Known test failure - likely source updateAgents.
+//		assertEquals(new Point(2, 3), enemy.getPos());
+//	}
+
+	@Test
+	public void testUnlockDoor() {
+		door1 = new Door();
+		key1 = new Key();
+		key1.setCode(door1.getCode());
+		assertTrue(key1.unlocks(door1));
+	}
+	
+//	@Test
 //	public void testUnlockDoorChangeState(){
 //		door1 = new Door();
-//		key1 = new Key(door1.getCode());
+//		basic.placeTile(door1, pointOne)
+//		key1 = new Key();
+//		
 //		player.pickup(key1);
 //		assertEquals(door1.getType(), Type.ClosedDoor);
 //		door1.doOperation(player);

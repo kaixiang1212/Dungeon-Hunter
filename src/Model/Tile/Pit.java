@@ -5,10 +5,7 @@ import javafx.scene.image.Image;
 
 public class Pit extends Tile implements FunctionalTile {
 	
-	public Pit() {
-		super(new Image("assets/tileassets/pit.png"));
-	}
-	
+
 	@Override
 	public boolean isReachable(EntityType type) {
 		if (type == EntityType.Computer) return false;

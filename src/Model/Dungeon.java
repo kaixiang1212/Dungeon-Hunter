@@ -575,9 +575,7 @@ public class Dungeon {
     public Map<Point, Item> getItemGrid() {
     	return itemGrid;
     }
-    public Image getPlayerImage() {
-    	return player.getImage();
-    }
+
     public Item selectItemSlot(int index) {
     	return player.selectItem(index);
     }

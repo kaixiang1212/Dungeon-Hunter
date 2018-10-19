@@ -9,7 +9,6 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 	private Door door;
 	
 	public ClosedDoor(Door door) {
-		super(new Image("assets/tileassets/closeddoor.png"));
 		this.door = door;
 	}
 
