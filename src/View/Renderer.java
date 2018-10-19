@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 public abstract class Renderer {
 	
 	protected Dungeon dungeon;
+	private int tilePixel = 32;
 	
 	public Renderer(Dungeon dungeon) {
 		this.dungeon = dungeon;
@@ -33,9 +34,13 @@ public abstract class Renderer {
 		ImageView insertview = new ImageView(img);
 		insertview.setFitHeight(32);
 		insertview.setFitWidth(32);
-		insertview.setLayoutX(point.x * 32);
-		insertview.setLayoutY(point.y * 32);
+		insertview.setLayoutX(point.x * tilePixel);
+		insertview.setLayoutY(point.y * tilePixel);
 		pane.getChildren().add(insertview);
+	}
+	
+	public void setPixel(int pixel) {
+		this.tilePixel = pixel;
 	}
 }
 

@@ -10,10 +10,10 @@ import java.awt.Point;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.ComputerAgent;
 import Model.Dungeon;
-import Model.Hunter;
 import Model.Player;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Hunter;
 import Model.Tile.Type;
 import Model.Tile.Wall;
 

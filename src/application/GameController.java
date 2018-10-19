@@ -6,16 +6,16 @@ import java.util.Map;
 
 import Controller.Direction;
 import Controller.NoMoveBehaviour;
-import Model.Boulder;
-import Model.Coward;
 import Model.DefaultWinCondition;
 import Model.Dungeon;
 import Model.EnemiesKilledDecorator;
-import Model.Hunter;
 import Model.Paintable;
 import Model.Player;
-import Model.Strategist;
 import Model.WinCondition;
+import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.Coward;
+import Model.ComputerAgent.Hunter;
+import Model.ComputerAgent.Strategist;
 import Model.Item.Arrow;
 import Model.Item.Hover;
 import Model.Item.Invincibility;
@@ -27,6 +27,8 @@ import Model.Tile.Exit;
 import Model.Tile.Pit;
 import Model.Tile.Tile;
 import Model.Tile.Type;
+import View.AgentRenderer;
+import View.DungeonRenderer;
 import View.PlayerRenderer;
 import View.Renderer;
 import View.TileRenderer;
@@ -44,7 +46,7 @@ public class GameController {
 	private Stage stage;
 	private Dungeon d;
 	private Item selected;
-	ArrayList<Renderer> renderers;
+	private DungeonRenderer renderer;
 
 	@FXML
 	private Pane mainPane;
@@ -64,8 +66,7 @@ public class GameController {
 
 
 		Dungeon test = new Dungeon(20);
-		renderers = new ArrayList<>();
-		initRenderer(test);
+		renderer = new DungeonRenderer(test);
 		WinCondition testwc = new DefaultWinCondition();
 		testwc = new EnemiesKilledDecorator(testwc);
 		test.setWinCondition(testwc);
@@ -94,11 +95,6 @@ public class GameController {
 		this.setupStageDimensions();		
 		render();
 	}
-	private void initRenderer(Dungeon dungeon) {
-		renderers.add(new TileRenderer(dungeon));
-		renderers.add(new PlayerRenderer(dungeon));
-	}
-
 	public void setupStageDimensions() {
 
 		double centreX = 977.0;
@@ -116,9 +112,7 @@ public class GameController {
 	 * @param dungeon
 	 */
 	public void render() {
-		for (Renderer renderer : renderers) {
-			renderer.render(mainPane);
-		}
+		renderer.render(mainPane);
 	}
 
 	/**

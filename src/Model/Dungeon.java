@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Queue;
 
 import Controller.Direction;
+import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
 import Model.Tile.DefaultTile;

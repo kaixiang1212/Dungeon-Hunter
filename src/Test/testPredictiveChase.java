@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Player;
-import Model.Strategist;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Strategist;
 import Model.Tile.Exit;
 
 public class testPredictiveChase {

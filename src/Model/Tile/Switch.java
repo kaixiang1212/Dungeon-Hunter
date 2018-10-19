@@ -2,7 +2,7 @@ package Model.Tile;
 
 import java.awt.Point;
 
-import Model.ComputerAgent;
+import Model.ComputerAgent.ComputerAgent;
 import javafx.scene.image.Image;
 
 public class Switch extends Tile {
