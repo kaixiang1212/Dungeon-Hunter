@@ -49,7 +49,8 @@ public class Bomb extends Item {
 		if (this.getQuantity() > 0) {
 			this.subQuantity();
 			Player player = map.getPlayer();
-		    Point location = map.getPlayerPos();
+			Point location = new Point();
+		    location.setLocation(map.getPlayerPos().getX(), map.getPlayerPos().getY());
 			
 		    map.placeItem(new LitBomb(location), location);
 		    
