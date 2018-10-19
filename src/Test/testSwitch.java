@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Controller.Direction;
-import Model.Boulder;
 import Model.Dungeon;
 import Model.Player;
+import Model.ComputerAgent.Boulder;
 import Model.Tile.Switch;
 
 
@@ -67,20 +67,20 @@ public class testSwitch {
 		assertFalse(sw.isActivated());
 	}
 
-	/**
-	 * Test player pushes boulder to trigger
-	 */
-	@Test
-	public void testPlayerPushTrigger() {
-		
-	}
-	
-	/**
-	 * Test player pushes boulder to untrigger
-	 */
-	@Test
-	public void testPlayerPushUntrigger() {
-		
-	}
+//	/**
+//	 * Test player pushes boulder to trigger
+//	 */
+//	@Test
+//	public void testPlayerPushTrigger() {
+//		
+//	}
+//	
+//	/**
+//	 * Test player pushes boulder to untrigger
+//	 */
+//	@Test
+//	public void testPlayerPushUntrigger() {
+//		
+//	}
 
 }

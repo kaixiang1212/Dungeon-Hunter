@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.*;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Hunter;
 import Model.Item.Treasure;
 import org.junit.Test;
 

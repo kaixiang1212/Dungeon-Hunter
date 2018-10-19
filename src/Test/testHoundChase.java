@@ -5,11 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import Model.ComputerAgent;
 import Model.Dungeon;
 import Model.Player;
-import Model.Hunter;
-import Model.Hound;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Hound;
+import Model.ComputerAgent.Hunter;
 
 public class testHoundChase {
 	Dungeon testDun;

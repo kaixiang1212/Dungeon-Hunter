@@ -1,30 +1,40 @@
 package application;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Map;
 
 import Controller.Direction;
 import Controller.NoMoveBehaviour;
-import Model.Boulder;
-import Model.Coward;
 import Model.DefaultWinCondition;
 import Model.Dungeon;
 import Model.EnemiesKilledDecorator;
-import Model.Hunter;
 import Model.Paintable;
 import Model.Player;
-import Model.Strategist;
 import Model.WinCondition;
+import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.Coward;
+import Model.ComputerAgent.Hound;
+import Model.ComputerAgent.Hunter;
+import Model.ComputerAgent.Strategist;
 import Model.Item.Arrow;
 import Model.Item.Hover;
 import Model.Item.Invincibility;
 import Model.Item.Item;
+import Model.Item.Key;
 import Model.Item.Sword;
 import Model.Item.Treasure;
 import Model.Tile.Door;
 import Model.Tile.Exit;
 import Model.Tile.Pit;
+import Model.Tile.Switch;
+import Model.Tile.Tile;
 import Model.Tile.Type;
+import View.AgentRenderer;
+import View.DungeonRenderer;
+import View.PlayerRenderer;
+import View.Renderer;
+import View.TileRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -39,6 +49,7 @@ public class GameController {
 	private Stage stage;
 	private Dungeon d;
 	private Item selected;
+	private DungeonRenderer renderer;
 
 	@FXML
 	private Pane mainPane;
@@ -56,7 +67,9 @@ public class GameController {
 
 		//Temporary setup
 
+
 		Dungeon test = new Dungeon(20);
+		renderer = new DungeonRenderer(test);
 		WinCondition testwc = new DefaultWinCondition();
 		testwc = new EnemiesKilledDecorator(testwc);
 		test.setWinCondition(testwc);
@@ -66,8 +79,8 @@ public class GameController {
 //		test.placeComputerAgent(new Hunter(), new Point(12,1));
 //		test.placeComputerAgent(new Hunter(), new Point(14,1));
 //		test.placeComputerAgent(new Hunter(), new Point(15,1));
-//		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
-//		test.placeComputerAgent(new Coward(), new Point(13,12));
+		test.placeComputerAgent(new Hound(), new Point(13,12));
+		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
 		test.placeItem(new Invincibility(), new Point(3,1));
@@ -75,10 +88,12 @@ public class GameController {
 		test.placeItem(new Sword(), new Point(5,1));
 		test.placeItem(new Arrow(), new Point(6,2));
 		test.placePlayer(new Player(), new Point(4,4));
-		test.placeComputerAgent(new Hunter(), new Point(18,1));
+//		test.placeComputerAgent(new Hunter(), new Point(18,1));
 		test.placeTile(new Exit(), new Point(8,8));
 		test.placeTile(new Pit(), new Point(6,8));
 		test.placeTile(new Door(), new Point(6,6));
+		test.placeTile(new Switch(), new Point(7,7));
+		test.placeItem(new Key(), new Point(5,6));
 
     
 		this.d = test;
@@ -87,11 +102,11 @@ public class GameController {
 	}
 	public void setupStageDimensions() {
 
-		double centreX = 977.0;
-		double centreY = 576.0;
-		double increment = (this.d.getSize() + 3)/2;
-		mainPane.setLayoutX(centreX - increment*32);
-		mainPane.setLayoutY(centreY - increment*32);
+//		double centreX = 977.0;
+//		double centreY = 576.0;
+//		double increment = (this.d.getSize() + 3)/2;
+//		mainPane.setLayoutX(centreX - increment*32);
+//		mainPane.setLayoutY(centreY - increment*32);
 		
         stage.setMaximized(true);
 	}
@@ -99,20 +114,15 @@ public class GameController {
 	 * Calls renderUtil to render multiple grids
 	 * Encapsulated away from initialize so it can be called again on every
 	 * move.
-	 * @param d
+	 * @param dungeon
 	 */
 	public void render() {
-		int size = d.getSize();
-		renderUtil(d.getTileGrid(), mainPane);
-		renderUtil(d.getItemGrid(), mainPane);
-		renderUtil(d.getAgentGrid(), mainPane);
-		renderPlayer(mainPane);
-		
+		renderer.render(mainPane);
 	}
 
 	/**
 	 * 
-	 * @param d Dungeon reference, for size and to utilise check method
+	 * @param dungeon Dungeon reference, for size and to utilise check method
 	 * @param map Reference of grid to paint
 	 * @param pane Pane to paint onto
 	 * Note plus 2, as size specifies walkable area, we need to include the invincible walls as possible area for placement
@@ -132,18 +142,6 @@ public class GameController {
 				}
 			}
 		}
-	}
-	//Issue is player is no part of grids, done separately in this case.
-	public void renderPlayer(Pane pane) {
-		Point playerPos = d.getPlayerPos();
-		int x = playerPos.x;
-		int y = playerPos.y;
-		ImageView insertview = new ImageView(d.getPlayerImage());
-		insertview.setFitHeight(32);
-		insertview.setFitWidth(32);
-		insertview.setLayoutX(x * 32);
-		insertview.setLayoutY(y * 32);	
-		pane.getChildren().add(insertview);
 	}
 
 	//Temporary solution

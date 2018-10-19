@@ -1,4 +1,4 @@
-package Model;
+package Model.ComputerAgent;
 
 import Controller.Direction;
 import Controller.MoveBehaviour;
@@ -16,7 +16,6 @@ public class Boulder extends ComputerAgent {
 
 	public Boulder(MoveBehaviour moveBehaviour) {
 		super(moveBehaviour);
-		this.setImage(new Image("assets/agentassets/boulder.png"));
 	}
 
 	/**
@@ -47,6 +46,11 @@ public class Boulder extends ComputerAgent {
 				break;
 		}
 		return newPos;
+	}
+
+	@Override
+	public AgentType getType() {
+		return AgentType.Boulder;
 	}
 
 }

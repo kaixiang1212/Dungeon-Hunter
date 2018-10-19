@@ -23,42 +23,53 @@ public class cowardFleeBehavior extends MoveBehaviour {
 	 * Prioritising left, then right, then up, then down.
 	 * @param playerPos the assumed player position
 	 * @param curr the assumed coward position
-	 * @param map the reference map
+	 * @param map the reference Dungeon
 	 * @return the next tile across, or current pos if no others availale
 	 */
 	private Point getNewPos(Point playerPos, Point curr, Dungeon map) {
-		Point retval = null;
+		Point retval;
 
-		int xDist = Math.abs(playerPos.x - curr.x);
-		int yDist = Math.abs(playerPos.y - curr.y);
+		for (int x = -1; x < 2; x++) {
+			for (int y = -1; y < 2; y++) {
+				if ((x == 0 && y == 0) || (x != 0 && y != 0)) continue;
 
-		if(xDist >= yDist) {
-			if(playerPos.x > curr.x) {
-				retval = new Point(curr.x-1, curr.y);
-			} else {
-				retval = new Point(curr.x+1, curr.y);
+				if (curr.y > playerPos.y && y == -1) continue;
+				if (curr.x > playerPos.x && x == -1) continue;
+
+				retval = new Point(x + curr.x, y + curr.y);
+				if (retval.x > map.getSize()|| retval.y > map.getSize()) continue;
+
+
+				if (map.isValidMoveAgent(retval) && !closerToPlayer(curr, retval, playerPos)) return retval;
 			}
-			if (map.isValidMove(retval)) return retval;
 		}
-
-		if (!map.isValidMove(retval)) {
-			if (playerPos.y > curr.y) retval = new Point(curr.x, curr.y-1);
-			else retval = new Point(curr.x, curr.y+1);
-			if (map.isValidMove(retval)) return retval;
-		}
-
-		if (!map.isValidMove(retval)) {
-			if (playerPos.x > curr.x && !map.isValidMove(retval)) retval = new Point(curr.x-1, curr.y);
-			else retval = new Point(curr.x+1, curr.y);
-			if (map.isValidMove(retval)) return retval;
-		}
-
-		return retval;
+		// No point Found
+		return curr;
+	}
+	
+	/**
+	 * Check the intended point to move is closer to player than the original point
+	 * @param curr Current position of Agent
+	 * @param retval Intended position of Agent
+	 * @param player Player's location
+	 * @return true if intended position is closer to player, false otherwise
+	 */
+	private boolean closerToPlayer(Point curr, Point retval, Point player) {
+		return getDistance(curr, player) > getDistance(retval, player);
+	}
+	
+	/**
+	 * Calculate distance between 2 points
+	 * @param a Point a
+	 * @param b Point 2
+	 * @return return distance between a and b
+	 */
+	private int getDistance(Point a, Point b) {
+		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 	}
 
 	@Override
 	public Point getTarget(Dungeon map, Point currPos) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
