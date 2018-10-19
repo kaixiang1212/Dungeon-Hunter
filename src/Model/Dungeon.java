@@ -2,13 +2,17 @@ package Model;
 
 
 import java.awt.Point;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
 
 import Controller.Direction;
 import Model.Item.Item;
+import Model.Item.Key;
 import Model.Tile.DefaultTile;
+import Model.Tile.Door;
 import Model.Tile.EntityType;
 import Model.Tile.FunctionalTile;
 import Model.Tile.Tile;
@@ -28,6 +32,7 @@ public class Dungeon {
     private Map<Point, ComputerAgent> agentGrid;
     private Point playerPosition;
     private Player player;
+    private Queue<Integer> doorCode;
     // TODO: Easier to track win condition
     private ArrayList<Switch> switches;
 
@@ -46,6 +51,7 @@ public class Dungeon {
         this.topLeft = new Point(0, 0);
         this.bottomRight = new Point(size+1, size+1);
         this.switches = new ArrayList<>();
+        this.doorCode = new ArrayDeque<>();
     }
    
 
@@ -145,7 +151,10 @@ public class Dungeon {
         // Out of Bound Check
         if (outOfBound(myPoint)) return false;
 
-        addSwitch(tile, myPoint);
+        // Additional Operation : to keep track of tiles in Dungeon
+        if (tile.isType(Type.Switch)) addSwitch(tile, myPoint);
+        else if (tile.isType(Type.ClosedDoor)) addDoorCode(tile);
+
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, tile);
             return true;
@@ -330,10 +339,13 @@ public class Dungeon {
      * @param pos Position in Point form
      */
     public void placeItem(Item i, Point pos) {
-    	if(isItemExist(pos)) {
-    		removeItem(pos);
-    	}
+    	if (i instanceof Key) setKeyCode((Key )i);
+    	if (isItemExist(pos)) removeItem(pos);
     	itemGrid.put(pos, i);
+    }
+    
+    private void setKeyCode(Key key) {
+    	key.setCode(doorCode.poll());
     }
 
     public boolean isItemExist(Point check) {
@@ -417,7 +429,7 @@ public class Dungeon {
      * @param tile
      * @param point
      */
-    public void addSwitch(Tile tile, Point point) {
+    private void addSwitch(Tile tile, Point point) {
     	if (tile.isType(Type.Switch)) {
     		Switch sw = (Switch )tile;
     		switches.add(sw);
@@ -425,6 +437,13 @@ public class Dungeon {
     	}
     }
     
+    private void addDoorCode(Tile tile) {
+    	if (tile.isType(Type.ClosedDoor)) {
+    		Door door = (Door )tile;
+    		doorCode.add(door.getCode());
+    	}
+    }
+
     /**
      * Pass in the agent on the same grid to trigger or not trigger switch
      */
@@ -436,7 +455,7 @@ public class Dungeon {
     }
     
     /**
-     * Trigger any Tile Action (like unlockDoor)
+     * Trigger any Tile Action (like unlockDoor, fall into pit ..)
      * @param point
      */
     public void triggerTileAction(Point point) {

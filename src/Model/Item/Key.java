@@ -7,19 +7,14 @@ import Model.Player;
 
 public class Key extends Item {
 	
-	private static int counter = 0;
-	private final int code;
-	
-	public Key() {
-		this.code = counter++;
-	}
-	
-	public Key(int doorCode) {
-		this.code = doorCode;
-	}
+	private int code;
 	
 	public boolean unlocks(Door door) {
 		return this.code == door.getCode();
+	}
+	
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	@Override
