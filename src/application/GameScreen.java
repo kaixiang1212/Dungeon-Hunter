@@ -17,7 +17,7 @@ public class GameScreen {
 
     public GameScreen(Stage s) {
         this.s = s;
-        this.title = "Rental Screen";
+        this.title = "Game Screen";
         this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/test2.fxml"));
     }
 

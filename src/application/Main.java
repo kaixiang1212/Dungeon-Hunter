@@ -10,9 +10,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         // set the stage height to be 400
-        //primaryStage.setHeight(400);
+        primaryStage.setHeight(400);
         // set the stage width to be 600
-        //primaryStage.setWidth(800);
+        primaryStage.setWidth(800);
         
         //change this to start with Main menu screen
         
