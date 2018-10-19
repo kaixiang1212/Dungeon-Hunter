@@ -17,10 +17,6 @@ public class Strategist extends ComputerAgent {
 		return AgentType.Strategist;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 }

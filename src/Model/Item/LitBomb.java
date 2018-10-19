@@ -53,10 +53,6 @@ public class LitBomb extends Item {
 		return ItemType.LitBomb;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

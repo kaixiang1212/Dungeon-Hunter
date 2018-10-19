@@ -40,10 +40,6 @@ public class Switch extends Tile {
 		return Type.Switch;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 }

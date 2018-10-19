@@ -15,7 +15,7 @@ public class Main extends Application {
 //        GameScreen gameScreen = new GameScreen(primaryStage);
 //        gameScreen.start();
           DesignScreen designScreen = new DesignScreen(primaryStage);
-          designScreen.start();
+          designScreen.start(null);
     }
 
     public static void main(String[] args) {

@@ -23,10 +23,6 @@ public class UnfilledPit extends Tile implements FunctionalTile {
 		return Type.Pit;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

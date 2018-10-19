@@ -12,10 +12,5 @@ public class DefaultTile extends Tile {
 		return Type.Default;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -58,60 +58,54 @@ public class GameController {
 	@FXML
 	private Pane inventoryPane;
 	
-	public GameController(Stage s) {
+	public GameController(Stage s, Dungeon d) {
 		this.stage = s;
+		this.d = d;
+		this.renderer = new DungeonRenderer(d);
 	}
 	
 	@FXML 
 	public void initialize() {
 
-		//Temporary setup
+		//Temporary setup we actually want to pass a dungeon
+		if(this.d == null) {
+			int size = 8;
+			Dungeon test = new Dungeon(size);
+			this.d = test;
 
-		int size = 8;
-		Dungeon test = new Dungeon(size);
-		mainPane.setMaxHeight((size+2) * 32);
-		mainPane.setMaxWidth((size+2) * 32);
-		renderer = new DungeonRenderer(test);
-		WinCondition testwc = new DefaultWinCondition();
-		testwc = new EnemiesKilledDecorator(testwc);
-		test.setWinCondition(testwc);
-//		test.placeComputerAgent(new Hunter(), new Point(2,1));
-//		test.placeComputerAgent(new Hunter(), new Point(1,1));
-//		test.placeComputerAgent(new Hunter(), new Point(17,1));
-//		test.placeComputerAgent(new Hunter(), new Point(12,1));
-//		test.placeComputerAgent(new Hunter(), new Point(14,1));
-//		test.placeComputerAgent(new Hunter(), new Point(15,1));
-		test.placeComputerAgent(new Hound(), new Point(13,12));
-		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
-		test.placeItem(new Treasure(), new Point(2,3));
-		test.placeItem(new Sword(), new Point(2,1));
-		test.placeItem(new Invincibility(), new Point(3,1));
-		test.placeItem(new Hover(), new Point(4,1));
-		test.placeItem(new Sword(), new Point(5,1));
-		test.placeItem(new Arrow(), new Point(6,2));
-		test.placePlayer(new Player(), new Point(4,4));
-//		test.placeComputerAgent(new Hunter(), new Point(18,1));
-		test.placeTile(new Exit(), new Point(8,8));
-		test.placeTile(new Pit(), new Point(6,8));
-		test.placeTile(new Door(), new Point(6,6));
-		test.placeTile(new Switch(), new Point(7,7));
-		test.placeItem(new Key(), new Point(5,6));
 
-    
-		this.d = test;
-		this.setupStageDimensions();		
+			WinCondition testwc = new DefaultWinCondition();
+			testwc = new EnemiesKilledDecorator(testwc);
+			test.setWinCondition(testwc);
+//			test.placeComputerAgent(new Hunter(), new Point(2,1));
+//			test.placeComputerAgent(new Hunter(), new Point(1,1));
+//			test.placeComputerAgent(new Hunter(), new Point(17,1));
+//			test.placeComputerAgent(new Hunter(), new Point(12,1));
+//			test.placeComputerAgent(new Hunter(), new Point(14,1));
+//			test.placeComputerAgent(new Hunter(), new Point(15,1));
+			test.placeComputerAgent(new Hound(), new Point(13,12));
+			test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
+			test.placeItem(new Treasure(), new Point(2,3));
+			test.placeItem(new Sword(), new Point(2,1));
+			test.placeItem(new Invincibility(), new Point(3,1));
+			test.placeItem(new Hover(), new Point(4,1));
+			test.placeItem(new Sword(), new Point(5,1));
+			test.placeItem(new Arrow(), new Point(6,2));
+			test.placePlayer(new Player(), new Point(4,4));
+//			test.placeComputerAgent(new Hunter(), new Point(18,1));
+			test.placeTile(new Exit(), new Point(8,8));
+			test.placeTile(new Pit(), new Point(6,8));
+			test.placeTile(new Door(), new Point(6,6));
+			test.placeTile(new Switch(), new Point(7,7));
+			test.placeItem(new Key(), new Point(5,6));
+		}
+		mainPane.setMaxHeight((d.getSize()+2) * 32);
+		mainPane.setMaxWidth((d.getSize()+2) * 32);
+	    stage.setMaximized(true);
+	
 		render();
 	}
-	public void setupStageDimensions() {
 
-//		double centreX = 977.0;
-//		double centreY = 576.0;
-//		double increment = (this.d.getSize() + 3)/2;
-//		mainPane.setLayoutX(centreX - increment*32);
-//		mainPane.setLayoutY(centreY - increment*32);
-		
-        stage.setMaximized(true);
-	}
 	/**
 	 * Calls renderUtil to render multiple grids
 	 * Encapsulated away from initialize so it can be called again on every
@@ -130,21 +124,21 @@ public class GameController {
 	 * Note plus 2, as size specifies walkable area, we need to include the invincible walls as possible area for placement
 	 */
 
-	public void renderUtil(Map<Point, ? extends Paintable> map, Pane pane) {
-		for(int y = 0; y < d.getSize() + 2; y++) {
-			for(int x = 0; x < d.getSize() + 2; x++) {
-				Image check = d.proxygettiles(new Point(x, y), map);
-				if(check != null) {
-					ImageView insertview = new ImageView(check);
-					insertview.setFitHeight(32);
-					insertview.setFitWidth(32);
-					insertview.setLayoutX(x * 32);
-					insertview.setLayoutY(y * 32);
-					pane.getChildren().add(insertview);
-				}
-			}
-		}
-	}
+//	public void renderUtil(Map<Point, ? extends Paintable> map, Pane pane) {
+//		for(int y = 0; y < d.getSize() + 2; y++) {
+//			for(int x = 0; x < d.getSize() + 2; x++) {
+//				Image check = d.proxygettiles(new Point(x, y), map);
+//				if(check != null) {
+//					ImageView insertview = new ImageView(check);
+//					insertview.setFitHeight(32);
+//					insertview.setFitWidth(32);
+//					insertview.setLayoutX(x * 32);
+//					insertview.setLayoutY(y * 32);
+//					pane.getChildren().add(insertview);
+//				}
+//			}
+//		}
+//	}
 
 	//Temporary solution
 	//Ideally some game loop with threading and animation
@@ -198,6 +192,11 @@ public class GameController {
 		else if(d.hasWon()) {
 			System.out.println("You have Won\n");
 		}
+	}
+	@FXML
+	public void hotSwitch() {
+		DesignScreen ds = new DesignScreen(this.stage);
+		ds.start(this.d);
 	}
 }
 

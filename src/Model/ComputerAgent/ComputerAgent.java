@@ -59,6 +59,11 @@ public abstract class ComputerAgent extends Paintable {
 	public boolean isType(AgentType type) {
 		return type.equals(getType());
 	}
+	@Override
+	public void place(Dungeon d, Point p) {
+		// TODO Auto-generated method stub
+		d.placeComputerAgent(this, p);
+	}
 }
 
 

@@ -36,10 +36,6 @@ public class Treasure extends Item {
 		return ItemType.Treasure;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

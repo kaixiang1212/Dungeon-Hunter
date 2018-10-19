@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,10 +17,11 @@
             <Pane fx:id="mainPane" onMouseClicked="#handlePlacement" />
          </children>
       </HBox>
-      <GridPane>
+      <GridPane gridLinesVisible="true">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
@@ -30,12 +32,73 @@
           <RowConstraints minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#boulderSelected" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#boulderSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5">
                <image>
                   <Image url="@../../../../../dungeonimages/croppedsprites/boulder.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#playerSelected" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/player.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#hunterSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/hunter.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#cowardSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/coward.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#strategistSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/strategist.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#houndSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/hound.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#defaultSelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/default.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#wallSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/wall.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#switchSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/switch.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#pitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/pit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#openDoorSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/opendoor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/closeddoor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#exitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../../../../../dungeonimages/croppedsprites/exit.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
+      <Button layoutX="354.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#hotSwitch" text="Switch to play" />
    </children>
 </AnchorPane>

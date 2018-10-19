@@ -69,11 +69,7 @@ public class Bomb extends Item {
 		return ItemType.Bomb;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 
 }

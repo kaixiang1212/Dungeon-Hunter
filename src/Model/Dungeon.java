@@ -578,13 +578,13 @@ public class Dungeon {
      * We could also do this to refactor incredibly similar reptitive methods.
      * @return
      */
-    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
-    	Paintable p = map.get(point);
-    	if(p != null) {
-    		return p.getImage();
-    	}
-    	return null;
-    }
+//    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
+//    	Paintable p = map.get(point);
+//    	if(p != null) {
+//    		return p.getImage();
+//    	}
+//    	return null;
+//    }
     
     public int getSize() {
     	return savesize;

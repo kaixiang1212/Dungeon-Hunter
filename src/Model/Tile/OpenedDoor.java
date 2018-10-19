@@ -12,10 +12,6 @@ public class OpenedDoor extends Tile {
 		return Type.OpenedDoor;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }
