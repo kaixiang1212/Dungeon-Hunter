@@ -28,16 +28,22 @@ public abstract class Item extends Paintable {
 		this.quantity--;
 	}
 	public boolean isPotion() {
-		return this instanceof Potion;
+		return isType(ItemType.Hover) || isType(ItemType.Invincibility);
 	}
 	public boolean isMeleeWeapon() {
-		return this instanceof MeleeWeapon;
+		return isType(ItemType.Sword);
 	}
 	public boolean isLitBomb() {
-		return this instanceof LitBomb;
+		return isType(ItemType.LitBomb);
 	}
 	public boolean isTreasure() {
-		return this instanceof Treasure;
+		return isType(ItemType.Treasure);
+	}
+	
+	public abstract ItemType getType();
+	
+	public boolean isType(ItemType type) {
+		return type.equals(getType());
 	}
 }
 

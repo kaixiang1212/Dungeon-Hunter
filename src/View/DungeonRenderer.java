@@ -13,6 +13,7 @@ public class DungeonRenderer {
 		renderers.add(new TileRenderer(dungeon));
 		renderers.add(new PlayerRenderer(dungeon));
 		renderers.add(new AgentRenderer(dungeon));
+		renderers.add(new ItemRenderer(dungeon));
 	}
 	
 	public void render(Pane pane) {

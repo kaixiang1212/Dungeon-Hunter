@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 public class Invincibility extends Potion {
 	public Invincibility() {
 		super(20);
-		this.setImage(new Image("assets/itemassets/invincibility.png"));
 	}
 	
 	/*
@@ -28,5 +27,10 @@ public class Invincibility extends Potion {
 	public void use(Dungeon map) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Invincibility;
 	}
 }

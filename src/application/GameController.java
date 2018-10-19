@@ -20,6 +20,7 @@ import Model.Item.Arrow;
 import Model.Item.Hover;
 import Model.Item.Invincibility;
 import Model.Item.Item;
+import Model.Item.Key;
 import Model.Item.Sword;
 import Model.Item.Treasure;
 import Model.Tile.Door;
@@ -89,6 +90,7 @@ public class GameController {
 		test.placeTile(new Exit(), new Point(8,8));
 		test.placeTile(new Pit(), new Point(6,8));
 		test.placeTile(new Door(), new Point(6,6));
+		test.placeItem(new Key(), new Point(5,6));
 
     
 		this.d = test;

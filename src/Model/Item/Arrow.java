@@ -12,7 +12,6 @@ public class Arrow extends RangedWeapon {
 	
 	public Arrow() {
 		super();
-		this.setImage(new Image("assets/itemassets/arrow.png"));
 	}
 	
 	public void pickedUp(Player player) {
@@ -41,6 +40,11 @@ public class Arrow extends RangedWeapon {
 	}
 	public String toString() {
 		return "Arrow x" + getQuantity();
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Arrow;
 	}
 	
 }

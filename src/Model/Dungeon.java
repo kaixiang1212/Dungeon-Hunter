@@ -386,6 +386,11 @@ public class Dungeon {
     	}
     	return false;
     }
+
+    public Item getItem(Point point) {
+    	return itemGrid.get(point);
+    }
+
     public void removeItem(Point pos) {
     	if(isItemExist(pos)) {
     		itemGrid.remove(pos);
@@ -587,4 +592,5 @@ public class Dungeon {
     public void playerUseItem() {
     	player.useItem(this);
     }
+    
 }

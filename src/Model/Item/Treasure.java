@@ -9,7 +9,6 @@ public class Treasure extends Item {
 	
 	public Treasure() {
 		super();
-		this.setImage(new Image("assets/itemassets/treasure.png"));
 	}
 
 	@Override
@@ -28,6 +27,11 @@ public class Treasure extends Item {
 	}
 	public String toString() {
 		return "Treasure x" + getQuantity();
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Treasure;
 	}
 
 }

@@ -23,7 +23,6 @@ public class LitBomb extends Item {
 	
 	@Override
 	public boolean isStackable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -47,6 +46,11 @@ public class LitBomb extends Item {
 		} else {
 			this.counter--;
 		}
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.LitBomb;
 	}
 
 }
