@@ -1,5 +1,8 @@
 package Model.Item;
 
+import java.awt.Point;
+
+import Model.Dungeon;
 import Model.Player;
 import javafx.scene.image.Image;
 
@@ -45,6 +48,12 @@ public class Arrow extends RangedWeapon {
 	@Override
 	public ItemType getType() {
 		return ItemType.Arrow;
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

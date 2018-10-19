@@ -1,5 +1,7 @@
 package Model.Item;
 
+import java.awt.Point;
+
 import Model.Dungeon;
 import Model.Item.Item;
 import Model.Tile.Door;
@@ -42,5 +44,10 @@ public class Key extends Item {
 	@Override
 	public ItemType getType() {
 		return ItemType.Key;
+	}
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
 	}
 }

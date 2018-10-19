@@ -1,5 +1,8 @@
 package Model.Tile;
 
+import java.awt.Point;
+
+import Model.Dungeon;
 import Model.Player;
 import Model.Item.Key;
 import javafx.scene.image.Image;
@@ -31,6 +34,12 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 	@Override
 	public Type getType() {
 		return Type.ClosedDoor;
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

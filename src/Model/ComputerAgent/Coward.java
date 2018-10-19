@@ -53,4 +53,10 @@ public class Coward extends ComputerAgent {
 		return AgentType.Coward;
 	}
 
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

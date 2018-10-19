@@ -1,5 +1,7 @@
 package Model.Item;
 
+import java.awt.Point;
+
 import Model.Dungeon;
 import Model.Player;
 import Model.Item.Item;
@@ -32,6 +34,12 @@ public class Treasure extends Item {
 	@Override
 	public ItemType getType() {
 		return ItemType.Treasure;
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
