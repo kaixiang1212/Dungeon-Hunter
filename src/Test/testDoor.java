@@ -143,73 +143,73 @@ public class testDoor {
 		assertEquals(new Point(2, 3), enemy.getPos());
 	}
 
-	@Test
-	public void testUnlockDoor() {
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		assertTrue(key1.unlocks(door1));
-	}
-	
-	@Test
-	public void testUnlockDoorChangeState(){
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		player.pickup(key1);
-		assertEquals(door1.getType(), Type.ClosedDoor);
-		door1.doOperation(player);
-		assertEquals(door1.getType(), Type.OpenedDoor);
-	}
-
-	@Test
-	public void testKeyOneCanUnlockDoorTwo() {
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		door2 = new Door();
-		key2 = new Key(door2.getCode());
-		assertFalse(key1.unlocks(door2));
-		assertFalse(key2.unlocks(door1));
-		assertTrue(key1.unlocks(door1));
-		assertTrue(key2.unlocks(door2));
-	}
-
-	@Test
-	public void testMoveableAfterUnlock() {
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		basic.placeTile(door1, new Point(1, 1));
-		player.pickup(key1);
-		assertFalse(basic.isValidMove(new Point(1, 1)));
-		door1.doOperation(player);
-		assertTrue(basic.isValidMove(new Point(1, 1)));
-	}
-	
-	@Test
-	public void testKeyOneUnlocksDoorTwo() {
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		door2 = new Door();
-		key2 = new Key(door2.getCode());
-		basic.placeTile(door1, new Point(1, 1));
-		basic.placeTile(door2, new Point(2, 2));
-		player.pickup(key2);
-		door1.doOperation(player);
-		assertFalse(basic.isValidMove(new Point(1, 1)));
-		assertFalse(basic.isValidMove(new Point(2, 2)));
-		door2.doOperation(player);
-		assertTrue(basic.isValidMove(new Point(2, 2)));	
-	}
-	
-	@Test
-	public void testPlayerPickupKey() {
-		door1 = new Door();
-		key1 = new Key(door1.getCode());
-		Point doorPoint = new Point(1, 1);
-		basic.placeTile(door1, doorPoint);
-		basic.placeItem(key1, new Point(2, 1));
-		basic.placePlayer(player, new Point(3, 1));
-		basic.updatePlayer(Direction.LEFT);
-		basic.updatePlayer(Direction.LEFT);
-		assertEquals(basic.getPlayerPos(), doorPoint);
-	}
+//	@Test
+//	public void testUnlockDoor() {
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		assertTrue(key1.unlocks(door1));
+//	}
+//	
+//	@Test
+//	public void testUnlockDoorChangeState(){
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		player.pickup(key1);
+//		assertEquals(door1.getType(), Type.ClosedDoor);
+//		door1.doOperation(player);
+//		assertEquals(door1.getType(), Type.OpenedDoor);
+//	}
+//
+//	@Test
+//	public void testKeyOneCanUnlockDoorTwo() {
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		door2 = new Door();
+//		key2 = new Key(door2.getCode());
+//		assertFalse(key1.unlocks(door2));
+//		assertFalse(key2.unlocks(door1));
+//		assertTrue(key1.unlocks(door1));
+//		assertTrue(key2.unlocks(door2));
+//	}
+//
+//	@Test
+//	public void testMoveableAfterUnlock() {
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		basic.placeTile(door1, new Point(1, 1));
+//		player.pickup(key1);
+//		assertFalse(basic.isValidMove(new Point(1, 1)));
+//		door1.doOperation(player);
+//		assertTrue(basic.isValidMove(new Point(1, 1)));
+//	}
+//	
+//	@Test
+//	public void testKeyOneUnlocksDoorTwo() {
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		door2 = new Door();
+//		key2 = new Key(door2.getCode());
+//		basic.placeTile(door1, new Point(1, 1));
+//		basic.placeTile(door2, new Point(2, 2));
+//		player.pickup(key2);
+//		door1.doOperation(player);
+//		assertFalse(basic.isValidMove(new Point(1, 1)));
+//		assertFalse(basic.isValidMove(new Point(2, 2)));
+//		door2.doOperation(player);
+//		assertTrue(basic.isValidMove(new Point(2, 2)));	
+//	}
+//	
+//	@Test
+//	public void testPlayerPickupKey() {
+//		door1 = new Door();
+//		key1 = new Key(door1.getCode());
+//		Point doorPoint = new Point(1, 1);
+//		basic.placeTile(door1, doorPoint);
+//		basic.placeItem(key1, new Point(2, 1));
+//		basic.placePlayer(player, new Point(3, 1));
+//		basic.updatePlayer(Direction.LEFT);
+//		basic.updatePlayer(Direction.LEFT);
+//		assertEquals(basic.getPlayerPos(), doorPoint);
+//	}
 
 }
