@@ -85,11 +85,11 @@ public class GameController {
 	}
 	public void setupStageDimensions() {
 
-		double centreX = 977.0;
-		double centreY = 576.0;
-		double increment = (this.d.getSize() + 3)/2;
-		mainPane.setLayoutX(centreX - increment*32);
-		mainPane.setLayoutY(centreY - increment*32);
+//		double centreX = 977.0;
+//		double centreY = 576.0;
+//		double increment = (this.d.getSize() + 3)/2;
+//		mainPane.setLayoutX(centreX - increment*32);
+//		mainPane.setLayoutY(centreY - increment*32);
 		
         stage.setMaximized(true);
 	}
