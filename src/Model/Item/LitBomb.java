@@ -1,6 +1,7 @@
 package Model.Item;
 
 import Model.Dungeon;
+import Model.Player;
 import Model.Item.Item;
 
 import java.awt.Point;
@@ -16,9 +17,14 @@ public class LitBomb extends Item {
 	}
 	
 	@Override
+	public void pickedUp(Player player) {
+		//Do nothing
+	}
+	
+	@Override
 	public boolean isStackable() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 	
 	public void use(Dungeon map) {
@@ -42,4 +48,5 @@ public class LitBomb extends Item {
 			this.counter--;
 		}
 	}
+
 }

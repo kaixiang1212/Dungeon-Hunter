@@ -14,6 +14,9 @@ public abstract class RangedWeapon extends Item {
 		super();
 	}
 
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 	
 	/*
 	 * Depending on direction, checks tiles to see if weapon will be blocked or hit and kill certain agents

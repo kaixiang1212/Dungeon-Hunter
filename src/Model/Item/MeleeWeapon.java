@@ -17,6 +17,10 @@ public abstract class MeleeWeapon extends Item {
 		super();
 		this.numUses = numUses;
 	}
+	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 
 	/*
 	 * returns number of uses weapon has left

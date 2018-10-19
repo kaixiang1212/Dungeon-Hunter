@@ -35,20 +35,17 @@ public class Player extends Paintable {
 	 * @param i, The item being picked up
 	 */
 	public void pickup(Item i) {
-		if (i.isPotion()) {
-			this.addStatus((Potion) i);
-		} else if (i.isLitBomb()) {
-			return;
-		} else {
-			inventory.storeItem(i);
-		}
+		i.pickedUp(this);
 	}
 	/*
 	 * select item in inventory and equip it
 	 * @param index, Inventory index to get the item
 	 */
-	public void selectItem(int index) {
-		this.heldItem = inventory.getItem(index);
+	public Item selectItem(int index) {
+		if(inventory.getItem(index) != null) {
+			this.heldItem = inventory.getItem(index);
+		}
+		return this.heldItem;
 	}
 	/*
 	 * returns item that's equipped
@@ -169,14 +166,15 @@ public class Player extends Paintable {
 	public ArrayList<Key> getKeys(){
 		return inventory.getKeys();
 	}
+
+	/*
+	 * Called when player falls into pit
+	 * Check if player has hover effect
+	 * if yes, do nothing
+	 * if no, player dies 
+	 */
+	public void fallsIntoPit() {
+		if (isHover()) return;
+		else die();
+	}
 }
-
-	
-
-
-
-
-	
-
-
-

@@ -1,5 +1,7 @@
 package Model.Item;
 
+import Model.Player;
+
 /*
  * abstract class that contains information of all potions
  */
@@ -10,6 +12,18 @@ public abstract class Potion extends Item {
 	public Potion(int duration) {
 		super();
 		this.duration = duration;
+	}
+	
+	public void pickedUp(Player player) {
+		player.addStatus(this);
+	}
+	
+	public int getDuration() {
+		return this.duration;
+	}
+	
+	public void reduceDuration() {
+		this.duration--;
 	}
 
 	/*
