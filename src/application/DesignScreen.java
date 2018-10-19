@@ -3,28 +3,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GameScreen {
+public class DesignScreen {
 
     private Stage s;
     private String title;
     private FXMLLoader fxmlLoader;
 
-    public GameScreen(Stage s) {
+    public DesignScreen(Stage s) {
         this.s = s;
-        this.title = "Game";
-        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/test2.fxml"));
+        this.title = "Design";
+        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/design.fxml"));
     }
 
     public void start()  {
         s.setTitle(title);
         // set controller for start.fxml
-        fxmlLoader.setController(new GameController(s));
+        fxmlLoader.setController(new DesignController(s));
         try {
             // load into a Parent node called root
             Parent root = fxmlLoader.load();  

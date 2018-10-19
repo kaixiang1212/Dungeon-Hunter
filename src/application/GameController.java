@@ -67,8 +67,10 @@ public class GameController {
 
 		//Temporary setup
 
-
-		Dungeon test = new Dungeon(20);
+		int size = 8;
+		Dungeon test = new Dungeon(size);
+		mainPane.setMaxHeight((size+2) * 32);
+		mainPane.setMaxWidth((size+2) * 32);
 		renderer = new DungeonRenderer(test);
 		WinCondition testwc = new DefaultWinCondition();
 		testwc = new EnemiesKilledDecorator(testwc);

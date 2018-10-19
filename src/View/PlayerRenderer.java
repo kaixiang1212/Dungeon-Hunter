@@ -12,7 +12,7 @@ public class PlayerRenderer extends Renderer {
 
 	public PlayerRenderer(Dungeon dungeon) {
 		super(dungeon);
-		playerImage = new Image("assets/agentassets/player.png");
+		this.playerImage = new Image("assets/agentassets/player.png");
 	}
 
 
@@ -24,7 +24,9 @@ public class PlayerRenderer extends Renderer {
 
 	@Override
 	public void render(Pane pane) {
-		setupImageView(pane, this.playerImage, dungeon.getPlayerPos());
+		if(dungeon.getPlayer() != null) {
+			setupImageView(pane, this.playerImage, dungeon.getPlayerPos());
+		}
 	}
 
 }

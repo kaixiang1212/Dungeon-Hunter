@@ -12,8 +12,10 @@ public class Main extends Application {
         // set the stage width to be 600
         primaryStage.setWidth(800);
 
-        GameScreen gameScreen = new GameScreen(primaryStage);
-        gameScreen.start();
+//        GameScreen gameScreen = new GameScreen(primaryStage);
+//        gameScreen.start();
+          DesignScreen designScreen = new DesignScreen(primaryStage);
+          designScreen.start();
     }
 
     public static void main(String[] args) {
