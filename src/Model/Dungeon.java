@@ -442,6 +442,18 @@ public class Dungeon {
     			}
     		}
     	}
+	
+	for(int x = 0; x<this.savesize+2; x++) {
+    		for(int y = 0; y<this.savesize+2; y++) {
+    			Point check = new Point(x,y);
+    			Item item = this.itemGrid.get(check);
+    			if (item != null) {
+    				if (item.isLitBomb()) {
+    					item.use(this);
+    				}
+    			}
+    		}
+    	}
 
     }
 

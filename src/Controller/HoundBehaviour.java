@@ -20,22 +20,37 @@ public class HoundBehaviour extends MoveBehaviour{
 	}
 	
 	private Point houndReflect(Dungeon map) {
-		Point hold = map.getBottomRight();
-		for (double i = 0; i < hold.getX(); i++) {
-			for (double j = 0; j < hold.getY(); j++) {
+		for (double i = 0; i < map.getSize(); i++) {
+			for (double j = 0; j < map.getSize(); j++) {
 				Point check = new Point();
 				check.setLocation(i, j);
 				if (map.isAgentExist(check)) {
 					if (map.getAgent(check) instanceof Hunter) {
-						double diffX = check.getX() - map.getPlayerPos().getX();
-						double diffY = check.getY() - map.getPlayerPos().getY();
-						double predictX = 0;
-						double predictY = 0;
-						if (diffX < map.getPlayerPos().getX()) {
+						double diffX = Math.abs(check.getX() - map.getPlayerPos().getX());
+						double diffY = Math.abs(check.getY() - map.getPlayerPos().getY());
+						double predictX = check.getX();
+						double predictY = check.getY();
+						if (check.getX() < map.getPlayerPos().getX()) {
+							predictX = map.getPlayerPos().getX() + diffX;
+							if (predictX >= map.getSize()) {
+								predictX = map.getSize() - 1;
+							}
+						} else if (check.getX() > map.getPlayerPos().getX()) {
 							predictX = map.getPlayerPos().getX() - diffX;
+							if (predictX <= 0) {
+								predictX = 1;
+							}
 						}
-						if (diffY < map.getPlayerPos().getY()) {
+						if (check.getY() < map.getPlayerPos().getY()) {
+							predictY = map.getPlayerPos().getY() + diffY;
+							if (predictY >= map.getSize()) {
+								predictY = map.getSize() - 1;
+							}
+						} else if (check.getY() > map.getPlayerPos().getY()) {
 							predictY = map.getPlayerPos().getY() - diffY;
+							if (predictY <= 0) {
+								predictY = 1;
+							}
 						}
 						Point prediction = new Point();
 						prediction.setLocation(predictX, predictY);
