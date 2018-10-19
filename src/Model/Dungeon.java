@@ -23,6 +23,7 @@ import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
 import Model.Tile.FunctionalTile;
+import Model.Tile.Pit;
 import Model.Tile.Tile;
 import Model.Tile.Type;
 import Model.Tile.Wall;
@@ -413,9 +414,9 @@ public class Dungeon {
     		if (temp.isMoveable()) {
     			Point newPos = ((Boulder) temp).push(player.getDirection());
     			agentGrid.remove(point);
-    			if (!tileGrid.get(newPos).isType(Type.Pit)) {
-    				agentGrid.put(newPos, temp);
-    			}	
+    			Tile tile;
+    			if ((tile = getTile(newPos)).isType(Type.Pit)) ((Pit )tile).filledWithBoulder();
+    			else agentGrid.put(newPos, temp);
     		}
     		else {
     			// fight

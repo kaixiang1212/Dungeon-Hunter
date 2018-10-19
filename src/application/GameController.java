@@ -77,7 +77,7 @@ public class GameController {
 //		test.placeComputerAgent(new Hunter(), new Point(12,1));
 //		test.placeComputerAgent(new Hunter(), new Point(14,1));
 //		test.placeComputerAgent(new Hunter(), new Point(15,1));
-//		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
+		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
 //		test.placeComputerAgent(new Coward(), new Point(13,12));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
