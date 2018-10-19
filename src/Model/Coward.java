@@ -30,6 +30,7 @@ public class Coward extends ComputerAgent {
 	private boolean determineCourage(Dungeon map) {
 		Point player = map.getPlayerPos();
 		Point self = super.getPos();
+		// TODO: return true;
 		if (Math.abs(player.x - self.x) > 2 || Math.abs(player.y - self.y) > 2) return true;
 		return false;
 	}

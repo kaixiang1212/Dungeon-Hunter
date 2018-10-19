@@ -67,7 +67,7 @@ public class GameController {
 //		test.placeComputerAgent(new Hunter(), new Point(14,1));
 //		test.placeComputerAgent(new Hunter(), new Point(15,1));
 //		test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
-//		test.placeComputerAgent(new Coward(), new Point(13,12));
+		test.placeComputerAgent(new Coward(), new Point(13,12));
 		test.placeItem(new Treasure(), new Point(2,3));
 		test.placeItem(new Sword(), new Point(2,1));
 		test.placeItem(new Invincibility(), new Point(3,1));
@@ -75,7 +75,7 @@ public class GameController {
 		test.placeItem(new Sword(), new Point(5,1));
 		test.placeItem(new Arrow(), new Point(6,2));
 		test.placePlayer(new Player(), new Point(4,4));
-		test.placeComputerAgent(new Hunter(), new Point(18,1));
+//		test.placeComputerAgent(new Hunter(), new Point(18,1));
 		test.placeTile(new Exit(), new Point(8,8));
 		test.placeTile(new Pit(), new Point(6,8));
 		test.placeTile(new Door(), new Point(6,6));
