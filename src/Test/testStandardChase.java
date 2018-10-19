@@ -15,6 +15,7 @@ import Model.Dungeon;
 import Model.Hunter;
 import Model.Player;
 import Model.Tile.Type;
+import Model.Tile.Wall;
 
 public class testStandardChase {
 	Dungeon testDun;
@@ -44,7 +45,7 @@ public class testStandardChase {
 
 		testDun.placeComputerAgent(enemy, new Point(3, 1));
 		testDun.placePlayer(testPlayer, new Point(1, 1));
-		testDun.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 1));
+		testDun.placeTile(new Wall(), new Point(2, 1));
 		testDun.updateAgents();
 		assertNotEquals(new Point(2,1), enemy.getPos());
 		testDun.updateAgents();

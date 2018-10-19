@@ -21,6 +21,9 @@ import Model.Item.Invincibility;
 import Model.Item.Item;
 import Model.Item.Sword;
 import Model.Item.Treasure;
+import Model.Tile.Door;
+import Model.Tile.Exit;
+import Model.Tile.Pit;
 import Model.Tile.Type;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -73,10 +76,9 @@ public class GameController {
 		test.placeItem(new Arrow(), new Point(6,2));
 		test.placePlayer(new Player(), new Point(4,4));
 		test.placeComputerAgent(new Hunter(), new Point(18,1));
-		test.placeTile(Type.EXIT, new Point(8,8));
-		test.placeTile(Type.PIT, new Point(6,8));
-		test.placeTile(Type.CLOSED_DOOR, new Point(6,6));
-		test.placeTile(Type.OPEN_DOOR, new Point(7,7));
+		test.placeTile(new Exit(), new Point(8,8));
+		test.placeTile(new Pit(), new Point(6,8));
+		test.placeTile(new Door(), new Point(6,6));
 
     
 		this.d = test;

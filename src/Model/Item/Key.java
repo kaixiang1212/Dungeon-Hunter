@@ -2,13 +2,18 @@ package Model.Item;
 
 import Model.Dungeon;
 import Model.Item.Item;
+import Model.Tile.Door;
 import Model.Player;
 
 public class Key extends Item {
 	
 	private int code;
 	
-	public Key(int code) {
+	public boolean unlocks(Door door) {
+		return this.code == door.getCode();
+	}
+	
+	public void setCode(int code) {
 		this.code = code;
 	}
 
@@ -16,7 +21,6 @@ public class Key extends Item {
 	public void use(Dungeon map) {
 		Player player = map.getPlayer();
 		player.getInventory().removeItem(this);
-
 	}
 	
 	public void pickedUp(Player player) {
@@ -28,13 +32,6 @@ public class Key extends Item {
 		return false;
 	}
 	
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	/**
-	 * @return the code
-	 */
 	public int getCode() {
 		return code;
 	}

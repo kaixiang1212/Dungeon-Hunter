@@ -12,7 +12,9 @@ import Model.Item.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import Model.Tile.Pit;
 import Model.Tile.Type;
+import Model.Tile.Wall;
 
 public class testItemInteract {
 
@@ -82,7 +84,7 @@ public class testItemInteract {
 		Point playerPos = new Point (2,1);
 
 		// Tests
-		dungeon.placeTile(Type.PIT, topL);
+		dungeon.placeTile(new Pit(), topL);
 		dungeon.placePlayer(player, playerPos);
 		assertFalse(player.deathStatus());
 		assertTrue(player.isHover());
@@ -189,7 +191,7 @@ public class testItemInteract {
 		Point tPos = new Point(2,1);
 		dungeon.placePlayer(player, topL);
 		dungeon.placeComputerAgent(ca, aPos);
-		dungeon.placeTile(Type.DESTRUCTIBLE_WALL, tPos);
+		dungeon.placeTile(new Wall(), tPos);
 		player.pickup(new Arrow());
 		player.selectItem(0);
 		player.useItem(dungeon);

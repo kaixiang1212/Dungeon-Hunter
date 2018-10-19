@@ -1,9 +1,15 @@
 package Test;
 
-
-
 import Model.Tile.Type;
+import Model.Tile.Wall;
+import Model.Tile.Door;
+import Model.Tile.Exit;
+import Model.Tile.Pit;
+import Model.Tile.Switch;
 import Model.Tile.Tile;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,26 +17,16 @@ public class testTile {
 
     @Test
     public void CanMakeTile() {
-        Tile test1 = new Tile(Type.INVINCIBLE_WALL);
-        Assert.assertEquals(test1.getType(), Type.INVINCIBLE_WALL);
-        test1 = new Tile(Type.DESTRUCTIBLE_WALL);
-        Assert.assertEquals(test1.getType(), Type.DESTRUCTIBLE_WALL);
-        test1 = new Tile(Type.PIT);
-        Assert.assertEquals(test1.getType(), Type.PIT);
-        test1 = new Tile(Type.OPEN_DOOR);
-        Assert.assertEquals(test1.getType(), Type.OPEN_DOOR);
-        test1 = new Tile(Type.CLOSED_DOOR);
-        Assert.assertEquals(test1.getType(), Type.CLOSED_DOOR);
-
-    }
-
-    @Test
-    public void CanSetTile() {
-        Tile test1 = new Tile(Type.INVINCIBLE_WALL);
-        Assert.assertEquals(test1.getType(), Type.INVINCIBLE_WALL);
-        test1.setType(Type.EXIT);
-        Assert.assertNotEquals(test1.getType(), Type.INVINCIBLE_WALL);
-        Assert.assertEquals(test1.getType(), Type.EXIT);
+        Tile test1 = new Wall();
+        assertEquals(test1.getType(), Type.Wall);
+        test1 = new Pit();
+        assertEquals(test1.getType(), Type.Pit);
+        test1 = new Door();
+        assertEquals(test1.getType(), Type.ClosedDoor);
+        test1 = new Exit();
+        assertEquals(test1.getType(), Type.Exit);
+        test1 = new Switch();
+        assertEquals(test1.getType(), Type.Switch);
     }
 
 }

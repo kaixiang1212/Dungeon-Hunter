@@ -13,6 +13,7 @@ import Model.Coward;
 import Model.Dungeon;
 import Model.Player;
 import Model.Tile.Type;
+import Model.Tile.Wall;
 
 public class testCowardFlee {
 
@@ -59,7 +60,7 @@ public class testCowardFlee {
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(Type.DESTRUCTIBLE_WALL, new Point(4, 1));
+		basicDungeon.placeTile(new Wall(), new Point(4, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();
@@ -75,7 +76,7 @@ public class testCowardFlee {
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 1));
+		basicDungeon.placeTile(new Wall(), new Point(3, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();
