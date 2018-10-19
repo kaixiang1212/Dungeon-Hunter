@@ -1,6 +1,9 @@
-package Model;
+package Model.ComputerAgent;
 
 import Controller.MoveBehaviour;
+import Model.Dungeon;
+import Model.Paintable;
+import Model.Tile.EntityType;
 
 import java.awt.Point;
 
@@ -11,7 +14,7 @@ import java.awt.Point;
  * @author Richard
  *
  */
-public abstract class ComputerAgent extends Paintable {
+public abstract class ComputerAgent {
 
 	/**
 	 * moveBehaviour strategy which defines how computeragents traverse the map
@@ -48,7 +51,13 @@ public abstract class ComputerAgent extends Paintable {
 		return this.pos;
 	}
 	public boolean isMoveable() {
-		return this instanceof Boulder;
+		return isType(AgentType.Boulder);
+	}
+	
+	public abstract AgentType getType();
+	
+	public boolean isType(AgentType type) {
+		return type.equals(getType());
 	}
 }
 

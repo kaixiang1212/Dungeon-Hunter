@@ -8,6 +8,9 @@ import java.awt.Point;
 
 import Controller.Direction;
 import Model.*;
+import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Strategist;
 import Model.Item.*;
 import org.junit.Before;
 import org.junit.Test;

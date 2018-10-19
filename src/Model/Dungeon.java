@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Queue;
 
 import Controller.Direction;
+import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
 import Model.Tile.DefaultTile;
@@ -21,6 +23,7 @@ import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
 import Model.Tile.FunctionalTile;
+import Model.Tile.Pit;
 import Model.Tile.Tile;
 import Model.Tile.Type;
 import Model.Tile.Wall;
@@ -384,6 +387,11 @@ public class Dungeon {
     	}
     	return false;
     }
+
+    public Item getItem(Point point) {
+    	return itemGrid.get(point);
+    }
+
     public void removeItem(Point pos) {
     	if(isItemExist(pos)) {
     		itemGrid.remove(pos);
@@ -406,9 +414,9 @@ public class Dungeon {
     		if (temp.isMoveable()) {
     			Point newPos = ((Boulder) temp).push(player.getDirection());
     			agentGrid.remove(point);
-    			if (!tileGrid.get(newPos).isType(Type.Pit)) {
-    				agentGrid.put(newPos, temp);
-    			}	
+    			Tile tile;
+    			if ((tile = getTile(newPos)).isType(Type.Pit)) ((Pit )tile).filledWithBoulder();
+    			else agentGrid.put(newPos, temp);
     		}
     		else {
     			// fight
@@ -575,9 +583,7 @@ public class Dungeon {
     public Map<Point, Item> getItemGrid() {
     	return itemGrid;
     }
-    public Image getPlayerImage() {
-    	return player.getImage();
-    }
+
     public Item selectItemSlot(int index) {
     	return player.selectItem(index);
     }
@@ -587,4 +593,5 @@ public class Dungeon {
     public void playerUseItem() {
     	player.useItem(this);
     }
+    
 }

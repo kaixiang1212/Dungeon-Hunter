@@ -12,7 +12,7 @@ import static Controller.Direction.RIGHT;
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction
  */
-public class Player extends Paintable {
+public class Player {
 
 	private boolean isDead;
 	private PlayerInventory inventory;
@@ -26,7 +26,6 @@ public class Player extends Paintable {
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
 		this.direction = RIGHT;
-		this.setImage(new Image("assets/agentassets/player.png"));
 	}
 	
 	/*

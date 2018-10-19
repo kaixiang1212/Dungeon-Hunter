@@ -6,7 +6,6 @@ public class Sword extends MeleeWeapon {
 
 	public Sword() {
 		super(5);
-		this.setImage(new Image("assets/itemassets/sword.png"));
 	}
 
 	@Override
@@ -22,6 +21,11 @@ public class Sword extends MeleeWeapon {
 	}
 	public String toString() {
 		return "Sword x" + getnumUses();
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Sword;
 	}
 }
 

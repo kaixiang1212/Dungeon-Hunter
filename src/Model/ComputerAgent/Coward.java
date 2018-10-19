@@ -1,7 +1,8 @@
-package Model;
+package Model.ComputerAgent;
 
 
 import Controller.*;
+import Model.Dungeon;
 import javafx.scene.image.Image;
 
 import java.awt.Point;
@@ -19,7 +20,6 @@ public class Coward extends ComputerAgent {
 		super(new StandardChaseBehaviour());
 		cowardBehavior = new cowardFleeBehavior();
 		courage = false;
-		this.setImage(new Image("assets/agentassets/coward.png"));
 	}
 	
 	/**
@@ -46,6 +46,11 @@ public class Coward extends ComputerAgent {
 		if (courage) super.move(map);
 		else setPos(cowardBehavior.move(map, getPos()));
 		return super.getPos();
+	}
+
+	@Override
+	public AgentType getType() {
+		return AgentType.Coward;
 	}
 
 }

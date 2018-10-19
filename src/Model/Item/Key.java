@@ -38,4 +38,9 @@ public class Key extends Item {
 	public String toString() {
 		return "Key";
 	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Key;
+	}
 }

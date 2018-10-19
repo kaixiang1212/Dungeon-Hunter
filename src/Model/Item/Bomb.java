@@ -27,13 +27,12 @@ public class Bomb extends Item {
 	 */
 	@Override
 	public boolean isStackable() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	
 
 	public boolean equals(Object o) {
-		if(o instanceof Bomb) {
+		if (o instanceof Bomb) {
 			return true;
 		}
 		return false;
@@ -62,6 +61,11 @@ public class Bomb extends Item {
 	}
 	public String toString() {
 		return "Bomb";
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Bomb;
 	}
 	
 

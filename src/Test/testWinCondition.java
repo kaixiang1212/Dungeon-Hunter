@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Controller.Direction;
-import Model.Boulder;
 import Model.Dungeon;
 import Model.Player;
+import Model.ComputerAgent.Boulder;
 import Model.Tile.Switch;
 
 public class testWinCondition {

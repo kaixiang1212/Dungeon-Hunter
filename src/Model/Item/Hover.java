@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 public class Hover extends Potion {
 	public Hover() {
 		super(999);
-		this.setImage(new Image("assets/itemassets/hover.png"));
 	}
 	
 	/*
@@ -28,7 +27,6 @@ public class Hover extends Potion {
 	 */
 	public boolean equals(Object o) {
 		if(o instanceof Hover) {
-
 			return true;
 		}
 		return false;
@@ -38,5 +36,10 @@ public class Hover extends Potion {
 	public void use(Dungeon map) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ItemType getType() {
+		return ItemType.Hover;
 	}
 }

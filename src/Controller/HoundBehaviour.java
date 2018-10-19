@@ -2,7 +2,7 @@ package Controller;
 
 import java.awt.Point;
 import Model.Dungeon;
-import Model.Hunter;
+import Model.ComputerAgent.Hunter;
 
 public class HoundBehaviour extends MoveBehaviour{
 
