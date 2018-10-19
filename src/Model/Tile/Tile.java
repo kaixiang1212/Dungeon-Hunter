@@ -1,5 +1,6 @@
 package Model.Tile;
 
+import Model.Paintable;
 import javafx.scene.image.Image;
 
 public abstract class Tile extends Paintable {
