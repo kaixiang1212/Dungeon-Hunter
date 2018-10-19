@@ -22,6 +22,10 @@ public class Key extends Item {
 		Player player = map.getPlayer();
 		player.getInventory().removeItem(this);
 	}
+	
+	public void pickedUp(Player player) {
+		player.getInventory().storeItem(this);
+	}
 
 	@Override
 	public boolean isStackable() {
@@ -30,5 +34,8 @@ public class Key extends Item {
 	
 	public int getCode() {
 		return code;
+	}
+	public String toString() {
+		return "Key";
 	}
 }

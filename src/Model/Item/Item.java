@@ -1,14 +1,18 @@
 package Model.Item;
 
 import Model.Dungeon;
+import Model.Player;
+import Model.Paintable;
 
-public abstract class Item {
+public abstract class Item extends Paintable {
 
 	private int quantity;
 	
 	public Item() {
 		this.quantity = 1;
 	}
+	
+	public abstract void pickedUp(Player player);
 	
 	public abstract void use(Dungeon map);
 	
@@ -31,6 +35,9 @@ public abstract class Item {
 	}
 	public boolean isLitBomb() {
 		return this instanceof LitBomb;
+	}
+	public boolean isTreasure() {
+		return this instanceof Treasure;
 	}
 }
 

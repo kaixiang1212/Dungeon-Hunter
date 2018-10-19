@@ -11,7 +11,7 @@ import java.awt.Point;
  * @author Richard
  *
  */
-public abstract class ComputerAgent {
+public abstract class ComputerAgent extends Paintable {
 
 	/**
 	 * moveBehaviour strategy which defines how computeragents traverse the map
