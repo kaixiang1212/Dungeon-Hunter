@@ -1,5 +1,8 @@
 package Model.Tile;
 
+import java.awt.Point;
+
+import Model.Dungeon;
 import javafx.scene.image.Image;
 
 public class Wall extends Tile {
@@ -14,4 +17,9 @@ public class Wall extends Tile {
 		return Type.Wall;
 	}
 
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
+	}
 }

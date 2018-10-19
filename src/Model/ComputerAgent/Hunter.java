@@ -1,6 +1,9 @@
 package Model.ComputerAgent;
 
+import java.awt.Point;
+
 import Controller.StandardChaseBehaviour;
+import Model.Dungeon;
 import javafx.scene.image.Image;
 
 public class Hunter extends ComputerAgent {
@@ -18,5 +21,10 @@ public class Hunter extends ComputerAgent {
 	public AgentType getType() {
 		return AgentType.Hunter;
 	}
-  
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,5 +1,8 @@
 package Model.Tile;
 
+import java.awt.Point;
+
+import Model.Dungeon;
 import Model.Player;
 
 public class UnfilledPit extends Tile implements FunctionalTile {
@@ -18,6 +21,12 @@ public class UnfilledPit extends Tile implements FunctionalTile {
 	@Override
 	public Type getType() {
 		return Type.Pit;
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

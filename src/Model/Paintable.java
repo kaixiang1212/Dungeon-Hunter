@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Point;
+
 import javafx.scene.image.Image;
 
 public abstract class Paintable {
@@ -13,4 +15,5 @@ public abstract class Paintable {
 	public void setImage(Image i) {
 		this.image = i;
 	}
+	public abstract void place(Dungeon d, Point point);
 }

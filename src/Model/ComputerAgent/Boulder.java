@@ -2,6 +2,7 @@ package Model.ComputerAgent;
 
 import Controller.Direction;
 import Controller.MoveBehaviour;
+import Model.Dungeon;
 import javafx.scene.image.Image;
 
 import java.awt.Point;
@@ -52,5 +53,13 @@ public class Boulder extends ComputerAgent {
 	public AgentType getType() {
 		return AgentType.Boulder;
 	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		// TODO Auto-generated method stub
+		d.placeComputerAgent(this, point);
+	}
+
+
 
 }
