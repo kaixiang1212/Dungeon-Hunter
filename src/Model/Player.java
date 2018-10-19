@@ -166,14 +166,15 @@ public class Player extends Paintable {
 	public ArrayList<Key> getKeys(){
 		return inventory.getKeys();
 	}
+
+	/*
+	 * Called when player falls into pit
+	 * Check if player has hover effect
+	 * if yes, do nothing
+	 * if no, player dies 
+	 */
+	public void fallsIntoPit() {
+		if (isHover()) return;
+		else die();
+	}
 }
-
-	
-
-
-
-
-	
-
-
-

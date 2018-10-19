@@ -1,38 +1,51 @@
 package Model.Tile;
 
-import Model.Item.Key;
-import Model.Tile.Tile;
+import Model.Player;
+import javafx.scene.image.Image;
 
-import java.util.ArrayList;
+public class Door extends Tile implements FunctionalTile {
 
-
-public class Door extends Tile {
+	private static int counter = 0;
+	private final int code;
+	private Tile closedDoor;
+	private Tile openedDoor;
+	private Tile state;
 	
-	private int code;
-
-	public Door(int code) {
-		super(Type.CLOSED_DOOR);
-		this.code = code;
+	public Door() {
+		super(null);
+		this.code = counter++;
+		this.closedDoor = new ClosedDoor(this);
+		this.openedDoor = new OpenedDoor();
+		this.state = closedDoor;
 	}
 	
-	public Key generateKey() {
-		return new Key(this.code);
+	public int getCode() {
+		return this.code;
 	}
 	
-	public boolean unlockDoor(Key key) {
-		if (key.getCode() == this.code) {
-			super.setType(Type.OPEN_DOOR);
-			return true;
-		}
-		return false;
+	protected void unlock() {
+		this.state = this.openedDoor;
+	}
+
+	@Override
+	public void doOperation(Player player) {
+		if (state == openedDoor) return;
+		((FunctionalTile )closedDoor).doOperation(player);
 	}
 	
-	public boolean unlockDoor(ArrayList<Key> keys) {
-		for (Key key : keys) {
-			if (unlockDoor(key)) return true;
-		}
-		return false;
+	@Override
+	public boolean isReachable(EntityType type) {
+		return state.isReachable(type);
 	}
-	
+
+	@Override
+	public Type getType() {
+		return state.getType();
+	}
+
+	@Override
+	public Image getImage() {
+		return state.getImage();
+	}
 
 }

@@ -14,4 +14,5 @@ public class Hunter extends ComputerAgent {
 	public String toString() {
 		return "hunter";
 	}
+  
 }

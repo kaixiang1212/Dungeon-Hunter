@@ -49,5 +49,4 @@ public class Boulder extends ComputerAgent {
 		return newPos;
 	}
 
-	
 }

@@ -8,27 +8,47 @@ import java.awt.Point;
 
 import Controller.Direction;
 import Model.*;
+import Model.Item.Key;
 import Model.Tile.Door;
+import Model.Tile.Tile;
+import Model.Tile.Type;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Tile.Type;
+import Model.Tile.Wall;
 
 public class testDoor {
 
 	Dungeon basic;
 	Player player;
+	Door door1;
+	Door door2;
+	Key key1;
+	Key key2;
 
-	@Before public void initTest() {
+	@Before
+	public void initTest() {
 		basic = new Dungeon(3);
 		player = new Player();
+	}
+	
+	@Test
+	public void testClosedDoorNotValidMove() {
+		basic.placeTile(new Door(), new Point(2, 1));
+		assertFalse(basic.isValidMoveAgent(new Point(2, 1)));
+		assertFalse(basic.isValidMoveBasic(new Point(2, 1)));
+		assertFalse(basic.isValidMove(new Point(2, 1)));
+		
 	}
 
 	@Test
 	public void testClosedDoorObstructPlayer() {
 
 		basic.placePlayer(player, new Point(1, 1));
-		basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
+		//basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
+		basic.placeTile(new Door(), new Point(2, 1));
+		basic.placeItem(new Key(), new Point(3,3));
 		basic.updatePlayer(Direction.RIGHT);
 		
 		assertEquals(new Point(1, 1), basic.getPlayerPos());
@@ -43,9 +63,9 @@ public class testDoor {
 		basic.placePlayer(player, new Point(1, 1));
 
 		//divide player and hunter with a closed door and walls.
-		basic.placeDoorKey(new Point(2, 1), new Point(3, 3));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 2));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 3));
+		basic.placeTile(new Door(), new Point(2, 1));
+		basic.placeTile(new Wall(), new Point(2, 2));
+		basic.placeTile(new Wall(), new Point(2, 3));
 		basic.placeComputerAgent(enemy, new Point(3, 1));
 
 		assertFalse(basic.isValidMove(new Point(2, 1)));
@@ -62,10 +82,10 @@ public class testDoor {
 
 		basic.placePlayer(player, new Point(1, 1));
 
-		//divide player and hunter with a closed door and walls.
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 1));
-		basic.placeDoorKey(new Point(2, 2), new Point(3, 3));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 3));
+		// divide player and hunter with a closed door and walls.
+		basic.placeTile(new Wall(), new Point(2, 1));
+		basic.placeTile(new Door(), new Point(2,2));
+		basic.placeTile(new Wall(), new Point(2, 3));
 		basic.placeComputerAgent(enemy, new Point(3, 2));
 
 		assertFalse(basic.isValidMove(new Point(2, 1)));
@@ -86,9 +106,9 @@ public class testDoor {
 		basic.placePlayer(player, new Point(1, 1));
 
 		//divide player and hunter with a closed door and walls.
-		basic.placeDoorKey(new Point(1, 2), new Point(3, 3));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(2, 2));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 3));
+		basic.placeTile(new Door(), new Point(1, 2));
+		basic.placeTile(new Wall(), new Point(2, 2));
+		basic.placeTile(new Wall(), new Point(3, 3));
 		basic.placeComputerAgent(enemy, new Point(1, 3));
 
 		assertFalse(basic.isValidMove(new Point(1, 2)));
@@ -106,9 +126,9 @@ public class testDoor {
 		basic.placePlayer(player, new Point(1, 1));
 
 		//divide player and hunter with a closed door and walls.
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(1, 2));
-		basic.placeDoorKey(new Point(2, 2), new Point(3, 3));
-		basic.placeTile(Type.DESTRUCTIBLE_WALL, new Point(3, 2));
+		basic.placeTile(new Wall(), new Point(1, 2));
+		basic.placeTile(new Door(), new Point(2, 2));
+		basic.placeTile(new Wall(), new Point(3, 2));
 		basic.placeComputerAgent(enemy, new Point(2, 3));
 
 		assertFalse(basic.isValidMove(new Point(1, 2)));
@@ -125,53 +145,71 @@ public class testDoor {
 
 	@Test
 	public void testUnlockDoor() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-
-		basic.placePlayer(player, new Point(1, 1));
-		basic.placeDoorKey(new Point(2, 2), new Point(2, 1));
-
-		// get the door to unlock
-		Door door = (Door )basic.getTile(new Point(2, 2));
-		player.pickup(door.generateKey());
-		door.unlockDoor(player.getKeys());
-	
-		assert(basic.getTile(new Point(2, 2)).isType(Type.OPEN_DOOR));
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		assertTrue(key1.unlocks(door1));
 	}
 	
+	@Test
+	public void testUnlockDoorChangeState(){
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		player.pickup(key1);
+		assertEquals(door1.getType(), Type.ClosedDoor);
+		door1.doOperation(player);
+		assertEquals(door1.getType(), Type.OpenedDoor);
+	}
+
+	@Test
+	public void testKeyOneCanUnlockDoorTwo() {
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		door2 = new Door();
+		key2 = new Key(door2.getCode());
+		assertFalse(key1.unlocks(door2));
+		assertFalse(key2.unlocks(door1));
+		assertTrue(key1.unlocks(door1));
+		assertTrue(key2.unlocks(door2));
+	}
+
 	@Test
 	public void testMoveableAfterUnlock() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-
-		basic.placePlayer(player, new Point(1, 1));
-		basic.placeDoorKey(new Point(2, 2), new Point(2, 1));
-		assertFalse(basic.isValidMove(new Point(2, 2)));
-		Door door = (Door )basic.getTileGrid().get(new Point(2, 2));
-		player.pickup(door.generateKey());
-		door.unlockDoor(player.getKeys());
-		assertTrue(basic.isValidMove(new Point(2, 2)));
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		basic.placeTile(door1, new Point(1, 1));
+		player.pickup(key1);
+		assertFalse(basic.isValidMove(new Point(1, 1)));
+		door1.doOperation(player);
+		assertTrue(basic.isValidMove(new Point(1, 1)));
 	}
 	
 	@Test
-	public void twoDoors() {
-		Dungeon basic = new Dungeon(3);
-		Player player = new Player();
-		basic.placePlayer(player, new Point(1, 1));
-		basic.placeDoorKey(new Point(2, 1), new Point(2, 3));
-		basic.placeDoorKey(new Point(2, 3), new Point(3,2));
-		Door doorOne = (Door )basic.getTile(new Point(2,1));
-		Door doorTwo = (Door )basic.getTile(new Point(2,3));
-		
-		player.pickup(doorTwo.generateKey());
-		doorOne.unlockDoor(player.getKeys());
-
-		// door one with key 2 wrong key 
-		assert(doorOne.isType(Type.CLOSED_DOOR));
-		// door two with key two
-		doorTwo.unlockDoor(player.getKeys());
-		assert(doorTwo.isType(Type.OPEN_DOOR));
-		
+	public void testKeyOneUnlocksDoorTwo() {
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		door2 = new Door();
+		key2 = new Key(door2.getCode());
+		basic.placeTile(door1, new Point(1, 1));
+		basic.placeTile(door2, new Point(2, 2));
+		player.pickup(key2);
+		door1.doOperation(player);
+		assertFalse(basic.isValidMove(new Point(1, 1)));
+		assertFalse(basic.isValidMove(new Point(2, 2)));
+		door2.doOperation(player);
+		assertTrue(basic.isValidMove(new Point(2, 2)));	
+	}
+	
+	@Test
+	public void testPlayerPickupKey() {
+		door1 = new Door();
+		key1 = new Key(door1.getCode());
+		Point doorPoint = new Point(1, 1);
+		basic.placeTile(door1, doorPoint);
+		basic.placeItem(key1, new Point(2, 1));
+		basic.placePlayer(player, new Point(3, 1));
+		basic.updatePlayer(Direction.LEFT);
+		basic.updatePlayer(Direction.LEFT);
+		assertEquals(basic.getPlayerPos(), doorPoint);
 	}
 
 }
