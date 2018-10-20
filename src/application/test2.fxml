@@ -7,12 +7,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#playerMovement" prefHeight="1047.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane onKeyPressed="#playerMovement" prefHeight="637.0" prefWidth="888.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <HBox alignment="CENTER" layoutX="469.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1047.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="469.0" AnchorPane.rightAnchor="491.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane fx:id="mainPane" />
+         </children>
+      </HBox>
       <Button layoutX="5.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#hotSwitch" text="Press to design" />
       <Label fx:id="promptLabel" text="Welcome to the Game!" textFill="RED">
          <font>
-            <Font size="24.0" />
+            <Font name="Yu Gothic Medium" size="24.0" />
          </font>
       </Label>
       <Label layoutY="859.0" text="Controls:" textFill="RED">
@@ -35,10 +40,5 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="196.0" prefHeight="1047.0" prefWidth="498.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="196.0" AnchorPane.rightAnchor="266.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane fx:id="mainPane" />
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

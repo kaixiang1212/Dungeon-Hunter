@@ -13,6 +13,10 @@ public class Main extends Application {
         // set the stage height to be 400
         // set the stage width to be 600          
         
+        //primaryStage.setHeight(400);
+// set the stage width to be 600
+        //primaryStage.setWidth(800);
+
         primaryStage.setHeight(1000);
         primaryStage.setWidth(900);
         primaryStage.centerOnScreen();       
@@ -35,6 +39,7 @@ public class Main extends Application {
           MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
           //MainMenuController mainMenuController = new MainMenuController(primaryStage);
           mainMenuScreen.start();
+
     }
 
     public static void main(String[] args) {
