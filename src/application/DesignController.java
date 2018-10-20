@@ -139,11 +139,13 @@ public class DesignController {
 		this.currSelection = new Exit();
 		this.updatePrompts();
 	}
+	
 	@FXML
 	public void hotSwitch() {
 		GameScreen gs = new GameScreen(this.stage);
 		gs.start(this.d);
 	}
+	
 	@FXML
 	public void handleExit() {
         Platform.exit();

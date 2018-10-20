@@ -9,6 +9,22 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
+        primaryStage.setHeight(400);
+        // set the stage width to be 600
+        primaryStage.setWidth(800);
+        
+        //GameScreen gameScreen = new GameScreen(primaryStage);
+        //gameScreen.start(null);
+        
+        
+          
+        DesignScreen designScreen = new DesignScreen(primaryStage);
+        designScreen.start(null);
+        
+        
+        
+        
+        
         
         // set the stage height to be 400
         // set the stage width to be 600          
@@ -17,15 +33,13 @@ public class Main extends Application {
 // set the stage width to be 600
         //primaryStage.setWidth(800);
 
-        primaryStage.setHeight(1000);
-        primaryStage.setWidth(900);
-        primaryStage.centerOnScreen();       
-  
+               
+        
          
           //GAME MODE (Direct)
         
           //GameScreen gameScreen = new GameScreen(primaryStage);
-          // gameScreen.start();
+          // gameScreen.start(null);
                 
         
           //DESIGN MODE (Direct)
@@ -36,9 +50,9 @@ public class Main extends Application {
         
           //Main Menu -> Level Selection Menu -> game
         
-          MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
+          //MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
           //MainMenuController mainMenuController = new MainMenuController(primaryStage);
-          mainMenuScreen.start();
+          //mainMenuScreen.start();
 
     }
 
