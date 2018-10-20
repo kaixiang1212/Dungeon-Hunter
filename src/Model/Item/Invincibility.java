@@ -31,10 +31,14 @@ public class Invincibility extends Potion {
 		
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Invincibility;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Invincibility;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/invincibility.png");
 	}
-
 
 }

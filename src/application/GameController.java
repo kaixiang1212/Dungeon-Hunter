@@ -29,7 +29,6 @@ import Model.Tile.Exit;
 import Model.Tile.Pit;
 import Model.Tile.Switch;
 import Model.Tile.Tile;
-import Model.Tile.Type;
 import View.AgentRenderer;
 import View.DungeonRenderer;
 import View.PlayerRenderer;

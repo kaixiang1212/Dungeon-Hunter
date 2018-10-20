@@ -35,11 +35,20 @@ public class Switch extends Tile {
 		return isTriggered;
 	}
 
+//	@Override
+//	public Type getType() {
+//		return Type.Switch;
+//	}
 	@Override
-	public Type getType() {
-		return Type.Switch;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/switch.png");
 	}
-
+	@Override
+	public void place(Dungeon d, Point p) {
+		d.placeTile(this, p);
+		d.addSwitch(this, p);
+	}
 
 	
 }

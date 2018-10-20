@@ -30,27 +30,28 @@ public abstract class Item extends Paintable {
 		this.quantity--;
 	}
 	public boolean isPotion() {
-		return isType(ItemType.Hover) || isType(ItemType.Invincibility);
+		return this instanceof Potion;
 	}
 	public boolean isMeleeWeapon() {
-		return isType(ItemType.Sword);
+		return this instanceof MeleeWeapon;
 	}
 	public boolean isLitBomb() {
-		return isType(ItemType.LitBomb);
+		return this instanceof LitBomb;
 	}
 	public boolean isTreasure() {
-		return isType(ItemType.Treasure);
+		return this instanceof Treasure;
 	}
 	
-	public abstract ItemType getType();
-	
-	public boolean isType(ItemType type) {
-		return type.equals(getType());
-	}
+//	public abstract ItemType getType();
+//	
+//	public boolean isType(ItemType type) {
+//		return type.equals(getType());
+//	}
 	@Override
 	public void place(Dungeon d, Point p) {
 		// TODO Auto-generated method stub
 		d.placeItem(this, p);
+
 	}
 }
 

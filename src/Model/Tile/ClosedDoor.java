@@ -31,9 +31,15 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 		return false;
 	}
 
+//	@Override
+//	public Type getType() {
+//		return Type.ClosedDoor;
+//	}
+
 	@Override
-	public Type getType() {
-		return Type.ClosedDoor;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/closeddoor.png");
 	}
 
 

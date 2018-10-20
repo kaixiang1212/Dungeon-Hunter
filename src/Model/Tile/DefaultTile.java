@@ -7,10 +7,17 @@ import javafx.scene.image.Image;
 
 public class DefaultTile extends Tile {
 
+//	@Override
+//	public Type getType() {
+//		return Type.Default;
+//	}
+	
 	@Override
-	public Type getType() {
-		return Type.Default;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/default.png");
 	}
+
 
 
 }

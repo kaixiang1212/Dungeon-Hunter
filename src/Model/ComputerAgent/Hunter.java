@@ -17,10 +17,14 @@ public class Hunter extends ComputerAgent {
 		return "hunter";
 	}
 
+//	@Override
+//	public AgentType getType() {
+//		return AgentType.Hunter;
+//	}
 	@Override
-	public AgentType getType() {
-		return AgentType.Hunter;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/agentassets/hunter.png");
 	}
-
 
 }

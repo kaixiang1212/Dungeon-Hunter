@@ -12,11 +12,15 @@ public class Strategist extends ComputerAgent {
 		super(new PredictiveChaseBehaviour());
 	}
 
+//	@Override
+//	public AgentType getType() {
+//		return AgentType.Strategist;
+//	}
 	@Override
-	public AgentType getType() {
-		return AgentType.Strategist;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/agentassets/strategist.png");
 	}
-
 
 	
 }

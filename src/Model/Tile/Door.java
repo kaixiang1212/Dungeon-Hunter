@@ -40,11 +40,20 @@ public class Door extends Tile implements FunctionalTile {
 		return state.isReachable(type);
 	}
 
+//	@Override
+//	public Type getType() {
+//		return state.getType();
+//	}
+
 	@Override
-	public Type getType() {
-		return state.getType();
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return this.state.getImage();
 	}
-
-
+	@Override
+	public void place(Dungeon d, Point p) {
+		d.placeTile(this, p);
+		d.addDoorCode(this);
+	}
 
 }

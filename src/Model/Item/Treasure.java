@@ -31,11 +31,20 @@ public class Treasure extends Item {
 		return "Treasure x" + getQuantity();
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Treasure;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Treasure;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/treasure.png");
 	}
-
-
+	public boolean equals(Object o) {
+		if(o instanceof Treasure) {
+			return true;
+		}
+		return false;
+	}
 
 }

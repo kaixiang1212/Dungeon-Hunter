@@ -49,9 +49,14 @@ public class Boulder extends ComputerAgent {
 		return newPos;
 	}
 
+//	@Override
+//	public AgentType getType() {
+//		return AgentType.Boulder;
+//	}
 	@Override
-	public AgentType getType() {
-		return AgentType.Boulder;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/agentassets/boulder.png");
 	}
 
 

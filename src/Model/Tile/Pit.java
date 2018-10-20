@@ -32,9 +32,14 @@ public class Pit extends Tile implements FunctionalTile {
 		if (state == unfilled) unfilled.doOperation(player);
 	}
 
+//	@Override
+//	public Type getType() {
+//		return state.getType();
+//	}
 	@Override
-	public Type getType() {
-		return state.getType();
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/pit.png");
 	}
 
 

@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import Controller.HoundBehaviour;
 import Model.Dungeon;
+import javafx.scene.image.Image;
 
 public class Hound extends ComputerAgent {
 
@@ -11,11 +12,15 @@ public class Hound extends ComputerAgent {
 		super(new HoundBehaviour());
 	}
 
+//	@Override
+//	public AgentType getType() {
+//		return AgentType.Hound;
+//	}
 	@Override
-	public AgentType getType() {
-		return AgentType.Hound;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/agentassets/hound.png");
 	}
-
 
 
 	

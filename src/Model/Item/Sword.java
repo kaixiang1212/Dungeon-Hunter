@@ -26,11 +26,15 @@ public class Sword extends MeleeWeapon {
 		return "Sword x" + getnumUses();
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Sword;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Sword;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/sword.png");
 	}
-
 
 }
 

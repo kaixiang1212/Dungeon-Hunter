@@ -5,6 +5,7 @@ import java.awt.Point;
 import Model.Dungeon;
 import Model.Item.Item;
 import Model.Tile.Door;
+import javafx.scene.image.Image;
 import Model.Player;
 
 public class Key extends Item {
@@ -41,9 +42,18 @@ public class Key extends Item {
 		return "Key";
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Key;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Key;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/key.png");
 	}
-
+	@Override
+	public void place(Dungeon d, Point p) {
+		d.placeItem(this, p);
+		d.setKeyCode(this);
+	}
 }

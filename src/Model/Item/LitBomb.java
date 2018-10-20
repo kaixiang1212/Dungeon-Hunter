@@ -3,6 +3,7 @@ package Model.Item;
 import Model.Dungeon;
 import Model.Player;
 import Model.Item.Item;
+import javafx.scene.image.Image;
 
 import java.awt.Point;
 
@@ -48,11 +49,15 @@ public class LitBomb extends Item {
 		}
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.LitBomb;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.LitBomb;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/litbomb.png");
 	}
-
 
 
 }

@@ -10,10 +10,12 @@ import java.util.Map;
 import java.util.Queue;
 
 import Controller.Direction;
+import Controller.PredictiveChaseBehaviour;
 import Model.ComputerAgent.Boulder;
 import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
+import Model.Tile.ClosedDoor;
 import Model.Tile.DefaultTile;
 import java.util.Map.Entry;
 
@@ -22,10 +24,10 @@ import Model.Item.Item;
 import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
+import Model.Tile.Exit;
 import Model.Tile.FunctionalTile;
 import Model.Tile.Pit;
 import Model.Tile.Tile;
-import Model.Tile.Type;
 import Model.Tile.Wall;
 import Model.Tile.Switch;
 import javafx.scene.image.Image;
@@ -165,15 +167,12 @@ public class Dungeon {
         // Out of Bound Check
         if (outOfBound(myPoint)) return false;
 
-        // Additional Operation : to keep track of tiles in Dungeon
-        if (tile.isType(Type.Switch)) addSwitch(tile, myPoint);
-        else if (tile.isType(Type.ClosedDoor)) addDoorCode(tile);
-
+    	//If tile does not exist
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, tile);
             return true;
         }
-        //If tile already exists, simply switch type!
+        //If tile already exists, replace
         else if (tileGrid.get(myPoint) != null) {
         	tileGrid.replace(myPoint, tile);
         	return true;
@@ -319,6 +318,12 @@ public class Dungeon {
     	return true;
     }
 
+    /**
+     * TODO: refactor to not use enum type
+     * @param point
+     * @param type
+     * @return
+     */
     public boolean tileIsReachable(Point point, EntityType type) {
     	if (point == null) return false;
     	Tile tile = tileGrid.get(point);
@@ -372,13 +377,12 @@ public class Dungeon {
      * @param pos Position in Point form
      */
     public void placeItem(Item i, Point pos) {
-    	if (i instanceof Key) setKeyCode((Key )i);
     	if (isItemExist(pos)) removeItem(pos);
     	itemGrid.put(pos, i);
     }
     
-    private void setKeyCode(Key key) {
-    	key.setCode(doorCode.poll());
+    public void setKeyCode(Key item) {
+    	item.setCode(doorCode.poll());
     }
 
     public boolean isItemExist(Point check) {
@@ -415,8 +419,8 @@ public class Dungeon {
     			Point newPos = ((Boulder) temp).push(player.getDirection());
     			agentGrid.remove(point);
     			Tile tile;
-    			if ((tile = getTile(newPos)).isType(Type.Pit)) ((Pit )tile).filledWithBoulder();
-    			else agentGrid.put(newPos, temp);
+    			//if ((tile = getTile(newPos)).isType(Type.Pit)) ((Pit )tile).filledWithBoulder();
+    			agentGrid.put(newPos, temp);
     		}
     		else {
     			// fight
@@ -440,8 +444,8 @@ public class Dungeon {
     			}
     		}
     	}
-	
-	for(int x = 0; x<this.savesize+2; x++) {
+    	//Ticks down bombs on player movement
+    	for(int x = 0; x<this.savesize+2; x++) {
     		for(int y = 0; y<this.savesize+2; y++) {
     			Point check = new Point(x,y);
     			Item item = this.itemGrid.get(check);
@@ -490,19 +494,19 @@ public class Dungeon {
      * @param tile
      * @param point
      */
-    private void addSwitch(Tile tile, Point point) {
-    	if (tile.isType(Type.Switch)) {
-    		Switch sw = (Switch )tile;
-    		switches.add(sw);
-    		sw.setPoint(point);
-    	}
+    public void addSwitch(Tile tile, Point point) {
+
+    	Switch sw = (Switch )tile;
+    	switches.add(sw);
+    	sw.setPoint(point);
+    	
     }
     
-    private void addDoorCode(Tile tile) {
-    	if (tile.isType(Type.ClosedDoor)) {
-    		Door door = (Door )tile;
-    		doorCode.add(door.getCode());
-    	}
+    public void addDoorCode(Tile tile) {
+
+    	Door door = (Door )tile;
+    	doorCode.add(door.getCode());
+
     }
 
     /**
@@ -541,10 +545,10 @@ public class Dungeon {
      * @param type Tile Type
      * @return true if given point is a given type
      */
-    // TODO: Rename
-    public boolean isPointTileType(Point point, Type type) {
-    	return (hasTile(point) && getTile(point).isType(type));
-    }
+//    // TODO: Rename
+//    public boolean isPointTileType(Point point, Type type) {
+//    	return (hasTile(point) && getTile(point).isType(type));
+//    }
     
     // TODO: Give some comment on this function: good? bad?
     public void endTurn() {
@@ -555,11 +559,9 @@ public class Dungeon {
     public int numEnemies() {
     	return this.agentGrid.size();
     }
-    public boolean hasTreasure() {
-    	for(Map.Entry<Point,Item> entry : itemGrid.entrySet()) {
-    		if(entry.getValue().isTreasure()) {
-    			return true;
-    		}
+    public boolean containsItem(Item i) {
+    	if(itemGrid.containsValue(i)) {
+    		return true;
     	}
     	return false;
     }
@@ -576,13 +578,13 @@ public class Dungeon {
      * We could also do this to refactor incredibly similar reptitive methods.
      * @return
      */
-//    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
-//    	Paintable p = map.get(point);
-//    	if(p != null) {
-//    		return p.getImage();
-//    	}
-//    	return null;
-//    }
+    public Image proxygettiles(Point point, Map<Point, ? extends Paintable> map) {
+    	Paintable p = map.get(point);
+    	if(p != null) {
+    		return p.getImage();
+    	}
+    	return null;
+    }
     
     public int getSize() {
     	return savesize;
@@ -603,5 +605,17 @@ public class Dungeon {
     public void playerUseItem() {
     	player.useItem(this);
     }
+
+	/**
+	 * Utilises contains (implicitly equals() methods)
+	 * To find homogenous tiles 
+	 * @param tile
+	 * @return
+	 */
+	public boolean containsTile(Tile tile) {
+		// TODO Auto-generated method stub
+		System.out.println(tileGrid.containsValue(tile));
+		return tileGrid.containsValue(tile);
+	}
     
 }

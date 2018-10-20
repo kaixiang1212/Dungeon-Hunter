@@ -12,9 +12,14 @@ public class Wall extends Tile {
 		return false;
 	}
 
+//	@Override
+//	public Type getType() {
+//		return Type.Wall;
+//	}
 	@Override
-	public Type getType() {
-		return Type.Wall;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/wall.png");
 	}
 
 

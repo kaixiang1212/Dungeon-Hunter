@@ -40,10 +40,14 @@ public class Hover extends Potion {
 		
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Hover;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Hover;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/hover.png");
 	}
-
 
 }

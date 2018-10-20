@@ -183,4 +183,10 @@ public class Player extends Paintable {
 		d.placePlayer(this, point);
 		
 	}
+
+	@Override
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/agentassets/player.png");
+	}
 }

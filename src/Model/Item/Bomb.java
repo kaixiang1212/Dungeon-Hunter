@@ -2,6 +2,7 @@ package Model.Item;
 
 import Model.Dungeon;
 import Model.Player;
+import javafx.scene.image.Image;
 
 import java.awt.Point;
 
@@ -64,11 +65,15 @@ public class Bomb extends Item {
 		return "Bomb";
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Bomb;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Bomb;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/unlitbomb.png");
 	}
-
 
 	
 

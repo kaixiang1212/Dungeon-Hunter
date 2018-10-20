@@ -45,11 +45,15 @@ public class Arrow extends RangedWeapon {
 		return "Arrow x" + getQuantity();
 	}
 
+//	@Override
+//	public ItemType getType() {
+//		return ItemType.Arrow;
+//	}
 	@Override
-	public ItemType getType() {
-		return ItemType.Arrow;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/itemassets/arrow.png");
 	}
-
-
+	
 	
 }

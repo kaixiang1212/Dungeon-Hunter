@@ -45,7 +45,7 @@ public class DesignController {
 		 * Todo find a way to pass size the person wants :)
 		 */
 		if(this.d == null) {
-			int size = 20;
+			int size = 10;
 			Dungeon customDungeon = new Dungeon(size);
 			this.d = customDungeon;
 		}

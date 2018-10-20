@@ -7,9 +7,14 @@ import javafx.scene.image.Image;
 
 public class OpenedDoor extends Tile {
 
+//	@Override
+//	public Type getType() {
+//		return Type.OpenedDoor;
+//	}
 	@Override
-	public Type getType() {
-		return Type.OpenedDoor;
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return new Image("assets/tileassets/opendoor.png");
 	}
 
 
