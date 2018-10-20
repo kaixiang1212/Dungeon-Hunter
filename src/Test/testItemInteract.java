@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Model.Tile.Pit;
-import Model.Tile.Type;
 import Model.Tile.Wall;
 
 public class testItemInteract {

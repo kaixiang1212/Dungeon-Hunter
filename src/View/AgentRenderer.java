@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.EnumMap;
 
 import Model.Dungeon;
-import Model.ComputerAgent.AgentType;
 import Model.ComputerAgent.ComputerAgent;
 import javafx.scene.image.Image;
 

@@ -5,7 +5,6 @@ import java.util.EnumMap;
 
 import Model.Dungeon;
 import Model.Tile.Tile;
-import Model.Tile.Type;
 import javafx.scene.image.Image;
 
 public class TileRenderer extends Renderer {

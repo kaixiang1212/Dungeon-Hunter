@@ -14,7 +14,6 @@ import Model.Dungeon;
 import Model.Player;
 import Model.ComputerAgent.ComputerAgent;
 import Model.ComputerAgent.Hunter;
-import Model.Tile.Type;
 import Model.Tile.Wall;
 
 public class testStandardChase {

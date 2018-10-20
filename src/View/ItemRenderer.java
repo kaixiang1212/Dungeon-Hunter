@@ -5,7 +5,6 @@ import java.util.EnumMap;
 
 import Model.Dungeon;
 import Model.Item.Item;
-import Model.Item.ItemType;
 import javafx.scene.image.Image;
 
 public class ItemRenderer extends Renderer {
