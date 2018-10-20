@@ -6,12 +6,9 @@ import Controller.NoMoveBehaviour;
 import Model.Dungeon;
 import Model.Paintable;
 import Model.Player;
-import Model.ComputerAgent.Boulder;
-import Model.ComputerAgent.Coward;
-import Model.ComputerAgent.Hound;
-import Model.ComputerAgent.Hunter;
-import Model.ComputerAgent.Strategist;
 import Model.Tile.*;
+import Model.Item.*;
+import Model.ComputerAgent.*;
 import View.DungeonRenderer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -65,7 +62,7 @@ public class DesignController {
 	/**
 	 * Gets coordinates of click on dungeon, divides by num pixels width of each tile [32]
 	 * Rounds down to get correct coordinates for placement on Dungeon type
-	 * Clones current selection so players can place unique objects on Dungeon
+	 * Clones current selection so players can place subsequent unique objects (in reference) on Dungeon
 	 * Re-renders to provide visual feedback on placement
 	 * @param event Containing information about mouse event (ie. click)
 	 * @throws CloneNotSupportedException
@@ -137,6 +134,41 @@ public class DesignController {
 	@FXML
 	public void exitSelected() {
 		this.currSelection = new Exit();
+		this.updatePrompts();
+	}
+	@FXML
+	public void treasureSelected() {
+		this.currSelection = new Treasure();
+		this.updatePrompts();
+	}
+	@FXML
+	public void invincibilitySelected() {
+		this.currSelection = new Invincibility();
+		this.updatePrompts();
+	}
+	@FXML
+	public void hoverSelected() {
+		this.currSelection = new Hover();
+		this.updatePrompts();
+	}
+	@FXML
+	public void arrowSelected() {
+		this.currSelection = new Arrow();
+		this.updatePrompts();
+	}
+	@FXML
+	public void swordSelected() {
+		this.currSelection = new Sword();
+		this.updatePrompts();
+	}
+	@FXML
+	public void keySelected() {
+		this.currSelection = new Key();
+		this.updatePrompts();
+	}
+	@FXML
+	public void closedDoorSelected() {
+		this.currSelection = new Door();
 		this.updatePrompts();
 	}
 	@FXML

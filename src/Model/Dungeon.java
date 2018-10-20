@@ -425,10 +425,8 @@ public class Dungeon {
     	}
     	// If item, attempt to pickup the item
     	if (itemGrid.get(point) != null) {
-    		if (!itemGrid.get(point).isLitBomb()) {
     			this.player.pickup(itemGrid.get(point));
     			this.itemGrid.remove(point);
-    		}
     	}
     	
     	for (int i = 0; i < this.player.getStatus().size(); i++) {
