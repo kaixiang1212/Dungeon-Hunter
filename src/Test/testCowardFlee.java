@@ -11,7 +11,6 @@ import Model.Dungeon;
 import Model.Player;
 import Model.ComputerAgent.ComputerAgent;
 import Model.ComputerAgent.Coward;
-import Model.Tile.Type;
 import Model.Tile.Wall;
 
 public class testCowardFlee {

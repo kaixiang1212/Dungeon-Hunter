@@ -1,7 +1,5 @@
 package Model.Item;
 
-import java.awt.Point;
-
 import Model.Dungeon;
 import javafx.scene.image.Image;
 
@@ -27,14 +25,13 @@ public class Invincibility extends Potion {
 
 	@Override
 	public void use(Dungeon map) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public ItemType getType() {
-		return ItemType.Invincibility;
+	public Image getImage() {
+		return new Image("assets/itemassets/invincibility.png");
 	}
-
-
+	public String toString() {
+		return "Invincible";
+	}
 }

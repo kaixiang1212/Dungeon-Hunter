@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import Model.Dungeon;
 import Model.Player;
+import javafx.scene.image.Image;
 
 public class UnfilledPit extends Tile implements FunctionalTile {
 
@@ -19,8 +20,8 @@ public class UnfilledPit extends Tile implements FunctionalTile {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.Pit;
+	public Image getImage() {
+		return new Image("assets/tileassets/pit.png");
 	}
 
 

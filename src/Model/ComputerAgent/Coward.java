@@ -49,10 +49,12 @@ public class Coward extends ComputerAgent {
 	}
 
 	@Override
-	public AgentType getType() {
-		return AgentType.Coward;
+	public Image getImage() {
+		return new Image("assets/agentassets/coward.png");
 	}
 
-
+	public String toString() {
+		return "Coward";
+	}
 
 }

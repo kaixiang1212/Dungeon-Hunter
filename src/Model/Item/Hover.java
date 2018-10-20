@@ -1,7 +1,5 @@
 package Model.Item;
 
-import java.awt.Point;
-
 import Model.Dungeon;
 import javafx.scene.image.Image;
 
@@ -36,14 +34,14 @@ public class Hover extends Potion {
 
 	@Override
 	public void use(Dungeon map) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public ItemType getType() {
-		return ItemType.Hover;
+	public Image getImage() {
+		return new Image("assets/itemassets/hover.png");
 	}
 
-
+	public String toString() {
+		return "Hover";
+	}
 }

@@ -5,7 +5,6 @@ import Model.Tile.Door;
 import Model.Tile.Exit;
 import Model.Tile.Pit;
 import Model.Tile.Switch;
-import Model.Tile.Type;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

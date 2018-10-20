@@ -12,7 +12,6 @@ import Model.ComputerAgent.ComputerAgent;
 import Model.ComputerAgent.Hunter;
 import Model.Item.Key;
 import Model.Tile.Door;
-import Model.Tile.Type;
 
 import org.junit.Before;
 import org.junit.Test;

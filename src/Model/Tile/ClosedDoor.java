@@ -1,8 +1,5 @@
 package Model.Tile;
 
-import java.awt.Point;
-
-import Model.Dungeon;
 import Model.Player;
 import Model.Item.Key;
 import javafx.scene.image.Image;
@@ -32,10 +29,12 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.ClosedDoor;
+	public Image getImage() {
+		return new Image("assets/tileassets/closeddoor.png");
 	}
 
-
+	public String toString() {
+		return "Closed Door";
+	}
 
 }

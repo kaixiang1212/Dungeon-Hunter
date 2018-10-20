@@ -1,9 +1,6 @@
 package Model.ComputerAgent;
 
-import java.awt.Point;
-
 import Controller.PredictiveChaseBehaviour;
-import Model.Dungeon;
 import javafx.scene.image.Image;
 
 public class Strategist extends ComputerAgent {
@@ -13,10 +10,12 @@ public class Strategist extends ComputerAgent {
 	}
 
 	@Override
-	public AgentType getType() {
-		return AgentType.Strategist;
+	public Image getImage() {
+		return new Image("assets/agentassets/strategist.png");
 	}
-
-
+	
+	public String toString() {
+		return "Strategist";
+	}
 	
 }

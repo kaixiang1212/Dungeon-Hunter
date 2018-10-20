@@ -1,8 +1,5 @@
 package Model.Tile;
 
-import java.awt.Point;
-
-import Model.Dungeon;
 import Model.Player;
 import javafx.scene.image.Image;
 
@@ -33,10 +30,13 @@ public class Pit extends Tile implements FunctionalTile {
 	}
 
 	@Override
-	public Type getType() {
-		return state.getType();
+	public Image getImage() {
+		return new Image("assets/tileassets/pit.png");
 	}
 
+	public String toString() {
+		return "Pit";
+	}
 
 
 }

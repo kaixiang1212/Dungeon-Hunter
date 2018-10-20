@@ -173,6 +173,12 @@ public class DesignController {
 		this.updatePrompts();
 	}
 	@FXML
+	public void unlitBombSelected() {
+		this.currSelection = new Bomb();
+		System.out.println("Bomb selected");
+		this.updatePrompts();
+	}
+	@FXML
 	public void hotSwitch() {
 		GameScreen gs = new GameScreen(this.stage);
 		gs.start(this.d);

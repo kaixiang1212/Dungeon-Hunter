@@ -36,10 +36,18 @@ public class Switch extends Tile {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.Switch;
+	public Image getImage() {
+		return new Image("assets/tileassets/switch.png");
+	}
+	
+	@Override
+	public void place(Dungeon d, Point p) {
+		d.placeTile(this, p);
+		d.addSwitch(this, p);
 	}
 
-
+	public String toString() {
+		return "Switch";
+	}
 	
 }
