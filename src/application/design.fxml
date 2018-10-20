@@ -34,70 +34,105 @@
          <children>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#boulderSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/boulder.png" />
+                  <Image url="@../assets/agentassets/boulder.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#playerSelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/player.png" />
+                  <Image url="@../assets/agentassets/player.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#hunterSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/hunter.png" />
+                  <Image url="@../assets/agentassets/hunter.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#cowardSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/coward.png" />
+                  <Image url="@../assets/agentassets/coward.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#strategistSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/strategist.png" />
+                  <Image url="@../assets/agentassets/strategist.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#houndSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/hound.png" />
+                  <Image url="@../assets/agentassets/hound.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#defaultSelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/default.png" />
+                  <Image url="@../assets/tileassets/default.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#wallSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/wall.png" />
+                  <Image url="@../assets/tileassets/wall.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#switchSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/switch.png" />
+                  <Image url="@../assets/tileassets/switch.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#pitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/pit.png" />
+                  <Image url="@../assets/tileassets/pit.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#openDoorSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/opendoor.png" />
+                  <Image url="@../assets/tileassets/opendoor.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#closedDoorSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/closeddoor.png" />
+                  <Image url="@../assets/tileassets/closeddoor.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#exitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../../../../dungeonimages/croppedsprites/exit.png" />
+                  <Image url="@../assets/tileassets/exit.png" />
                </image>
             </ImageView>
             <Label prefHeight="30.0" prefWidth="75.0" text="Choose:" />
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#invincibilitySelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/invincibility.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#hoverSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/hover.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#swordSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#arrowSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#treasureSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/treasure.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/unlitbomb.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#keySelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/key.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </bottom>
