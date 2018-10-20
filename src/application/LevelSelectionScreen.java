@@ -1,22 +1,22 @@
 package application;
 
-import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-
 import java.io.IOException;
 
-public class MenuScreen {
-    
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class LevelSelectionScreen {
     private Stage stage;
     private String screenTitle;
     private FXMLLoader fxmlLoader;
+    private String fxmlFile;
     
-    public MenuScreen(Stage stage) {
+    public LevelSelectionScreen(Stage stage) {
         this.stage = stage;
-        this.screenTitle = "Main Menu";
-        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/MainMenu.fxml"));
+        this.screenTitle = "Level Selection Menu";
+        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/LevelSelectionMenu.fxml"));
     }
     
     public Stage getStage() {
@@ -25,7 +25,7 @@ public class MenuScreen {
     
     public void start() {
         stage.setTitle(screenTitle);
-        fxmlLoader.setController(new MainMenuController(stage));
+        fxmlLoader.setController(new LevelSelectionController(stage));
         try {
             Parent root = fxmlLoader.load();
             Scene sc = new Scene(root, 500,300);
@@ -36,5 +36,4 @@ public class MenuScreen {
             e.printStackTrace();
         }
     }
-    
 }

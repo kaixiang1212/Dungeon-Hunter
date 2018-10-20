@@ -3,7 +3,7 @@ package application;
 import javafx.stage.Stage;
 
 public class Controller {
-    private Stage s;
+    public Stage s;
     
     public Controller(Stage s) {
         this.s = s;

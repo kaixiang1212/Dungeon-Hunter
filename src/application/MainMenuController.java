@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 
 
-public class MainMenuController extends Controller {
+public class MainMenuController {
     
    // private String statement;
     
@@ -17,9 +17,10 @@ public class MainMenuController extends Controller {
     
     @FXML
     private AnchorPane anchor;
+    private Stage stage;
     
     public MainMenuController(Stage s) {
-        super(s);  
+        this.stage = s;
     }
 
     @FXML
@@ -28,14 +29,20 @@ public class MainMenuController extends Controller {
         //anchor.getChildren();
         //statementUI.sesetLayoutY(100);
         //statementUI.setFont(new Font("Arial", 17));
+       //this.setupStageDimensions(); 
     }
+         
+    public void setupStageDimensions() {
+        stage.setMaximized(true);
+    }
+    
     
     @FXML 
     public void handleLevelSelectionButton() {
-        MenuScreen levelSelectionScreen = new MenuScreen(super.getS(), "Level Selection", "application/LevelSelectionMenu.fxml");
-        LevelSelectionController levelSelectionController = new LevelSelectionController(super.getS());
+        LevelSelectionScreen levelSelectionScreen = new LevelSelectionScreen(stage);
+        //LevelSelectionController levelSelectionController = new LevelSelectionController(stage);
         
-        levelSelectionScreen.start(levelSelectionController);
+        levelSelectionScreen.start();
     }
     
     public void handleQuitMainMenuButton() {
