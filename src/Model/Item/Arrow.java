@@ -50,10 +50,6 @@ public class Arrow extends RangedWeapon {
 		return ItemType.Arrow;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 }

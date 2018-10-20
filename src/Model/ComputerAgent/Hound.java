@@ -16,11 +16,7 @@ public class Hound extends ComputerAgent {
 		return AgentType.Hound;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	
 }

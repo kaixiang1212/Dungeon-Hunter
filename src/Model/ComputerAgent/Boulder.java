@@ -54,11 +54,7 @@ public class Boulder extends ComputerAgent {
 		return AgentType.Boulder;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		d.placeComputerAgent(this, point);
-	}
+
 
 
 

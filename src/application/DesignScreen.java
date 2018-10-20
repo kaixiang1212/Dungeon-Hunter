@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import Model.Dungeon;
+
 public class DesignScreen {
 
     private Stage s;
@@ -19,10 +21,10 @@ public class DesignScreen {
         this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/design.fxml"));
     }
 
-    public void start()  {
+    public void start(Dungeon d)  {
         s.setTitle(title);
         // set controller for start.fxml
-        fxmlLoader.setController(new DesignController(s));
+        fxmlLoader.setController(new DesignController(s, d));
         try {
             // load into a Parent node called root
             Parent root = fxmlLoader.load();  

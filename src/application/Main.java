@@ -10,8 +10,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         
         // set the stage height to be 400
-        // set the stage width to be 600
-           
+        // set the stage width to be 600          
         primaryStage.setHeight(1000);
         primaryStage.setWidth(900);
         primaryStage.centerOnScreen();
@@ -20,7 +19,7 @@ public class Main extends Application {
        
        //gameScreen.start();
           //DesignScreen designScreen = new DesignScreen(primaryStage);
-          //designScreen.start();
+          //designScreen.start(null);
           
           //change this to start with Main menu screen
           
@@ -33,6 +32,7 @@ public class Main extends Application {
           
           //GameScreen gameScreen = new GameScreen(primaryStage);
          // gameScreen.start();
+
     }
 
     public static void main(String[] args) {

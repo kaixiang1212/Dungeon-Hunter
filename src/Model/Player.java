@@ -5,6 +5,7 @@ import Model.Item.Key;
 import Model.Item.Potion;
 import javafx.scene.image.Image;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import static Controller.Direction.RIGHT;
@@ -12,7 +13,7 @@ import static Controller.Direction.RIGHT;
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction
  */
-public class Player {
+public class Player extends Paintable {
 
 	private boolean isDead;
 	private PlayerInventory inventory;
@@ -175,5 +176,11 @@ public class Player {
 	public void fallsIntoPit() {
 		if (isHover()) return;
 		else die();
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		d.placePlayer(this, point);
+		
 	}
 }

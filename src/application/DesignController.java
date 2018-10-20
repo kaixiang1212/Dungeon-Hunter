@@ -5,7 +5,13 @@ import java.awt.Point;
 import Controller.NoMoveBehaviour;
 import Model.Dungeon;
 import Model.Paintable;
+import Model.Player;
 import Model.ComputerAgent.Boulder;
+import Model.ComputerAgent.Coward;
+import Model.ComputerAgent.Hound;
+import Model.ComputerAgent.Hunter;
+import Model.ComputerAgent.Strategist;
+import Model.Tile.*;
 import View.DungeonRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,19 +30,26 @@ public class DesignController {
 	@FXML
 	private Pane mainPane;
 	
-	public DesignController(Stage s) {
+	public DesignController(Stage s, Dungeon d) {
 		this.stage = s;
+		this.currSelection = new DefaultTile();
+		this.d = d;
 	}
 
 	
 	@FXML 
 	public void initialize() {
-		int size = 9;
-		Dungeon customDungeon = new Dungeon(size);
-		this.d = customDungeon;
-		mainPane.setMaxHeight((size+2) * 32);
-		mainPane.setMaxWidth((size+2) * 32);
-		this.drender = new DungeonRenderer(customDungeon);
+		/**
+		 * Todo find a way to pass size the person wants :)
+		 */
+		if(this.d == null) {
+			int size = 9;
+			Dungeon customDungeon = new Dungeon(size);
+			this.d = customDungeon;
+		}
+		mainPane.setMaxHeight((d.getSize()+2) * 32);
+		mainPane.setMaxWidth((d.getSize()+2) * 32);
+		this.drender = new DungeonRenderer(this.d);
 		this.drender.render(mainPane);
 		stage.setMaximized(true);
 
@@ -54,8 +67,55 @@ public class DesignController {
 	@FXML
 	public void boulderSelected() {
 		this.currSelection = new Boulder(new NoMoveBehaviour());
-		System.out.println("Boulder has been selected");
-
+	}
+	@FXML
+	public void hunterSelected() {
+		this.currSelection = new Hunter();
+	}
+	@FXML
+	public void houndSelected() {
+		this.currSelection = new Hound();
+	}
+	@FXML
+	public void strategistSelected() {
+		this.currSelection = new Strategist();
+	}
+	@FXML
+	public void cowardSelected() {
+		this.currSelection = new Coward();
+	}
+	@FXML
+	public void playerSelected() {
+		this.currSelection = new Player();
+	}
+	@FXML
+	public void defaultSelected() {
+		this.currSelection = new DefaultTile();
+	}
+	@FXML
+	public void wallSelected() {
+		this.currSelection = new Wall();
+	}
+	@FXML
+	public void switchSelected() {
+		this.currSelection = new Switch();
+	}
+	@FXML
+	public void pitSelected() {
+		this.currSelection = new Pit();
+	}
+	@FXML
+	public void openDoorSelected() {
+		this.currSelection = new OpenedDoor();
+	}
+	@FXML
+	public void exitSelected() {
+		this.currSelection = new Exit();
+	}
+	@FXML
+	public void hotSwitch() {
+		GameScreen gs = new GameScreen(this.stage);
+		gs.start(this.d);
 	}
 	
 }

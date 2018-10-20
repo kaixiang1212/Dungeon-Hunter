@@ -45,10 +45,6 @@ public class Door extends Tile implements FunctionalTile {
 		return state.getType();
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

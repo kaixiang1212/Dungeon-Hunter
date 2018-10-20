@@ -36,10 +36,6 @@ public class ClosedDoor extends Tile implements FunctionalTile {
 		return Type.ClosedDoor;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

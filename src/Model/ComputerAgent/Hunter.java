@@ -22,9 +22,5 @@ public class Hunter extends ComputerAgent {
 		return AgentType.Hunter;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

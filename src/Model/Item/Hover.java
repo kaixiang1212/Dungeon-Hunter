@@ -45,9 +45,5 @@ public class Hover extends Potion {
 		return ItemType.Hover;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

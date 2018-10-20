@@ -49,7 +49,7 @@ public class LevelSelectionController {
     public void handlePlayLevel1Button() {
         GameScreen playLevel1Screen = new GameScreen(stage);
         //GameLaunchController level1Controller = new GameLaunchController(super.getS());
-        playLevel1Screen.start();
+        playLevel1Screen.start(null);
     }
     
     

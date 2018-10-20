@@ -1,5 +1,7 @@
 package Model.Item;
 
+import java.awt.Point;
+
 import Model.Dungeon;
 import Model.Player;
 import Model.Paintable;
@@ -44,6 +46,11 @@ public abstract class Item extends Paintable {
 	
 	public boolean isType(ItemType type) {
 		return type.equals(getType());
+	}
+	@Override
+	public void place(Dungeon d, Point p) {
+		// TODO Auto-generated method stub
+		d.placeItem(this, p);
 	}
 }
 

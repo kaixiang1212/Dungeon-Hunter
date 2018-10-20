@@ -12,10 +12,5 @@ public class Exit extends Tile {
 		return Type.Exit;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -36,9 +36,5 @@ public class Invincibility extends Potion {
 		return ItemType.Invincibility;
 	}
 
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

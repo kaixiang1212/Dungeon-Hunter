@@ -45,9 +45,5 @@ public class Key extends Item {
 	public ItemType getType() {
 		return ItemType.Key;
 	}
-	@Override
-	public void place(Dungeon d, Point point) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }
