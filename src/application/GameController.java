@@ -187,7 +187,7 @@ public class GameController {
 	 */
 	public void checkDungeonState() {
 		if(d.hasLost()) {
-			System.out.println("You have Lost \n");
+			System.out.println("You have Lost\n");
 		}
 		else if(d.hasWon()) {
 			System.out.println("You have Won\n");
@@ -198,5 +198,6 @@ public class GameController {
 		DesignScreen ds = new DesignScreen(this.stage);
 		ds.start(this.d);
 	}
+	
 }
 
