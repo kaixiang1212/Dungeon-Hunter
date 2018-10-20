@@ -58,7 +58,10 @@ public class Boulder extends ComputerAgent {
 		// TODO Auto-generated method stub
 		return new Image("assets/agentassets/boulder.png");
 	}
-
+	
+	public String toString() {
+		return "Boulder";
+	}
 
 
 

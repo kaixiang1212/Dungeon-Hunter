@@ -42,13 +42,8 @@ public class Key extends Item {
 		return "Key";
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.Key;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/key.png");
 	}
 	@Override

@@ -1,7 +1,5 @@
 package Model.Item;
 
-import java.awt.Point;
-
 import Model.Dungeon;
 import Model.Player;
 import Model.Item.Item;
@@ -15,7 +13,6 @@ public class Treasure extends Item {
 
 	@Override
 	public void use(Dungeon map) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -31,13 +28,8 @@ public class Treasure extends Item {
 		return "Treasure x" + getQuantity();
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.Treasure;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/treasure.png");
 	}
 	public boolean equals(Object o) {

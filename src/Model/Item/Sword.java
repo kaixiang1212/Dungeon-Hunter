@@ -1,8 +1,5 @@
 package Model.Item;
 
-import java.awt.Point;
-
-import Model.Dungeon;
 import javafx.scene.image.Image;
 
 public class Sword extends MeleeWeapon {
@@ -26,13 +23,8 @@ public class Sword extends MeleeWeapon {
 		return "Sword x" + getnumUses();
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.Sword;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/sword.png");
 	}
 

@@ -123,7 +123,7 @@
                   <Image url="@../assets/itemassets/treasure.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#unlitBombSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <image>
                   <Image url="@../assets/itemassets/unlitbomb.png" />
                </image>
@@ -137,7 +137,7 @@
       </GridPane>
    </bottom>
    <center>
-      <Pane fx:id="mainPane" onMouseClicked="#handlePlacement" prefHeight="297.0" prefWidth="477.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="mainPane" onMouseClicked="#handlePlacement" prefHeight="257.0" prefWidth="416.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <HBox prefHeight="35.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
@@ -155,7 +155,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="selectPrompt" prefHeight="32.0" prefWidth="114.0" textFill="RED">
+            <Label fx:id="selectPrompt" prefHeight="32.0" prefWidth="125.0" textFill="RED">
                <font>
                   <Font size="18.0" />
                </font>

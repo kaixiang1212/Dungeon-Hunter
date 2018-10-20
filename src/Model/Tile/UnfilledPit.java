@@ -19,13 +19,8 @@ public class UnfilledPit extends Tile implements FunctionalTile {
 		player.fallsIntoPit();
 	}
 
-//	@Override
-//	public Type getType() {
-//		return Type.Pit;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/tileassets/pit.png");
 	}
 

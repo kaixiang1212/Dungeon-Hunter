@@ -61,10 +61,11 @@ public class GameController {
 		this.stage = s;
 		this.d = d;
 		this.renderer = new DungeonRenderer(d);
+		
 	}
 	
 	@FXML 
-	public void initialize() {
+	public void initialize()  {
 
 		//Temporary setup we actually want to pass a dungeon
 		if(this.d == null) {
@@ -104,6 +105,7 @@ public class GameController {
 	
 		render();
 	}
+
 
 	/**
 	 * Calls renderUtil to render multiple grids

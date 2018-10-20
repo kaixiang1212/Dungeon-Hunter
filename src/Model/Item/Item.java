@@ -42,14 +42,8 @@ public abstract class Item extends Paintable {
 		return this instanceof Treasure;
 	}
 	
-//	public abstract ItemType getType();
-//	
-//	public boolean isType(ItemType type) {
-//		return type.equals(getType());
-//	}
 	@Override
 	public void place(Dungeon d, Point p) {
-		// TODO Auto-generated method stub
 		d.placeItem(this, p);
 
 	}

@@ -38,20 +38,14 @@ public class Arrow extends RangedWeapon {
 	 */
 	@Override
 	public boolean isStackable() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	public String toString() {
 		return "Arrow x" + getQuantity();
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.Arrow;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/arrow.png");
 	}
 	

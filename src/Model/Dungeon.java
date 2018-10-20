@@ -32,7 +32,7 @@ import Model.Tile.Wall;
 import Model.Tile.Switch;
 import javafx.scene.image.Image;
 
-public class Dungeon {
+public class Dungeon implements Cloneable{
 
 	public final int MAX_SIZE = 20;
 
@@ -70,7 +70,9 @@ public class Dungeon {
         this.doorCode = new ArrayDeque<>();
     }
    
-
+    public Object clone() throws CloneNotSupportedException {
+    	return super.clone();
+    }
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
     }

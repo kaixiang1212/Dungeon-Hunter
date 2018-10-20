@@ -65,13 +65,8 @@ public class Bomb extends Item {
 		return "Bomb";
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.Bomb;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/unlitbomb.png");
 	}
 

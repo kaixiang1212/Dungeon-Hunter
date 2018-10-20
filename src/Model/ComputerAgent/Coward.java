@@ -48,15 +48,13 @@ public class Coward extends ComputerAgent {
 		return super.getPos();
 	}
 
-//	@Override
-//	public AgentType getType() {
-//		return AgentType.Coward;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/agentassets/coward.png");
 	}
 
+	public String toString() {
+		return "Coward";
+	}
 
 }

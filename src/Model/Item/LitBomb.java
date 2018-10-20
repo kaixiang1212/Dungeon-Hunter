@@ -49,13 +49,8 @@ public class LitBomb extends Item {
 		}
 	}
 
-//	@Override
-//	public ItemType getType() {
-//		return ItemType.LitBomb;
-//	}
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/itemassets/litbomb.png");
 	}
 
