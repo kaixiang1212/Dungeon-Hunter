@@ -45,7 +45,7 @@ public class DesignController {
 		 * Todo find a way to pass size the person wants :)
 		 */
 		if(this.d == null) {
-			int size = 20;
+			int size = 14;
 			Dungeon customDungeon = new Dungeon(size);
 			this.d = customDungeon;
 		}
@@ -174,7 +174,6 @@ public class DesignController {
 	@FXML
 	public void unlitBombSelected() {
 		this.currSelection = new Bomb();
-		System.out.println("Bomb selected");
 		this.updatePrompts();
 	}
 	@FXML

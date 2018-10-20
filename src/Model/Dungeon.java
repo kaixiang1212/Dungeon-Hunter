@@ -619,5 +619,8 @@ public class Dungeon implements Cloneable{
 		System.out.println(tileGrid.containsValue(tile));
 		return tileGrid.containsValue(tile);
 	}
+	public String getInventoryDescription() {
+		return player.getInventoryDescription();
+	}
     
 }

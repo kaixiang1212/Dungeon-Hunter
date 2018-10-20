@@ -41,10 +41,10 @@ public class PlayerInventory {
 		return null;
 	}
 	public void removeItem(Item i) {
-		this.items.remove(i);
+		items.remove(i);
 	}
 	public boolean isEmpty() {
-		if (this.items.isEmpty()) {
+		if (items.isEmpty()) {
 			return true;
 		}
 		return false;
@@ -59,7 +59,19 @@ public class PlayerInventory {
 	}
 	
 	public int getNumItems() {
-		return this.items.size();
+		return items.size();
+	}
+	public String toString() {
+		if(items.size() == 0) {
+			return "None";
+		}
+		StringBuilder sb = new StringBuilder();
+		for(Item i:items) {
+			sb.append(i.toString() + "\n");
+			
+		}
+		String desc = new String(sb);
+		return desc;
 	}
 }
 

@@ -56,6 +56,8 @@ public class GameController {
 	private Label promptLabel;
 	@FXML
 	private Pane inventoryPane;
+	@FXML
+	private Label inventoryContents;
 	
 	public GameController(Stage s, Dungeon d) {
 		this.stage = s;
@@ -66,7 +68,9 @@ public class GameController {
 	
 	@FXML 
 	public void initialize()  {
-
+		if(d.getPlayer() != null) {
+			inventoryContents.setText(d.getInventoryDescription());
+		}
 		//Temporary setup we actually want to pass a dungeon
 		if(this.d == null) {
 			int size = 8;
@@ -176,9 +180,12 @@ public class GameController {
 			selected = d.selectItemSlot(2);
 			break;
 		}
+
 		if(selected != null) {
 			promptLabel.setText(selected.toString());
 		}
+		inventoryContents.setText(d.getInventoryDescription());
+		System.out.println(d.getInventoryDescription());
 		render();
 		checkDungeonState();
 	}
