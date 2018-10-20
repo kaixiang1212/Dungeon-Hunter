@@ -13,7 +13,7 @@ public class Main extends Application {
         primaryStage.setWidth(800);
 
 //        GameScreen gameScreen = new GameScreen(primaryStage);
-//        gameScreen.start();
+//        gameScreen.start(null);
           DesignScreen designScreen = new DesignScreen(primaryStage);
           designScreen.start(null);
     }
