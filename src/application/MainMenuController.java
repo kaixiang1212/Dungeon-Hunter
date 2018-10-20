@@ -40,11 +40,11 @@ public class MainMenuController {
     @FXML 
     public void handleLevelSelectionButton() {
         LevelSelectionScreen levelSelectionScreen = new LevelSelectionScreen(stage);
-        //LevelSelectionController levelSelectionController = new LevelSelectionController(stage);
-        
+        //LevelSelectionController levelSelectionController = new LevelSelectionController(stage)        
         levelSelectionScreen.start();
     }
     
+    @FXML
     public void handleQuitMainMenuButton() {
         System.exit(1);
     }

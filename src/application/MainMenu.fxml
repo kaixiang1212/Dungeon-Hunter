@@ -17,7 +17,7 @@
                <children>
                   <ImageView fitHeight="1113.0" fitWidth="1001.0" layoutX="-33.0" layoutY="-52.0" smooth="false">
                      <image>
-                        <Image url="@../../../../../../Downloads/madameberry_pub_domain_backgrounds/fragile-soft-machine.png" />
+                        <Image url="@../assets/menuassests/fragile-soft-machine.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="levelSelectionButton" layoutX="411.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleLevelSelectionButton" prefHeight="27.0" prefWidth="174.0" text="Level Selection" />

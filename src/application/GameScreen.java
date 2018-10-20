@@ -38,8 +38,7 @@ public class GameScreen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
     }
     
-
 }
+  

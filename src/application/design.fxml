@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -97,7 +97,7 @@
                   <Image url="@../assets/tileassets/exit.png" />
                </image>
             </ImageView>
-            <Label prefHeight="30.0" prefWidth="75.0" text="Choose:" />
+            <Label prefHeight="30.0" prefWidth="75.0" />
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#invincibilitySelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                <image>
                   <Image url="@../assets/itemassets/invincibility.png" />

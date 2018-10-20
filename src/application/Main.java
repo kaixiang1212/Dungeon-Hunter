@@ -18,8 +18,8 @@ public class Main extends Application {
         
         
           
-        DesignScreen designScreen = new DesignScreen(primaryStage);
-        designScreen.start(null);
+        //DesignScreen designScreen = new DesignScreen(primaryStage);
+        //designScreen.start(null);
         
         
         
@@ -50,9 +50,9 @@ public class Main extends Application {
         
           //Main Menu -> Level Selection Menu -> game
         
-          //MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
+          MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
           //MainMenuController mainMenuController = new MainMenuController(primaryStage);
-          //mainMenuScreen.start();
+          mainMenuScreen.start();
 
     }
 

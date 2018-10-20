@@ -8,7 +8,6 @@ import javafx.scene.text.Font;
 import javafx.scene.layout.AnchorPane;
 
 
-
 public class LevelSelectionController {
     
   
@@ -47,9 +46,9 @@ public class LevelSelectionController {
     
     @FXML
     public void handlePlayLevel1Button() {
-        GameScreen playLevel1Screen = new GameScreen(stage);
+        DesignScreen designScreen = new DesignScreen(stage);
         //GameLaunchController level1Controller = new GameLaunchController(super.getS());
-        playLevel1Screen.start(null);
+        designScreen.start(null);
     }
     
     

@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -36,12 +37,17 @@ import View.PlayerRenderer;
 import View.Renderer;
 import View.TileRenderer;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class GameController {
@@ -185,12 +191,18 @@ public class GameController {
 	/**
 	 * TODO: Add loading of win or loss screen, which allows exit of game or restart?
 	 */
+	
 	public void checkDungeonState() {
 		if(d.hasLost()) {
-			System.out.println("You have Lost\n");
+		    //System.out.println("You have Lost\n");
+		    GameLostScreen gameLostScreen = new GameLostScreen(stage);
+		    gameLostScreen.start();
+						
 		}
 		else if(d.hasWon()) {
 			System.out.println("You have Won\n");
+			GameWonScreen gameWonScreen = new GameWonScreen(stage);
+            gameWonScreen.start();
 		}
 	}
 	@FXML
@@ -198,6 +210,7 @@ public class GameController {
 		DesignScreen ds = new DesignScreen(this.stage);
 		ds.start(this.d);
 	}
+
 	
 }
 
