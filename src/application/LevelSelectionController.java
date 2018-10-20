@@ -40,7 +40,7 @@ public class LevelSelectionController {
     
     @FXML 
     public void handleBackButton() {
-        MenuScreen menuScreen = new MenuScreen(stage);
+        MainMenuScreen menuScreen = new MainMenuScreen(stage);
         // MainMenuController mainMenuController = new MainMenuController(stage);
         menuScreen.start();
     }

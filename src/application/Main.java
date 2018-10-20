@@ -26,7 +26,7 @@ public class Main extends Application {
           
           //implement play game to launch Game Screen
           
-          MenuScreen mainMenuScreen = new MenuScreen(primaryStage);
+          MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
           //MainMenuController mainMenuController = new MainMenuController(primaryStage);
           mainMenuScreen.start();
          

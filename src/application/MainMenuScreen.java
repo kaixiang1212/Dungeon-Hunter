@@ -7,13 +7,13 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class MenuScreen {
+public class MainMenuScreen {
     
     private Stage stage;
     private String screenTitle;
     private FXMLLoader fxmlLoader;
     
-    public MenuScreen(Stage stage) {
+    public MainMenuScreen(Stage stage) {
         this.stage = stage;
         this.screenTitle = "Main Menu";
         this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/MainMenu.fxml"));
