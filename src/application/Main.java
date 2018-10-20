@@ -9,30 +9,32 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
+        
         // set the stage height to be 400
         // set the stage width to be 600          
+        
         primaryStage.setHeight(1000);
         primaryStage.setWidth(900);
-        primaryStage.centerOnScreen();
-        //primaryStage.setMaximized(true);
-       //GameScreen gameScreen = new GameScreen(primaryStage);
-       
-       //gameScreen.start();
+        primaryStage.centerOnScreen();       
+  
+         
+          //GAME MODE (Direct)
+        
+          //GameScreen gameScreen = new GameScreen(primaryStage);
+          // gameScreen.start();
+                
+        
+          //DESIGN MODE (Direct)
+        
           //DesignScreen designScreen = new DesignScreen(primaryStage);
           //designScreen.start(null);
           
-          //change this to start with Main menu screen
-          
-          //implement play game to launch Game Screen
-          
+        
+          //Main Menu -> Level Selection Menu -> game
+        
           MainMenuScreen mainMenuScreen = new MainMenuScreen(primaryStage);
           //MainMenuController mainMenuController = new MainMenuController(primaryStage);
           mainMenuScreen.start();
-         
-          
-          //GameScreen gameScreen = new GameScreen(primaryStage);
-         // gameScreen.start();
-
     }
 
     public static void main(String[] args) {
