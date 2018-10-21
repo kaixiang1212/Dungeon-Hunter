@@ -16,11 +16,7 @@ public class AgentRenderer extends Renderer {
 
 	@Override
 	public Image getImage(Point point) {
-//		ComputerAgent comp = dungeon.getAgent(point);
-//		if (comp != null) return images.get(comp.getType());
-//		return null;
 		return dungeon.proxygettiles(point, dungeon.getAgentGrid());
-		
 	}
 
 }
