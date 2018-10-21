@@ -73,6 +73,11 @@ public class Dungeon implements Cloneable{
     	Dungeon clone =  (Dungeon) super.clone();
     	Map<Point, Item> itemGridClone = new HashMap<Point, Item>();
         Map<Point, ComputerAgent> agentGridClone = new HashMap<Point, ComputerAgent>();
+        Map<Point, Tile> tileGridClone = new HashMap<>();
+
+        for (Map.Entry<Point, Tile> entry: this.tileGrid.entrySet()) {
+        	tileGridClone.put(entry.getKey(), entry.getValue().clone());
+        }
         for(Map.Entry<Point, ComputerAgent> entry: this.agentGrid.entrySet()) {
         	agentGridClone.put(entry.getKey(), entry.getValue().clone());
         }
@@ -83,6 +88,7 @@ public class Dungeon implements Cloneable{
         clone.player = playerClone;
         clone.agentGrid = agentGridClone;
     	clone.itemGrid = itemGridClone;
+    	clone.tileGrid = tileGridClone;
     	return clone;
     }
     public Map<Point, Tile> getTileGrid() {
