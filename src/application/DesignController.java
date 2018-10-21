@@ -80,6 +80,7 @@ public class DesignController {
 	}
 	public void updatePrompts() {
 		this.selectPrompt.setText(currSelection.toString());
+		this.errorMessage.setText("");
 	}
 	/**
 	 * Gets coordinates of click on dungeon, divides by num pixels width of each tile [32]
@@ -97,7 +98,7 @@ public class DesignController {
 			try {
 				currSelection.place(d, new Point(x,y));
 			} catch (Exception e) {
-				e.printStackTrace();
+				errorMessage.setText(e.getMessage());;
 			}
 			Paintable clone = (Paintable) this.currSelection.clone();
 			this.currSelection = clone;
