@@ -227,7 +227,11 @@ public class DesignController {
 		this.drender = new DungeonRenderer(this.d);
 		this.drender.render(mainPane);
 	}
-
+	@FXML
+	public void ghostSelected() {
+		this.currSelection = new Ghost();
+		this.updatePrompts();
+	}
 	public void initDungeon() {
 		Dungeon customDungeon = new Dungeon(14);
 		this.d = customDungeon;

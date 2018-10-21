@@ -64,6 +64,11 @@ public class Dungeon implements Cloneable{
         this.doorCode = new ArrayDeque<>();
     }
    
+    /**
+     * Modification of standard shallow clone methods
+     * Allowing for deeper cloning of HashMap states of items and computer agents
+     * Meaning that there are unique instances of items and agents being pointed at
+     */
     public Dungeon clone() throws CloneNotSupportedException {
     	Dungeon clone =  (Dungeon) super.clone();
     	Map<Point, Item> itemGridClone = new HashMap<Point, Item>();
