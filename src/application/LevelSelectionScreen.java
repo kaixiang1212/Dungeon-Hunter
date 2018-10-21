@@ -1,7 +1,6 @@
 package application;
 
 import java.io.IOException;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,16 +10,11 @@ public class LevelSelectionScreen {
     private Stage stage;
     private String screenTitle;
     private FXMLLoader fxmlLoader;
-    private String fxmlFile;
     
     public LevelSelectionScreen(Stage stage) {
         this.stage = stage;
         this.screenTitle = "Level Selection Menu";
         this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/LevelSelectionMenu.fxml"));
-    }
-    
-    public Stage getStage() {
-        return stage;
     }
     
     public void start() {

@@ -22,7 +22,7 @@ public class MainMenuController {
     public MainMenuController(Stage s) {
         this.stage = s;
     }
-
+    
     @FXML
     public void initialize() {
         //statementUI = new Label(statement);
@@ -36,7 +36,6 @@ public class MainMenuController {
         stage.setMaximized(true);
     }
     
-    
     @FXML 
     public void handleLevelSelectionButton() {
         LevelSelectionScreen levelSelectionScreen = new LevelSelectionScreen(stage);
@@ -47,7 +46,5 @@ public class MainMenuController {
     @FXML
     public void handleQuitMainMenuButton() {
         System.exit(1);
-    }
-    
-  
+    } 
 }

@@ -149,6 +149,7 @@ public class GameController {
 
 	//Temporary solution
 	//Ideally some game loop with threading and animation
+	
 	@FXML
 	public void playerMovement(KeyEvent key) {
 		System.out.print(key.getCode() + "\n");

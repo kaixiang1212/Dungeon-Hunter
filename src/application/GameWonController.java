@@ -14,20 +14,7 @@ public class GameWonController {
     private Stage stage;
    
     public GameWonController(Stage s) {
-     this.stage = s;
-             
-    }
-    
-    @FXML
-    public void initialize() {
-     
-        //this.setupStageDimensions();
-    }
-    
-    public void setupStageDimensions() {
-        ///stage.setMaximized(true);
-        //stage.initOwner();
-        //stage.centerOnScreen();      
+     this.stage = s;       
     }
     
     @FXML 
@@ -37,6 +24,9 @@ public class GameWonController {
         menuScreen.start();
     }
     
+    public void handleQuitGame() {
+        System.exit(1);
+    }
     
    
 }

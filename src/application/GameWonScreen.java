@@ -15,27 +15,15 @@ import javafx.stage.Stage;
 
 public class GameWonScreen {
     private Stage stage;
-    private String screenTitle;
     private FXMLLoader fxmlLoader;
-    private String fxmlFile;
 
     
     public GameWonScreen(Stage stage) {
         this.stage = stage;
-        this.screenTitle = "Game Lost";
        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/GameLost.fxml"));
     }
     
-    public Stage getStage() {
-        return stage;
-    }
-    
     public void start() {
-        //FXMLLoader fxml = new FXMLoader("application/GameLost.fxml");
-        //Label secondLabel = new Label("I'm a Label on new Window");          
-        //StackPane secondaryLayout = new StackPane();
-        
-        //secondaryLayout.getChildren().add(secondLabel);
         fxmlLoader.setController(new GameLostController(stage));
         try {  
             Parent root = fxmlLoader.load();

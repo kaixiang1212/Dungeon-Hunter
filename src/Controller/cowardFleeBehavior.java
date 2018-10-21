@@ -65,7 +65,7 @@ public class cowardFleeBehavior extends MoveBehaviour {
 	 * @return return distance between a and b
 	 */
 	private int getDistance(Point a, Point b) {
-		return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+		return Math.abs(a.x - b.x)+ Math.abs(a.y - b.y);
 	}
 
 	@Override

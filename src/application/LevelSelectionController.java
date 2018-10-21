@@ -1,10 +1,7 @@
 package application;
 
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.text.Font;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -30,7 +27,6 @@ public class LevelSelectionController {
         //this.setupStageDimensions();
     }
          
-    
     public void setupStageDimensions() {
         stage.setMaximized(true);
         //stage.centerOnScreen();      
