@@ -25,10 +25,8 @@ public class GameScreen {
 
     public void start(Dungeon d)  {
         s.setTitle(title);
-        // set controller for start.fxml
         fxmlLoader.setController(new GameController(s, d));
         try {
-            // load into a Parent node called root
             Parent root = fxmlLoader.load();  
             Scene sc = new Scene(root, 500, 300);
             s.setScene(sc);

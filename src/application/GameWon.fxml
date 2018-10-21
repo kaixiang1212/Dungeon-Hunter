@@ -16,7 +16,7 @@
    <children>
       <Pane prefHeight="439.0" prefWidth="689.0" scaleShape="false">
          <children>
-            <ImageView fitHeight="755.0" fitWidth="786.0">
+            <ImageView fitHeight="407.0" fitWidth="610.0">
                <image>
                   <Image url="@../assets/menuassests/metall001-new-tileable.png" />
                </image>

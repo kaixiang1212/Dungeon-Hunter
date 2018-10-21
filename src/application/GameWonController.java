@@ -20,7 +20,6 @@ public class GameWonController {
     @FXML 
     public void handleMainMenuButton() {
         MainMenuScreen menuScreen = new MainMenuScreen(stage);
-        // MainMenuController mainMenuController = new MainMenuController(stage);
         menuScreen.start();
     }
     

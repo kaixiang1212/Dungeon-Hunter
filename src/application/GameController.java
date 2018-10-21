@@ -116,6 +116,7 @@ public class GameController {
 		render();
 	}
 
+	
 
 	/**
 	 * Calls renderUtil to render multiple grids
@@ -189,7 +190,7 @@ public class GameController {
 						
 		}
 		else if(d.hasWon()) {
-			System.out.println("You have Won\n");
+			//System.out.println("You have Won\n");
 			GameWonScreen gameWonScreen = new GameWonScreen(stage);
             gameWonScreen.start();
 		}

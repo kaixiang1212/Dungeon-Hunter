@@ -15,27 +15,29 @@ import javafx.stage.Stage;
 
 public class GameWonScreen {
     private Stage stage;
+    private String screenTitle;
     private FXMLLoader fxmlLoader;
 
     
     public GameWonScreen(Stage stage) {
         this.stage = stage;
+        this.screenTitle = "GameWon";
        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/GameWon.fxml"));
     }
     
+    
+    
     public void start() {
-        fxmlLoader.setController(new GameLostController(stage));
+        stage.setTitle(screenTitle);
+        fxmlLoader.setController(new GameWonController(stage));
         try {  
             Parent root = fxmlLoader.load();
-            Scene sc = new Scene(root, 650, 700);
-            Stage newWindow = new Stage();
-            newWindow.setTitle("You Won");
-            newWindow.setScene(sc);
-            newWindow.show();
+            Scene sc = new Scene(root, 500,300);
+            stage.setScene(sc);   
+            stage.show();
+            sc.getRoot().requestFocus();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-        }   
-        
+        }
     }
 }
