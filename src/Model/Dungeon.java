@@ -290,7 +290,7 @@ public class Dungeon implements Cloneable{
     }
     
     public boolean isValidMoveArrow(Point point) {
-    	return (isValidMoveBasic(point) && (isAgentExist(point) && !getAgent(point).isMoveable()));
+    	return (isValidMoveBasic(point) || (isAgentExist(point) && !getAgent(point).isMoveable()));
     }
 
 
