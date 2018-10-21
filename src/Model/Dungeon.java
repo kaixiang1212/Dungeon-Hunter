@@ -549,4 +549,7 @@ public class Dungeon implements Cloneable{
 		return player.getInventoryDescription();
 	}
     
+	public boolean ableToPlaceKey() {
+		return doorCode.size() > 0;
+	}
 }

@@ -31,6 +31,8 @@ public class DesignController {
 	private Pane mainPane;
 	@FXML
 	private Pane frontPane;
+	@FXML
+	private Label errorMessage;
 	
 	public DesignController(Stage s, Dungeon d) {
 		this.stage = s;
@@ -71,7 +73,11 @@ public class DesignController {
 	public void handlePlacement(MouseEvent event) throws CloneNotSupportedException {
 		int x = (int) event.getX()/32;
 		int y = (int) event.getY()/32;
-		currSelection.place(d, new Point(x,y));
+		try {
+			currSelection.place(d, new Point(x,y));
+		} catch (Exception e) {
+			errorMessage.setText(e.getMessage());
+		}
 		Paintable clone = (Paintable) this.currSelection.clone();
 		this.currSelection = clone;
 		this.drender.render(mainPane);
