@@ -3,6 +3,7 @@ package application;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import Model.Dungeon;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.text.Font;
@@ -12,9 +13,11 @@ public class GameWonController {
 
     @FXML
     private Stage stage;
-   
-    public GameWonController(Stage s) {
-     this.stage = s;       
+    private Dungeon savedState;
+    
+    public GameWonController(Stage s, Dungeon d) {
+    	this.stage = s;       
+    	this.savedState = d;
     }
     
     @FXML 
@@ -22,7 +25,11 @@ public class GameWonController {
         MainMenuScreen menuScreen = new MainMenuScreen(stage);
         menuScreen.start();
     }
-    
+    @FXML
+    public void restartGame() {
+    	GameScreen gs = new GameScreen(stage);
+    	gs.start(savedState);
+    }
     public void handleQuitGame() {
         System.exit(1);
     }

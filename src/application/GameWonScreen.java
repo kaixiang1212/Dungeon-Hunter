@@ -27,9 +27,9 @@ public class GameWonScreen {
     
     
     
-    public void start() {
+    public void start(Dungeon d) {
         stage.setTitle(screenTitle);
-        fxmlLoader.setController(new GameWonController(stage));
+        fxmlLoader.setController(new GameWonController(stage, d));
         try {  
             Parent root = fxmlLoader.load();
             Scene sc = new Scene(root, 500,300);

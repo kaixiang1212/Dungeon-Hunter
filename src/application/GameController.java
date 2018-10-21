@@ -75,7 +75,6 @@ public class GameController {
 	
 	@FXML
 	public void playerMovement(KeyEvent key) {
-		System.out.print(key.getCode() + "\n");
 		switch (key.getCode()) {
 		case A:
 			d.updatePlayer(Direction.LEFT);
@@ -118,19 +117,19 @@ public class GameController {
 		if(d.hasLost()) {
 		    //System.out.println("You have Lost\n");
 		    GameLostScreen gameLostScreen = new GameLostScreen(stage);
-		    gameLostScreen.start();
+		    gameLostScreen.start(savedState);
 						
 		}
 		else if(d.hasWon()) {
 			//System.out.println("You have Won\n");
 			GameWonScreen gameWonScreen = new GameWonScreen(stage);
-            gameWonScreen.start();
+            gameWonScreen.start(savedState);
 		}
 	}
 	@FXML
 	public void hotSwitch() {
 		DesignScreen ds = new DesignScreen(this.stage);
-		ds.start(this.savedState);
+		ds.start(savedState);
 	}
 	@FXML
 	public void mainMenu() {

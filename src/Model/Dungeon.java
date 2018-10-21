@@ -79,7 +79,8 @@ public class Dungeon implements Cloneable{
         for(Map.Entry<Point, Item> entry: this.itemGrid.entrySet()) {
         	itemGridClone.put(entry.getKey(), entry.getValue().clone());
         }
-
+        Player playerClone = new Player();
+        clone.player = playerClone;
         clone.agentGrid = agentGridClone;
     	clone.itemGrid = itemGridClone;
     	return clone;

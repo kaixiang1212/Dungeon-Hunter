@@ -2,6 +2,8 @@ package application;
 
 
 import java.io.IOException;
+
+import Model.Dungeon;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,9 +21,9 @@ public class GameLostScreen {
        this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/GameLost.fxml"));
     }
     
-    public void start() {
+    public void start(Dungeon d) {
         stage.setTitle(screenTitle);
-        fxmlLoader.setController(new GameLostController(stage));
+        fxmlLoader.setController(new GameLostController(stage, d));
         try {  
             Parent root = fxmlLoader.load();
             Scene sc = new Scene(root, 500,300);

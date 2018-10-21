@@ -1,6 +1,7 @@
 package application;
 
 import javafx.stage.Stage;
+import Model.Dungeon;
 import javafx.fxml.FXML;
 
 
@@ -8,9 +9,11 @@ public class GameLostController {
 
     @FXML
     private Stage stage;
+    private Dungeon savedState;
    
-    public GameLostController(Stage s) {
-     this.stage = s;
+    public GameLostController(Stage s, Dungeon d) {
+    	this.stage = s;
+    	this.savedState = d;
              
     }
     
@@ -19,6 +22,12 @@ public class GameLostController {
         MainMenuScreen menuScreen = new MainMenuScreen(stage);
         // MainMenuController mainMenuController = new MainMenuController(stage);
         menuScreen.start();
+    }
+    
+    @FXML
+    public void restartGame() {
+    	GameScreen gs = new GameScreen(stage);
+    	gs.start(savedState);
     }
     
     @FXML
