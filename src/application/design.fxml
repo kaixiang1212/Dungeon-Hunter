@@ -140,7 +140,7 @@
       <Pane fx:id="mainPane" onMouseClicked="#handlePlacement" prefHeight="297.0" prefWidth="363.0" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <HBox prefHeight="35.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="128.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#hotSwitch" prefHeight="32.0" prefWidth="100.0" text="Play" />
             <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="32.0" prefWidth="100.0" text="Exit" />
@@ -148,15 +148,15 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="297.0" prefWidth="181.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_RIGHT" prefHeight="297.0" prefWidth="159.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="51.0" prefWidth="28.0" />
-            <Label text="Current Selection:" textFill="RED">
+            <Label prefHeight="22.0" prefWidth="162.0" text="Current Selection:" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="selectPrompt" prefHeight="32.0" prefWidth="125.0" text="None" textFill="RED">
+            <Label fx:id="selectPrompt" prefHeight="32.0" prefWidth="160.0" text="None" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="14.0" />
                </font>
@@ -165,6 +165,6 @@
       </VBox>
    </left>
    <right>
-      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="193.0" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER" />
    </right>
 </BorderPane>
