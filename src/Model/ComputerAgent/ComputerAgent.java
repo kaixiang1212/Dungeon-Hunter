@@ -14,7 +14,7 @@ import java.awt.Point;
  * @author Richard
  *
  */
-public abstract class ComputerAgent extends Paintable {
+public abstract class ComputerAgent extends Paintable implements Cloneable {
 
 	/**
 	 * moveBehaviour strategy which defines how computeragents traverse the map
@@ -68,6 +68,10 @@ public abstract class ComputerAgent extends Paintable {
 	@Override
 	public void remove(Dungeon d, Point point) {
 		d.removeAgent(point);
+	}
+	
+	public ComputerAgent clone() throws CloneNotSupportedException {
+		return (ComputerAgent) super.clone();
 	}
 }
 

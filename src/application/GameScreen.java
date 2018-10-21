@@ -23,7 +23,7 @@ public class GameScreen {
         this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/test2.fxml"));
     }
 
-    public void start(Dungeon d)  {
+    public void start(Dungeon d) {
         s.setTitle(title);
         // set controller for start.fxml
         fxmlLoader.setController(new GameController(s, d));

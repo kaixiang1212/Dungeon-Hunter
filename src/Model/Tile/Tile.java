@@ -20,4 +20,8 @@ public abstract class Tile extends Paintable {
 	public void remove(Dungeon d, Point point) {
 		d.getTileGrid().replace(point, new DefaultTile());
 	}
+	
+	public Tile clone() throws CloneNotSupportedException {
+		return (Tile) super.clone();
+	}
 }

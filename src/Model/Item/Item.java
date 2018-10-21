@@ -51,6 +51,11 @@ public abstract class Item extends Paintable {
 	public void remove(Dungeon d, Point point) {
 		d.removeItem(point);
 	}
+	
+	public Item clone() throws CloneNotSupportedException {
+		return (Item) super.clone();
+	}
+
 }
 
 

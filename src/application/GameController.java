@@ -1,48 +1,12 @@
 package application;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Map;
-
 import Controller.Direction;
-import Controller.NoMoveBehaviour;
-import Model.DefaultWinCondition;
 import Model.Dungeon;
-import Model.EnemiesKilledDecorator;
-import Model.ExitWinDecorator;
-import Model.Paintable;
-import Model.Player;
-import Model.SwitchWinDecorator;
-import Model.TreasureCollectedDecorator;
-import Model.WinCondition;
-import Model.ComputerAgent.Boulder;
-import Model.ComputerAgent.Coward;
-import Model.ComputerAgent.Hound;
-import Model.ComputerAgent.Hunter;
-import Model.ComputerAgent.Strategist;
-import Model.Item.Arrow;
-import Model.Item.Hover;
-import Model.Item.Invincibility;
 import Model.Item.Item;
-import Model.Item.Key;
-import Model.Item.Sword;
-import Model.Item.Treasure;
-import Model.Tile.Door;
-import Model.Tile.Exit;
-import Model.Tile.Pit;
-import Model.Tile.Switch;
-import Model.Tile.Tile;
-import View.AgentRenderer;
 import View.DungeonRenderer;
-import View.PlayerRenderer;
-import View.Renderer;
-import View.TileRenderer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -50,6 +14,7 @@ public class GameController {
 
 	private Stage stage;
 	private Dungeon d;
+	private Dungeon savedState;
 	private Item selected;
 	private DungeonRenderer renderer;
 
@@ -70,39 +35,11 @@ public class GameController {
 	}
 	
 	@FXML 
-	public void initialize()  {
+	public void initialize() throws CloneNotSupportedException  {
 		if(d.getPlayer() != null) {
 			inventoryContents.setText(d.getInventoryDescription());
 		}
-		//Temporary setup we actually want to pass a dungeon
-		if(this.d == null) {
-			int size = 8;
-			Dungeon test = new Dungeon(size);
-			this.d = test;
-
-
-//			test.placeComputerAgent(new Hunter(), new Point(2,1));
-//			test.placeComputerAgent(new Hunter(), new Point(1,1));
-//			test.placeComputerAgent(new Hunter(), new Point(17,1));
-//			test.placeComputerAgent(new Hunter(), new Point(12,1));
-//			test.placeComputerAgent(new Hunter(), new Point(14,1));
-//			test.placeComputerAgent(new Hunter(), new Point(15,1));
-			test.placeComputerAgent(new Hound(), new Point(13,12));
-			test.placeComputerAgent(new Boulder(new NoMoveBehaviour()), new Point(2,2));
-			test.placeItem(new Treasure(), new Point(2,3));
-			test.placeItem(new Sword(), new Point(2,1));
-			test.placeItem(new Invincibility(), new Point(3,1));
-			test.placeItem(new Hover(), new Point(4,1));
-			test.placeItem(new Sword(), new Point(5,1));
-			test.placeItem(new Arrow(), new Point(6,2));
-			test.placePlayer(new Player(), new Point(4,4));
-//			test.placeComputerAgent(new Hunter(), new Point(18,1));
-			test.placeTile(new Exit(), new Point(8,8));
-			test.placeTile(new Pit(), new Point(6,8));
-			test.placeTile(new Door(), new Point(6,6));
-			test.placeTile(new Switch(), new Point(7,7));
-			test.placeItem(new Key(), new Point(5,6));
-		}
+		savedState = (Dungeon) d.clone();
 		mainPane.setMaxHeight((d.getSize()+2) * 32);
 		mainPane.setMaxWidth((d.getSize()+2) * 32);
 	    stage.setMaximized(true);
@@ -184,7 +121,7 @@ public class GameController {
 	@FXML
 	public void hotSwitch() {
 		DesignScreen ds = new DesignScreen(this.stage);
-		ds.start(this.d);
+		ds.start(this.savedState);
 	}
 	
 	public void endTurn() {
