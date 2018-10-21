@@ -18,9 +18,6 @@ public class TileRenderer extends Renderer {
 
 	@Override
 	public Image getImage(Point point) {
-//		Tile tile = dungeon.getTile(point);;
-//		if (tile != null) return images.get(tile.getType());
-//		return null;
 		return dungeon.proxygettiles(point, dungeon.getTileGrid());
 	}
 
