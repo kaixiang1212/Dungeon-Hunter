@@ -44,13 +44,15 @@ public class testCowardFlee {
 		basicDungeon.placePlayer(player, new Point(1,1));
 		basicDungeon.updateAgents();
 
-		assertEquals(new Point(3,1), coward.getPos());
+		assertEquals(new Point(2,2), coward.getPos());
 		basicDungeon.updateAgents();
-		assertEquals(new Point(4,1), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 
+		basicDungeon.updateAgents();
+		assertEquals(new Point(2,4), coward.getPos());
 		// Regain courage
 		basicDungeon.updateAgents();
-		assertEquals(new Point(3,1), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 	}
 
 	@Test
@@ -82,6 +84,6 @@ public class testCowardFlee {
 
 		// Expected Move away
 		basicDungeon.updateAgents();
-		assertEquals(new Point(3,2), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 	}
 }

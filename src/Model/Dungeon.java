@@ -15,12 +15,11 @@ import Model.ComputerAgent.Boulder;
 import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
+import Model.Item.LitBomb;
 import Model.Tile.ClosedDoor;
 import Model.Tile.DefaultTile;
 import java.util.Map.Entry;
 
-import Controller.Direction;
-import Model.Item.Item;
 import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
@@ -170,6 +169,7 @@ public class Dungeon implements Cloneable{
         if (outOfBound(myPoint)) return false;
 
     	//If tile does not exist
+        if (tile instanceof Switch) addSwitch(tile, myPoint);;
         if (tileGrid.get(myPoint) == null) {
             tileGrid.put(myPoint, tile);
             return true;
@@ -193,8 +193,6 @@ public class Dungeon implements Cloneable{
     public void placeComputerAgent(ComputerAgent a, Point agentPoint) {
     	agentGrid.put(agentPoint, a);
     	a.setPos(agentPoint);
-    	// if Boulder is on Switch, trigger
-    	//if (a.isMoveable() == true) triggerSwitch(agentPoint);
     }
     /**
      * Inserts a new Player object into the dungeon
@@ -421,8 +419,12 @@ public class Dungeon implements Cloneable{
     			Point newPos = ((Boulder) temp).push(player.getDirection());
     			agentGrid.remove(point);
     			Tile tile;
-    			//if ((tile = getTile(newPos)).isType(Type.Pit)) ((Pit )tile).filledWithBoulder();
-    			agentGrid.put(newPos, temp);
+    			if ((tile = getTile(newPos)) instanceof Pit) {
+    				((Pit )tile).filledWithBoulder();
+    				agentGrid.remove(newPos);
+    			} else {
+    				agentGrid.put(newPos, temp);
+    			}
     		}
     		else {
     			// fight
@@ -430,7 +432,7 @@ public class Dungeon implements Cloneable{
     		}
     	}
     	// If item, attempt to pickup the item
-    	if (itemGrid.get(point) != null) {
+    	if (itemGrid.get(point) != null && !(itemGrid.get(point) instanceof LitBomb)) {
     			this.player.pickup(itemGrid.get(point));
     			this.itemGrid.remove(point);
     	}
@@ -515,9 +517,8 @@ public class Dungeon implements Cloneable{
      * Pass in the agent on the same grid to trigger or not trigger switch
      */
     public void updateTile() {
-    	for (Switch switch1 : switches) {
-    		Point point = switch1.getPoint();
-    		switch1.update(agentGrid.get(point));
+    	for (Switch sw : switches) {
+    		sw.update(agentGrid.get(sw.getPoint()));
     	}
     }
     
@@ -540,17 +541,6 @@ public class Dungeon implements Cloneable{
     public boolean hasTile(Point point) {
     	return tileGrid.get(point) != null;
     }
-    
-    /**
-     * Function to check tileType on a given point
-     * @param point Point to check
-     * @param type Tile Type
-     * @return true if given point is a given type
-     */
-//    // TODO: Rename
-//    public boolean isPointTileType(Point point, Type type) {
-//    	return (hasTile(point) && getTile(point).isType(type));
-//    }
     
     // TODO: Give some comment on this function: good? bad?
     public void endTurn() {
