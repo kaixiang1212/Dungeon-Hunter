@@ -64,6 +64,11 @@ public abstract class ComputerAgent extends Paintable {
 		// TODO Auto-generated method stub
 		d.placeComputerAgent(this, p);
 	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		d.removeAgent(point);
+	}
 }
 
 
