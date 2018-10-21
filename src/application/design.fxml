@@ -179,7 +179,7 @@
    <right>
       <VBox alignment="CENTER" prefHeight="297.0" prefWidth="193.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="ErrorMessage" textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="" textAlignment="CENTER" textFill="RED" />
          </children></VBox>
    </right>
 </BorderPane>

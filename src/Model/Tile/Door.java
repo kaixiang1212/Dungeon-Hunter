@@ -57,4 +57,5 @@ public class Door extends Tile implements FunctionalTile {
 	public String toString() {
 		return "Door";
 	}
+
 }
