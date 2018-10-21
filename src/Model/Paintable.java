@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 public abstract class Paintable implements Cloneable {
 
-	public abstract void place(Dungeon d, Point point);
+	public abstract void place(Dungeon d, Point point) throws Exception;
 	
 	public abstract void remove(Dungeon d, Point point);
 	

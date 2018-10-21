@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -165,6 +165,9 @@
       </VBox>
    </left>
    <right>
-      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="193.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="ErrorMessage" textAlignment="CENTER" textFill="RED" />
+         </children></VBox>
    </right>
 </BorderPane>

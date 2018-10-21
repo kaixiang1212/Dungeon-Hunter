@@ -11,6 +11,7 @@ import Model.*;
 import Model.ComputerAgent.ComputerAgent;
 import Model.ComputerAgent.Hunter;
 import Model.Item.Key;
+import Model.Tile.ClosedDoor;
 import Model.Tile.Door;
 
 import org.junit.Before;
@@ -158,9 +159,9 @@ public class testDoor {
 	@Test
 	public void testUnlockDoorChangeState(){
 		player.pickup(key1);
-		assertEquals(door1.getType(), Type.ClosedDoor);
+		assertTrue(door1.getState() instanceof ClosedDoor);
 		door1.doOperation(player);
-		assertEquals(door1.getType(), Type.OpenedDoor);
+		assertFalse(door1.getState() instanceof ClosedDoor);
 	}
 
 	@Test

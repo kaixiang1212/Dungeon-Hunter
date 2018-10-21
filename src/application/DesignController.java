@@ -32,6 +32,8 @@ public class DesignController {
 	private Pane mainPane;
 	@FXML
 	private Pane frontPane;
+	@FXML
+	private Label errorMessage;
 	
 	public DesignController(Stage s, Dungeon d) {
 		this.stage = s;
