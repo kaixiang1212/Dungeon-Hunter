@@ -5,25 +5,20 @@ import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
 
 import Controller.Direction;
-import Controller.PredictiveChaseBehaviour;
 import Model.ComputerAgent.Boulder;
 import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
 import Model.Item.LitBomb;
-import Model.Tile.ClosedDoor;
 import Model.Tile.DefaultTile;
-import java.util.Map.Entry;
 
 import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
-import Model.Tile.Exit;
 import Model.Tile.FunctionalTile;
 import Model.Tile.Pit;
 import Model.Tile.Tile;
@@ -127,30 +122,6 @@ public class Dungeon implements Cloneable{
 
         return ret;
     }
-
-    /**
-     * Default tile generator.
-     *
-     * Makes a Tile Grid of MAX_SIZE
-     * @return A default empty dungeon size MAX_SIZE
-     */
-    private HashMap<Point, Tile> initTileGrid() {
-        return initTileGrid(this.MAX_SIZE);
-    }
-
-//    /**
-//     * Exposes the type of tile at a location
-//     * @param location
-//     * @return Tile.Type
-//     */
-//    public Type pointTileType(Point location) {
-//        Tile local = tileGrid.get(location);
-//        if (local == null) {
-//            return null;
-//        }
-//
-//        return local.getType();
-//    }
     
     public Tile getTile(Point point) {
     	return tileGrid.get(point);
@@ -165,22 +136,11 @@ public class Dungeon implements Cloneable{
      */
     public boolean placeTile(Tile tile, Point myPoint) throws IllegalArgumentException {
 
-        // Out of Bound Check
         if (outOfBound(myPoint)) return false;
 
-    	//If tile does not exist
-        if (tile instanceof Switch) addSwitch(tile, myPoint);;
-        if (tileGrid.get(myPoint) == null) {
-            tileGrid.put(myPoint, tile);
-            return true;
-        }
-        //If tile already exists, replace
-        else if (tileGrid.get(myPoint) != null) {
-        	tileGrid.replace(myPoint, tile);
-        	return true;
-        }
-
-        return false;
+        if (tile instanceof Switch) addSwitch(tile, myPoint);
+        tileGrid.put(myPoint, tile);
+        return true;
     }
 
     /**
@@ -205,35 +165,24 @@ public class Dungeon implements Cloneable{
     	playerPosition = playerStart;
     	player = p;
     }
+
+    /**
+     * Get player
+     * @return player
+     */
     public Player getPlayer() {
     	return player;
     }
 
-    /**
-     * Utilises entrySet iterator
-     * Iterates over agentGrid to move agents
-     * Grabs new position
-     * Deletes old entry in agent hashmap
-     * Enters new entry
-     */
-//    public void updateAgents() {
-//
-//    	for(Map.Entry<Point,ComputerAgent> entry : agentGrid.entrySet()) {
-//    		
-//    		Point updatePos = entry.getValue().move(this);
-//    		agentGrid.remove(entry.getKey());
-//    		agentGrid.put(updatePos, entry.getValue()); //Give new position, otherwise removed forever
-//            triggerAgentAction(updatePos);
-//    	}
-//    }
+
     public void updateAgents() {
     	
     	ArrayList<ComputerAgent> alreadyMoved = new ArrayList<ComputerAgent>();   	
-    	for(int x = 0; x<this.savesize+2; x++) {
-    		for(int y = 0; y<this.savesize+2; y++) {
+    	for (int x = 0; x<this.savesize+2; x++) {
+    		for (int y = 0; y<this.savesize+2; y++) {
     			Point check = new Point(x,y);
     			ComputerAgent agent = this.agentGrid.get(check);
-    			if(agent != null && !alreadyMoved.contains(agent)) {
+    			if (agent != null && !alreadyMoved.contains(agent)) {
     				Point updatePos = agent.move(this);
     				agentGrid.remove(check);
     				agentGrid.put(updatePos,  agent);
@@ -270,7 +219,7 @@ public class Dungeon implements Cloneable{
         };
         triggerTileAction(desireDir);
         if (isValidMove(desireDir)) this.playerPosition = desireDir;
-        triggerPlayerAction(playerPosition);
+        triggerPlayerAction();
     }
 
     public Point getPlayerPos() {
@@ -287,9 +236,7 @@ public class Dungeon implements Cloneable{
      * @return
      */
     public boolean isValidMove(Point check) {
-    	if (!tileIsReachable(check, EntityType.Default)) {
-    		return false;
-    	}
+    	if (!isValidMoveBasic(check)) return false;
     	ComputerAgent temp = agentGrid.get(check);
     	if (temp != null && temp.isMoveable()) {
     		Direction dir = player.getDirection();
@@ -319,7 +266,7 @@ public class Dungeon implements Cloneable{
     }
 
     /**
-     * TODO: refactor to not use enum type
+     * TODO: 
      * @param point
      * @param type
      * @return
@@ -344,13 +291,7 @@ public class Dungeon implements Cloneable{
     }
     
     public boolean isValidMoveArrow(Point point) {
-    	if (!isValidMoveBasic(point)) {
-    		return false;
-    	}
-    	if(agentGrid.get(point) != null && agentGrid.get(point).isMoveable()) {
-    		return false;
-    	}
-    	return true;
+    	return (isValidMoveBasic(point) && (isAgentExist(point) && !getAgent(point).isMoveable()));
     }
 
 
@@ -363,11 +304,7 @@ public class Dungeon implements Cloneable{
      * @return
      */
     public boolean isAgentExist(Point check) {
-    	//If agent already on that spot
-    	if(agentGrid.containsKey(check)) {
-    		return true;
-    	}
-    	return false;
+    	return agentGrid.containsKey(check);
     }
     
     /**
@@ -377,7 +314,6 @@ public class Dungeon implements Cloneable{
      * @param pos Position in Point form
      */
     public void placeItem(Item i, Point pos) {
-    	if (isItemExist(pos)) removeItem(pos);
     	itemGrid.put(pos, i);
     }
     
@@ -386,10 +322,7 @@ public class Dungeon implements Cloneable{
     }
 
     public boolean isItemExist(Point check) {
-    	if(itemGrid.containsKey(check)) {
-    		return true;
-    	}
-    	return false;
+    	return itemGrid.containsKey(check);
     }
 
     public Item getItem(Point point) {
@@ -397,9 +330,7 @@ public class Dungeon implements Cloneable{
     }
 
     public void removeItem(Point pos) {
-    	if(isItemExist(pos)) {
-    		itemGrid.remove(pos);
-    	}
+    	itemGrid.remove(pos);
     }
     
     public boolean outOfBound(Point toCheck) throws IllegalArgumentException {
@@ -411,33 +342,50 @@ public class Dungeon implements Cloneable{
     	return false;
     }
 
-    //TODO: Is it bad to put so many if statements? probably a better way
-    private void triggerPlayerAction(Point point) {	
-    	ComputerAgent temp = agentGrid.get(point);
-    	if (temp != null) {
-    		if (temp.isMoveable()) {
-    			Point newPos = ((Boulder) temp).push(player.getDirection());
-    			agentGrid.remove(point);
-    			Tile tile;
-    			if ((tile = getTile(newPos)) instanceof Pit) {
-    				((Pit )tile).filledWithBoulder();
-    				agentGrid.remove(newPos);
-    			} else {
-    				agentGrid.put(newPos, temp);
-    			}
-    		}
-    		else {
-    			// fight
-    			this.player.fight(this);
-    		}
+    private void triggerPlayerAction() {
+    	Point point = playerPosition;
+    	triggerAgentPlayer(point);
+    	pickupItem(point);
+    	updatePotionDuration();
+    	updateBombDuration();
+    	updateTile();
+    }
+
+    /**
+     * Trigger Agent Action called only by player
+     * @param point 
+     */
+	private void triggerAgentPlayer(Point point) {
+		if (!isAgentExist(point)) return;
+		ComputerAgent temp = getAgent(point);
+    	if (temp.isMoveable()) {
+    		triggerBoulder(point, temp);
+    	} else {
+    		player.fight(this);
+   		}
+	}
+	
+	private void triggerBoulder(Point point, ComputerAgent temp) {
+		if (!(temp instanceof Boulder)) return;
+		Boulder boulder = (Boulder )temp;
+		Point newPos = boulder.push(player.getDirection());
+		agentGrid.remove(point);
+		agentGrid.put(newPos, boulder);
+		if (!(getTile(newPos) instanceof Pit)) return;
+		Pit pit = (Pit )getTile(newPos);
+		pit.filledWithBoulder();
+		agentGrid.remove(newPos);
+	}
+
+	private void pickupItem(Point point) {
+		if (isItemExist(point) && !(getItem(point) instanceof LitBomb)) {
+    		this.player.pickup(itemGrid.get(point));
+    		this.itemGrid.remove(point);
     	}
-    	// If item, attempt to pickup the item
-    	if (itemGrid.get(point) != null && !(itemGrid.get(point) instanceof LitBomb)) {
-    			this.player.pickup(itemGrid.get(point));
-    			this.itemGrid.remove(point);
-    	}
-    	
-    	for (int i = 0; i < this.player.getStatus().size(); i++) {
+	}
+
+	private void updatePotionDuration() {
+		for (int i = 0; i < this.player.getStatus().size(); i++) {
     		Potion curr = this.player.getStatus().get(i);
     		if (curr.isInvinc()) {
     			if (curr.getDuration() == 1) {
@@ -448,9 +396,11 @@ public class Dungeon implements Cloneable{
     			}
     		}
     	}
-    	//Ticks down bombs on player movement
-    	for(int x = 0; x<this.savesize+2; x++) {
-    		for(int y = 0; y<this.savesize+2; y++) {
+	}
+
+	private void updateBombDuration() {
+		for (int x = 0; x<this.savesize+2; x++) {
+    		for (int y = 0; y<this.savesize+2; y++) {
     			Point check = new Point(x,y);
     			Item item = this.itemGrid.get(check);
     			if (item != null) {
@@ -460,11 +410,10 @@ public class Dungeon implements Cloneable{
     			}
     		}
     	}
-
-    }
+	}
 
     /**
-     * Trigger Agent Fight Action
+     * Trigger Agent Fight Action called by Agent
      * @param point Agent's Position
      */
     private void triggerAgentAction(Point point) {
@@ -499,18 +448,14 @@ public class Dungeon implements Cloneable{
      * @param point
      */
     public void addSwitch(Tile tile, Point point) {
-
     	Switch sw = (Switch )tile;
     	switches.add(sw);
     	sw.setPoint(point);
-    	
     }
     
     public void addDoorCode(Tile tile) {
-
     	Door door = (Door )tile;
     	doorCode.add(door.getCode());
-
     }
 
     /**
@@ -541,21 +486,12 @@ public class Dungeon implements Cloneable{
     public boolean hasTile(Point point) {
     	return tileGrid.get(point) != null;
     }
-    
-    // TODO: Give some comment on this function: good? bad?
-    public void endTurn() {
-    	updateAgents();
-    	updateTile();
-    }
   
     public int numEnemies() {
     	return this.agentGrid.size();
     }
     public boolean containsItem(Item i) {
-    	if(itemGrid.containsValue(i)) {
-    		return true;
-    	}
-    	return false;
+    	return itemGrid.containsValue(i);
     }
     public boolean hasWon() {
     	return winCheck.hasWon(this);
