@@ -64,8 +64,20 @@ public class Dungeon implements Cloneable{
         this.doorCode = new ArrayDeque<>();
     }
    
-    public Object clone() throws CloneNotSupportedException {
-    	return super.clone();
+    public Dungeon clone() throws CloneNotSupportedException {
+    	Dungeon clone =  (Dungeon) super.clone();
+    	Map<Point, Item> itemGridClone = new HashMap<Point, Item>();
+        Map<Point, ComputerAgent> agentGridClone = new HashMap<Point, ComputerAgent>();
+        for(Map.Entry<Point, ComputerAgent> entry: this.agentGrid.entrySet()) {
+        	agentGridClone.put(entry.getKey(), entry.getValue().clone());
+        }
+        for(Map.Entry<Point, Item> entry: this.itemGrid.entrySet()) {
+        	itemGridClone.put(entry.getKey(), entry.getValue().clone());
+        }
+
+        clone.agentGrid = agentGridClone;
+    	clone.itemGrid = itemGridClone;
+    	return clone;
     }
     public Map<Point, Tile> getTileGrid() {
         return tileGrid;
