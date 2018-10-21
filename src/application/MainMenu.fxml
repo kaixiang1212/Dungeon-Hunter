@@ -4,32 +4,27 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1047.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER" layoutY="20.0" prefHeight="1047.0" prefWidth="960.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1070.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="1080.0" prefWidth="980.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="mainPane21" prefWidth="957.0">
-               <children>
-                  <ImageView fitHeight="1113.0" fitWidth="1001.0" layoutX="-33.0" layoutY="-52.0" smooth="false">
-                     <image>
-                        <Image url="@../assets/menuassests/fragile-soft-machine.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="levelSelectionButton" layoutX="411.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleLevelSelectionButton" prefHeight="27.0" prefWidth="174.0" text="Level Selection" />
-                  <Label layoutX="352.0" layoutY="182.0" text="Main Menu" textFill="#aaaaab">
-                     <font>
-                        <Font name="YuMincho +36p Kana Demibold" size="48.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="quitMainMenuButton" layoutX="411.0" layoutY="436.0" mnemonicParsing="false" onAction="#handleQuitMainMenuButton" prefHeight="27.0" prefWidth="174.0" text="Quit" />
-               </children>
-            </Pane>
+            <ImageView fitHeight="1115.0" fitWidth="1069.0" layoutX="-52.0" layoutY="-26.0" smooth="false">
+               <image>
+                  <Image url="@../assets/menuassests/fragile-soft-machine.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="quitMainMenuButton" layoutX="392.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleQuitMainMenuButton" prefHeight="27.0" prefWidth="174.0" text="Quit" />
+            <Label alignment="CENTER" layoutX="349.0" layoutY="75.0" text="Main Menu" textFill="#aaaaab">
+               <font>
+                  <Font name="YuMincho +36p Kana Demibold" size="48.0" />
+               </font>
+            </Label>
+            <Button fx:id="levelSelectionButton" layoutX="390.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleLevelSelectionButton" prefHeight="27.0" prefWidth="174.0" text="Level Selection" />
          </children>
-      </HBox>
-   </children>
-</AnchorPane>
+      </Pane>
+   </top>
+</BorderPane>

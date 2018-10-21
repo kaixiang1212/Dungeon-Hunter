@@ -20,14 +20,14 @@ public class GameWonScreen {
     
     public GameWonScreen(Stage stage) {
         this.stage = stage;
-       this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/GameLost.fxml"));
+       this.fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("application/GameWon.fxml"));
     }
     
     public void start() {
         fxmlLoader.setController(new GameLostController(stage));
         try {  
             Parent root = fxmlLoader.load();
-            Scene sc = new Scene(root, 500, 500);
+            Scene sc = new Scene(root, 650, 700);
             Stage newWindow = new Stage();
             newWindow.setTitle("You Won");
             newWindow.setScene(sc);

@@ -21,7 +21,7 @@ public class GameLostScreen {
         fxmlLoader.setController(new GameLostController(stage));
         try {  
             Parent root = fxmlLoader.load();
-            Scene sc = new Scene(root, 500, 500);
+            Scene sc = new Scene(root, 650, 700);
             Stage newWindow = new Stage();
             newWindow.setTitle("You Lost");
             newWindow.setScene(sc);
