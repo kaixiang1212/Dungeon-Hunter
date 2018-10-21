@@ -390,8 +390,6 @@ public class Dungeon implements Cloneable{
 		agentGrid.remove(point);
 		agentGrid.put(newPos, boulder);
 		if (!(getTile(newPos) instanceof Pit)) return;
-		Pit pit = (Pit )getTile(newPos);
-		pit.filledWithBoulder();
 		agentGrid.remove(newPos);
 	}
 
