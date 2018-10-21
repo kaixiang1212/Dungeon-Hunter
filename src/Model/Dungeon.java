@@ -5,28 +5,19 @@ import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
 
 import Controller.Direction;
-import Controller.PredictiveChaseBehaviour;
 import Model.ComputerAgent.Boulder;
 import Model.ComputerAgent.ComputerAgent;
 import Model.Item.Item;
 import Model.Item.Key;
-import Model.Tile.ClosedDoor;
 import Model.Tile.DefaultTile;
-import java.util.Map.Entry;
-
-import Controller.Direction;
-import Model.Item.Item;
 import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
-import Model.Tile.Exit;
 import Model.Tile.FunctionalTile;
-import Model.Tile.Pit;
 import Model.Tile.Tile;
 import Model.Tile.Wall;
 import Model.Tile.Switch;
@@ -552,11 +543,6 @@ public class Dungeon implements Cloneable{
 //    	return (hasTile(point) && getTile(point).isType(type));
 //    }
     
-    // TODO: Give some comment on this function: good? bad?
-    public void endTurn() {
-    	updateAgents();
-    	updateTile();
-    }
   
     public int numEnemies() {
     	return this.agentGrid.size();
