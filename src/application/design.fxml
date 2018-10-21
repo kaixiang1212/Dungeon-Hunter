@@ -99,7 +99,7 @@
                   <Image url="@../assets/tileassets/exit.png" />
                </image>
             </ImageView>
-            <Label prefHeight="30.0" prefWidth="75.0" text="Choose:" />
+            <Label prefHeight="30.0" prefWidth="75.0" />
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#invincibilitySelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                <image>
                   <Image url="@../assets/itemassets/invincibility.png" />
@@ -160,30 +160,31 @@
                   <CheckMenuItem fx:id="switchCheck" mnemonicParsing="false" text="Switches" />
                </items>
             </SplitMenuButton>
-            <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="32.0" prefWidth="100.0" text="Exit" />
+            <Button mnemonicParsing="false" onAction="#mainMenu" prefHeight="32.0" prefWidth="100.0" text="Main Menu" />
+            <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="32.0" prefWidth="100.0" text="Quit Game" />
          </children>
       </HBox>
    </top>
    <left>
-      <VBox alignment="CENTER_RIGHT" prefHeight="297.0" prefWidth="159.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER_RIGHT" prefHeight="204.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="51.0" prefWidth="28.0" />
-            <Label prefHeight="17.0" prefWidth="167.0" text="LMB To Place" textFill="RED">
+            <Label prefHeight="22.0" prefWidth="195.0" text="LMB To Place/Select" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="17.0" prefWidth="182.0" text="RMB to Remove " textFill="RED">
+            <Label prefHeight="22.0" prefWidth="204.0" text="RMB to Remove " textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label prefHeight="37.0" prefWidth="159.0" text="Current Selection:" textFill="RED">
+            <Label prefHeight="37.0" prefWidth="208.0" text="Current Selection:" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="selectPrompt" prefHeight="14.0" prefWidth="159.0" text="None" textFill="RED">
+            <Label fx:id="selectPrompt" prefHeight="17.0" prefWidth="213.0" text="None" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="14.0" />
                </font>
@@ -194,7 +195,7 @@
    <right>
       <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="" textAlignment="CENTER" textFill="RED" />
+            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="190.0" text="" textAlignment="CENTER" textFill="RED" />
          </children></VBox>
    </right>
 </BorderPane>

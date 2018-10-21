@@ -4,6 +4,7 @@ import Controller.Direction;
 import Model.Dungeon;
 import Model.Item.Item;
 import View.DungeonRenderer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -47,6 +48,7 @@ public class GameController {
 		render();
 	}
 
+	
 
 	/**
 	 * Calls renderUtil to render multiple grids
@@ -70,9 +72,9 @@ public class GameController {
 
 	//Temporary solution
 	//Ideally some game loop with threading and animation
+	
 	@FXML
 	public void playerMovement(KeyEvent key) {
-		System.out.print(key.getCode() + "\n");
 		switch (key.getCode()) {
 		case A:
 			d.updatePlayer(Direction.LEFT);
@@ -110,20 +112,36 @@ public class GameController {
 	/**
 	 * TODO: Add loading of win or loss screen, which allows exit of game or restart?
 	 */
+	
 	public void checkDungeonState() {
 		if(d.hasLost()) {
-			System.out.println("You have Lost \n");
+		    //System.out.println("You have Lost\n");
+		    GameLostScreen gameLostScreen = new GameLostScreen(stage);
+		    gameLostScreen.start(savedState);
+						
 		}
 		else if(d.hasWon()) {
-			System.out.println("You have Won\n");
+			//System.out.println("You have Won\n");
+			GameWonScreen gameWonScreen = new GameWonScreen(stage);
+            gameWonScreen.start(savedState);
 		}
 	}
 	@FXML
 	public void hotSwitch() {
 		DesignScreen ds = new DesignScreen(this.stage);
-		ds.start(this.savedState);
+		ds.start(savedState);
+	}
+	@FXML
+	public void mainMenu() {
+		MainMenuScreen mms = new MainMenuScreen(stage);
+		mms.start();
 	}
 	
+	@FXML
+	public void exitGame() {
+        Platform.exit();
+        System.exit(0);
+	}
 	public void endTurn() {
 		d.updateAgents();
 		d.updateTile();
@@ -137,5 +155,6 @@ public class GameController {
 		inventoryContents.setText(d.getInventoryDescription());
 		render();
 	}
+
 }
 

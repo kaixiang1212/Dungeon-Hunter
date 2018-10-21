@@ -168,6 +168,7 @@ public class DesignController {
 		this.currSelection = new Exit();
 		this.updatePrompts();
 	}
+	
 	@FXML
 	public void treasureSelected() {
 		this.currSelection = new Treasure();
@@ -213,6 +214,11 @@ public class DesignController {
 		this.setWinConditions();
 		GameScreen gs = new GameScreen(this.stage);
 		gs.start(this.d);
+	}
+	@FXML
+	public void mainMenu() {
+		MainMenuScreen mms = new MainMenuScreen(this.stage);
+		mms.start();
 	}
 	@FXML
 	public void handleExit() {
