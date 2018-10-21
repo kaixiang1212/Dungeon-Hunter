@@ -1,44 +1,51 @@
 package Model;
+import Controller.Direction;
+import Model.Item.Item;
+import Model.Item.Key;
+import Model.Item.Potion;
+import javafx.scene.image.Image;
+
+import java.awt.Point;
 import java.util.ArrayList;
+
+import static Controller.Direction.RIGHT;
 
 /*
  * Player class that holds; inventory, status effects, equipped item, and direction
  */
-public class Player {
+public class Player extends Paintable {
 
 	private boolean isDead;
 	private PlayerInventory inventory;
 	private Item heldItem;
 	private ArrayList<Potion> status;
-	private String direction;
+	private Direction direction;
 	
 	public Player() {
 		this.inventory = new PlayerInventory();
 		this.isDead = false;
 		this.heldItem = null;
 		this.status = new ArrayList<Potion>();
-		this.direction = "Right";
+		this.direction = RIGHT;
 	}
 	
 	/*
 	 * adds Potion effect to status, ignores LitBombs and adds other items to inventory
+	 * maybe pickup method refactored into items?
 	 * @param i, The item being picked up
 	 */
 	public void pickup(Item i) {
-		if (i.isPotion()) {
-			this.addStatus((Potion) i);
-		} else if (i.isLitBomb()) {
-			return;
-		} else {
-			inventory.storeItem(i);
-		}
+		i.pickedUp(this);
 	}
 	/*
 	 * select item in inventory and equip it
 	 * @param index, Inventory index to get the item
 	 */
-	public void selectItem(int index) {
-		this.heldItem = inventory.getItem(index);
+	public Item selectItem(int index) {
+		if(inventory.getItem(index) != null) {
+			this.heldItem = inventory.getItem(index);
+		}
+		return this.heldItem;
 	}
 	/*
 	 * returns item that's equipped
@@ -71,7 +78,10 @@ public class Player {
 	 * @param map, Dungeon object that holds all entities
 	 */
 	public void useItem(Dungeon map) {
-		heldItem.use(map);
+		if(heldItem != null) {
+			heldItem.use(map);
+		}
+
 	}
 	/*
 	 * returns if player is dead or not
@@ -98,7 +108,7 @@ public class Player {
 	 * returns player's direction
 	 * @return direction, can be right,left,up or down
 	 */
-	public String getDirection() {
+	public Direction getDirection() {
 		return this.direction;
 	}
 	/*
@@ -145,7 +155,7 @@ public class Player {
 	 * sets direction of player
 	 * @param direction
 	 */
-	public void setDirection(String direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 	
@@ -159,14 +169,39 @@ public class Player {
 	public ArrayList<Key> getKeys(){
 		return inventory.getKeys();
 	}
+
+	/*
+	 * Called when player falls into pit
+	 * Check if player has hover effect
+	 * if yes, do nothing
+	 * if no, player dies 
+	 */
+	public void fallsIntoPit() {
+		if (isHover()) return;
+		else die();
+	}
+
+	@Override
+	public void place(Dungeon d, Point point) {
+		d.placePlayer(this, point);
+		
+	}
+
+	@Override
+	public Image getImage() {
+		return new Image("assets/agentassets/player.png");
+	}
+	
+	public String toString() {
+		return "Player";
+	}
+
+	public String getInventoryDescription() {
+		return inventory.toString();
+	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		
+	}
 }
-
-	
-
-
-
-
-	
-
-
-

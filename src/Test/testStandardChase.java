@@ -7,44 +7,49 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.awt.Point;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import Model.ComputerAgent;
 import Model.Dungeon;
-import Model.Hunter;
 import Model.Player;
-import Model.Tile.TileType;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Hunter;
+import Model.Tile.Wall;
 
 public class testStandardChase {
+	Dungeon testDun;
+	Player testPlayer;
+
+	@Before
+	public void initTest() {
+	    testDun = new Dungeon(3);
+	    testPlayer = new Player();
+	}
 
 	@Test
 	public void testVanillaChase() {
-		Dungeon basicDungeon = new Dungeon(3);
 		ComputerAgent enemy = new Hunter();
-		Player player = new Player();
 
-		basicDungeon.placeComputerAgent(enemy, new Point(3, 1));
-		basicDungeon.placePlayer(player, new Point(1, 1));
-		basicDungeon.updateAgents();
+		testDun.placeComputerAgent(enemy, new Point(3, 1));
+		testDun.placePlayer(testPlayer, new Point(1, 1));
+		testDun.updateAgents();
 		assertEquals(new Point(2,1), enemy.getPos());
-		basicDungeon.updateAgents();
+		testDun.updateAgents();
 		assertEquals(new Point(1,1), enemy.getPos());
 	}
 
 	@Test
 	public void testObstacleChase() {
-		Dungeon basicDungeon = new Dungeon(3);
 		ComputerAgent enemy = new Hunter();
-		Player player = new Player();
 
-		basicDungeon.placeComputerAgent(enemy, new Point(3, 1));
-		basicDungeon.placePlayer(player, new Point(1, 1));
-		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(2, 1));
-		basicDungeon.updateAgents();
+		testDun.placeComputerAgent(enemy, new Point(3, 1));
+		testDun.placePlayer(testPlayer, new Point(1, 1));
+		testDun.placeTile(new Wall(), new Point(2, 1));
+		testDun.updateAgents();
 		assertNotEquals(new Point(2,1), enemy.getPos());
-		basicDungeon.updateAgents();
-		basicDungeon.updateAgents();
-		basicDungeon.updateAgents();
-		assertEquals(basicDungeon.getPlayerPos(), enemy.getPos());
+		testDun.updateAgents();
+		testDun.updateAgents();
+		testDun.updateAgents();
+		assertEquals(testDun.getPlayerPos(), enemy.getPos());
 	}
 }

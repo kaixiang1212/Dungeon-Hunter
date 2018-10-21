@@ -1,29 +1,33 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.Point;
 
-
-import Model.ComputerAgent;
-import Model.Coward;
 import Model.Dungeon;
 import Model.Player;
-import Model.Tile.TileType;
+import Model.ComputerAgent.ComputerAgent;
+import Model.ComputerAgent.Coward;
+import Model.Tile.Wall;
 
 public class testCowardFlee {
 
 
-	Dungeon basicDungeon = null;
-	ComputerAgent coward = null;
-	Player player = null;
+	Dungeon basicDungeon;
+	ComputerAgent coward;
+	Player player;
 
-	@Test
-	public void testDirectChase() {
+	@Before public void initTest() {
 		this.basicDungeon = new Dungeon(6);
 		this.coward = new Coward();
 		this.player = new Player();
+	}
+
+	@Test
+	public void testDirectChase() {
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
@@ -32,35 +36,31 @@ public class testCowardFlee {
 		basicDungeon.updateAgents();
 		assertEquals(new Point(3,1), coward.getPos());
 	}
-	
+
 	@Test
 	public void testDirectFlee() {
-	    this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
 		basicDungeon.updateAgents();
 
-		assertEquals(new Point(3,1), coward.getPos());
+		assertEquals(new Point(2,2), coward.getPos());
 		basicDungeon.updateAgents();
-		assertEquals(new Point(4,1), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 
+		basicDungeon.updateAgents();
+		assertEquals(new Point(2,4), coward.getPos());
 		// Regain courage
 		basicDungeon.updateAgents();
-		assertEquals(new Point(3,1), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 	}
-	
+
 	@Test
 	public void testObstacleChase() {
-		this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(5, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(4, 1));
+		basicDungeon.placeTile(new Wall(), new Point(4, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();
@@ -70,16 +70,13 @@ public class testCowardFlee {
 		basicDungeon.updateAgents();
 		assertEquals(new Point(4, 2), coward.getPos());
 	}
-	
+
 	@Test
 	public void testObstacleFlee() {
-		this.basicDungeon = new Dungeon(6);
-		this.coward = new Coward();
-		this.player = new Player();
 
 		basicDungeon.placeComputerAgent(coward, new Point(2, 1));
 		basicDungeon.placePlayer(player, new Point(1,1));
-		basicDungeon.placeTile(TileType.DESTRUCTABLE_WALL, new Point(3, 1));
+		basicDungeon.placeTile(new Wall(), new Point(3, 1));
 
 		// Expected Moved down
 		basicDungeon.updateAgents();
@@ -87,6 +84,6 @@ public class testCowardFlee {
 
 		// Expected Move away
 		basicDungeon.updateAgents();
-		assertEquals(new Point(3,2), coward.getPos());
+		assertEquals(new Point(2,3), coward.getPos());
 	}
 }

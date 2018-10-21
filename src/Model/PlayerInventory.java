@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Item.Item;
+import Model.Item.Key;
+
 import java.util.ArrayList;
 
 public class PlayerInventory {
@@ -9,7 +12,7 @@ public class PlayerInventory {
 	
 	public PlayerInventory() {
 		items = new ArrayList<>();
-		maxCapacity = 5;
+		maxCapacity = 3;
 	}
 	
 	public void storeItem(Item i) {
@@ -32,13 +35,16 @@ public class PlayerInventory {
 	}
 	
 	public Item getItem(int index) {
-		return items.get(index);
+		if(items.size() >= index+1) {
+			return items.get(index);
+		}
+		return null;
 	}
 	public void removeItem(Item i) {
-		this.items.remove(i);
+		items.remove(i);
 	}
 	public boolean isEmpty() {
-		if (this.items.isEmpty()) {
+		if (items.isEmpty()) {
 			return true;
 		}
 		return false;
@@ -53,7 +59,19 @@ public class PlayerInventory {
 	}
 	
 	public int getNumItems() {
-		return this.items.size();
+		return items.size();
+	}
+	public String toString() {
+		if(items.size() == 0) {
+			return "None";
+		}
+		StringBuilder sb = new StringBuilder();
+		for(Item i:items) {
+			sb.append(i.toString() + "\n");
+			
+		}
+		String desc = new String(sb);
+		return desc;
 	}
 }
 
