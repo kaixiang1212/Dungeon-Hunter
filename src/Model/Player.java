@@ -186,11 +186,19 @@ public class Player extends Paintable {
 
 	@Override
 	public Image getImage() {
-		// TODO Auto-generated method stub
 		return new Image("assets/agentassets/player.png");
 	}
 	
 	public String toString() {
 		return "Player";
+	}
+
+	public String getInventoryDescription() {
+		return inventory.toString();
+	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		
 	}
 }

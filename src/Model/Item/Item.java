@@ -45,7 +45,11 @@ public abstract class Item extends Paintable {
 	@Override
 	public void place(Dungeon d, Point p) {
 		d.placeItem(this, p);
-
+	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		d.removeItem(point);
 	}
 }
 

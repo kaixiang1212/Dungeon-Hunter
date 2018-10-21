@@ -1,8 +1,5 @@
 package Model.Item;
 
-import java.awt.Point;
-
-import Model.Dungeon;
 import Model.Player;
 import javafx.scene.image.Image;
 
