@@ -5,28 +5,25 @@ import javafx.scene.image.Image;
 
 public class Pit extends Tile implements FunctionalTile {
 	
-	private UnfilledPit unfilled;
-	private Tile filled;
-	private Tile state;
+	private boolean isFilled;
 	
 	public Pit() {
-		unfilled = new UnfilledPit();
-		filled = new DefaultTile();
-		state = unfilled;
+		isFilled = false;
 	}
 	
 	public void filledWithBoulder() {
-		state = filled;
+		isFilled = true;
 	}
 
 	@Override
 	public boolean isReachable(EntityType type) {
-		return state.isReachable(type);
+		if (isFilled == false && type == EntityType.Computer) return false;
+		return true;
 	}
 
 	@Override
 	public void doOperation(Player player) {
-		if (state == unfilled) unfilled.doOperation(player);
+		if (isFilled == false) player.fallsIntoPit();
 	}
 
 	@Override
