@@ -18,9 +18,6 @@ public class ItemRenderer extends Renderer {
 
 	@Override
 	public Image getImage(Point point) {
-//		Item item = dungeon.getItem(point);
-//		if (item != null) return images.get(item.getType());
-//		return null;
 		return dungeon.proxygettiles(point, dungeon.getItemGrid());
 	}
 
