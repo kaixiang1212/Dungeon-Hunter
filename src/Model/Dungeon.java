@@ -15,12 +15,10 @@ import Model.Item.Item;
 import Model.Item.Key;
 import Model.Item.LitBomb;
 import Model.Tile.DefaultTile;
-
 import Model.Item.Potion;
 import Model.Tile.Door;
 import Model.Tile.EntityType;
 import Model.Tile.FunctionalTile;
-import Model.Tile.Pit;
 import Model.Tile.Tile;
 import Model.Tile.Wall;
 import Model.Tile.Switch;

@@ -9,8 +9,11 @@ import Controller.NoMoveBehaviour;
 import Model.DefaultWinCondition;
 import Model.Dungeon;
 import Model.EnemiesKilledDecorator;
+import Model.ExitWinDecorator;
 import Model.Paintable;
 import Model.Player;
+import Model.SwitchWinDecorator;
+import Model.TreasureCollectedDecorator;
 import Model.WinCondition;
 import Model.ComputerAgent.Boulder;
 import Model.ComputerAgent.Coward;
@@ -71,6 +74,9 @@ public class GameController {
 		if(d.getPlayer() != null) {
 			inventoryContents.setText(d.getInventoryDescription());
 		}
+		WinCondition testwc = new DefaultWinCondition();
+		testwc = new SwitchWinDecorator(testwc);
+		this.d.setWinCondition(testwc);
 		//Temporary setup we actually want to pass a dungeon
 		if(this.d == null) {
 			int size = 8;
@@ -78,7 +84,7 @@ public class GameController {
 			this.d = test;
 
 
-			WinCondition testwc = new DefaultWinCondition();
+			testwc = new DefaultWinCondition();
 			testwc = new EnemiesKilledDecorator(testwc);
 			test.setWinCondition(testwc);
 //			test.placeComputerAgent(new Hunter(), new Point(2,1));
@@ -153,19 +159,19 @@ public class GameController {
 		switch (key.getCode()) {
 		case A:
 			d.updatePlayer(Direction.LEFT);
-			d.updateAgents();
+			endTurn();
 			break;
 		case S:
 			d.updatePlayer(Direction.DOWN);
-			d.updateAgents();
+			endTurn();
 			break;
 		case D:
 			d.updatePlayer(Direction.RIGHT);
-			d.updateAgents();
+			endTurn();
 			break;
 		case W:
 			d.updatePlayer(Direction.UP);
-			d.updateAgents();
+			endTurn();
 			break;
 		case E:
 			d.playerUseItem();
@@ -205,6 +211,11 @@ public class GameController {
 	public void hotSwitch() {
 		DesignScreen ds = new DesignScreen(this.stage);
 		ds.start(this.d);
+	}
+	
+	public void endTurn() {
+		d.updateAgents();
+		d.updateTile();
 	}
 }
 
