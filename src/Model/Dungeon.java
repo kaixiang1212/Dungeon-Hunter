@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 
 import Controller.Direction;
@@ -137,7 +138,6 @@ public class Dungeon implements Cloneable{
 
         if (outOfBound(myPoint)) return false;
 
-        if (tile instanceof Switch) addSwitch(tile, myPoint);
         tileGrid.put(myPoint, tile);
         return true;
     }
@@ -486,8 +486,13 @@ public class Dungeon implements Cloneable{
     	return tileGrid.get(point) != null;
     }
   
-    public int numEnemies() {
-    	return this.agentGrid.size();
+    public boolean enemiesEliminated() {
+    	for(Entry<Point, ComputerAgent> a: this.agentGrid.entrySet()) {
+    		if(!a.getValue().isMoveable()) {
+    			return false;
+    		}
+    	}
+    	return true;
     }
     public boolean containsItem(Item i) {
     	return itemGrid.containsValue(i);
