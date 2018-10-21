@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -145,7 +145,7 @@
       <HBox prefHeight="128.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#hotSwitch" prefHeight="32.0" prefWidth="100.0" text="Play" />
-            <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="33.0" prefWidth="102.0" text="Restart" />
+            <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="33.0" prefWidth="102.0" text="Reset" />
             <SplitMenuButton mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" text="Win Conditions">
                <items>
                   <CheckMenuItem fx:id="noWinCheck" mnemonicParsing="false" selected="true" text="No Win" />
@@ -163,12 +163,22 @@
       <VBox alignment="CENTER_RIGHT" prefHeight="297.0" prefWidth="159.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="51.0" prefWidth="28.0" />
-            <Label prefHeight="22.0" prefWidth="162.0" text="Current Selection:" textFill="RED">
+            <Label prefHeight="17.0" prefWidth="167.0" text="LMB To Place" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="selectPrompt" prefHeight="32.0" prefWidth="160.0" text="None" textFill="RED">
+            <Label prefHeight="17.0" prefWidth="182.0" text="RMB to Remove " textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="37.0" prefWidth="159.0" text="Current Selection:" textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectPrompt" prefHeight="14.0" prefWidth="159.0" text="None" textFill="RED">
                <font>
                   <Font name="Yu Gothic Medium" size="14.0" />
                </font>
@@ -177,7 +187,7 @@
       </VBox>
    </left>
    <right>
-      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="193.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="" textAlignment="CENTER" textFill="RED" />
          </children></VBox>
