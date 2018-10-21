@@ -1,6 +1,5 @@
 package Test;
 
-import Model.Tile.Type;
 import Model.Tile.Wall;
 import Model.Tile.Door;
 import Model.Tile.Exit;
@@ -8,25 +7,24 @@ import Model.Tile.Pit;
 import Model.Tile.Switch;
 import Model.Tile.Tile;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class testTile {
 
     @Test
-    public void CanMakeTile() {
+    public void CanCloneTile() throws CloneNotSupportedException {
         Tile test1 = new Wall();
-        assertEquals(test1.getType(), Type.Wall);
+        assertTrue(test1.clone() instanceof Wall);
         test1 = new Pit();
-        assertEquals(test1.getType(), Type.Pit);
+        assertTrue(test1.clone() instanceof Pit);
         test1 = new Door();
-        assertEquals(test1.getType(), Type.ClosedDoor);
+        assertTrue(test1.clone() instanceof Door);
         test1 = new Exit();
-        assertEquals(test1.getType(), Type.Exit);
+        assertTrue(test1.clone() instanceof Exit);
         test1 = new Switch();
-        assertEquals(test1.getType(), Type.Switch);
+        assertTrue(test1.clone() instanceof Switch);
     }
 
 }

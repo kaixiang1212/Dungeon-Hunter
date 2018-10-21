@@ -3,15 +3,23 @@ package application;
 import java.awt.Point;
 
 import Controller.NoMoveBehaviour;
+import Model.DefaultNoWinCondition;
+import Model.DefaultWinCondition;
 import Model.Dungeon;
+import Model.EnemiesKilledDecorator;
+import Model.ExitWinDecorator;
 import Model.Paintable;
 import Model.Player;
+import Model.SwitchWinDecorator;
+import Model.TreasureCollectedDecorator;
+import Model.WinCondition;
 import Model.Tile.*;
 import Model.Item.*;
 import Model.ComputerAgent.*;
 import View.DungeonRenderer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +40,20 @@ public class DesignController {
 	private Pane mainPane;
 	@FXML
 	private Pane frontPane;
+	@FXML
+
+	private CheckMenuItem noWinCheck;
+	@FXML
+	private CheckMenuItem exitCheck;
+	@FXML
+	private CheckMenuItem treasureCheck;
+	@FXML
+	private CheckMenuItem enemiesCheck;
+	@FXML
+	private CheckMenuItem switchCheck;
+	@FXML
+	private Label errorMessage;
+
 	
 	public DesignController(Stage s, Dungeon d) {
 		this.stage = s;
@@ -42,14 +64,13 @@ public class DesignController {
 	
 	@FXML 
 	public void initialize() {
+		if(this.d == null) {
+			this.initDungeon();
+		}
 		/**
 		 * Todo find a way to pass size the person wants :)
 		 */
-		if(this.d == null) {
-			int size = 14;
-			Dungeon customDungeon = new Dungeon(size);
-			this.d = customDungeon;
-		}
+
 		this.mainPane.setMaxHeight((d.getSize()+2) * 32);
 		this.mainPane.setMaxWidth((d.getSize()+2) * 32);
 		this.drender = new DungeonRenderer(this.d);
@@ -59,6 +80,7 @@ public class DesignController {
 	}
 	public void updatePrompts() {
 		this.selectPrompt.setText(currSelection.toString());
+		this.errorMessage.setText("");
 	}
 	/**
 	 * Gets coordinates of click on dungeon, divides by num pixels width of each tile [32]
@@ -70,20 +92,21 @@ public class DesignController {
 	 */
 	@FXML
 	public void handlePlacement(MouseEvent event) throws CloneNotSupportedException {
+		int x = (int) event.getX()/32;
+		int y = (int) event.getY()/32;
 		if (event.getButton() == MouseButton.PRIMARY) {
-			int x = (int) event.getX()/32;
-			int y = (int) event.getY()/32;
-			currSelection.place(d, new Point(x,y));
+			try {
+				currSelection.place(d, new Point(x,y));
+			} catch (Exception e) {
+				errorMessage.setText(e.getMessage());;
+			}
 			Paintable clone = (Paintable) this.currSelection.clone();
 			this.currSelection = clone;
-			this.drender.render(mainPane);
 		}
 		else if (event.getButton() == MouseButton.SECONDARY) {
-			int x = (int) event.getX()/32;
-			int y = (int) event.getY()/32;
 			currSelection.remove(d, new Point(x,y));
-			this.drender.render(mainPane);
 		}
+		this.drender.render(mainPane);
 	}
 	@FXML
 	public void boulderSelected() {
@@ -188,6 +211,7 @@ public class DesignController {
 	}
 	@FXML
 	public void hotSwitch() {
+		this.setWinConditions();
 		GameScreen gs = new GameScreen(this.stage);
 		gs.start(this.d);
 	}
@@ -197,5 +221,35 @@ public class DesignController {
         Platform.exit();
         System.exit(0);
 	}
+	@FXML
+	public void handleReset() {
+		initDungeon();
+		this.drender = new DungeonRenderer(this.d);
+		this.drender.render(mainPane);
+	}
+
+	public void initDungeon() {
+		Dungeon customDungeon = new Dungeon(14);
+		this.d = customDungeon;
+	}
 	
+	public void setWinConditions() {
+		WinCondition base = new DefaultWinCondition();
+		if(this.noWinCheck.isSelected()) {
+			base = new DefaultNoWinCondition();
+		}
+		if(this.exitCheck.isSelected()) {
+			base = new ExitWinDecorator(base);
+		}
+		if(this.enemiesCheck.isSelected()) {
+			base = new EnemiesKilledDecorator(base);
+		}
+		if(this.treasureCheck.isSelected()) {
+			base = new TreasureCollectedDecorator(base);
+		}
+		if(this.switchCheck.isSelected()) {
+			base = new SwitchWinDecorator(base);
+		}
+		this.d.setWinCondition(base);	
+	}
 }

@@ -80,9 +80,6 @@ public class GameController {
 		if(d.getPlayer() != null) {
 			inventoryContents.setText(d.getInventoryDescription());
 		}
-		WinCondition testwc = new DefaultWinCondition();
-		testwc = new SwitchWinDecorator(testwc);
-		this.d.setWinCondition(testwc);
 		//Temporary setup we actually want to pass a dungeon
 		if(this.d == null) {
 			int size = 8;
@@ -90,9 +87,6 @@ public class GameController {
 			this.d = test;
 
 
-			testwc = new DefaultWinCondition();
-			testwc = new EnemiesKilledDecorator(testwc);
-			test.setWinCondition(testwc);
 //			test.placeComputerAgent(new Hunter(), new Point(2,1));
 //			test.placeComputerAgent(new Hunter(), new Point(1,1));
 //			test.placeComputerAgent(new Hunter(), new Point(17,1));
@@ -141,21 +135,7 @@ public class GameController {
 	 * Note plus 2, as size specifies walkable area, we need to include the invincible walls as possible area for placement
 	 */
 
-//	public void renderUtil(Map<Point, ? extends Paintable> map, Pane pane) {
-//		for(int y = 0; y < d.getSize() + 2; y++) {
-//			for(int x = 0; x < d.getSize() + 2; x++) {
-//				Image check = d.proxygettiles(new Point(x, y), map);
-//				if(check != null) {
-//					ImageView insertview = new ImageView(check);
-//					insertview.setFitHeight(32);
-//					insertview.setFitWidth(32);
-//					insertview.setLayoutX(x * 32);
-//					insertview.setLayoutY(y * 32);
-//					pane.getChildren().add(insertview);
-//				}
-//			}
-//		}
-//	}
+
 
 	//Temporary solution
 	//Ideally some game loop with threading and animation
@@ -182,6 +162,7 @@ public class GameController {
 			break;
 		case E:
 			d.playerUseItem();
+			endTurn();
 			break;
 		case DIGIT1:
 			selected = d.selectItemSlot(0);
@@ -193,14 +174,7 @@ public class GameController {
 			selected = d.selectItemSlot(2);
 			break;
 		}
-
-		if(selected != null) {
-			promptLabel.setText(selected.toString());
-		}
-		inventoryContents.setText(d.getInventoryDescription());
-		System.out.println(d.getInventoryDescription());
-		render();
-		checkDungeonState();
+		updateDisplay();
 	}
 	
 	/**
@@ -229,6 +203,15 @@ public class GameController {
 	public void endTurn() {
 		d.updateAgents();
 		d.updateTile();
+		checkDungeonState();
+	}
+	
+	public void updateDisplay() {
+		if(selected != null) {
+			promptLabel.setText(selected.toString());
+		}
+		inventoryContents.setText(d.getInventoryDescription());
+		render();
 	}
 
 }

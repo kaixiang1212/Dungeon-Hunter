@@ -43,7 +43,7 @@ public abstract class Item extends Paintable {
 	}
 	
 	@Override
-	public void place(Dungeon d, Point p) {
+	public void place(Dungeon d, Point p) throws Exception {
 		d.placeItem(this, p);
 	}
 	

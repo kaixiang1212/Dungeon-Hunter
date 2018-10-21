@@ -78,7 +78,10 @@ public class Player extends Paintable {
 	 * @param map, Dungeon object that holds all entities
 	 */
 	public void useItem(Dungeon map) {
-		heldItem.use(map);
+		if(heldItem != null) {
+			heldItem.use(map);
+		}
+
 	}
 	/*
 	 * returns if player is dead or not

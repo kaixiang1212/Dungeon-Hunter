@@ -13,6 +13,8 @@ public class SwitchWinDecorator extends WinConditionDecorator {
 	 */
 	@Override
 	public boolean hasWon(Dungeon map) {
+		if(map.winConditionSwitch()) {
+		}
 		return this.getCondition().hasWon(map) && map.winConditionSwitch();
 	}
 

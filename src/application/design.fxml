@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -143,6 +145,16 @@
       <HBox prefHeight="128.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#hotSwitch" prefHeight="32.0" prefWidth="100.0" text="Play" />
+            <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="33.0" prefWidth="102.0" text="Restart" />
+            <SplitMenuButton mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" text="Win Conditions">
+               <items>
+                  <CheckMenuItem fx:id="noWinCheck" mnemonicParsing="false" selected="true" text="No Win" />
+                  <CheckMenuItem fx:id="exitCheck" mnemonicParsing="false" text="Exit" />
+                  <CheckMenuItem fx:id="treasureCheck" mnemonicParsing="false" text="Treasure" />
+                  <CheckMenuItem fx:id="enemiesCheck" mnemonicParsing="false" text="Enemies" />
+                  <CheckMenuItem fx:id="switchCheck" mnemonicParsing="false" text="Switches" />
+               </items>
+            </SplitMenuButton>
             <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="32.0" prefWidth="100.0" text="Exit" />
          </children>
       </HBox>
@@ -165,6 +177,9 @@
       </VBox>
    </left>
    <right>
-      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER" />
+      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="193.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="137.0" text="" textAlignment="CENTER" textFill="RED" />
+         </children></VBox>
    </right>
 </BorderPane>

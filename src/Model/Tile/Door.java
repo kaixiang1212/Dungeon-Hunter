@@ -49,8 +49,13 @@ public class Door extends Tile implements FunctionalTile {
 		d.placeTile(this, p);
 		d.addDoorCode(this);
 	}
+	
+	public Tile getState() {
+		return state;
+	}
 
 	public String toString() {
 		return "Door";
 	}
+
 }
