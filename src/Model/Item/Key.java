@@ -46,8 +46,10 @@ public class Key extends Item {
 	public Image getImage() {
 		return new Image("assets/itemassets/key.png");
 	}
+
 	@Override
-	public void place(Dungeon d, Point p) {
+	public void place(Dungeon d, Point p) throws Exception {
+		if (!d.ableToPlaceKey()) throw new Exception("Please place a door Before placing a Key");
 		d.placeItem(this, p);
 		d.setKeyCode(this);
 	}

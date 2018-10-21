@@ -166,14 +166,7 @@ public class GameController {
 			selected = d.selectItemSlot(2);
 			break;
 		}
-
-		if(selected != null) {
-			promptLabel.setText(selected.toString());
-		}
-		inventoryContents.setText(d.getInventoryDescription());
-		System.out.println(d.getInventoryDescription());
-		render();
-		checkDungeonState();
+		updateDisplay();
 	}
 	
 	/**
@@ -196,6 +189,15 @@ public class GameController {
 	public void endTurn() {
 		d.updateAgents();
 		d.updateTile();
+		checkDungeonState();
+	}
+	
+	public void updateDisplay() {
+		if(selected != null) {
+			promptLabel.setText(selected.toString());
+		}
+		inventoryContents.setText(d.getInventoryDescription());
+		render();
 	}
 }
 
