@@ -15,4 +15,9 @@ public abstract class Tile extends Paintable {
 	public void place(Dungeon d, Point point) {
 		d.placeTile(this, point);
 	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		d.getTileGrid().replace(point, new DefaultTile());
+	}
 }
