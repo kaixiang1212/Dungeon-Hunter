@@ -4,6 +4,7 @@ import Controller.Direction;
 import Model.Dungeon;
 import Model.Item.Item;
 import View.DungeonRenderer;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -131,7 +132,17 @@ public class GameController {
 		DesignScreen ds = new DesignScreen(this.stage);
 		ds.start(this.savedState);
 	}
+	@FXML
+	public void mainMenu() {
+		MainMenuScreen mms = new MainMenuScreen(stage);
+		mms.start();
+	}
 	
+	@FXML
+	public void exitGame() {
+        Platform.exit();
+        System.exit(0);
+	}
 	public void endTurn() {
 		d.updateAgents();
 		d.updateTile();

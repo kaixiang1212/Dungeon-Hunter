@@ -50,6 +50,8 @@
                </font>
             </Label>
             <Button mnemonicParsing="false" onMouseClicked="#hotSwitch" prefHeight="33.0" prefWidth="121.0" text="Press to design" />
+            <Button mnemonicParsing="false" onAction="#mainMenu" prefHeight="33.0" prefWidth="121.0" text="Main Menu" />
+            <Button mnemonicParsing="false" onAction="#exitGame" prefHeight="33.0" prefWidth="121.0" text="Exit" />
          </children>
       </HBox>
    </top>

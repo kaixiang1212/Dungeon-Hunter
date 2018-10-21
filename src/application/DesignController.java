@@ -215,7 +215,11 @@ public class DesignController {
 		GameScreen gs = new GameScreen(this.stage);
 		gs.start(this.d);
 	}
-	
+	@FXML
+	public void mainMenu() {
+		MainMenuScreen mms = new MainMenuScreen(this.stage);
+		mms.start();
+	}
 	@FXML
 	public void handleExit() {
         Platform.exit();
