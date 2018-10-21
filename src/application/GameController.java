@@ -155,6 +155,7 @@ public class GameController {
 			break;
 		case E:
 			d.playerUseItem();
+			endTurn();
 			break;
 		case DIGIT1:
 			selected = d.selectItemSlot(0);
