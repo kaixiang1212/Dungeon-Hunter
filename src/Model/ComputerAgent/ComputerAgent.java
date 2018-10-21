@@ -54,11 +54,6 @@ public abstract class ComputerAgent extends Paintable implements Cloneable {
 		return this instanceof Boulder;
 	}
 	
-//	public abstract AgentType getType();
-	
-//	public boolean isType(AgentType type) {
-//		return type.equals(getType());
-//	}
 	@Override
 	public void place(Dungeon d, Point p) {
 		// TODO Auto-generated method stub
