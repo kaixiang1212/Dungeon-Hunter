@@ -135,6 +135,11 @@
                   <Image url="@../assets/itemassets/key.png" />
                </image>
             </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#ghostSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/ghost.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </bottom>

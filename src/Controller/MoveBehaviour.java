@@ -23,4 +23,8 @@ public abstract class MoveBehaviour {
 		if (nextMove == null) return currPos;
 		return nextMove;
 	}
+	
+	public void setPathFinder(PathFinder pf) {
+		this.pathFinder = pf;
+	}
 }
