@@ -46,6 +46,11 @@ public abstract class Item extends Paintable {
 	public void place(Dungeon d, Point p) throws Exception {
 		d.placeItem(this, p);
 	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		d.removeItem(point);
+	}
 }
 
 

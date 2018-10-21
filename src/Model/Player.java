@@ -196,4 +196,9 @@ public class Player extends Paintable {
 	public String getInventoryDescription() {
 		return inventory.toString();
 	}
+	
+	@Override
+	public void remove(Dungeon d, Point point) {
+		
+	}
 }

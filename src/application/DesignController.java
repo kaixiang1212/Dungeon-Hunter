@@ -13,6 +13,7 @@ import View.DungeonRenderer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -71,16 +72,20 @@ public class DesignController {
 	 */
 	@FXML
 	public void handlePlacement(MouseEvent event) throws CloneNotSupportedException {
-		int x = (int) event.getX()/32;
-		int y = (int) event.getY()/32;
-		try {
+		if (event.getButton() == MouseButton.PRIMARY) {
+			int x = (int) event.getX()/32;
+			int y = (int) event.getY()/32;
 			currSelection.place(d, new Point(x,y));
-		} catch (Exception e) {
-			errorMessage.setText(e.getMessage());
+			Paintable clone = (Paintable) this.currSelection.clone();
+			this.currSelection = clone;
+			this.drender.render(mainPane);
 		}
-		Paintable clone = (Paintable) this.currSelection.clone();
-		this.currSelection = clone;
-		this.drender.render(mainPane);
+		else if (event.getButton() == MouseButton.SECONDARY) {
+			int x = (int) event.getX()/32;
+			int y = (int) event.getY()/32;
+			currSelection.remove(d, new Point(x,y));
+			this.drender.render(mainPane);
+		}
 	}
 	@FXML
 	public void boulderSelected() {
