@@ -10,7 +10,7 @@ public class Main extends Application {
         // set the stage height to be 400
         primaryStage.setHeight(400);
         // set the stage width to be 600
-        primaryStage.setWidth(800);+
+        primaryStage.setWidth(800);
         DesignScreen designScreen = new DesignScreen(primaryStage);
         designScreen.start(null);
     }
