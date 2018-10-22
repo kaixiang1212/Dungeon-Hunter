@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="frontPane" prefHeight="460.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="32.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#boulderSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/boulder.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#playerSelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/player.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#hunterSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/hunter.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#cowardSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/coward.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#strategistSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/strategist.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#houndSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/hound.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#defaultSelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/default.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#wallSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/wall.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#switchSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/switch.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#pitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/pit.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#openDoorSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/opendoor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#closedDoorSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/closeddoor.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#exitSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../assets/tileassets/exit.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="30.0" prefWidth="75.0" />
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#invincibilitySelected" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/invincibility.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#hoverSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/hover.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#swordSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/sword.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#arrowSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#treasureSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/treasure.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#unlitBombSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/unlitbomb.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#keySelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="3">
+               <image>
+                  <Image url="@../assets/itemassets/key.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#ghostSelected" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../assets/agentassets/ghost.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+   </bottom>
+   <center>
+      <Pane fx:id="mainPane" onMouseClicked="#handlePlacement" prefHeight="297.0" prefWidth="363.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <HBox prefHeight="128.0" prefWidth="359.0" spacing="16.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#hotSwitch" prefHeight="32.0" prefWidth="100.0" text="Play" />
+            <Button mnemonicParsing="false" onAction="#handleReset" prefHeight="33.0" prefWidth="102.0" text="Reset" />
+            <SplitMenuButton mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" text="Win Conditions">
+               <items>
+                  <CheckMenuItem fx:id="noWinCheck" mnemonicParsing="false" selected="true" text="No Win" />
+                  <CheckMenuItem fx:id="exitCheck" mnemonicParsing="false" text="Exit" />
+                  <CheckMenuItem fx:id="treasureCheck" mnemonicParsing="false" text="Treasure" />
+                  <CheckMenuItem fx:id="enemiesCheck" mnemonicParsing="false" text="Enemies" />
+                  <CheckMenuItem fx:id="switchCheck" mnemonicParsing="false" text="Switches" />
+               </items>
+            </SplitMenuButton>
+            <Button mnemonicParsing="false" onAction="#handleExit" prefHeight="32.0" prefWidth="100.0" text="Exit" />
+            <Button fx:id="saveGame" mnemonicParsing="false" onAction="#handleSave" prefHeight="32.0" prefWidth="100.0" text="Save" />
+            <Button fx:id="loadGame" mnemonicParsing="false" onAction="#handleLoad" prefHeight="32.0" prefWidth="100.0" text="Load" />
+            <Button mnemonicParsing="false" onAction="#mainMenu" prefHeight="32.0" prefWidth="100.0" text="Main Menu" />
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox alignment="CENTER_RIGHT" prefHeight="204.0" prefWidth="190.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="51.0" prefWidth="28.0" />
+            <Label prefHeight="22.0" prefWidth="195.0" text="LMB To Place/Select" textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="22.0" prefWidth="204.0" text="RMB to Remove " textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+            <Label prefHeight="37.0" prefWidth="208.0" text="Current Selection:" textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="selectPrompt" prefHeight="17.0" prefWidth="213.0" text="None" textFill="RED">
+               <font>
+                  <Font name="Yu Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="297.0" prefWidth="159.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="errorMessage" prefHeight="66.0" prefWidth="190.0" text="" textAlignment="CENTER" textFill="RED" />
+         </children></VBox>
+   </right>
+</BorderPane>
