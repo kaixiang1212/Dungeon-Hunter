@@ -1,2 +1,2 @@
-# cs2511-Project
+# Dungeon Hunter
 Originally done for UNSW COMP2521 Project with a great team of 3
